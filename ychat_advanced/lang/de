@@ -19,6 +19,7 @@ ERR_NOTONL="Es ist ein Fehler aufgetreten. Ihr Nick ist nicht online.<br><br>";
 ERR_ONLINE="Den Nick den Sie sich ausgesucht haben ist bereits eingeloggt. Bitte versuchen sie einen Anderen.<br><br>";
 
 # Chat-help ( || separiert Befehlssyntax und Befehlsbeschreibung. )
+mods/commands/yc_away.so="/away AWAYNACHRICHT||Sich vom Chat kurzfristig abmelden";
 mods/commands/yc_col.so="/col NICKFARBE TEXTFARBE||Ändern der Farbe";
 mods/commands/yc_getrusage.so="/getrusage||Zeigt informationen zum laufdenen ychat prozess an";
 mods/commands/yc_m.so="/m AKTIONSTEXT||Schreibt den Text kursiv ( zweifarbig )";

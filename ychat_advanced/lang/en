@@ -19,6 +19,7 @@ ERR_NOTAVAILABLE=" is not available!";
 ERR_ONLINE="The nick you have specified is already online. Try another nick.<br><br>";
 
 # Chat-Hilfe ( || seperates command syntax and command description. )
+mods/commands/yc_away.so="/away AWAYTEXT||Set mode away";
 mods/commands/yc_col.so="/col NICKCOLOR TEXTCOLOR||Changing the color";
 mods/commands/yc_getrusage.so="/getrusage||Shows informations describing the resources utilized by the ychat process";
 mods/commands/yc_m.so="/m ACTIONTEXT||Writes the text italic ( two colors )";
