@@ -68,8 +68,7 @@ sub merge
   }
  }
 
- &fwrite($newfile,@oldfile)
-  if ($#newoptions > 0);
+ &fwrite($newfile,@oldfile);
  
  return @newoptions;
 }
