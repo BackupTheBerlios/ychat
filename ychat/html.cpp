@@ -43,19 +43,25 @@ html::parse( map_string &map_params )
  if ( s_templ.empty() )
  {
   auto string   s_path  = get_name();
-  auto ifstream fs_templ( s_path.append( s_file ).c_str() );
+  auto ifstream fs_templ( s_path.append( s_file ).c_str(), ios::binary );
 
   if ( ! fs_templ ) 
   {
+  
+   cerr << "File not found: " << s_file << endl;
    map_params["request"] = s_conf::get().get_val( "NOTFOUND" );
    return parse( map_params );
+ 
   }
 
-  auto char c_buf[READBUF];
+  auto char c_buf;
 
-  while( fs_templ.getline( c_buf, READBUF ) ) 
-   s_templ.append( string( c_buf ).append( "\n" ) ); 
-
+  while( !fs_templ.eof() )
+  {
+  	fs_templ.get( c_buf );
+  	s_templ+=c_buf;	
+  }
+  
   fs_templ.close();
 
 #ifdef VERBOSE

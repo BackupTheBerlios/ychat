@@ -17,8 +17,8 @@
 # server specific configurations ( not allowed to be removed ):
 
 HTMLTEMP="html/";  # directory of the html-template files.
-THRDPOOL="100";    # thread pool size. 
-THRDQUEU="100";    # length of the thread pool queue.
+THRDPOOL="5";    # thread pool size. 
+THRDQUEU="5";    # length of the thread pool queue.
 SRVRPORT="2000";   # local port on which the server listens. 
 STRDROOM="Lounge"; # the name of the standard room.
 
