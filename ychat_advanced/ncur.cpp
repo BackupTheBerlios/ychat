@@ -152,7 +152,7 @@ ncur::switch_main_menu_( int i_choice )
             pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
             mvprintw( 20,2, "Selection # %d not yet implemented!", i_choice-1);
             refresh();
-            pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+            pthread_mutex_unlock  ( &s_mutx::get().mut_stdout );
             break;
         }
 }

@@ -1,7 +1,9 @@
 #ifndef TIMR_CPP
 #define TIMR_CPP
 
+#include <sys/time.h>
 #include "timr.h"
+#include "wrapper/s_chat.h"
 #include "wrapper/s_ncur.h"
 #include "wrapper/s_mutx.h"
 #include "wrapper/s_tool.h"
@@ -11,12 +13,15 @@ using namespace std;
 timr::timr()
 {
   b_timer_active = true;
+  pthread_mutex_init( &mut_s_time, NULL);
   pthread_mutex_init( &mut_s_uptime, NULL);
-  s_uptime = "00:00";
+  s_time = "00:00:00";
+  s_uptime = "00:00:00";
 }
 
 timr::~timr()
 {
+  pthread_mutex_destroy( &mut_s_time );
   pthread_mutex_destroy( &mut_s_uptime );
 }
 
@@ -41,37 +46,35 @@ timr::start( void *v_pointer )
     pthread_mutex_unlock( &s_mutx::get
                               ().mut_stdout );
 #endif
-    int i_seconds, i_minutes, i_hours;
-    i_seconds = i_minutes = i_hours = 0;
-
 #ifdef NCURSES
-    p_timer->print_uptime( ); 
+    p_timer->print_time( ); 
 #endif
+    time_t clock_start;
+    time_t clock_now;
 
+    time( &clock_start );
+    tm time_start = *localtime( &clock_start );
 
     while ( p_timer->get_timer_active() )
     {
      // sleep a second!
      usleep( 1000000 );
-     i_seconds++;
 
-     if ( i_seconds == 60 )
-     {
-      i_seconds = 0;
-      i_minutes++;
+     // get the current time!
+     time( &clock_now );
+     tm time_now = *localtime( &clock_now );
 
-      if ( i_minutes == 60 )
-      { 
-       i_minutes = 0;
-       i_hours++;
-      }
-
-      p_timer->set_uptime( i_minutes, i_hours );
-
+     // set the current time && the current ychat uptime!
+     p_timer->set_time( difftime( clock_now, clock_start ),
+                        time_now.tm_sec, time_now.tm_min, time_now.tm_hour );
+     
 #ifdef NCURSES
-      p_timer->print_uptime( );
+     p_timer->print_time( );
 #endif      
 
+     // run every minute:
+     if ( time_now.tm_sec == 0 )
+     { 
 #ifdef SERVMSG
       pthread_mutex_lock  ( &s_mutx::get
                               ().mut_stdout );
@@ -79,31 +82,57 @@ timr::start( void *v_pointer )
       pthread_mutex_unlock( &s_mutx::get
                               ().mut_stdout );
 #endif
+      s_chat::get().msg_post( new string( "<!-- PING! //-->\n" ) );
      }
     }
 }
 
 #ifdef NCURSES
 void
-timr::print_uptime( )
+timr::print_time( )
 {
-    s_uptime.append( "h" );
     pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-    mvprintw( NCUR_UPTIME_X, NCUR_UPTIME_Y, "Uptime: %s ", s_uptime.c_str());
+    mvprintw( NCUR_TIME_X, NCUR_TIME_Y, "Time:   %s ", get_time().c_str());
+    mvprintw( NCUR_UPTIME_X, NCUR_UPTIME_Y, "Uptime: %s ", get_uptime().c_str());
     refresh();
     pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 }
 #endif
 
 void
-timr::set_uptime( int i_minutes, int i_hours )
+timr::set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur_hours )
 {
+    int i_hours = (int) d_uptime / 3600; 
+    int i_minutes = (int) d_uptime / 60; 
+    while ( i_minutes >= 60 )
+     i_minutes -= 60;
+
+    while ( d_uptime >= 60 )
+     d_uptime -= 60;
+
+    pthread_mutex_lock  ( &mut_s_time );
+    s_time = *add_zero_to_front( new string( s_tool::int2string( i_cur_hours ) ) ) + ":" +
+             *add_zero_to_front( new string( s_tool::int2string( i_cur_minutes ) ) ) + ":" +
+             *add_zero_to_front( new string( s_tool::int2string( (int) i_cur_seconds ) ) );
+    pthread_mutex_unlock( &mut_s_time );
+
     pthread_mutex_lock  ( &mut_s_uptime );
     s_uptime = *add_zero_to_front( new string( s_tool::int2string( i_hours ) ) ) + ":" +
-               *add_zero_to_front( new string( s_tool::int2string( i_minutes ) ) );
+               *add_zero_to_front( new string( s_tool::int2string( i_minutes ) ) ) + ":" +
+               *add_zero_to_front( new string( s_tool::int2string( (int) d_uptime ) ) );
     pthread_mutex_unlock( &mut_s_uptime );
+
 }
 
+string
+timr::get_time(  )
+{
+    string s_ret;
+    pthread_mutex_lock  ( &mut_s_time );
+    s_ret = this->s_time;
+    pthread_mutex_unlock( &mut_s_time );
+    return s_ret;
+}
 string
 timr::get_uptime(  )
 {

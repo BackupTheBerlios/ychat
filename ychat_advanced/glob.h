@@ -60,7 +60,9 @@
 #define NCUR_THREADS_X 21
 #define NCUR_THREADS_Y 18 
 #define NCUR_UPTIME_X 22
-#define NCUR_UPTIME_Y 35
+#define NCUR_UPTIME_Y 62
+#define NCUR_TIME_X 21
+#define NCUR_TIME_Y 62
 #endif
 
 // Defines the amount of newlines which have to send to the client's
