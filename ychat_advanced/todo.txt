@@ -11,6 +11,8 @@ icq support
 hash_map []-operator
 hash_map in cont
 several different html templates
+each user should be able to select his favourite html style
+each user should be able to select his favourite system language
 
 10: bugfixes
 20: goto 10
