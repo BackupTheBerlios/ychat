@@ -11,12 +11,13 @@ class ncur
 {
 private: 
  menu*  p_menu;
+ WINDOW* p_info;
 
 public:
  explicit ncur( );      	      // a standard constructor.
          ~ncur( );
 
- void start();
+ static void* start( void *v_pointer );
  void print( string &s_print );
  void print( char* c_print );
 

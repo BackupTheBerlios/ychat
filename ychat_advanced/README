@@ -47,8 +47,7 @@ The following platforms have been tested with success:
 
 Before you compile the source you have to be sure to use at least GCC
 version 3.x with pthreads enabled. ( Type gcc -v to check it ).
-GCC 2.95 did not work while testing on linux and won't be supported
-( although it seems to work with GCC 2.95 on FreeBSD 4.8 )!
+GCC 2.95 did not work while testing on linux and won't be supported!
 
 If you like to support yChat++, please write me an email and tell me
 what you can/like/would help ;-]. Please also take a look at the

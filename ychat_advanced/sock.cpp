@@ -58,9 +58,9 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
  // post the room that the user has left the chat.
  p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get().get_val( "USERLEAV" ) ) ) );  
  s_sman::get().destroySession( p_user->get_id() );
- #ifdef VERBOSE
+#ifdef VERBOSE
 	cout << s_user << " left | SessionCount: " << s_sman::get().getSessionCount() << endl;
- #endif
+#endif
 
  p_user->~user();
 }
@@ -75,12 +75,16 @@ sock::make_socket( uint16_t i_port )
  sock = socket (PF_INET, SOCK_STREAM, 0);
  if (sock < 0)
  {
+#ifdef SERVMSG
   cerr << "Sock: socket error" << endl;
-
+#endif
   if ( ++i_port > MAXPORT )
    exit(-1);
 
+#ifdef SERVMSG
   cerr << SOCKERR << i_port << endl;
+#endif
+
   return make_socket( i_port );
  }
 
@@ -94,12 +98,18 @@ sock::make_socket( uint16_t i_port )
 
  if (bind (sock, (struct sockaddr *) &name, sizeof (name)) < 0)
  {
+
+#ifdef SERVMSG
   cerr << "Sock: bind error" << endl;
+#endif
 
   if ( ++i_port > MAXPORT )
    exit(-1);
 
+#ifdef SERVMSG
   cout << SOCKERR << i_port << endl;
+#endif
+
   return make_socket( i_port );
  }
 
@@ -116,7 +126,9 @@ sock::read_write( thrd* p_thrd, int i_sock )
 
  if (i_bytes < 0)
  {
+#ifdef SERVMSG
   cerr << "Sock: read error " << endl;
+#endif
  }
 
  else
@@ -171,7 +183,10 @@ sock::start()
 
  if (listen (sock, 1) < 0)
  {
+#ifdef SERVMSG
   cerr << "Sock: listen error" << endl;
+#endif
+
   exit( EXIT_FAILURE );
  }
 
@@ -189,7 +204,10 @@ sock::start()
   read_fd_set = active_fd_set;
   if (select (FD_SETSIZE, &read_fd_set, NULL, NULL, NULL) < 0)
   {
+#ifdef SERVMSG
    cerr << "Sock: select error" << endl;
+#endif
+
    exit( EXIT_FAILURE );
   }
 
@@ -209,7 +227,11 @@ sock::start()
 
      if (new_sock < 0)
      {
+
+#ifdef SERVMSG
       cerr << "Sock: accept error" << endl;
+#endif
+
       close ( new_sock );
      }
 

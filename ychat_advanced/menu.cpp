@@ -2,6 +2,7 @@
 #define MENU_CXX
 
 #include "menu.h"
+#include "s_sock.h"
 
 using namespace std;
 
@@ -20,6 +21,11 @@ menu::menu( int i_startx, int i_starty, int i_width, int i_height, char *c_heade
 
 menu::~menu()
 {
+/*
+ wborder(win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+ wrefresh(win);
+ delwin(win);
+*/
 }
 
 void
@@ -50,15 +56,14 @@ menu::display()
   if( i_highlight == i + 1 ) /* High light the present choice */
   {       
    wattron( win, A_REVERSE); 
-   mvwprintw( win, y, x, "%d. %s", i, choices[i]);
+   mvwprintw( win, y, x, "%d. %s", i+1, choices[i]);
    wattroff( win, A_REVERSE);
   }
 
   else
   {
-   mvwprintw( win, y, x, "%d. %s", i, choices[i]);
+   mvwprintw( win, y, x, "%d. %s", i+1, choices[i]);
   }
-
  }
 
  wrefresh( win );
@@ -67,8 +72,11 @@ menu::display()
 void
 menu::start()
 {
+
  refresh();
- while( 1 )
+ bool b_flag = 1;
+
+ while( b_flag )
  {  
   display();
   c = wgetch( win );
@@ -99,8 +107,23 @@ menu::start()
    break;
   }
 
-  if( i_choice != 0 ) /* User did a choice come out of the infinite loop */
-   break;
+  if( i_choice != 0 )
+   switch ( i_choice )
+   {
+    case 9: // Shut down server
+     mvprintw( 20,3, "Good bye !");
+     refresh();
+     clrtoeol();
+     refresh();
+     endwin();
+     exit(0);
+    break; 
+
+    default:
+     mvprintw( 20,3, "Selection # %d not yet implemented!", i_choice);
+     refresh();
+    break;
+   }
  }       
 }
 #endif

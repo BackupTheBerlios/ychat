@@ -25,6 +25,8 @@
 // the messages. this messages will only printed out by the master thread.
 //#define VERBOSE
 
+// displays important server messages such as socket or fatal errors!
+//#define SERVMSG
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // DO NOT CHANGE ANYTHING BEHIND THIS LINE!

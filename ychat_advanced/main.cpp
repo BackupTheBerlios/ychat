@@ -91,10 +91,13 @@ cout  <<  "         ___ _           _   "     << endl
  s_mman::init(); // init the mysql connection manager.
  s_ncur::init(); // init the ncurses admin interface.
  s_sock::init(); // init the socket manager. 
- s_chat::init(); // init the chat manager.
 
- // begin to draw the ncurses amdin interface.
- //s_ncur::get().start(); // NOT FULLY IMPLEMENTED YET! IN DEVELOPING!
+ // begin to draw the ncurses amdin interface in a new pthread.
+ pthread_t admin_thread;
+ pthread_create( &admin_thread, 
+                 NULL, 
+                 s_ncur::get().start,
+                 (void*) &s_ncur::get() );
  
  // start the socket manager. this one will listen for incoming http requests and will
  // forward them to the specified routines which will generate a http response.
