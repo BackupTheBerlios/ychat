@@ -7,18 +7,21 @@ using namespace std;
 
 dir::dir()
 {
-  p_dir_vec = new vector<string>;
 }
 
 dir::~dir()
 {
- p_dir_vec->clear();
+ dir_vec.clear();
+// if ( dp )
+//  delete dp;
+ if ( ep )
+  delete ep;
 }
 
 
 
 bool
-dir::open_dir( char  *c_dir )
+dir::open_dir( char *c_dir )
 {
  return open_dir( *new string( c_dir ) );
 }
@@ -46,13 +49,13 @@ dir::read_dir()
 {
  if ( dp != NULL )
   while( ep = readdir( dp ) )
-   p_dir_vec->push_back( *new string( ep->d_name ) ); 
+   dir_vec.push_back( string( ep->d_name ) ); 
 }
 
-vector<string>* 
+vector<string> 
 dir::get_dir_vec()
 {
- return p_dir_vec;
+ return dir_vec;
 }
 
 #endif

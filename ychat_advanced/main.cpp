@@ -27,6 +27,7 @@ using namespace std;
 
 int main()
 {
+
 #ifdef VERBOSE
     cout  <<  "         ___ _           _   "     << endl
           <<  " _   _  / __\\ |__   __ _| |_ "    << endl

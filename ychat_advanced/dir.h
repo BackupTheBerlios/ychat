@@ -16,7 +16,7 @@ class dir
 private:
     DIR *dp;  	
     struct dirent *ep;
-    vector<string>* p_dir_vec;
+    vector<string> dir_vec;
 
 public:
     dir();
@@ -26,7 +26,7 @@ public:
    bool open_dir( string &s_dir ); 
    void close_dir(); 
    void read_dir();
-   vector<string>* get_dir_vec();
+   vector<string> get_dir_vec();
 };
 
 #endif

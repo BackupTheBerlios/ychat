@@ -15,6 +15,7 @@
 #define MODULEC "Caching \0"
 #define MODULER "Requesting \0"
 #define MODUNLO "Unloading all modules \0"
+#define MODRELO "Reloading all modules \0"
 #define MYMANAG "MySQL: \0" 
 #define MYLIMIT "MySQL reached hardlimit of connections: \0"
 #define MYINITC "MySQL initial connections: \0" 

@@ -34,25 +34,30 @@ modl::~modl()
 void
 modl::preload_modules( string *p_path )
 {
+
  dir* p_dir = new dir();
  p_dir->open_dir( *p_path );
+
  p_dir->read_dir();
+ 
+ vector<string> dir_vec = p_dir->get_dir_vec();
 
- vector<string>* p_dir_vec = p_dir->get_dir_vec();
-
- if ( ! p_dir_vec->empty() ) 
+ if ( ! dir_vec.empty() ) 
  {
-  vector<string>::iterator iter = p_dir_vec->begin();
+  vector<string>::iterator iter = dir_vec.begin();
 
   do
   {
    if ( iter->length() >= 3 && iter->compare( iter->length()-3, 3, ".so" ) == 0 )
     cache_module( *p_path + *iter );
   }
-  while ( ++iter != p_dir_vec->end() );
+  while ( ++iter != dir_vec.end() );
  }
+
+ dir_vec.clear();
  p_dir->close_dir();
- p_dir->~dir();
+ delete p_dir;
+ delete p_path;
 }
 
 void
@@ -134,12 +139,9 @@ modl::get_module( string s_name )
     pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
 #endif
 #ifdef NCURSES
-
-    {
-        string s_tmp( MODULER );
-        s_tmp.append( s_name );
-        wrap::NCUR->print( s_tmp.c_str() );
-    }
+    string s_tmp( MODULER );
+    s_tmp.append( s_name );
+    wrap::NCUR->print( s_tmp.c_str() );
 #endif
     dynmod* mod = map_mods->get_elem( s_name );
 
@@ -167,6 +169,12 @@ void
 modl::reload_modules()
 {
      unload_modules();
+#ifdef NCURSES
+    wrap::NCUR->print( MODRELO );
+#endif
+#ifdef SERVMSG
+    cout << MODRELO << endl;
+#endif
      preload_modules( new string("mods/commands/") );
      preload_modules( new string("mods/html/") );
 }

@@ -89,7 +89,8 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
         
 #endif
 
-    p_user->~user();
+    //p_user->~user();
+    delete p_user;
 }
 
 int
