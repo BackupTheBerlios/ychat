@@ -11,11 +11,14 @@
 using namespace std;
 
 class sman{
-
 	private:
 		hmap<sess *, string> *sessions;
 		string generate_id( int len );
 		int session_count;	
+
+		pthread_mutex_t mut_sessions;
+		pthread_mutex_t mut_session_count;
+
 	public:
 		sman();
 		~sman();
