@@ -7,7 +7,7 @@
 #include "CHAT.h"
 #include "HTML.h"
 #include "MUTX.h"
-#include "sock.h"
+
 using namespace std;
 
 // inititialization of static members.
