@@ -29,7 +29,7 @@ extern "C" {
         string s_msg = "<i>" + p_user->get_colored_name() + " "
                        + p_lang->get_val("SCREAM")
                        + " <font color=\"#" + p_user->get_col2() 
-                       + "\">";
+                       + "\"><b>";
         if ( ! params->empty() )
         {
          str_vector::iterator iter = params->begin();
@@ -37,7 +37,7 @@ extern "C" {
           s_msg.append( to_upper(*iter) + " " );
         }
 
-        s_msg.append( "</font></i><br>\n" );
+        s_msg.append( "</b></font></i><br>\n" );
         p_user->get_room()->msg_post( &s_msg );
 
  }
