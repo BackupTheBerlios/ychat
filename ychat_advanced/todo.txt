@@ -1,6 +1,7 @@
 BRAIN-STORMING:
 
 mysql
+user profiles
 security: crypto
 more modules: commands etc..
 irc support
