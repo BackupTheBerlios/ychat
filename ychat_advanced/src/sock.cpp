@@ -56,7 +56,8 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 
     // remove the user from its room.
     string s_user( p_user->get_name() );
-    p_user->get_room()->del_elem( s_user );
+    string s_user_lowercase( p_user->get_lowercase_name() );
+    p_user->get_room()->del_elem( s_user_lowercase );
 
     // post the room that the user has left the chat.
     s_msg = wrap::TIMR->get_time() + " " 

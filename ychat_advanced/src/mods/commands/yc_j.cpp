@@ -74,8 +74,8 @@ extern "C" {
 
            room* p_room_old = p_user->get_room();
 
-           string s_name = p_user->get_name();
-           p_user->get_room()->del_elem( s_name );
+           string s_name_lowercase = p_user->get_lowercase_name();
+           p_user->get_room()->del_elem( s_name_lowercase );
 
            if ( p_room_old != NULL )
  	    p_room_old->msg_post( &s_msg ); 
@@ -89,7 +89,7 @@ extern "C" {
           {
            // add user to the room.
  	   p_user->get_room()->msg_post( &s_msg ); 
-           string s_name = p_user->get_name();
+           string s_name = p_user->get_lowercase_name();
            p_user->get_room()->del_elem( s_name );
            p_room->add_user( p_user );
            p_room->msg_post( &s_msg2 );
