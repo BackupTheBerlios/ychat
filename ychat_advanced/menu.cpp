@@ -102,7 +102,7 @@ menu::start()
    break;
 
    default:
-    mvprintw(2, 0, "Charcter pressed is %3d := '%c'", c, c);
+    mvprintw( 0, 3, "%3d %c", c, c);
     refresh();
    break;
   }
