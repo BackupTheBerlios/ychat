@@ -87,7 +87,6 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
         ().destroy_session( p_user->get_id() );
 
 #ifdef NCURSES
-
     {
         string s_tmp( SESSION );
         s_tmp.append( s_tool::int2string( s_sman::get
@@ -97,9 +96,9 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     }
 #endif
 #ifdef VERBOSE
-    cout << REMUSER << s_user << endl
-    << SESSION << s_man::get
-        ().get_session_count() << endl;
+  //  cout << REMUSER << s_user << endl
+  //       << SESSION << s_man::get().get_session_count() << endl;
+        
 #endif
 
     p_user->~user();

@@ -24,7 +24,7 @@ STRDROOM="Lounge"; # the name of the standard room.
 LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 
 # MySQL Settings
-MYSQL_HOST="localhost";
+MYSQL_HOST="buetow.org";
 MYSQL_USER="ychat";
 MYSQL_PASS="";
 MYSQL_DB="ychat";

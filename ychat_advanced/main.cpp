@@ -99,10 +99,7 @@ int main()
     pthread_t admin_thread;
     pthread_create( &admin_thread,
                     NULL,
-                    s_ncur::get
-                        ().start,
-                        (void*) &s_ncur::get
-                            () );
+                    s_ncur::get().start, (void*) &s_ncur::get() );
 #endif
 
     // start the socket manager. this one will listen for incoming http requests and will

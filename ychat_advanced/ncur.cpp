@@ -57,13 +57,14 @@ ncur::start( void *v_pointer )
     mvwprintw( admin_interface->p_serveroutput, 2, 2, "SERVER SYSTEM MESSAGES" );
     wrefresh ( admin_interface->p_serveroutput );
 
-    admin_interface->is_ready( true );
 
     admin_interface->print( VERSION );
 
 #ifdef NCURSES
     s_mman::get().print_init_ncurses(); 
 #endif
+
+    admin_interface->is_ready( true );
 
     admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
     admin_interface->p_menu->start( &switch_main_menu_ );
