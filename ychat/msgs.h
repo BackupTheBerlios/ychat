@@ -33,6 +33,6 @@
 #define TECACHE "Caching template "
 #define THREADS "Starting thread job "
 #define THREADE "Exiting thread job "
-#define VERSION "Version Basic " 
+#define VERSION "Version Basic 0.2 CVS" 
 
 #endif

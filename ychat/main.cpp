@@ -40,38 +40,6 @@
 // include the socket manager.
 #include "SOCK.h"
 
-//#include "pool.cpp"
-
-void func( void *v_pointer )
-{
-
-  pthread_mutex_lock  ( &MUTX::get().mut_stdout );
-cout << "Start new thread" << endl; 
-  pthread_mutex_unlock( &MUTX::get().mut_stdout );
-
- int* arg = (int*)v_pointer;
-
-
- if (*arg==1){
-  pthread_mutex_lock  ( &MUTX::get().mut_stdout );
-cout << "Sleep thread" << endl; 
-  pthread_mutex_unlock( &MUTX::get().mut_stdout );
-  while(1)usleep(1000000);
-}
-
-
-
- for(int i=0; i<10; i++ ){ usleep(1000000);
-  pthread_mutex_lock  ( &MUTX::get().mut_stdout );
-cout << *arg << ":" << ":" << i << ":" << pthread_self() << endl;
-  pthread_mutex_unlock( &MUTX::get().mut_stdout );
-
- }
-  pthread_mutex_lock  ( &MUTX::get().mut_stdout );
-cout << "Stop thread" << endl; 
-  pthread_mutex_unlock( &MUTX::get().mut_stdout );
-}
-
 using namespace std;
 
 int main()
@@ -106,30 +74,14 @@ cout  <<  "         ___ _           _   "     << endl
  HTML::init(); // init the html-template manager. 
  SOCK::init(); // init the socket manager. 
  CHAT::init(); // init the chat manager. 
-/*
- tpool_t the_pool;
- tpool_init( &the_pool, 2, 10, 0 );  
-
-pthread_t t[10];
- for(int i=0; i<10; i++ )
-{
-int arg=i;
-usleep(1000000);
-// pthread_create(&t[i], NULL, func, (void*)&arg);
-tpool_add_work( the_pool, func, (void*)&i);
-}
-
-while(1)
-usleep(111111);
-*/
 
  // start the socket manager. this one will listen for incoming http requests and will
  // forward them to the specified routines which will generate a http response.
  SOCK::get().start();
+
 #ifdef _VERBOSE
  cout << DOWNMSG << endl;
 #endif
-
 
  return 0;
 }

@@ -20,20 +20,11 @@ string reqp::HTTP_COTYPE = "Content-Type: text/html\n\n";
 
 reqp::reqp( )
 {
-#ifdef VERBOSE
- cout << "reqp::reqp()" << endl;
-#endif
 }
 
 string
 reqp::get_url( string s_req, map_string &map_params )
 {
-#ifdef VERBOSE_
- pthread_mutex_lock  ( &MUTX::get().mut_stdout );
- cout << "reqp::get_url( s_req )" << endl;
- pthread_mutex_unlock( &MUTX::get().mut_stdout );
-#endif
-
  auto unsigned int pos = s_req.find( "HTTP", 0 );
  string s_ret = s_req.substr( 5, pos-6 );
 
@@ -139,12 +130,6 @@ reqp::url_decode( string s_str )
 string
 reqp::get_from_header( string s_req, string s_hdr )
 {
-#ifdef VERBOSE_
- pthread_mutex_lock  ( &MUTX::get().mut_stdout );
- cout << "reqp::get_from_header( s_req, \"" << s_hdr << "\" )" << endl;
- pthread_mutex_unlock( &MUTX::get().mut_stdout );
-#endif
-
  auto unsigned int pos[2];
  pos[0] = s_req.find( s_hdr, 0 );
  pos[1] = s_req.find( "\n", pos[0] );
@@ -156,12 +141,6 @@ reqp::get_from_header( string s_req, string s_hdr )
 string
 reqp::parse( string s_req, map_string &map_params )
 {
-#ifdef VERBOSE_
- pthread_mutex_lock  ( &MUTX::get().mut_stdout );
- cout << "reqp::parse( s_req )" << endl;
- pthread_mutex_unlock( &MUTX::get().mut_stdout );
-#endif
-
  // create the http header.
  string s_rep( HTTP_CODEOK ); s_rep.append( HTTP_SERVER );
  s_rep.append( HTTP_CONTAC ); s_rep.append( HTTP_CACHEC );
