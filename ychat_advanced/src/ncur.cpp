@@ -43,7 +43,6 @@ ncur::start( void *v_pointer )
                           "Reload all modules      ",
                           "Clear template cache    ",
                           "Run garbage collector   ",
-                          "Module-loader manager NI",
                           "Update sources via CVS  ",
                           "Compile changed sources ",
                           "Recompile all sources   ",
@@ -168,17 +167,17 @@ ncur::switch_main_menu_( int i_choice )
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
-        case 6:
+        case 5:
             tool::shell_command( string(GMAKE) + " cvsupdate 2> error.log");
             break;
-        case 7:
+        case 6:
             tool::shell_command( string(GMAKE) + " 2> error.log");
             break;
-        case 8:
+        case 7:
             for ( i = 0; i < GMAKE_ELEMENTS; i++ )
               tool::shell_command( GMAKE + GMAKE_PARAMS[i] + " 2> error.log");
             break;
-        case 9: // Shut down server
+        case 8: // Shut down server
             if ( ! wrap::GCOL->remove_garbage() )
              wrap::NCUR->print( GARNONE );
             mvprintw( 21,2, "Good bye !");
