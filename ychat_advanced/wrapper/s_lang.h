@@ -1,7 +1,7 @@
 #ifndef GLANG_H
 #define GLANG_H
 
-#include "lang.h"
+#include "../lang.h"
 #include "s_conf.h"
 using namespace std;
 

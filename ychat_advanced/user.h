@@ -5,7 +5,7 @@
 #include "incl.h"
 #include "hmap.h"
 #include "name.h"
-#include "s_lang.h"
+#include "wrapper/s_lang.h"
 using namespace std;
 
 class room;

@@ -5,11 +5,11 @@
 
 #include "pool.h"
 
-#include "s_conf.h"
-#include "s_mutx.h"
-#include "s_tool.h"
-#include "s_ncur.h"
-#include "s_sock.h"
+#include "wrapper/s_conf.h"
+#include "wrapper/s_mutx.h"
+#include "wrapper/s_tool.h"
+#include "wrapper/s_ncur.h"
+#include "wrapper/s_sock.h"
 #include "thrd.h"
 
 using namespace std;

@@ -8,9 +8,9 @@
 #include <dlfcn.h>
 #include <stdio.h>
 
-#include "s_conf.h"
-#include "s_mutx.h"
-#include "s_ncur.h"
+#include "wrapper/s_conf.h"
+#include "wrapper/s_mutx.h"
+#include "wrapper/s_ncur.h"
 #include "modl.h"
 #include "dir.h"
 

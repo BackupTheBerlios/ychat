@@ -5,9 +5,9 @@
 
 #include <fstream>
 #include "html.h"
-#include "s_chat.h"
-#include "s_mutx.h"
-#include "s_ncur.h"
+#include "wrapper/s_chat.h"
+#include "wrapper/s_mutx.h"
+#include "wrapper/s_ncur.h"
 
 using namespace std;
 

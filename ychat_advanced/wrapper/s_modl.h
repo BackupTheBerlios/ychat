@@ -1,22 +1,22 @@
-#ifndef GMUT_H
-#define GMUT_H
+#ifndef GMOD_H
+#define GMOD_H
 
-#include "mutx.h"
+#include "../modl.h"
 
 using namespace std;
 
-class s_mutx
+class s_modl
 {
 private:
-    static mutx* obj;
+    static modl* obj;
 
 public:
     static void init()
     {
-        obj = new mutx();
+        obj = new modl();
     }
 
-    static mutx& get
+    static modl& get
         ()
     {
         return *obj;

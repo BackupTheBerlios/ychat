@@ -4,7 +4,7 @@
 #define s_conf_CXX
 
 #include <fstream>
-#include "s_ncur.h"
+#include "wrapper/s_ncur.h"
 #include "conf.h"
 
 using namespace std;

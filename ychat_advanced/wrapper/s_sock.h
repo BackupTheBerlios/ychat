@@ -1,26 +1,27 @@
-#ifndef S_TIMR_H
-#define S_TIMR_H
+#ifndef GSOC_H
+#define GSOC_H
 
-#include "timr.h"
+#include "../sock.h"
 
 using namespace std;
 
-class s_timr
+class s_sock
 {
 private:
-    static timr* obj;
+    static sock* obj;
 
 public:
     static void init()
     {
-        obj = new timr();
+        obj = new sock();
     }
 
-    static timr& get
+    static sock& get
         ()
     {
         return *obj;
     }
 };
+
 
 #endif

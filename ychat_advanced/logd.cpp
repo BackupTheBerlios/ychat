@@ -1,7 +1,7 @@
 #ifndef LOGD_CXX
 #define LOGD_CXX
 
-#include "s_ncur.h"
+#include "wrapper/s_ncur.h"
 #include "glob.h"
 #include "logd.h"
 

@@ -4,7 +4,7 @@
 #define THRD_CXX
 
 #include "thrd.h"
-#include "s_sock.h"
+#include "wrapper/s_sock.h"
 
 using namespace std;
 

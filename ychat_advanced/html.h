@@ -5,7 +5,7 @@
 
 #include "incl.h"
 #include "cont.h"
-#include "s_conf.h"
+#include "wrapper/s_conf.h"
 #include "user.h"
 #include "name.h"
 

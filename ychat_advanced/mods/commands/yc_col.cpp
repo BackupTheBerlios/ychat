@@ -2,7 +2,7 @@
 #include "../../conf.h"
 #include "../../room.h"
 #include "../../user.h"
-#include "../../s_tool.cpp"
+#include "../../wrapper/s_tool.cpp"
 /*
  gcc -shared -o yc_name.so yc_name.cpp
 */

@@ -4,9 +4,9 @@
 #define USER_CXX
 
 #include "user.h"
-#include "s_conf.h"
-#include "s_modl.h"
-#include "s_tool.h"
+#include "wrapper/s_conf.h"
+#include "wrapper/s_modl.h"
+#include "wrapper/s_tool.h"
 
 using namespace std;
 

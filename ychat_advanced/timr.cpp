@@ -2,9 +2,9 @@
 #define TIMR_CPP
 
 #include "timr.h"
-#include "s_ncur.h"
-#include "s_mutx.h"
-#include "s_tool.h"
+#include "wrapper/s_ncur.h"
+#include "wrapper/s_mutx.h"
+#include "wrapper/s_tool.h"
 
 using namespace std;
 

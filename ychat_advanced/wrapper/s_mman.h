@@ -1,7 +1,7 @@
 #ifndef GMMAN_H
 #define GMMAN_H
 
-#include "mman.h"
+#include "../mman.h"
 #include "s_conf.h"
 #include "s_tool.h"
 

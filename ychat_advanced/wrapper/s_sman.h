@@ -1,7 +1,7 @@
 #ifndef GSMAN_H
 #define GSMAN_H
 
-#include "sman.h"
+#include "../sman.h"
 
 using namespace std;
 

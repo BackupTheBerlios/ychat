@@ -2,8 +2,8 @@
 #define LOGD_H
 
 #include "incl.h"
-#include "s_tool.h"
-#include "s_conf.h"
+#include "wrapper/s_tool.h"
+#include "wrapper/s_conf.h"
 #include <fstream>
 #include <queue>
 #include <time.h>

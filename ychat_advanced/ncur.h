@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 #include <list>
-#include "s_mutx.h"
+#include "wrapper/s_mutx.h"
 #include "incl.h"
 #include "menu.h"
 

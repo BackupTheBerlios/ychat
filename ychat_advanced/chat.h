@@ -9,8 +9,8 @@
 #include "room.h"
 #include "user.h"
 #include "sess.h"
-#include "s_lang.h"
-#include "s_sman.h"
+#include "wrapper/s_lang.h"
+#include "wrapper/s_sman.h"
 
 using namespace std;
 

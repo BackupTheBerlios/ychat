@@ -1,26 +1,27 @@
-#ifndef S_NCUR_H
-#define S_NCUR_H
+#ifndef GCHT_H
+#define GCHT_H
 
-#include "ncur.h"
+#include "../chat.h"
 
 using namespace std;
 
-class s_ncur
+class s_chat
 {
 private:
-    static ncur* obj;
+    static chat* obj;
 
 public:
     static void init()
     {
-        obj = new ncur();
+        obj = new chat();
     }
 
-    static ncur& get
+    static chat& get
         ()
     {
         return *obj;
     }
 };
+
 
 #endif

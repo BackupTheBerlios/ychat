@@ -1,7 +1,7 @@
 #ifndef GCON_H
 #define GCON_H
 
-#include "conf.h"
+#include "../conf.h"
 
 using namespace std;
 

@@ -22,17 +22,17 @@
 #include <unistd.h>
 #include <signal.h>
 #include "incl.h"
-#include "s_chat.h"
-#include "s_conf.h"
-#include "s_html.h"
-#include "s_mutx.h"
-#include "s_modl.h"
-#include "s_sock.h"
-#include "s_lang.h"
-#include "s_ncur.h"
-#include "s_sman.h"
-#include "s_mman.h"
-#include "s_timr.h"
+#include "wrapper/s_chat.h"
+#include "wrapper/s_conf.h"
+#include "wrapper/s_html.h"
+#include "wrapper/s_mutx.h"
+#include "wrapper/s_modl.h"
+#include "wrapper/s_sock.h"
+#include "wrapper/s_lang.h"
+#include "wrapper/s_ncur.h"
+#include "wrapper/s_sman.h"
+#include "wrapper/s_mman.h"
+#include "wrapper/s_timr.h"
 
 using namespace std;
 

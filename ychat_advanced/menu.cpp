@@ -2,7 +2,7 @@
 #define MENU_CXX
 
 #include "menu.h"
-#include "s_sock.h"
+#include "wrapper/s_sock.h"
 
 using namespace std;
 

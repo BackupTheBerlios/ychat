@@ -206,7 +206,8 @@ sock.cpp - The socket manager. Manages the socket connections. There
            are multiplexed sockets. For each requests a new POSIX thread
            will be created.
 
-Files with a leading s_ contain static C++ classes
+Files with a leading s_ contain static C++ classes. The following files
+are located in the wrapper subdirectory.
 
 s_chat.cpp - Static wrapper for the dynamic chat class. holds one global 
            reachable instance of chat until the program shuts down. 

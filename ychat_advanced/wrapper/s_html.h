@@ -1,7 +1,7 @@
 #ifndef GHTM_H
 #define GHTM_H
 
-#include "html.h"
+#include "../html.h"
 
 using namespace std;
 

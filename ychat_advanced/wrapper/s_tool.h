@@ -1,7 +1,7 @@
 #ifndef s_tool_H
 #define s_tool_H
 
-#include "incl.h"
+#include "../incl.h"
 
 using namespace std;
 

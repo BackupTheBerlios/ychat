@@ -2,9 +2,9 @@
 #define NCUR_CXX
 
 #include "ncur.h"
-#include "s_mman.h"
-#include "s_sman.h"
-#include "s_sock.h"
+#include "wrapper/s_mman.h"
+#include "wrapper/s_sman.h"
+#include "wrapper/s_sock.h"
 
 using namespace std;
 
