@@ -156,15 +156,6 @@ modl::get_module( string s_name )
     return ! mod ? cache_module( s_name ) : mod;
 }
 
-vector<string>* 
-modl::get_mod_vector() 
-{ 
-    pthread_mutex_lock  ( &mut_map_mods );
-    vector<string>* p_ret = map_mods->get_key_vector(); 
-    pthread_mutex_unlock( &mut_map_mods );
-    return p_ret;
-}
-
 void
 modl::unload_modules()
 {

@@ -22,7 +22,15 @@ public:
     ~modl();
 
     dynmod* get_module( string s_name );
-    vector<string>* get_mod_vector();
+
+    vector<string>* get_mod_vector()
+    {
+     pthread_mutex_lock  ( &mut_map_mods );
+     vector<string>* p_ret = map_mods->get_key_vector(); 
+     pthread_mutex_unlock( &mut_map_mods );
+     return p_ret;
+    }
+
     void unload_modules(); 
     void reload_modules(); 
 };

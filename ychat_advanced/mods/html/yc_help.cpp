@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-
-#include "../../glob.h"
-#include "../../hmap.h"
-#include "../../lang.h"
+#include "../../incl.h"
 
 /*
  gcc -shared -o yc_name.so yc_name.cpp
@@ -21,7 +16,7 @@ extern "C" {
         lang*      p_lang    = (lang*) c->elem[0]; 
 
         vector<string>* p_vec_keys =  
-          ((modl*)c->elem[1])->get_mod_vector();
+          ((modl*) c->elem[1])->get_mod_vector();
   	
 	sort(p_vec_keys->begin(), p_vec_keys->end());
 	vector<string>::iterator p_vec_keys_iter = p_vec_keys->begin();
