@@ -31,6 +31,6 @@
 #define TECACHE "Caching template "
 #define THREADS "Starting thread job "
 #define THREADE "Exiting thread job "
-#define VERSION "Version: CVS" 
+#define VERSION "Version: yChat++ Basic CVS" 
 
 #endif
