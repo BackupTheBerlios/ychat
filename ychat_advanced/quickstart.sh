@@ -18,9 +18,6 @@ else
 	echo "STEP II COMPILING SOURCES"
 fi
 make &&
-cd mods &&
-./compile.sh &&
-cd - 
 if [ ! -x ./ychat ]; then
 	echo "STEP II UNSUCCESSFUL"
 	exit 1

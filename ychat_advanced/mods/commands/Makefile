@@ -4,7 +4,7 @@ CC=g++
 all: mods
 $(MODS): $(SRCS)
 	$(CC)  -shared -o $* `echo $* | sed s/.so//`.cpp
-mods:	$(MODS)
+mods:	$(MODS) 
 	ls *.so
 	ls *.so | wc -l
 clean:

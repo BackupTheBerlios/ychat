@@ -95,11 +95,17 @@ To start very quickly just run "./quickstart.sh". But you may also do
 it manually while reading further :-).
 
 Invoke "./configure" and afterwards "make", edit the conf.txt ( be sure
-to enter a valid mysql account and host ).
+to enter a valid mysql account and host. Take a look at docs/mysql_ychat.txt
+how to create a valid MySQL database ).
 
-Now we want to compile all the dynamic loadable modules of yChat.
-Type "cd mods && ./compile.sh && cd -". All modules should get
-compiled.
+You may invoke make with the following options:
+
+ make (compiles everything, also modules)
+ make base (only compiles the base)
+ make modules (only compiles modules)
+ make clean (cleans everything)
+ make clean_base (only cleans the base obj files)
+ make clean_modules (only cleans the modules .so files) 
 
 Now its time to run the server with ./ychat.
 
