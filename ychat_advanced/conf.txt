@@ -61,7 +61,7 @@ HTML="OFF";
 # LOGGING:
 
 # relative or absolute path to logfile
-ACCESS_LOG="access_log";
+ACCESS_LOG="log/access_log";
 
 # we're using buffered logging for performance
 # LOG_LINES specifies after how many lines the log is flushed into a file
