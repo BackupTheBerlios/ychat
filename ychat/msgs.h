@@ -1,14 +1,6 @@
 #ifndef MSGS_H
 #define MSGS_H
 
-// message templates.
-
-// will be posed if a command does not exist for an user.
-#define ERRORCMD " <font color='#FF0000'>No such command!</font><br>\n"
-// will post "nickname enters the chat" into the room.
-#define USERENTR " enters the chat<br>\n"
-// will post "nickname leaves the chat" into the room.
-#define USERLEAV " leaves the chat<br>\n"
 
 // several error messages which will apear by the clients.
 #define E_ALPNUM "The nick you have specified is not alphanumeric, please change that.<br><br>"
