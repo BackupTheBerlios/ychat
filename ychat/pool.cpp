@@ -17,7 +17,7 @@ pool::pool()
  i_thrd_pool_size  = TOOL::string2int( CONF::get().get_val( "THRDPOOL" ) );
  i_thrd_pool_queue = TOOL::string2int( CONF::get().get_val( "THRDQUEU" ) );
 
- tpool_init( &thread_pool, i_thrd_pool_size, i_thrd_pool_queue, 1 );
+ tpool_init( &thread_pool, i_thrd_pool_size, i_thrd_pool_queue, 0 );
 }
 
 pool::~pool()
