@@ -14,7 +14,6 @@ template <class obj_type, class key_type>
 hmap<obj_type, key_type>::hmap( double mop )
               : maxOccupiedPercentage(mop), array( nextPrime( 101 ) )
 {
- cout << "hmap Constructor" << endl;
  lookups = 0;
  make_empty( );
 }

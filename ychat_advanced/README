@@ -18,6 +18,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 -----------------------------------------------------------------
 
+Requirements: 
+
+MySQL-Server 4.x
+MySQL-Client 4.x
+
 Notes: I programmed this on FreeBSD but should also compile without 
 big problems on Linux or other UNIX-like systems.
 If you have tested one of those then pleace write me the name of the OS,
@@ -27,6 +32,8 @@ right here:
 The following platforms have been tested with success:
 
 - FreeBSD 5.0-RELEASE, GCC 3.2.1, FreeBSD 5.0 make and GNU make 3.80
+
+- FreeBSD 4.8-STABLE, GCC 3.2, FreeBSD 4.8 make and GNU make 3.80
 
 - Linux Kernel 2.4.19, GCC 3.2.0, GNU make 3.79.1
 
