@@ -3,6 +3,7 @@
 #define USER_H
 
 #include "incl.h"
+#include "hmap.h"
 #include "name.h"
 
 using namespace std;
