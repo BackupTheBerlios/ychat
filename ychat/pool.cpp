@@ -91,7 +91,7 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
   exit(-1);
  }
  // create threads
- for ( i = 0; i != num_worker_threads; i++ )
+ for ( i = 0; i < num_worker_threads; i++ )
   pthread_create( &(tpool->threads[i]) , NULL, tpool_thread, (void*)tpool );
 
  *tpoolp = tpool;
@@ -210,6 +210,5 @@ pool::tpool_add_work( tpool_t tpool, void(*routine)(void*), void* arg ) ///
  pthread_mutex_unlock( &(tpool->queue_lock) );
  return 1;
 }
-
 
 #endif
