@@ -92,18 +92,8 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
  }
  // create threads
  for ( i = 0; i != num_worker_threads; i++ )
- {
-  auto int i_suc = pthread_create( &(tpool->threads[i]) , NULL, tpool_thread, (void*)tpool );
-/*
-  if ( i_suc );
-  {
-   pthread_mutex_lock  ( &MUTX::get().mut_stdout );
-   cerr << "pthread_create " << strerror( rtn ) << endl;
-   pthread_mutex_unlock( &MUTX::get().mut_stdout );
-   exit(-1);
-  }
-*/
- }
+  pthread_create( &(tpool->threads[i]) , NULL, tpool_thread, (void*)tpool );
+
  *tpoolp = tpool;
 }
 
@@ -113,9 +103,10 @@ pool::tpool_thread( void* arg )
  tpool_t tpool = (tpool_t) arg;
  tpool_work_t *my_workp;
 
- for( ;; )
+ while( true )
  {
   pthread_mutex_lock( &(tpool->queue_lock) );
+
   while ( (tpool->cur_queue_size == 0) && (!tpool->shutdown) )
    pthread_cond_wait( &(tpool->queue_not_empty), &(tpool->queue_lock) );
 
@@ -158,14 +149,12 @@ void pool::run_func( void *v_pointer )
   // recasting the client thread object.
   thrd *t = (thrd*) v_pointer;
 
- //string s_msg("Content-type: text/html\n\nasdasd asd asd asd asd asd asd\n");
- //  send( t->get_sock(), s_msg.c_str(), s_msg.size(), 0 ); 
-
   // start parsing the client request and sending response's back.
   t-> run ();
+
+  // close the client socket.
   t->~thrd();
 
-//  free((void*)t);
   free(v_pointer);
 
 #ifdef _VERBOSE
