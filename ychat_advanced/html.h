@@ -34,9 +34,9 @@ public:
     // afterwards the html-template will be parsed and returned.
     // map_params contains the client request parameters which also will be
     // used for string substituation.
-    virtual string parse( map_string &map_params );
+    string parse( map_string &map_params );
 
-    virtual void online_list( user *p_user, map_string &map_params );
+    void online_list( user *p_user, map_string &map_params );
 };
 
 #endif

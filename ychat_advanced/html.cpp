@@ -132,7 +132,7 @@ html::parse( map_string &map_params )
         // if s_val is empty use map_params.
         if ( s_val.empty() )
             s_val = map_params[ s_key ];
-
+        
         // substituate key with val.
         s_templ.replace( pos[0]-2, pos[1]-pos[0]+4, s_val );
 

@@ -22,7 +22,7 @@ extern "C" {
 	str_vector *params=(str_vector*)c->elem[2];	// param array
 
 	
-  	string *quitstring=new string("Text to send");
+  	string *quitstring=new string("Text to send<br>");
 	p_user->msg_post( quitstring );
  }
 }

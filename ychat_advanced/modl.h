@@ -24,6 +24,8 @@ public:
 
     dynmod* get_module  ( string s_name );
 
+    hmap<dynmod*,string>* 
+    get_map_mods() { return map_mods; }
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "reqp.h"
 #include "s_chat.h"
 #include "s_html.h"
+#include "s_modl.h"
 #include "s_mutx.h"
 #include "s_sock.h"
 #include "s_tool.h"
@@ -247,15 +248,20 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             //   user* p_user = s_chat::get().get_user( map_params["nick"], b_found );
             sess *sess_temp=s_sman::get
                                 ().get_session( map_params["tmpid"] );
+
             user *p_user;
-            if(sess_temp!=NULL)
+            if( sess_temp != NULL )
             {
-                string *s_nick=static_cast<string*>(sess_temp->get_elem(string("nick")));
+                string *s_nick = static_cast<string*>(sess_temp->get_elem(string("nick")));
                 p_user = s_chat::get
                              ().get_user( *s_nick, b_found);
+
+                map_params["nick"] = p_user->get_name().c_str();
+
             }
             else
                 return s_rep;
+
             if ( ! b_found )
             {
                 map_params["INFO"]    = E_NOTONL;
@@ -282,6 +288,22 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             else if ( s_event == "online" )
                 s_html::get
                     ().online_list( p_user, map_params );
+
+            else if ( s_event != "input" ) 
+            {
+             container *c = new container;
+             c->elem[0] = (void*) &s_lang::get();
+             c->elem[1] = (void*) s_modl::get().get_map_mods();
+             c->elem[2] = (void*) &map_params;
+
+             string s_mod = "mods/html/yc_" + s_event + ".so";
+    	     ( *(s_modl::get().
+                 get_module( s_mod )->the_func
+                 ) 
+             ) ( (void*) c );
+
+cout << map_params["content"];
+            }
         }
     }
 

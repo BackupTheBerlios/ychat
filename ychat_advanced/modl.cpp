@@ -120,6 +120,22 @@ modl::cache_module( string s_name )
 dynmod*
 modl::get_module( string s_name )
 {
+#ifdef VERBOSE
+    pthread_mutex_lock  ( &s_mutx::get
+                              ().mut_stdout );
+    cout << MODULER << s_name << endl;
+    pthread_mutex_unlock( &s_mutx::get
+                              ().mut_stdout );
+#endif
+#ifdef NCURSES
+
+    {
+        string s_tmp( MODULER );
+        s_tmp.append( s_name );
+        s_ncur::get
+            ().print( s_tmp.c_str() );
+    }
+#endif
     pthread_mutex_lock  ( &mut_map_mods );
     dynmod* mod = map_mods->get_elem( s_name );
     pthread_mutex_unlock( &mut_map_mods );

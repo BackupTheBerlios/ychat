@@ -1,13 +1,3 @@
-/*
-	This file is part of yChat
- 
-	$Author: snooper $
-	$Date: 2003/07/13 21:12:19 $
-	
-	$Header: /home/xubuntu/berlios_backup/github/tmp-cvs/ychat/Repository/ychat_advanced/Attic/base.cpp,v 1.3 2003/07/13 21:12:19 snooper Exp $
-*/
-// template class data implementation;
-
 #ifndef BASE_CPP
 #define BASE_CPP
 

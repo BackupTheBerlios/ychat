@@ -79,6 +79,7 @@ chat::login( map_string &map_params )
 
     // prove if nick is already online / logged in.
     get_user( s_user, b_flag );
+
     if ( b_flag )
     {
         map_params["INFO"]    = E_ONLINE;

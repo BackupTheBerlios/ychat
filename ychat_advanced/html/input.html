@@ -21,14 +21,20 @@
    //-->
   </script>
  </head>
+ <table>
+ <tr><td>
  <body bgcolor=#000000 text=#ffffff>
   <form name="input" action="input.html" target="blank" onsubmit="return delout();">
    <input type="hidden" name="event"   value="post"> 
-   <input type="hidden" name="nick"    value="%%nick%%"> 
    <input type="hidden" name="tmpid"   value="%%tmpid%%"> 
    <input type="text"   name="message" size="50">
    <input type="submit" value="send">
    <input type="button" value="select"  onclick="javascript:selectinput();">
   </form>
+  </td></tr>
+  <tr><td>
+  <a href="help.html?event=help&tmpid=%%tmpid%%" target="html/help.html">Help</a>
+  </td></tr>
+  </table>
  </body>
 </html>
