@@ -16,6 +16,7 @@ thrd::thrd( int i_sock )
 thrd::~thrd()
 {
   shutdown ( get_sock() , 2 );
+  close    ( get_sock()     );
 }
 
 void
