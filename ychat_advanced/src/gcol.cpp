@@ -110,6 +110,7 @@ gcol::get_room_from_garbage_or_new( string s_room )
  room* p_room = get_room_from_garbage();
  if ( p_room == NULL )
   return new room( s_room );
+ p_room->set_name( s_room );
  return p_room;
 }
 

@@ -88,8 +88,8 @@ HTML="OFF";
 # MySQL Settings
 MYSQL_HOST="localhost";
 MYSQL_USER="ychat";
-MYSQL_PASS="yctest";
-MYSQL_DB="ychat";
+MYSQL_PASS="YcTeSt";
+MYSQL_DB="ychat_advanced";
 
 # MySQL Connection Manager Settings
 
@@ -134,7 +134,7 @@ LOG_ROOM_DIR="log/rooms/";
 # if you don't want buffered logging set LOG_LINES to 1.
 LOG_ACCESS_LINES="10";
 LOG_SYSTEM_LINES="10";
-LOG_ROOM_LINES="10";
+LOG_ROOM_LINES="1";
 
 # HTML VARIABLES:
 
