@@ -123,15 +123,14 @@ chat::login( map_string &map_params )
 #endif
 
     // post "username enters the chat" into the room.
+    wrap::TIMR->get_time();
     p_room->msg_post( new string( p_user->get_colored_name().append( wrap::LANG->
      get_val( "USERENTR" ) ) ) );
-
 }
 
 void
 chat::post( user* p_user, map_string &map_params )
 {
-
     string s_msg( map_params["message"] );
 
     auto unsigned i_pos = s_msg.find( "/" );

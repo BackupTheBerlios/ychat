@@ -29,6 +29,9 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
 
     i_request= ( s_req.find("GET",0) != string::npos ) ? RQ_GET : RQ_POST;
 
+    if ( i_request == RQ_POST )
+     return "NOBYTE";
+
     pos = s_req.find( "HTTP", 0 );
 
     if( i_request == RQ_GET )

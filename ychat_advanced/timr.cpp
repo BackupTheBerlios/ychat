@@ -59,7 +59,6 @@ timr::start( void *v_pointer )
 
      time_now = *localtime( &clock_now );
 
-
      // set the current time && the current ychat uptime!
      p_timer->set_time( difftime( clock_now, clock_start ),
                         time_now.tm_sec, time_now.tm_min, time_now.tm_hour );
