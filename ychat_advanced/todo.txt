@@ -16,10 +16,10 @@ several different html templates
 20: goto 10
 
 Linux bugs:
-- No bugs which only appear on linux.
+- No bugs which only appear on Linux.
 
 FreeBSD bugs:
-- dynamic module yq_q.so segfaults while loading / executing.
+- No bugs which only appear on FreeBSD.
 
 Bugs wich appear on both, Linux and FreeBSD:
 - segfault if a user floods the chat ( we have to check the msg post thread subroutines ).
