@@ -81,10 +81,11 @@ s_tool::string2int( string s_digit )
 
  return result;
 }
+
 char* 
 s_tool::int2string( int i_int )
 {
-   char buffer[64];
+   char *buffer = new char[64];
    sprintf(buffer, "%d", i_int);
    return buffer;
 }

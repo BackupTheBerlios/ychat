@@ -85,14 +85,14 @@ sock::make_socket( uint16_t i_port )
  {
  
 #ifdef NCURSES
-  s_ncur::get().print( new string( SOCKERR ) );
+  s_ncur::get().print( SOCKERR );
 #endif
 
   if ( ++i_port > MAXPORT )
    exit(-1);
 
 #ifdef NCURSES
-  s_ncur::get().print( new string( SOCKERR ) );
+  s_ncur::get().print( SOCKERR );
 #endif
 
   return make_socket( i_port );
@@ -110,7 +110,7 @@ sock::make_socket( uint16_t i_port )
  {
 
 #ifdef NCURSES
-  s_ncur::get().print( new string( BINDERR ) );
+  s_ncur::get().print( BINDERR );
 #endif
 
   if ( ++i_port > MAXPORT )
@@ -120,11 +120,23 @@ sock::make_socket( uint16_t i_port )
   cout << SOCKERR << i_port << endl;
 #endif
 #ifdef NCURSES
-  s_ncur::get().print( new string( SOCKERR ) );
+  s_ncur::get().print( SOCKERR );
 #endif
 
   return make_socket( i_port );
  }
+
+#ifdef VERBOSE
+ cout << SOCKCRT << "localhost:" << i_port << endl;
+#endif
+#ifdef NCURSES
+ string s_tmp( SOCKCRT );
+ s_tmp.append( "localhost:" );
+ s_tmp.append( s_tool::int2string(i_port) );
+ s_ncur::get().print( s_tmp );  
+ mvprintw( 22,3, "Port: %d ", i_port);
+ refresh();
+#endif
 
  return sock;
 }
@@ -195,14 +207,6 @@ sock::start()
  struct sockaddr_in clientname;
  size_t size;
 
-#ifdef VERBOSE
- cout << SOCKCRT << "localhost:" << i_port << endl;
-#endif
-#ifdef NCURSES
- string s_tmp( SOCKCRT );
- s_tmp.append( "localhost:" );
- s_ncur::get().print( SOCKCRT );  
-#endif
 
  // create the server socket and set it up to accept connections.
  sock = make_socket ( i_port );
@@ -249,7 +253,7 @@ sock::start()
      // connection request on original socket.
      i_req++;
 #ifdef NCURSES
-     mvprintw( 22,10, "Hits: %d ", i_req);
+     mvprintw( 22,15, "Hits: %d ", i_req);
      refresh();
 #endif
      int new_sock;
