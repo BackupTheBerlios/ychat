@@ -321,18 +321,22 @@ sock::start()
 #endif
 
                         close ( new_sock );
+			
                     }
-
+		
+                    else	
+		    {
 #ifdef VERBOSE
-                    cout << NEWREQU << i_req << " "
-                    << inet_ntoa( clientname.sin_addr )
-                    << ":"
-                    << ntohs    ( clientname.sin_port )
-                    << endl;
+                     cout << NEWREQU << i_req << " "
+                     << inet_ntoa( clientname.sin_addr )
+                     << ":"
+                     << ntohs    ( clientname.sin_port )
+                     << endl;
 #endif
-
-                    FD_SET (new_sock, &active_fd_set);
+                     FD_SET (new_sock, &active_fd_set);
+                    }
                 }
+
                 else
                 {
 
