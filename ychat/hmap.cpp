@@ -10,12 +10,12 @@ int nextPrime( int n );
 
 // Construct the hash table.
 template <class obj_type, class key_type>
-hmap<obj_type, key_type>::hmap(double mop )
+hmap<obj_type, key_type>::hmap( double mop )
               : maxOccupiedPercentage(mop), array( nextPrime( 101 ) )
 {
  cout << "hmap Constructor" << endl;
  lookups = 0;
- makeEmpty( );
+ make_empty( );
 }
 
 // Insert item x into the hash table. If the item is
@@ -46,7 +46,7 @@ void hmap<obj_type, key_type>::rehash( )
   array[ j ].info = EMPTY;
 
  // Copy table over
- makeEmpty( );
+ make_empty( );
  for( int i = 0; i < oldArray.size( ); i++ )
   if( oldArray[ i ].info == ACTIVE )
    insert( oldArray[ i ].element );
@@ -114,7 +114,7 @@ obj_type * hmap<obj_type, key_type>::find( const key_type & x )
 
 // Make the hash table logically empty.
 template <class obj_type, class key_type>
-void hmap<obj_type, key_type>::makeEmpty( )
+void hmap<obj_type, key_type>::make_empty( )
 {
  occupied = 0;
  for( int i = 0; i < array.size( ); i++ )
@@ -158,6 +158,13 @@ int hmap<obj_type, key_type>::nextPrime( int n ) const
  for( ; !isPrime( n ); n += 2 );
 
  return n;
+}
+template<class obj_type, class key_type> void
+hmap<obj_type, key_type>::run_func( void (*func)(obj_type*, void*), void* v_arg )
+{
+ for( int i = 0; i < array.size( ); i++ )
+  if ( array[i].info == ACTIVE )
+   ( *func ) ( &(array[i].element) , v_arg );
 }
 
 #endif

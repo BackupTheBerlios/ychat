@@ -11,7 +11,7 @@ using namespace std;
 // void insert( obj_type x )       --> Insert x
 // void remove( key_type x )       --> Remove x
 // obj_type find( key_type x )  --> Return item that matches x
-// void makeEmpty( )      --> Remove all items
+// void make_empty( )      --> Remove all items
 
 template <class obj_type, class key_type>
 class hmap
@@ -36,7 +36,7 @@ private:
  virtual void rehash( );
  virtual bool isPrime  ( int n ) const;
  virtual int  nextPrime( int n ) const;
- double maxOccupiedPercentage; 
+ double       maxOccupiedPercentage; 
 
 protected:
  int lookups;
@@ -44,17 +44,18 @@ protected:
  vector<hash_entry> array;
 
 public:
- hmap(double moc );
+ hmap( double moc );
 
  virtual int  findPos  ( const key_type &x );
- virtual void makeEmpty( );
+ virtual void make_empty( );
  virtual void insert   ( const obj_type &x );
  virtual void remove   ( const key_type &x );
  virtual obj_type* find( const key_type &x );
 
+ virtual void  run_func( void (*func)(obj_type*, void*), void* v_arg );
 
  // inline:
- int getSize() 
+ void getSize() 
  {
   int size = 0;
   for( int j = 0; j < array.size( ); j++ )
