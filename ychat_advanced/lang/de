@@ -29,6 +29,7 @@ ERR_MESSAGE_LENGTH="Ihre Nachricht war zu lang und wurde vekuerzt!";
 ERR_NICK_LENGTH="Dein Nickname ist zu lang!<br><br>";
 ERR_NOROOM="Sie muessen sich einen gueltigen Raumnamen aussuchen!<br><br>";
 ERR_PASS_LENGTH="Ihr Passwort ist zu lang!<br><br>";
+ERR_ROOM_EXISTS="Den Raumnamen den Sie sich ausgesucht haben wird bereits von einem anderen Raum verwendet!";
 ERR_ROOMNAME_LENGTH="Ihr Raumname ist zu lang!<br><br>";
 ERR_EMAIL_LENGTH="Ihre Email-Adresse ist zu lang!<br><br>";
 ERR_NONICK="Sie müssen einen Nick angeben.<br><br>";

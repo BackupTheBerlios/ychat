@@ -29,6 +29,7 @@ ERR_MESSAGE_LENGTH="Your message was too long and has been cut!";
 ERR_NICK_LENGTH="Your nick is too long!<br><br>";
 ERR_NOROOM="You have to enter a valid room name!<br><br>";
 ERR_PASS_LENGTH="Your password is too long!<br><br>";
+ERR_ROOM_EXISTS="The new name of the room you've entered is already taken by another room!";
 ERR_ROOMNAME_LENGTH="Your room name is too long!<br><br>";
 ERR_EMAIL_LENGTH="Your email address is too long!<br><br>";
 ERR_NONICK="You need to specify a nick name.<br><br>";
