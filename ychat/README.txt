@@ -1,4 +1,4 @@
-yChat++; Version Basic 0.1b (030320); Homepage: www.yChat.org
+yChat++; Homepage: www.yChat.org
 Copyright (C) 2003 Paul C. Buetow ( Snooper@yChat.org, ICQ: 11655527 )
 -----------------------------------------------------------------
 
@@ -162,8 +162,3 @@ chat     room     user
    /    \
   /      \
 conf     html
-
-History of lines of code ( including embedded comments ):
-
-Version:	Lines:	
- Basic 0.1b      2402
