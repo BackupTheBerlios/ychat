@@ -496,8 +496,8 @@ user::check_restore_away()
   get_room()->msg_post( 
    new string( 
     wrap::TIMR->get_time()
-    + " " + get_colored_name()
-    + " " + wrap::LANG->get_elem( "RESTOREAWAY" )
+    + " <b>" + get_colored_name()
+    + "</b> " + wrap::LANG->get_elem( "RESTOREAWAY" )
     + "( <font color=" + get_col2() + ">"
     + get_away_msg() + "</font>)<br>\n" 
    )
