@@ -11,7 +11,6 @@ infotext:
 	@echo Compiling base
 ychat:  infotext $(OBJS) 
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
-	perl ../scripts/buildnr.pl || ../scripts/noperl.sh
 	mv ychat ../bin
 	du -k ../bin/ychat
 clean:	

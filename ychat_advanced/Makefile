@@ -4,6 +4,8 @@ modules:
 clean_modules:
 	gmake -C ./src/mods clean
 base:	
+	perl ./scripts/buildnr.pl || ./scripts/noperl.sh
+	cd ..
 	gmake -C ./src
 clean_base:
 	gmake -C ./src clean

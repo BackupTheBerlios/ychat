@@ -57,7 +57,7 @@
 #define TIMERAC "Initializing system timer\0"
 #define TIMERUP "Timer: System uptime \0"
 #define VERSION "yChat++ Advanced 0.6-CURRENT (CVS)\0"
-#define BUILDNR 22
+#define BUILDNR 27
 #define UNAME "unknown\0" 
 
 #endif

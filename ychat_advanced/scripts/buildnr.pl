@@ -7,7 +7,7 @@
 
 use strict;
 
-open MSGS, "msgs.h";
+open MSGS, "src/msgs.h";
 my @msgs = <MSGS>;
 close MSGS;
 
@@ -21,6 +21,6 @@ foreach (@msgs)
  }
 }
 
-open MSGS, ">msgs.h";
+open MSGS, ">src/msgs.h";
 print MSGS @msgs;
 close MSGS;
