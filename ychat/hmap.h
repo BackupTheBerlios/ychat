@@ -50,7 +50,7 @@ public:
  virtual void make_empty( );
  virtual void insert   ( const obj_type &x );
  virtual void remove   ( const key_type &x );
- virtual obj_type* find( const key_type &x );
+ virtual obj_type find ( const key_type &x );
 
  virtual void  run_func( void (*func)(obj_type*, void*), void* v_arg );
 
@@ -93,7 +93,7 @@ public:
   lookups++;
 
   while( array[ currentPos ].info    != EMPTY &&
-         array[ currentPos ].element != x )
+         array[ currentPos ].element->get_name() != x )
   {	
    lookups   ++;
    currentPos++; 

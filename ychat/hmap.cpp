@@ -24,7 +24,7 @@ template <class obj_type, class key_type>
 void hmap<obj_type, key_type>::insert( const obj_type & x )
 {
  // Insert x as active
- int currentPos = findPos( x.get_name() );
+ int currentPos = findPos( x->get_name() );
  if( isActive( currentPos ) )
   return;
 
@@ -77,7 +77,7 @@ int hmap<obj_type, key_type>::findPos( const key_type &x )
  lookups++;
 
  while( array[ currentPos ].info != EMPTY &&
-        array[ currentPos ].element.get_name() != x )
+        array[ currentPos ].element->get_name() != x )
  {
  //		cout <<  array[ currentPos ].element << "!=" << x << endl;
   lookups++;
@@ -103,11 +103,11 @@ void hmap<obj_type, key_type>::remove( const key_type & x )
 // Find item x in the hash table.
 // Return a pointer to the matching item or 0 if not found
 template <class obj_type, class key_type>
-obj_type * hmap<obj_type, key_type>::find( const key_type & x )
+obj_type hmap<obj_type, key_type>::find( const key_type & x )
 {
  int currentPos = findPos( x );
  if( isActive( currentPos ) )
-  return & (array[ currentPos ].element);
+  return array[ currentPos ].element;
  else
   return 0;
 }

@@ -72,7 +72,7 @@ cout  <<  "         ___ _           _   "     << endl
  s_conf::init(); // init the config manager.
  s_html::init(); // init the html-template manager. 
  s_sock::init(); // init the socket manager. 
- s_chat::init(); // init the chat manager. 
+ s_chat::init(); // init the chat manager.
 
  // start the socket manager. this one will listen for incoming http requests and will
  // forward them to the specified routines which will generate a http response.
