@@ -20,37 +20,38 @@ tool::is_alpha_numeric( string &s_digit )
 
     return true;
 }
+
 string
 tool::trim( string s_str )
 {
     if(s_str.empty())
         return "";
-    char c_cur=s_str[0];
+
+    char c_cur = s_str[0];
     auto int pos=0;
+
     // left trim
-    while(c_cur==' ' || c_cur == '\n' || c_cur == '\r')
+    while (c_cur==' '|| c_cur == '\n' || c_cur == '\r')
     {
         s_str.erase(pos,1);
-
-        c_cur=s_str[++pos];
-
+        c_cur = s_str[++pos];
     }
+
     // right trim
-
     pos=s_str.size();
-    c_cur=s_str[s_str.size()];
+    c_cur = s_str[s_str.size()];
 
-    while(c_cur==' ' || c_cur == '\n' || c_cur == '\0' || c_cur == '\r')
+    while (c_cur==' ' || c_cur == '\n' || c_cur == '\0' || c_cur == '\r')
     {
         s_str.erase(pos,1);
-        c_cur=s_str[--pos];
-
+        c_cur = s_str[--pos];
     }
+
     return s_str;
 }
 
 string
-tool::getExtension( string s_file )
+tool::get_extension( string s_file )
 {
     int pos = s_file.find_last_of(".");
     if(pos != string::npos)

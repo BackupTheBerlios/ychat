@@ -27,7 +27,7 @@ public:
      }
     }
 
-    static string getExtension( string s_file );
+    static string get_extension( string s_file );
     static string to_lower( string s );
 };
 

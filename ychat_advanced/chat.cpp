@@ -138,11 +138,9 @@ chat::post( user* p_user, map_string &map_params )
     string s_msg( map_params["message"] );
     if ( b_strip_html )
         tool::strip_html( &s_msg );
-
     auto unsigned i_pos = s_msg.find( "/" );
     if ( i_pos == 0 )
         return p_user->command( s_msg );
-
     string s_post;
 
     s_post.append( "<font color=\"#" )

@@ -119,7 +119,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
 string
 reqp::get_content_type( string s_file )
 {
-    string s_ext = tool::getExtension( s_file );
+    string s_ext = tool::get_extension( s_file );
 
     if(s_ext=="")
         s_ext="DEFAULT";
@@ -129,30 +129,28 @@ reqp::get_content_type( string s_file )
 void
 reqp::parse_headers( string s_req, map_string &map_params )
 {
-
     int pos = s_req.find("\n");
 
-    map_params["QUERY_STRING"] = tool::trim(s_req.substr(0,pos-1));
+    if (pos != string::npos)
+     map_params["QUERY_STRING"] = tool::trim(s_req.substr(0,pos-1));
 
     while( pos != string::npos)
     {
-        auto string s_line=s_req.substr(0,pos);
-        auto int pos2=s_line.find(":");
+       auto string s_line = s_req.substr(0,pos);
+       auto int pos2=s_line.find(":");
 
-        if(pos2!=string::npos)
-        {
-            auto string key=tool::trim(s_line.substr(0, pos2));
-            auto string value=tool::trim(s_line.substr(pos2+1));
+       if (pos2 != string::npos)
+       {
+           auto string s_key   = tool::trim(s_line.substr(0, pos2));
+           auto string s_value = tool::trim(s_line.substr(pos2+1));
 
-            map_params[key]=value;
+           map_params[s_key] = s_value;
+       }
 
-        }
-        s_req=s_req.substr(s_line.size()+1);
-        pos=s_req.find("\n");
+       s_req=s_req.substr(s_line.size()+1);
+       pos=s_req.find("\n");
     }
-
 }
-
 
 int
 reqp::htoi(string *s)
@@ -256,47 +254,59 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             if( sess_temp != NULL )
             {
                 string *s_nick = static_cast<string*>(sess_temp->get_elem(string("nick")));
+
                 p_user = wrap::CHAT->get_user( *s_nick, b_found);
-
-                map_params["nick"] = p_user->get_name().c_str();
-
             }
+
             else
+            {
                 return s_rep;
+            }
 
             if ( ! b_found )
             {
                 map_params["INFO"]    = wrap::LANG->get_val( "ERR_NOTONL" );
                 map_params["request"] = wrap::CONF->get_val( "STARTMPL" ); // redirect to the startpage.
             }
-            // if a message post.
-            else if ( s_event == "post" )
-                wrap::CHAT->post( p_user, map_params );
 
-            // if a chat stream
-            else if ( s_event == "stream" )
+            else
             {
+             map_params["nick"] = p_user->get_name().c_str();
+
+             // if a message post.
+             if ( s_event == "post" )
+             {
+                if ( p_user )
+                 wrap::CHAT->post( p_user, map_params );
+             }
+
+             // if a chat stream
+             else if ( s_event == "stream" )
+             {
                 string s_msg ( wrap::HTML->parse( map_params ) );
                 p_user->msg_post( &s_msg);
                 wrap::SOCK-> chat_stream( p_thrd->get_sock(), p_user, map_params );
-            }
+             }
 
-            // if a request for the online list of the active room.
-            else if ( s_event == "online" )
+             // if a request for the online list of the active room.
+             else if ( s_event == "online" )
+             {
                 wrap::HTML->online_list( p_user, map_params );
+             }
 
-            else if ( s_event != "input" ) 
-            {
-             container *c = new container;
-             c->elem[0] = (void*) wrap::LANG ;
-             c->elem[1] = (void*) wrap::MODL;
-             c->elem[2] = (void*) &map_params;
+             else if ( s_event != "input" ) 
+             {
+              container *c = new container;
+              c->elem[0] = (void*) wrap::LANG ;
+              c->elem[1] = (void*) wrap::MODL;
+              c->elem[2] = (void*) &map_params;
 
-             string s_mod = "mods/html/yc_" + s_event + ".so";
-    	     ( *( wrap::MODL
-                  -> get_module( s_mod )->the_func
-                 ) 
-             ) ( (void*) c );
+              string s_mod = "mods/html/yc_" + s_event + ".so";
+    	      ( *( wrap::MODL
+                   -> get_module( s_mod )->the_func
+                  ) 
+              ) ( (void*) c );
+             }
             }
         }
     }
