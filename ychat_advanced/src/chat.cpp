@@ -11,9 +11,10 @@ using namespace std;
 chat::chat( )
 {
     if ( wrap::CONF->get_elem( "HTML" ) == "OFF" )
-            b_strip_html = true;
-    else
-        b_strip_html = false;
+      b_strip_html = true;
+
+    if ( wrap::CONF->get_elem( "PRINT_ALWAYS_TIME" ) == "YES" )
+      b_print_always_time = true;
 
     i_max_message_length = tool::string2int(wrap::CONF->get_elem( "MAX_MESSAGE_LENGTH" ));
 }
@@ -249,10 +250,15 @@ chat::post( user* p_user, map_string &map_params )
 
     if ( b_strip_html )
         tool::strip_html( &s_msg );
+
     auto unsigned i_pos = s_msg.find( "/" );
     if ( i_pos == 0 )
         return p_user->command( s_msg );
+
     string s_post;
+
+    if ( b_print_always_time )
+     s_post.append( wrap::TIMR->get_time() + " " );    
 
     s_post.append( "<font color=\"#" )
     .append( p_user->get_col1() )

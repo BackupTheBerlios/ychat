@@ -21,6 +21,7 @@ class chat : public base<room>
 {
 private:
     bool b_strip_html;
+    bool b_print_always_time;
     int  i_max_message_length;
 
 public:

@@ -43,4 +43,12 @@ room::clean_room()
     wrap::GCOL->add_room_to_garbage( this ); 
 }
 
+void
+room::reload_onlineframe()
+{
+    string s_msg = "<script language=\"JavaScript\"> parent.online.location.reload(); </script>";
+    msg_post( &s_msg );
+}
+
+
 #endif

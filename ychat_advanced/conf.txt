@@ -56,6 +56,9 @@ MAX_EMAIL_LENGTH="50";
 # Maximum length of an password 
 MAX_PASS_LENGTH="30";
 
+# Set to YES if for each chat message should the system time be printed 
+PRINT_ALWAYS_TIME="YES";
+
 # Standard user rang/status
 STANDARD_RANG="3";
 
