@@ -123,8 +123,8 @@ chat::post( user* p_user, map_string &map_params )
  if ( i_pos == 0 )
   return p_user->command( s_msg ); 
 
-if(s_conf::get().get_val( "HTML" )=="OFF")
-	s_tool::strip_html( &s_msg );
+ if ( s_conf::get().get_val( "HTML" ) == "OFF" )
+  s_tool::strip_html( &s_msg );
 
  string s_post( "<font color=\""   );
 
