@@ -76,6 +76,8 @@ ncur::print( string s_msg )
 void
 ncur::print( char* c_print )
 {
+ if ( strlen( c_print ) > i_message_length )
+  c_print[i_message_length] = '\0';
 
  char* c_temp = new char[i_message_length];
  int i;
