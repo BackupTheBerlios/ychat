@@ -15,7 +15,7 @@ USER_IN_ROOM=" befindet sich im Raum ";
 UPTIME="Die yChat Uptime: ";
 ERRORCMD="<font color=#ff0000>Befehl nicht gefunden!</font><br>";
 USERENTR=" betritt den Chat.";
-USER_ENTERS_ROOM=" kommt in den Raum";
+USER_ENTERS_ROOM=" kommt in den Raum ";
 USERLEAV=" verschwindet aus dem Chat.";
 USER_LEAVES_ROOM=" verlaesst den Raum und wechselt nach ";
 WHISPER="fluestert zu Dir";

@@ -61,7 +61,7 @@ extern "C" {
 
           string s_msg2 = s_user
                         + p_lang->get_elem( "USER_ENTERS_ROOM" )
-	                + "<br>\n";
+	                + s_room + "<br>\n";
 
 	  bool b_flag;
           room*  p_room = p_chat->get_room( s_room , b_flag );
@@ -70,13 +70,19 @@ extern "C" {
           if ( p_room == NULL )
           {
            p_room = p_gcol->get_room_from_garbage_or_new();
- 
            p_room->set_name( s_room );
-           p_chat->add_elem( p_room );
- 	   p_user->get_room()->msg_post( &s_msg ); 
+
+           room* p_room_old = p_user->get_room();
+
            string s_name = p_user->get_name();
            p_user->get_room()->del_elem( s_name );
+
+           if ( p_room_old != NULL )
+ 	    p_room_old->msg_post( &s_msg ); 
+
            p_room->add_user( p_user );
+           p_chat->add_elem( p_room );
+           p_room->msg_post( &s_msg2 );
           }
 
           else // p_room != NULL
