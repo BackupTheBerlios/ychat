@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/bash
 echo Lines of code in .h and .cpp files: $(cat *{cpp,h} mods/*/*cpp | wc -l)
 echo
 echo Lines of code in .html files: $(cat html/*html|wc -l)
