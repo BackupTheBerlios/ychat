@@ -25,7 +25,7 @@ extern "C" {
         string sColor;
 
         if ( params->empty() )
-	 sColor = ((conf*) c->elem[3])->get_val( "STDCOLOR" );
+	 sColor = ((conf*) c->elem[3])->get_val( "USERCOL1" );
 
         else
 	 sColor = (string) params->front();

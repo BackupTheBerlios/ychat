@@ -26,6 +26,9 @@ user::user( string s_name ) : name( s_name )
     pthread_cond_init ( &cond_message, NULL);
     pthread_mutex_init( &mut_message , NULL);
     pthread_mutex_init( &mut_map_mods, NULL );
+    pthread_mutex_init( &mut_s_col1, NULL );
+    pthread_mutex_init( &mut_s_id, NULL );
+    pthread_mutex_init( &mut_r_rang, NULL );
 }
 
 user::~user()
@@ -37,6 +40,9 @@ user::~user()
     pthread_mutex_destroy( &mut_s_mess   );
     pthread_cond_destroy ( &cond_message );
     pthread_mutex_destroy( &mut_message  );
+    pthread_mutex_destroy( &mut_s_col1   );
+    pthread_mutex_destroy( &mut_s_id     );
+    pthread_mutex_destroy( &mut_r_rang   );
 }
 
 void

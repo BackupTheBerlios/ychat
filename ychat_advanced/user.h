@@ -36,42 +36,65 @@ private:
     pthread_mutex_t mut_l_time;
     pthread_mutex_t mut_s_mess;
     pthread_mutex_t mut_p_room;
+    pthread_mutex_t mut_s_col1;
+    pthread_mutex_t mut_s_id;
+    pthread_mutex_t mut_r_rang;
 
 public:
     pthread_cond_t  cond_message;
     pthread_mutex_t mut_message;
 
     // small inline methods:
-    string get_col1()         const
+    string get_col1()
     {
-        return  s_col1;
+	string s_ret;
+        pthread_mutex_lock  ( &mut_s_col1 );
+        s_ret = s_col1;
+        pthread_mutex_unlock( &mut_s_col1 );
+        return s_ret;
     }
-    string get_id()	   const
+    string get_id()
     {
-        return  s_id;
+	string s_ret;
+        pthread_mutex_lock  ( &mut_s_id );
+        s_ret = s_id;
+        pthread_mutex_unlock( &mut_s_id );
+        return s_ret;
     }
     void   set_id    ( string s_id   )
     {
+        pthread_mutex_lock  ( &mut_s_id );
         this -> s_id = s_id;
+        pthread_mutex_unlock( &mut_s_id );
     }
     void   set_col1  ( string s_col1 )
     {
+        pthread_mutex_lock  ( &mut_s_col1 );
         this -> s_col1 = s_col1;
+        pthread_mutex_unlock( &mut_s_col1 );
     }
 
-    rang   get_rang  ( )      const
+    rang   get_rang  ( )
     {
-        return  r_rang;
+	rang r_ret;
+        pthread_mutex_lock  ( &mut_r_rang );
+	r_ret = r_rang;
+        pthread_mutex_unlock(&mut_r_rang );
+        return  r_ret;
     }
     void   set_rang  ( rang   r_rang )
     {
+        pthread_mutex_lock  ( &mut_r_rang );
         r_oldr = this -> r_rang;
         this -> r_rang = r_rang;
+        pthread_mutex_unlock( &mut_r_rang );
     }
 
     bool   new_msgs  ( )
     {
+        pthread_mutex_lock  ( &mut_s_mess );
         return s_mess.empty();
+        pthread_mutex_unlock( &mut_s_mess );
     }
     // public methods:
     explicit user( string s_name );      // a standard constructor.

@@ -21,7 +21,6 @@ THRDPOOL="50";    # thread pool size.
 THRDQUEU="50";    # length of the thread pool queue.
 SRVRPORT="3000";   # local port on which the server listens. 
 STRDROOM="Lounge"; # the name of the standard room.
-STDCOLOR="FFFFFF"; # the standard chat text color 
 LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 
 # MySQL Settings
