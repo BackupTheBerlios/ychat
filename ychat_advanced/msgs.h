@@ -1,13 +1,6 @@
 #ifndef MSGS_H
 #define MSGS_H
 
-
-// several error messages which will apear by the clients.
-#define E_ALPNUM "The nick you have specified is not alphanumeric, please change that.<br><br>\0"
-#define E_NONICK "You need to specify a nick name.<br><br>\0"
-#define E_NOTONL "An error occured. Your nick is not online.<br><br>\0"
-#define E_ONLINE "The nick you have specified is already online. Try another nick.<br><br>\0"
-
 // alphabetical ordered:
 #define ACCPERR "Sock accept error \0"
 #define BINDERR "Sock bind error \0"

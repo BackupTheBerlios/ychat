@@ -57,18 +57,18 @@ chat::login( map_string &map_params )
     // prove if nick is empty:
     if ( s_user.empty() )
     {
-        map_params["INFO"]    = E_NONICK;
-        map_params["request"] = wrap::CONF->
-                                    get_val( "STARTMPL" ); // redirect to the startpage.
+        map_params["INFO"]    = wrap::LANG->get_val( "ERR_NONICK" );
+        map_params["request"] = wrap::CONF->get_val( "STARTMPL" ); // redirect to the startpage.
+                                    
         return;
     }
 
     // prove if the nick ist alphanumeric:
     else if ( ! tool::is_alpha_numeric( s_user ) )
     {
-        map_params["INFO"]    = E_ALPNUM;
-        map_params["request"] = wrap::CONF-> 
-                                    get_val( "STARTMPL" ); // redirect to the startpage.
+        map_params["INFO"]    = wrap::LANG->get_val( "ERR_ALPNUM" );
+        map_params["request"] = wrap::CONF->get_val( "STARTMPL" ); // redirect to the startpage.
+                                    
         return;
     }
 
@@ -79,9 +79,9 @@ chat::login( map_string &map_params )
 
     if ( b_flag )
     {
-        map_params["INFO"]    = E_ONLINE;
-        map_params["request"] = wrap::CONF-> 
-                                    get_val( "STARTMPL" );
+        map_params["INFO"]    = wrap::LANG->get_val( "ERR_ONLINE" ); 
+        map_params["request"] = wrap::CONF->get_val( "STARTMPL" );
+                                    
         return;
     }
 

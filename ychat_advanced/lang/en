@@ -1,6 +1,10 @@
 ERRORCMD=" <font color='#FF0000'>No such command!</font><br>";
 USERENTR=" enters the chat<br>";
 USERLEAV=" leaves the chat<br>";
+ERR_ALPNUM="The nick you have specified is not alphanumeric, please change that.<br><br>";
+ERR_NONICK="You need to specify a nick name.<br><br>";
+ERR_NOTONL="An error occured. Your nick is not online.<br><br>";
+ERR_ONLINE="The nick you have specified is already online. Try another nick.<br><br>";
 
 # Chat-Hilfe ( || seperates command syntax and command description. )
 mods/commands/yc_col.so="/col NICKCOLOR TEXTCOLOR||Changing the color";

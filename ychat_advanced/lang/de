@@ -1,6 +1,10 @@
 ERRORCMD="<font color=#ff0000>Befehl nicht gefunden!</font><br>";
 USERENTR=" betritt den Chat.<br>";
 USERLEAV=" verl&auml;&szlig;t den Chat.<br>";
+ERR_ALPNUM="Den Nick den Sie sich ausgesucht haben besteht nicht nur aus Zahlen und Buchstaben.<br><br>";
+ERR_NONICK="Sie müssen einen Nick angeben.br><br>";
+ERR_NOTONL="Es ist ein Fehler aufgetreten. Ihr Nick ist nicht online.<br><br>";
+ERR_ONLINE="Den Nick den Sie sich ausgesucht haben ist bereits eingeloggt. Bitte versuchen sie einen Anderen.<br><br>";
 
 # Chat-help ( || separiert Befehlssyntax und Befehlsbeschreibung. )
 mods/commands/yc_col.so="/col NICKFARBE TEXTFARBE||Ändern der Farbe";
