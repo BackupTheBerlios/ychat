@@ -36,10 +36,11 @@ The following platforms have been tested with success:
 
 - FreeBSD 5.0-RELEASE, GCC 3.2.1, FreeBSD 5.0 make and GNU make 3.80
 
-- FreeBSD 4.8-STABLE, GCC 3.2, FreeBSD 4.8 make and GNU make 3.80
+- FreeBSD 4.8-STABLE, GCC 2.95, FreeBSD 4.8 make and GNU make 3.80
+  ( Dynamic modules segfault, this wont be fixed because we focus on
+    gcc 3.x ).
 
   FreeBSD note: You must do a
-
     ln -s /usr/local/lib/mysql/libmysqlclient.so \
     /usr/local/lib/libmysqlclient.so
 
@@ -58,6 +59,20 @@ conf.txt and run the server with ./ychat. Then point your webbrowser
 to http://yourip:port/index.html
 ( ignoring the index.html on the end of the url will not work! ).
 ... have fun :-).
+
+If you are running ychat in ncurses mode you might want to install
+the tool which is called "screen". This will enable you putting the
+ncurses interface to the background, closing the terminal session
+and reusing the interface later through another terminal. 
+
+Just do:
+ 
+ screen ./ychat
+ strg+d+a ( will detach ychat )
+ ( closing the terminal )
+ ( opening a new terminal )
+ screen -r ( will print a list of all screen sessions )
+ screen -r PID ( will return you to ychat )
 
 If you like customizing the design/layout/language of yChat, you will have 
 to edit msgs.h and glob.h before you compile the sources. Afterwards you can
