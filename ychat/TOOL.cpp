@@ -1,8 +1,25 @@
 #ifndef TOOL_CXX
 #define TOOL_CXX
 
+#include <ctype.h> 
 #include <time.h>
 #include "TOOL.h"
+
+bool
+TOOL::is_alpha_numeric( string &s_digit )
+{
+ auto const char *digit = s_digit.c_str();
+ auto int   i_len = strlen( digit );
+
+ for( int i=0; i<i_len; i++ )
+ {
+  if ( ! isalnum( *digit ) )
+   return false;
+  digit++;
+ }
+
+ return true;
+}
 
 int
 TOOL::string2int( string s_digit )

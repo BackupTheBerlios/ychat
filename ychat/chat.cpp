@@ -6,6 +6,7 @@
 #include "chat.h"
 #include "CONF.h"
 #include "MUTX.h"
+#include "TOOL.h"
 
 using namespace std;
 
@@ -53,10 +54,18 @@ chat::login( map_string &map_params )
 {
  string s_user = map_params["nick"];
 
- // prove if nick is empty 
+ // prove if nick is empty: 
  if ( s_user.empty() )
  {
   map_params["INFO"]    = E_NONICK; 
+  map_params["request"] = CONF::get().get_val( "STARTMPL" ); // redirect to the startpage.
+  return;
+ }
+
+ // prove if the nick ist alphanumeric:
+ else if ( ! TOOL::is_alpha_numeric( s_user ) )
+ {
+  map_params["INFO"]    = E_ALPNUM; 
   map_params["request"] = CONF::get().get_val( "STARTMPL" ); // redirect to the startpage.
   return;
  }

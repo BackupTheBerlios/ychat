@@ -11,8 +11,9 @@
 #define USERLEAV " leaves the chat<br>\n"
 
 // several error messages which will apear by the clients.
-#define E_NONICK "You need to specify a nick name<br><br>"
-#define E_NOTONL "An error occured. Your nick is not online<br><br>"
+#define E_ALPNUM "The nick you have specified is not alphanumeric, please change that.<br><br>"
+#define E_NONICK "You need to specify a nick name.<br><br>"
+#define E_NOTONL "An error occured. Your nick is not online.<br><br>"
 #define E_ONLINE "The nick you have specified is already online. Try another nick.<br><br>"
 
 // all the custom messages for verbosity outputs. this messages may not
