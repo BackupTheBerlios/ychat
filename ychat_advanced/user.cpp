@@ -121,6 +121,69 @@ user::set_sock( int i_sock )
     pthread_mutex_unlock( &mut_i_sock );
 }
 
+string
+user::get_col1()
+{
+    string s_ret;
+    pthread_mutex_lock  ( &mut_s_col1 );
+    s_ret = s_col1;
+    pthread_mutex_unlock( &mut_s_col1 );
+    return s_ret;
+}
+
+string
+user::get_id()
+{
+    string s_ret;
+    pthread_mutex_lock  ( &mut_s_id );
+    s_ret = s_id;
+    pthread_mutex_unlock( &mut_s_id );
+    return s_ret;
+}
+
+void
+user::set_id    ( string s_id   )
+{
+    pthread_mutex_lock  ( &mut_s_id );
+    this -> s_id = s_id;
+    pthread_mutex_unlock( &mut_s_id );
+}
+
+void
+user::set_col1  ( string s_col1 )
+{
+    pthread_mutex_lock  ( &mut_s_col1 );
+    this -> s_col1 = s_col1;
+    pthread_mutex_unlock( &mut_s_col1 );
+}
+
+rang
+user::get_rang  ( )
+{
+    rang r_ret;
+    pthread_mutex_lock  ( &mut_r_rang );
+    r_ret = r_rang;
+    pthread_mutex_unlock(&mut_r_rang );
+    return  r_ret;
+}
+
+void
+user::set_rang  ( rang   r_rang )
+{
+    pthread_mutex_lock  ( &mut_r_rang );
+    r_oldr = this -> r_rang;
+    this -> r_rang = r_rang;
+    pthread_mutex_unlock( &mut_r_rang );
+}
+
+bool
+user::new_msgs  ( )
+{
+    pthread_mutex_lock  ( &mut_s_mess );
+    return s_mess.empty();
+    pthread_mutex_unlock( &mut_s_mess );
+}
+
 void
 user::command( string &s_command )
 {

@@ -44,58 +44,6 @@ public:
     pthread_cond_t  cond_message;
     pthread_mutex_t mut_message;
 
-    // small inline methods:
-    string get_col1()
-    {
-	string s_ret;
-        pthread_mutex_lock  ( &mut_s_col1 );
-        s_ret = s_col1;
-        pthread_mutex_unlock( &mut_s_col1 );
-        return s_ret;
-    }
-    string get_id()
-    {
-	string s_ret;
-        pthread_mutex_lock  ( &mut_s_id );
-        s_ret = s_id;
-        pthread_mutex_unlock( &mut_s_id );
-        return s_ret;
-    }
-    void   set_id    ( string s_id   )
-    {
-        pthread_mutex_lock  ( &mut_s_id );
-        this -> s_id = s_id;
-        pthread_mutex_unlock( &mut_s_id );
-    }
-    void   set_col1  ( string s_col1 )
-    {
-        pthread_mutex_lock  ( &mut_s_col1 );
-        this -> s_col1 = s_col1;
-        pthread_mutex_unlock( &mut_s_col1 );
-    }
-
-    rang   get_rang  ( )
-    {
-	rang r_ret;
-        pthread_mutex_lock  ( &mut_r_rang );
-	r_ret = r_rang;
-        pthread_mutex_unlock(&mut_r_rang );
-        return  r_ret;
-    }
-    void   set_rang  ( rang   r_rang )
-    {
-        pthread_mutex_lock  ( &mut_r_rang );
-        r_oldr = this -> r_rang;
-        this -> r_rang = r_rang;
-        pthread_mutex_unlock( &mut_r_rang );
-    }
-
-    bool   new_msgs  ( )
-    {
-        pthread_mutex_lock  ( &mut_s_mess );
-        return s_mess.empty();
-        pthread_mutex_unlock( &mut_s_mess );
-    }
     // public methods:
     explicit user( string s_name );      // a standard constructor.
     ~user();			      // user destructor.
@@ -112,6 +60,13 @@ public:
     virtual void  set_p_room( room* p_room );
     virtual int   get_sock  ( );
     virtual void  set_sock  ( int i_sock );
+    virtual string get_col1();
+    virtual string get_id();
+    virtual void   set_id( string s_id );
+    virtual void   set_col1( string s_col1 );
+    virtual rang   get_rang( );
+    virtual void   set_rang( rang   r_rang );
+    virtual bool   new_msgs  ( );
 
     // executes a command.
     virtual void command( string &s_command );
