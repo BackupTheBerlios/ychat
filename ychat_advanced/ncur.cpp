@@ -27,18 +27,18 @@ ncur::start()
  refresh();
 
  char *choices[] = { 
-  "Chat manager",
-  "Config manager",
-  "HTML-template manager",
-  "Language manager",
-  "Module-loader manager",
-  "MySQL connecion manager",
-  "Session manager",
-  "Socket manager",
-  "Exit",
+  "Chat manager NI",
+  "Config manager NI",
+  "HTML-template manager NI",
+  "Language manager NI",
+  "Module-loader manager NI",
+  "MySQL connecion manager NI",
+  "Session manager NI",
+  "Socket manager NI",
+  "Exit NI",
  };
 
- this->p_menu = new menu( 2, 4, 30, 15, "MAIN MENU", choices, 9 );
+ this->p_menu = new menu( 2, 4, 34, 15, "MAIN MENU", choices, 9 );
  p_menu->start();
 
  clrtoeol();
