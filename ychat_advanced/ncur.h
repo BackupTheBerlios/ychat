@@ -9,8 +9,8 @@
 using namespace std;
 
 class ncur
-  {
-  private:
+{
+private:
     menu*   p_menu;
     WINDOW* p_serveroutput;
     list<char*>* p_messagelist;   // contains the messages for p_serveroutput!
@@ -18,7 +18,7 @@ class ncur
     int  i_message_length;        // the maximum length of a system message!
     bool b_is_ready;	       // is set to TRUE if the admin interface is initialized.
 
-  public:
+public:
     explicit ncur( );      	      // a standard constructor.
     ~ncur( );
 
@@ -28,14 +28,14 @@ class ncur
     void print( string* p_msg );
     void is_ready( bool b_is_ready )
     {
-      this->b_is_ready = b_is_ready;
+        this->b_is_ready = b_is_ready;
     }
     bool is_ready() const
-      {
+    {
         return b_is_ready;
-      }
+    }
 
     static void switch_main_menu_( int i_choice );
-  };
+};
 
 #endif

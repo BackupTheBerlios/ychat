@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_mutx
-  {
-  private:
+{
+private:
     static mutx* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new mutx();
+        obj = new mutx();
     }
 
     static mutx& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

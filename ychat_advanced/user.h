@@ -11,8 +11,8 @@ using namespace std;
 class room;
 
 class user : public name
-  {
-  private:
+{
+private:
     // private members:
     bool   b_away;   // true if user is away.
     bool   b_online; // true if user is online.
@@ -37,41 +37,41 @@ class user : public name
     pthread_mutex_t mut_s_mess;
     pthread_mutex_t mut_p_room;
 
-  public:
+public:
     pthread_cond_t  cond_message;
     pthread_mutex_t mut_message;
 
     // small inline methods:
     string get_col1()         const
-      {
+    {
         return  s_col1;
-      }
+    }
     string get_id()	   const
-      {
+    {
         return  s_id;
-      }
+    }
     void   set_id    ( string s_id   )
     {
-      this -> s_id = s_id;
+        this -> s_id = s_id;
     }
     void   set_col1  ( string s_col1 )
     {
-      this -> s_col1 = s_col1;
+        this -> s_col1 = s_col1;
     }
 
     rang   get_rang  ( )      const
-      {
+    {
         return  r_rang;
-      }
+    }
     void   set_rang  ( rang   r_rang )
     {
-      r_oldr = this -> r_rang;
-      this -> r_rang = r_rang;
+        r_oldr = this -> r_rang;
+        this -> r_rang = r_rang;
     }
 
     bool   new_msgs  ( )
     {
-      return s_mess.empty();
+        return s_mess.empty();
     }
     // public methods:
     explicit user( string s_name );      // a standard constructor.
@@ -104,6 +104,6 @@ class user : public name
     // appends a string to s_mess including br.
     virtual void msg_post( string *p_msg );
     virtual void get_user_list( string &s_list, string &s_seperator );
-  };
+};
 
 #endif

@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_html
-  {
-  private:
+{
+private:
     static html* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new html();
+        obj = new html();
     }
 
     static html& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

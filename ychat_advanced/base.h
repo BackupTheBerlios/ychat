@@ -8,12 +8,12 @@
 
 template<class type>
 class base
-  {
-  private:
+{
+private:
     hmap<type*,string>* map_elem;
     pthread_mutex_t mut_map_elem;
 
-  public:
+public:
     base();
     ~base();
 
@@ -29,22 +29,22 @@ class base
     // user::msg_post sends to the user a message.
     void msg_post( string *s_msg )
     {
-      run_func( &base<type>::msg_post_ , (void*)s_msg );
+        run_func( &base<type>::msg_post_ , (void*)s_msg );
     }
     static void msg_post_( type* type_obj, void* v_arg )
     {
-      string *p_msg    = (string*) v_arg;
-      type_obj -> msg_post( p_msg );
+        string *p_msg    = (string*) v_arg;
+        type_obj -> msg_post( p_msg );
     }
 
     void get_data( map_string *p_map_string )
     {
-      run_func( &base<type>::get_data_ , (void*)p_map_string );
+        run_func( &base<type>::get_data_ , (void*)p_map_string );
     }
     static void get_data_( type* type_obj, void* v_arg )
     {
-      map_string *map_params = (map_string*) v_arg;
-      type_obj -> get_data ( map_params );
+        map_string *map_params = (map_string*) v_arg;
+        type_obj -> get_data ( map_params );
     }
 
     // chat::get_user_list gets a list of all users of the system.
@@ -53,18 +53,18 @@ class base
     void get_user_list( string &s_list, string &s_seperator )
     {
 
-      container c;
-      c.elem[0] = (void*) &s_list;
-      c.elem[1] = (void*) &s_seperator;
+        container c;
+        c.elem[0] = (void*) &s_list;
+        c.elem[1] = (void*) &s_seperator;
 
-      run_func( &base<type>::get_user_list_, (void*)&c );
+        run_func( &base<type>::get_user_list_, (void*)&c );
     }
     static void get_user_list_( type* type_obj, void* v_arg )
     {
-      container *c = (container*) v_arg;
-      type_obj -> get_user_list( *((string*)c->elem[0]), *((string*)c->elem[1]) );
+        container *c = (container*) v_arg;
+        type_obj -> get_user_list( *((string*)c->elem[0]), *((string*)c->elem[1]) );
     }
-  };
+};
 
 #include "base.cpp"
 

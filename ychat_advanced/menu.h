@@ -7,8 +7,8 @@
 using namespace std;
 
 class menu
-  {
-  private:
+{
+private:
     char **choices;
     char *c_header;
 
@@ -19,12 +19,12 @@ class menu
 
     void initialize( const chtype ch );
 
-  public:
+public:
     explicit menu( int i_startx, int i_starty, int i_width, int i_height, char *c_header, char **choices, int i_numchoices, const chtype ch );
     ~menu( );
 
     void display();
     void start( void (*swich_case_menu_action)(int) );
-  };
+};
 
 #endif

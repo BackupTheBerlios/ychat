@@ -11,8 +11,8 @@
 using namespace std;
 
 class sman
-  {
-  private:
+{
+private:
     hmap<sess *, string> *sessions;
     string generate_id( int len );
     int session_count;
@@ -20,19 +20,19 @@ class sman
     pthread_mutex_t mut_sessions;
     pthread_mutex_t mut_session_count;
 
-  public:
+public:
     sman();
     ~sman();
     sess *get_session( string s_id );
     int get_session_count( )
     {
-      return this->session_count;
+        return this->session_count;
     }
     sess *create_session( );
     void destroy_session( string s_id );
 
 
-  };
+};
 
 
 #endif

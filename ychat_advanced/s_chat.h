@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_chat
-  {
-  private:
+{
+private:
     static chat* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new chat();
+        obj = new chat();
     }
 
     static chat& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

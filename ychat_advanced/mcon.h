@@ -8,17 +8,17 @@
 using namespace std;
 
 class mcon
-  {
+{
 
-  private:
+private:
     bool query_sent;
     MYSQL_RES *current_result;
-  public:
+public:
     MYSQL *myc;
     mcon( MYSQL *mysql );
     ~mcon();
     int query(string query);
     MYSQL_ROW get_next_row();
 
-  };
+};
 #endif

@@ -15,22 +15,22 @@ using namespace std;
 
 template <class obj_type, class key_type>
 class hmap
-  {
-  private:
+{
+private:
     enum entry_type
     {
-      ACTIVE, EMPTY, DELETED
+        ACTIVE, EMPTY, DELETED
     };
 
     struct hash_entry
-      {
+    {
         obj_type   element;
         key_type   key;
         entry_type info;
 
         hash_entry( const obj_type &e = obj_type( ), const key_type &k = key_type( ), entry_type i = EMPTY ) : element( e ), key( k ), info( i )
         { }
-      }
+    }
     ;
 
     int occupied;
@@ -41,12 +41,12 @@ class hmap
     virtual int  next_prime( int n ) const;
     double       i_max_occupied_percentage;
 
-  protected:
+protected:
     int lookups;
     unsigned int hash( const string &key ) const;
     vector<hash_entry> array;
 
-  public:
+public:
     hmap( double moc );
 
     virtual int  find_pos  ( const key_type &k );
@@ -61,62 +61,62 @@ class hmap
     // inline:
     void get_size()
     {
-      int size = 0;
-      for( int j = 0; j < array.size( ); j++ )
-        if (array[ j ].info == ACTIVE)
-          size++;
-      return size;
+        int size = 0;
+        for( int j = 0; j < array.size( ); j++ )
+            if (array[ j ].info == ACTIVE)
+                size++;
+        return size;
     };
 
     int get_lookups()
     {
-      return lookups;
+        return lookups;
     };
 
     int get_capacity()
     {
-      return array.size();
+        return array.size();
     };
 
     double get_lambda()
     {
-      return static_cast<double>(get_size())/static_cast<double>(get_capacity());
+        return static_cast<double>(get_size())/static_cast<double>(get_capacity());
     }
 
     obj_type& operator[]( key_type &k )
     {
-      return get_elem( k );
+        return get_elem( k );
     }
 
-  };
+};
 
 template <class obj_type, class key_type>
 class linearhmap : public hmap<obj_type, key_type>
-  {
-  public:
+{
+public:
     linearhmap(double moc) : hmap<obj_type, key_type>(moc)
     {}
     ;
 
     virtual int find_pos( const key_type &k )
     {
-      int i_collision_num = 0;
-      int i_current_pos = hash( k ) % array.size( );
-      lookups++;
+        int i_collision_num = 0;
+        int i_current_pos = hash( k ) % array.size( );
+        lookups++;
 
-      while( array[ i_current_pos ].info != EMPTY &&
-             array[ i_current_pos ].key  !=  k )
+        while( array[ i_current_pos ].info != EMPTY &&
+                array[ i_current_pos ].key  !=  k )
         {
-          lookups   ++;
-          i_current_pos++;
+            lookups   ++;
+            i_current_pos++;
 
-          if( i_current_pos >= array.size( ) )
-            i_current_pos -= array.size( );
+            if( i_current_pos >= array.size( ) )
+                i_current_pos -= array.size( );
         }
 
-      return i_current_pos;
+        return i_current_pos;
     }
-  };
+};
 
 #include "hmap.cpp"
 

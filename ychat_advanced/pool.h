@@ -8,18 +8,18 @@
 using namespace std;
 
 class pool
-  {
-  private:
+{
+private:
     typedef struct tpool_work
-      {
+    {
         void (*routine)(void*); ///
         void *arg;
         struct tpool_work *next;
-      }
+    }
     tpool_work_t;
 
     typedef struct tpool
-      {
+    {
         // pool characteristics:
         int num_threads;
         int max_queue_size;
@@ -39,7 +39,7 @@ class pool
 
         int queue_closed;
         int shutdown;
-      }
+    }
     *tpool_t;
 
     int i_thrd_pool_size;
@@ -63,15 +63,15 @@ class pool
     run_func( void *v_pointer );
 
     // public methods:
-  public:
+public:
     explicit pool( );
     ~pool();
 
     // inline (speed)!
     void run( void *arg )
     {
-      tpool_add_work( thread_pool, run_func, arg );
+        tpool_add_work( thread_pool, run_func, arg );
     }
-  };
+};
 
 #endif

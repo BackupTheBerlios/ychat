@@ -9,21 +9,21 @@
 using namespace std;
 
 class cont
-  {
-  protected:
+{
+protected:
     map_string map_vals;
 
-  public:
+public:
     cont::~cont();
 
     // small inline methods:
     void clear_vals()
     {
-      map_vals.clear();
+        map_vals.clear();
     } // removes all values.
 
     // public methods:
     virtual string get_val( string s_key ); // get a specific map_vals value.
-  };
+};
 
 #endif

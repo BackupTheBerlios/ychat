@@ -15,16 +15,16 @@
 using namespace std;
 
 class chat : public base<room>
-  {
-  private:
+{
+private:
     bool b_strip_html;
 
-  public:
+public:
 
 
     room* get_room( string &s_name, bool &b_found )
     {
-      return static_cast<room*>( get_elem( s_name, b_found ) );
+        return static_cast<room*>( get_elem( s_name, b_found ) );
     }
 
     // public methods:
@@ -41,6 +41,6 @@ class chat : public base<room>
 
     // will be called if a user posts a message.
     virtual void post ( user* u_user, map_string &map_params );
-  };
+};
 
 #endif

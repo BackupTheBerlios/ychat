@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_modl
-  {
-  private:
+{
+private:
     static modl* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new modl();
+        obj = new modl();
     }
 
     static modl& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

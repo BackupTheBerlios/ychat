@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_conf
-  {
-  private:
+{
+private:
     static conf* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new conf( CONFILE );
+        obj = new conf( CONFILE );
     }
 
     static conf& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

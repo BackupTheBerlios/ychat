@@ -23,8 +23,8 @@
 using namespace std;
 
 class sock
-  {
-  private:
+{
+private:
     // total number of server requests.
     unsigned long long int i_req;
 
@@ -40,15 +40,15 @@ class sock
     // creates a server socket.
     virtual int make_socket( uint16_t port );
 
-  public:
+public:
     // small inline methods:
     bool get_run() const
-      {
+    {
         return b_run;
-      }
+    }
     bool set_run( bool b_run )
     {
-      this->b_run = b_run;
+        this->b_run = b_run;
     }
 
     // public methods.
@@ -68,6 +68,6 @@ class sock
     void print_hits();
 #endif
 
-  };
+};
 
 #endif

@@ -43,14 +43,14 @@ using namespace std;
 // internal rang descriptors ( their external names may be specified different )
 enum rang
 {
-  CODER ,  // programmer.
-  ADMIN ,  // administrator.
-  MAGIC ,  // super user with special privileges.
-  SUPER ,  // temporary super user.
-  BASIC ,  // normal user without special privileges.
-  GUEST ,  // guest user, has almost no privileges.
-  RESTR ,  // a very restrivted user.
-  OUTBN    // banned out of the system.
+    CODER ,  // programmer.
+    ADMIN ,  // administrator.
+    MAGIC ,  // super user with special privileges.
+    SUPER ,  // temporary super user.
+    BASIC ,  // normal user without special privileges.
+    GUEST ,  // guest user, has almost no privileges.
+    RESTR ,  // a very restrivted user.
+    OUTBN    // banned out of the system.
 };
 
 // some custom typedefs for datatypes which are needed often.
@@ -58,14 +58,14 @@ typedef map<string, string> map_string;
 typedef int function( void *v_arg );
 
 struct container
-  {
+{
     void* elem[3];
-  };
+};
 
 struct dynmod
-  {
+{
     function *the_func  ;
     void     *the_module;
-  };
+};
 
 #endif

@@ -6,23 +6,23 @@
 using namespace std;
 
 class s_lang
-  {
-  private:
+{
+private:
     static lang* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new lang( s_conf::get
-                        ().get_val( "LANGUAGE" ) );
+        obj = new lang( s_conf::get
+                            ().get_val( "LANGUAGE" ) );
     }
 
     static lang& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

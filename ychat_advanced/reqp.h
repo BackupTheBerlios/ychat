@@ -15,8 +15,8 @@ using namespace std;
 typedef map<string, string, less<string> > map_string;
 
 class reqp
-  {
-  private:
+{
+private:
     static string  HTTP_CODEOK,
     HTTP_CODENF,
     HTTP_EXPIRE,
@@ -36,13 +36,13 @@ class reqp
 
     virtual int htoi( string *s );
 
-  public:
+public:
     // public methods.
     explicit reqp( ); // simple constructor.
     virtual string parse( thrd* p_thrd, string s_req, map_string &map_params );
     virtual string url_decode ( string );
     virtual string get_content_type( string );
     virtual void parse_headers( string s_req, map_string &map_params );
-  };
+};
 
 #endif

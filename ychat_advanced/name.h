@@ -8,12 +8,12 @@
 using namespace std;
 
 class name
-  {
-  protected:
+{
+protected:
     // private members:
     string s_name; // object's name.
 
-  public:
+public:
     virtual string get_name  ( ) const;
     virtual void   set_name  ( string s_name );
 
@@ -25,6 +25,6 @@ class name
     explicit name( string s_name );      // a standard constructor.
     ~name( );
 
-  };
+};
 
 #endif

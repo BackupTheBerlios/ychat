@@ -9,17 +9,17 @@
 #define LOG_PREFIX "MySQL Connection Manager: "
 using namespace std;
 class mman
-  {
+{
 
 
-  public:
+public:
     mman(int initial, int max);
     ~mman();
     void init( string host, string user, string passwd, string db, unsigned int port=3306 );
     MYSQL *get_connection();
     MYSQL *new_connection( );
     void free_connection( MYSQL *msql );
-  private:
+private:
     vector<MYSQL *> mysql;
     string s_host;
     string s_user;
@@ -30,5 +30,5 @@ class mman
     int i_max_connections;
     int i_used_connections;
 
-  };
+};
 #endif

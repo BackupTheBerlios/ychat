@@ -6,21 +6,21 @@
 using namespace std;
 
 class s_ncur
-  {
-  private:
+{
+private:
     static ncur* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new ncur();
+        obj = new ncur();
     }
 
     static ncur& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 #endif

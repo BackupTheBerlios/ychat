@@ -13,12 +13,12 @@
 using namespace std;
 
 class html : public cont, name
-  {
-  private:
+{
+private:
     // needed for synchronizing the map_vals.
     pthread_mutex_t mut_map_vals;
 
-  public:
+public:
     // public methods.
     explicit html( ); // simple constructor.
     ~html( );
@@ -37,6 +37,6 @@ class html : public cont, name
     virtual string parse( map_string &map_params );
 
     virtual void online_list( user *p_user, map_string &map_params );
-  };
+};
 
 #endif

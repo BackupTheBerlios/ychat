@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_sman
-  {
-  private:
+{
+private:
     static sman* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new sman();
+        obj = new sman();
     }
 
     static sman& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif

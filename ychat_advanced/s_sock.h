@@ -6,22 +6,22 @@
 using namespace std;
 
 class s_sock
-  {
-  private:
+{
+private:
     static sock* obj;
 
-  public:
+public:
     static void init()
     {
-      obj = new sock();
+        obj = new sock();
     }
 
     static sock& get
-      ()
-      {
+        ()
+    {
         return *obj;
-      }
-  };
+    }
+};
 
 
 #endif
