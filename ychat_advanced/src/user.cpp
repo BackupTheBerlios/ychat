@@ -462,17 +462,6 @@ user::get_user_list( string &s_list, string &s_seperator )
            .append( "'> " );
     }
 
-    else if ( ! get_is_reg() )
-    {
-     string s_msgs = wrap::LANG->get_elem("GUEST"); 
-     s_list.append("<img src=images/guest.png" )
-           .append( " alt='" )
-           .append( s_msgs )
-           .append( "' title='" )
-           .append( s_msgs )
-           .append( "'> " );
-    }
-
     else if ( get_rang() != tool::string2int( wrap::CONF->get_elem("STANDARD_RANG") ) )
     {
      string s_rang = "RANG" + tool::int2string( (int)get_rang() );
@@ -484,6 +473,18 @@ user::get_user_list( string &s_list, string &s_seperator )
            .append( s_msgs )
            .append( "'> " );
     }
+
+    else if ( ! get_is_reg() )
+    {
+     string s_msgs = wrap::LANG->get_elem("GUEST"); 
+     s_list.append("<img src=images/guest.png" )
+           .append( " alt='" )
+           .append( s_msgs )
+           .append( "' title='" )
+           .append( s_msgs )
+           .append( "'> " );
+    }
+
 
     else
     {
