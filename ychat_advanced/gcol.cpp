@@ -131,6 +131,7 @@ gcol::get_user_from_garbage( string s_user )
    p_user = *iter;
    vec_users.erase(iter);
    p_user->set_name( s_user );
+   p_user->set_online( true );
 #ifdef NCURSES
    wrap::NCUR->print( GARUSE2 + p_user->get_name() );
 #endif
@@ -139,13 +140,10 @@ gcol::get_user_from_garbage( string s_user )
    cout << GARUSE2 << p_user->get_name();
    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
-   break;
   }
  }
 
  pthread_mutex_unlock( &mut_vec_users );
-
- p_user->set_online( true );
  return p_user;
 }
 #endif
