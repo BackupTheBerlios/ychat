@@ -120,9 +120,16 @@ sock::read_write( thrd* p_thrd, int i_sock )
   // get the s_rep ( s_html response which will be send imediatly to the client
   // and fill map_params with request values. 
   auto string s_temp=(string)c_req;
+  struct sockaddr_in client;
+  size_t size=sizeof(client);
+
+  getpeername( i_sock, (struct sockaddr *)&client, &size);
+  
+  map_params["REMOTE_ADDR"]=inet_ntoa(client.sin_addr);
+  map_params["REMOTE_PORT"]=ntohs( client.sin_port);
+
 
   string s_rep = req_parser->parse( p_thrd, string( c_req ), map_params );
-
   // send s_rep to the client.
   send( i_sock, s_rep.c_str(), s_rep.size(), 0 );
 
