@@ -115,7 +115,7 @@ and reusing the interface later through another terminal.
 Just do:
  
  screen -S ychat ./ychat ( creates a new session and starts ychat in it )
- strg+d+a ( will detach the ychat session )
+ ctrl+d+a ( will detach the ychat session )
  ( closing the terminal )
  ( opening a new terminal )
  screen -r ychat ( will return you to the ychat process )
