@@ -1,10 +1,10 @@
 /*
 	This file is part of yChat
 
-	Last commit: $Author: volker $
-	Date: $Date: 2003/03/28 00:32:30 $
+	$Author: volker $
+	$Date: 2003/03/28 00:38:46 $
 	
-	$Header: /home/xubuntu/berlios_backup/github/tmp-cvs/ychat/Repository/ychat/base.cpp,v 1.4 2003/03/28 00:32:30 volker Exp $
+	$Header: /home/xubuntu/berlios_backup/github/tmp-cvs/ychat/Repository/ychat/base.cpp,v 1.5 2003/03/28 00:38:46 volker Exp $
 */
 // template class data implementation;
 
