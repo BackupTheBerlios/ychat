@@ -9,8 +9,8 @@ using namespace std;
 
 name::name( string s_name )
 {
-    set_name( s_name );
     pthread_mutex_init( &mut_s_name, NULL);
+    set_name( s_name );
 }
 
 name::~name()
@@ -31,9 +31,9 @@ name::get_name()
 void
 name::set_name( string s_name )
 {
-//    pthread_mutex_lock  ( &mut_s_name );
+    pthread_mutex_lock  ( &mut_s_name );
     this->s_name = s_name;
-//    pthread_mutex_unlock( &mut_s_name );
+    pthread_mutex_unlock( &mut_s_name );
 }
 
 

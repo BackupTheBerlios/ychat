@@ -85,7 +85,7 @@ HTML="OFF";
 
 # MySQL Settings
 MYSQL_HOST="localhost";
-MYSQL_USER="ychatuser";
+MYSQL_USER="ychat";
 MYSQL_PASS="yctest";
 MYSQL_DB="ychat";
 
