@@ -27,7 +27,7 @@ NOTFOUND="notfound.html";
 # specifies the standard start html-template. 
 STARTMPL="index.html";
 # user's standard nick color.
-USERCOL1="#000000";
+USERCOL1="#FFFFFF";
 
 # superuser level names. level 0 has the most provileges.
 SULEVEL0="Coder"; # programmer.
