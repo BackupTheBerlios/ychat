@@ -445,8 +445,6 @@ user::msg_post( string *p_msg )
 void
 user::get_user_list( string &s_list, string &s_seperator )
 {
-    wrap::system_message( tool::int2string((int)get_rang()));
-
     if ( get_away() )
     {
      s_list.append("<img src=images/away.gif" )
