@@ -1,0 +1,17 @@
+OBJS=$(SRCS:.cpp=.o)
+CC=g++
+LDFLAGS=@LDFLAGS@ -lstdc++ -lmysqlclient -lncurses -g 
+LDADD=-pthread -D_THREAD_SAFE
+all: ychat	
+$(SRCS):
+	$(CC) $(CFLAGS) -c $*.cpp
+infotext:
+	@echo Compiling base
+ychat:  infotext $(OBJS) 
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
+	perl ../scripts/buildnr.pl || ../scripts/noperl.sh
+	mv ychat ../bin
+	du -k ../bin/ychat
+clean:	
+	@echo Cleaning base
+	rm *.o 

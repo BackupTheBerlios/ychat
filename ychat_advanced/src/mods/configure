@@ -9,7 +9,7 @@ do
  cat Makefile.in >> Makefile 
  for i in *.cpp
  do
-  echo "`echo $i | sed s/.cpp/.so/`: $i" >> Makefile 
+  echo "../../../mods/$dir/`echo $i | sed s/.cpp/.so/`: $i" >> Makefile 
  done
  cd .. 
 done

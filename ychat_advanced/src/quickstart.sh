@@ -27,5 +27,5 @@ echo -e "yChat is now ready to go. You can start yChat by running ./ychat from y
 echo -e "Should i start the yChat now? [N/y]: "
 read startchat
 if [ $startchat == "y" ]; then
-	./bin/ychat
+	./ychat
 fi

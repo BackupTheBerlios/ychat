@@ -1,0 +1,13 @@
+MODS=$(addprefix ../../../mods/commands/, $(SRCS:.cpp=.so))
+CC=g++
+all: mods
+$(MODS): 
+	$(CC) -shared -o $@ `echo $(notdir $@) | sed s/.so/.cpp/`
+infotext:
+	@echo Compiling command modules
+mods:	infotext $(MODS) 
+	ls ../../../mods/commands/*.so
+	ls ../../../mods/commands/*.so | wc -l
+clean:
+	@echo Cleaning command modules
+	rm ../../../mods/commands/*.so 
