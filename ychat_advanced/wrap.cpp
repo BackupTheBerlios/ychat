@@ -16,5 +16,6 @@ ncur* wrap::NCUR;
 sman* wrap::SMAN;
 sock* wrap::SOCK;
 timr* wrap::TIMR;
+dynamic_wrap* wrap::WRAP;
 
 #endif

@@ -15,6 +15,22 @@
 
 using namespace std;
 
+class dynamic_wrap 
+{
+ public: 
+    chat* CHAT;
+    conf* CONF;
+    html* HTML;
+    lang* LANG;
+    mman* MMAN;
+    modl* MODL;
+    mutx* MUTX;
+    ncur* NCUR;
+    sman* SMAN;
+    sock* SOCK;
+    timr* TIMR;
+};
+
 class wrap
 {
 public:
@@ -29,6 +45,7 @@ public:
     static sman* SMAN;
     static sock* SOCK;
     static timr* TIMR;
+    static dynamic_wrap* WRAP; 
 };
 
 

@@ -263,8 +263,8 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
             if ( ! b_found )
             {
-                map_params["INFO"]    = E_NOTONL;
-                map_params["request"] = wrap::CONF-> get_val( "STARTMPL" ); // redirect to the startpage.
+                map_params["INFO"]    = wrap::LANG->get_val( "ERR_NOTONL" );
+                map_params["request"] = wrap::CONF->get_val( "STARTMPL" ); // redirect to the startpage.
             }
             // if a message post.
             else if ( s_event == "post" )

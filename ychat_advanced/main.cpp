@@ -51,37 +51,40 @@ int main()
     // the order of the initializations is very importand. for example the s_html::init()
     // invokations assumes an initialized s_conf class.
 
+    // init the dynamic wrapper (is needed to pass all wrapped objects through a single pointer).
+    wrap::WRAP = new dynamic_wrap;
+
     // init the mutex manager.
-    wrap::MUTX = new mutx(); 
+    wrap::WRAP->MUTX = wrap::MUTX = new mutx(); 
 
     // init the config manager.
-    wrap::CONF = new conf( CONFILE ); 
+    wrap::WRAP->CONF = wrap::CONF = new conf( CONFILE ); 
 
     // init the html-template manager.
-    wrap::HTML = new html(); 
+    wrap::WRAP->HTML = wrap::HTML = new html(); 
 
     // init the language manager
-    wrap::LANG = new lang( wrap::CONF->get_val( "LANGUAGE") ); 
+    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_val( "LANGUAGE") ); 
 
     // init the session manager.
-    wrap::SMAN = new sman(); 
+    wrap::WRAP->SMAN = wrap::SMAN = new sman(); 
 
     // init the mysql connection manager.
-    wrap::MMAN = new mman(); 
+    wrap::WRAP->MMAN = wrap::MMAN = new mman(); 
 
     // init the socket manager.
-    wrap::SOCK = new sock(); 
+    wrap::WRAP->SOCK = wrap::SOCK = new sock(); 
 
     // init the chat manager.
-    wrap::CHAT = new chat(); 
+    wrap::WRAP->CHAT = wrap::CHAT = new chat(); 
 
     // init the system timer.
-    wrap::TIMR = new timr(); 
+    wrap::WRAP->TIMR = wrap::TIMR = new timr(); 
 
     // begin to draw the ncurses amdin interface in a new pthread.
 #ifdef NCURSES
 
-    wrap::NCUR = new ncur(); // init the ncurses admin interface.
+    wrap::WRAP->NCUR = wrap::NCUR = new ncur(); // init the ncurses admin interface.
 
     pthread_t admin_thread;
     pthread_create( &admin_thread,
@@ -99,7 +102,7 @@ int main()
                     wrap::TIMR->start, (void*) wrap::TIMR );
 
 
-    wrap::MODL = new modl(); // init the module-loader manager.
+    wrap::WRAP->MODL = wrap::MODL = new modl(); // init the module-loader manager.
 
     // start the socket manager. this one will listen for incoming http requests and will
     // forward them to the specified routines which will generate a http response.
