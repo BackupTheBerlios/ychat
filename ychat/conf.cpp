@@ -8,7 +8,7 @@
 
 using namespace std;
 
-conf::conf( string s_conf = s_confILE ) : name( s_conf )
+conf::conf( string s_conf = CONFILE ) : name( s_conf )
 {
  parse( ); // parse the config file. 
 }

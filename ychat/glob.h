@@ -11,7 +11,7 @@
 #define false  0
 
 // config filename.
-#define s_confILE "conf.txt"
+#define CONFILE "conf.txt"
 
 // the highest port which is allowed to use. if ychat is unable to create the server
 // socket it will increment the port number and tries to create another socket.
