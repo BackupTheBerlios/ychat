@@ -75,8 +75,6 @@ ncur::start( void *v_pointer )
 void
 ncur::shutdown()
 {
-    clrtoeol();
-    refresh();
     endwin();
 }
 
