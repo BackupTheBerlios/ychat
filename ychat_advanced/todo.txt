@@ -1,11 +1,13 @@
 BRAIN-STORMING:
 
 mysql
-security: tempid and crypto
-commands
+security: crypto
+more modules: commands etc..
+irc support
+icq support
 hash_map []-operator
 hash_map in cont
-several different html templatetes
+several different html templates
 
 10: bugfixes
 20: goto 10
