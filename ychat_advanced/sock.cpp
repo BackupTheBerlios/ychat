@@ -206,6 +206,8 @@ sock::start()
   usleep(100); 
 
  s_ncur::get().print( STARTMS );  
+ print_hits();
+ print_threads();
 #endif
 
  auto int i_port = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
@@ -262,8 +264,7 @@ sock::start()
      // connection request on original socket.
      i_req++;
 #ifdef NCURSES
-     mvprintw( 22,14, "Hits: %d ", i_req);
-     refresh();
+     print_hits();
 #endif
      int new_sock;
      size = sizeof (clientname);
@@ -330,9 +331,16 @@ sock::decrease_num_threads() {
 void
 sock::print_threads()
 {
-   mvprintw( 22,25, "Threads: %d ", i_threads);
-   refresh();
- }
+ mvprintw( 22,28, "Threads: %d ", i_threads);
+ refresh();
+}
+
+void
+sock::print_hits()
+{
+ mvprintw( 22,16, "Hits: %d ", i_req);
+ refresh();
+}
 #endif
 
 #endif

@@ -58,6 +58,7 @@ public:
  void decrease_num_threads();
 #ifdef NCURSES
  void print_threads();
+ void print_hits();
 #endif
 };
 
