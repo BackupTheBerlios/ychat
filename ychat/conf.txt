@@ -19,7 +19,7 @@
 HTMLTEMP="html/";  # directory of the html-template files.
 THRDPOOL="50";    # thread pool size. 
 THRDQUEU="50";    # length of the thread pool queue.
-SRVRPORT="2000";   # local port on which the server listens. 
+SRVRPORT="3000";   # local port on which the server listens. 
 STRDROOM="Lounge"; # the name of the standard room.
 LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 
@@ -30,18 +30,8 @@ STARTMPL="index.html";
 # user's standard nick color.
 USERCOL1="#FFFFFF";
 
-# superuser level names. level 0 has the most provileges.
-SULEVEL0="Coder"; # programmer.
-SULEVEL1="Admin"; # administrator.
-SULEVEL2="Magic"; # super user with special privileges.
-SULEVEL3="Super"; # temporary super user.
-SULEVEL4="Basic"; # normal user without special privileges.
-SULEVEL5="Guest"; # guest user, has almost no privileges.
-SULEVEL6="Restr"; # a very restricted user.
-SULEVEL7="Outbn"; # banned out of the system.
-
 # length of the generated session id
-SESSION_LENGTH="64";
+SESSION_LENGTH="32";
 
 # html = "OFF" strips all html tags from incoming messages
 HTML="OFF";
@@ -49,7 +39,8 @@ HTML="OFF";
 # Logging
 
 # relative or absolute path to logfile
-ACCESS_LOG="access_log";
+ACCESS_LOG="log/access_log";
+
 # we're using buffered logging for performance
 # LOG_LINES specifies after how many lines the log is flushed into a file
 # if you don't want buffered logging set LOG_LINES to 1

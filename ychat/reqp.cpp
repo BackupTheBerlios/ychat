@@ -73,7 +73,10 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
  if ( i_request == RQ_POST && s_params.empty() )
  {
   char c_req[READBUF];
-  read ( p_thrd->get_sock() , c_req, READBUF );
+
+  if ( read ( p_thrd->get_sock() , c_req, READBUF ) <= 0 )
+   return "NOBYTE";
+
   s_params = string( strstr( c_req, "event" ) ); 
  }
 
@@ -212,7 +215,10 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
  // store all request informations in map_params. store the url in 
  // map_params["request"].
- get_url( p_thrd, s_req, map_params ); 
+
+ if ( get_url( p_thrd, s_req, map_params ).compare("NOBYTE") == 0 )
+   map_params["request"] = s_conf::get().get_val("NOTFOUND");
+
  parse_headers( s_req, map_params );
  // create the http header.
  string s_rep( HTTP_CODEOK ); s_rep.append( HTTP_SERVER );

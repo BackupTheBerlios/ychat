@@ -25,6 +25,11 @@
 // the messages. this messages will only printed out by the master thread.
 #define VERBOSE
 
+// Defines the amount of newlines which have to send to the client's
+// chat stream the first log-in. ( prevents white screen because of buffers
+// or proxies ).
+#define PUSHSTR 1000
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // DO NOT CHANGE ANYTHING BEHIND THIS LINE!
