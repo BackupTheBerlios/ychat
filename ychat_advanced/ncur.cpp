@@ -60,7 +60,7 @@ ncur::start( void *v_pointer )
 
  admin_interface->print( VERSION );
 
- admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMIN MAIN MENU", choices, 9, COLOR_PAIR(1));
+ admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
  admin_interface->p_menu->start();
 
  clrtoeol();

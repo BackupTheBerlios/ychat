@@ -14,7 +14,7 @@
 #define CFILEOK "Parsing config file \0"
 #define CFILENO "Failed opening config file \0"
 #define CONTACT "Contact: http://www.yChat.org, Mail@yChat.org, ICQ: 11655527\0"
-#define DESCRIP "yChat++: Copyright (C) 2003 Paul Buetow, Volker Richter\0" 
+#define DESCRIP "yChat++: Copyright (C) 2003 Paul C. Buetow, Volker Richter\0" 
 #define DOWNMSG "Shutting down \0"
 #define LISTERR "Sock listen error \0"
 #define MODULEC "Caching module \0"
