@@ -22,4 +22,7 @@ AC_CHECK_HEADERS(ncurses.h,,echo "-> Error ncurses.h could not be found. Try --w
 AC_C_CONST
 AC_C_INLINE
 AC_OUTPUT(Makefile)
+cd mods &&
+./configure
+cd ..
 echo "You are now ready to compile. Type make"

@@ -1,0 +1,16 @@
+#! /bin/sh
+
+echo Generating module Makefiles
+for dir in commands html
+do
+ cd $dir &&
+ srcs="SRCS=`ls *.cpp`" &&
+ echo $srcs > Makefile
+ cat Makefile.in >> Makefile 
+ for i in *.cpp
+ do
+  echo "`echo $i | sed s/.cpp/.so/`: $i" >> Makefile 
+ done
+ cd .. 
+done
+
