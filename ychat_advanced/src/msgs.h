@@ -66,7 +66,7 @@
 #define TIMERTH "Timer: Starting timer thread \0"
 #define TIMERUP "Timer: System uptime \0"
 #define VERSION "yChat++ Advanced 0.6-CURRENT (CVS)\0"
-#define BUILDNR 483
+#define BUILDNR 484
 #define UNAME "unknown\0" 
 
 #endif

@@ -56,6 +56,7 @@ extern "C" {
 
         else
         { 
+         s_output.append("<hr>\n");
          while(true)
          {
           if(fgets(buffer, READBUF, file) == NULL)
