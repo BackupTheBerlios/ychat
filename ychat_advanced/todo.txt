@@ -16,11 +16,12 @@ several different html templates
 20: goto 10
 
 Linux bugs:
-segfault if a user floods the chat ( we have to check the msg post thread subroutines ).
+- No bugs which only appear on linux.
 
 FreeBSD bugs:
-dynamic module yq_q.so segfaults while loading / executing.
+- dynamic module yq_q.so segfaults while loading / executing.
 
 Bugs wich appear on both, Linux and FreeBSD:
-some user do not log out automaticaly ( we have to implement an activity counter ).
-white screen at login ( hasnt it been fixed already ?! ).
+- segfault if a user floods the chat ( we have to check the msg post thread subroutines ).
+- some user do not log out automaticaly ( we have to implement an activity counter ).
+- white screen at login ( hasnt it been fixed already ?! ).

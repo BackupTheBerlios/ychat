@@ -26,7 +26,7 @@ LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 # MySQL Settings
 MYSQL_HOST="buetow.org";
 MYSQL_USER="ychat";
-MYSQL_PASS="";
+MYSQL_PASS="yctest";
 MYSQL_DB="ychat";
 
 #MySQL Connection Manager Settings
