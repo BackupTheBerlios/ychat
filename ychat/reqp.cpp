@@ -209,7 +209,11 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
    // if a chat stream 
    else if ( s_event == "stream" )
+   {
+    string s_msg(s_html::get().parse( map_params ) ); 
+    p_user->msg_post( &s_msg);
     s_sock::get().chat_stream( p_thrd->get_sock(), p_user, map_params );
+   }
 
    // if a request for the online list of the active room.
    else if ( s_event == "online" )
