@@ -69,8 +69,7 @@ extern "C" {
           // if room does not exist add room to list!
           if ( p_room == NULL )
           {
-           p_room = p_gcol->get_room_from_garbage_or_new();
-           p_room->set_name( s_room );
+           p_room = p_gcol->get_room_from_garbage_or_new( s_room );
 
            s_msg.append( s_room + "</b><br>\n" );
            s_msg2.append( s_room + "</b><br>\n" );

@@ -10,6 +10,7 @@
 #include "name.h"
 #include "user.h"
 #include "tool.h"
+#include "logd.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ class room : public base<user>, public name
 private:
     string s_topic;
     pthread_mutex_t mut_s_topic;
+    logd* p_logd; 
 
 public:
     room( string s_name );
@@ -46,6 +48,13 @@ public:
       reload_onlineframe(); 
     }
 
+    void msg_post( string *p_msg )
+    {
+     p_logd->log_simple_line( *p_msg );
+     base<user>::msg_post( p_msg );
+    } 
+
+    virtual void set_name( string s_name );
     virtual string get_topic();
     virtual void set_topic( string s_topic );
     virtual void clean_room();

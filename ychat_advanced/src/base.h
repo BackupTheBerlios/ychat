@@ -27,7 +27,7 @@ public:
     // chat::msg_post sends to all users of the system a message.
     // room::msg_post sends to all users of the room a message.
     // user::msg_post sends to the user a message.
-    void msg_post( string *s_msg )
+    virtual void msg_post( string *s_msg )
     {
         smap<type*,string>::run_func( &base<type>::msg_post_ , (void*)s_msg );
     }

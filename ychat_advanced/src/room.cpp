@@ -8,10 +8,13 @@ using namespace std;
 room::room( string s_name ) : name( s_name )
 {
  pthread_mutex_init( &mut_s_topic, NULL );
+ p_logd = new logd( wrap::CONF->get_elem("LOG_ROOM_DIR") + get_lowercase_name(),
+                    wrap::CONF->get_elem("LOG_ROOM_LINES") );
 }
 
 room::~room()
 {
+ delete p_logd;
  pthread_mutex_destroy( &mut_s_topic );
 }
 
@@ -47,9 +50,26 @@ room::clean_room()
 void
 room::reload_onlineframe()
 {
-    string s_msg = "<script language=\"JavaScript\"> parent.online.location.reload(); </script>";
+    string s_msg = "<script language=\"JavaScript\"> parent.online.location.reload(); </script>\n";
     msg_post( &s_msg );
 }
 
+void 
+room::set_name( string s_name )
+{
+     if ( tool::to_lower(s_name) == get_lowercase_name() )
+     {
+      name::set_name( s_name ); 
+      return;
+     }
+
+     p_logd->flush_logs();
+
+     if ( s_name == "" )
+      return;
+
+     name::set_name( s_name ); 
+     p_logd->set_logfile( wrap::CONF->get_elem("LOG_ROOM_DIR"), get_lowercase_name() );
+} 
 
 #endif

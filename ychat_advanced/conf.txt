@@ -80,7 +80,6 @@ SESSION_LENGTH="50";
 # max. length of the room topic set by yc_topic.so.
 ROOM_TOPIC_LENGTH="50";
 
-
 # html = "OFF" strips all html tags from incoming messages.
 HTML="OFF";
 
@@ -127,12 +126,15 @@ PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "O
 LOG_ACCESS_FILE="log/access_log";
 # yChat system messages
 LOG_SYSTEM_FILE="log/system_log";
+# Directory of room logging
+LOG_ROOM_DIR="log/rooms/";
 
 # We're using buffered logging for performance
 # LOG_LINES specifies after how many lines the log is flushed into a file
 # if you don't want buffered logging set LOG_LINES to 1.
 LOG_ACCESS_LINES="10";
 LOG_SYSTEM_LINES="10";
+LOG_ROOM_LINES="10";
 
 # HTML VARIABLES:
 

@@ -33,7 +33,7 @@ class gcol
  void add_room_to_garbage( room* p_room );
  void add_user_to_garbage( user* p_user );
  virtual room* get_room_from_garbage();
- virtual room* get_room_from_garbage_or_new();
+ virtual room* get_room_from_garbage_or_new( string s_room );
  user* get_user_from_garbage( string s_user );
  virtual void lock_mutex();
  virtual void unlock_mutex();

@@ -32,6 +32,6 @@ wrap::system_message( string s_message )
    cout << s_message << endl;
    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
-   wrap::LOGD->log_simple_line( s_message );
+   wrap::LOGD->log_simple_line( s_message + "\n" );
 }
 #endif
