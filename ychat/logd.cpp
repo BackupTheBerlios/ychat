@@ -7,7 +7,7 @@ logd::logd( string filename )
 {
 	if(filename.empty())
 	{
-		cerr << "ycLog: No Filename specified" << endl;
+		cerr << "ycLog: No filename specified" << endl;
 		exit(1);
 	}
   
