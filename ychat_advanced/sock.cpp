@@ -19,7 +19,7 @@ sock::sock()
 #endif
     this->req_parser = new reqp();
     this->thrd_pool  = new pool();
-    this->log_daemon = new logd( wrap::CONF->get_val( "ACCESS_LOG" ));
+    this->log_daemon = new logd( wrap::CONF->get_elem( "ACCESS_LOG" ));
 
     pthread_mutex_init( &mut_threads, NULL );
 }
@@ -71,7 +71,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     wrap::SMAN->destroy_session( p_user->get_id() );
     s_msg = wrap::TIMR->get_time() + " " 
           + p_user->get_colored_name()
-          + wrap::LANG->get_val( "USERLEAV" )
+          + wrap::LANG->get_elem( "USERLEAV" )
           + "<br>\n";
 
     p_user->get_room()->msg_post( &s_msg );
@@ -221,7 +221,7 @@ sock::start()
     print_threads();
 #endif
 
-    auto int i_port = tool::string2int( wrap::CONF->get_val( "SRVRPORT" ) );
+    auto int i_port = tool::string2int( wrap::CONF->get_elem( "SRVRPORT" ) );
 
     int sock;
     fd_set active_fd_set, read_fd_set;

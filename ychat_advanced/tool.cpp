@@ -64,28 +64,6 @@ tool::get_extension( string s_file )
     return "";
 }
 
-int
-tool::string2int( string s_digit )
-{
-    auto const char *digit = s_digit.c_str();
-    int result = 0;
-
-    // Convert each digit char and add into result.
-    while (*digit >= '0' && *digit <='9')
-    {
-        result = (result * 10) + (*digit - '0');
-        digit++;
-    }
-
-    // Check that there were no non-digits at end.
-    if (*digit != 0)
-    {
-        return -1;
-    }
-
-    return result;
-}
-
 char*
 tool::int2char( int i_int )
 {

@@ -32,7 +32,7 @@ extern "C" {
          if ( b_found )
          {
           string s_msg         = "<i> " 
-                               + p_lang->get_val("WHISPERTO") 
+                               + p_lang->get_elem("WHISPERTO") 
                                + " " 
           		       + p_whisper_user->get_colored_name()
                                + ": <font color=\"#"
@@ -42,7 +42,7 @@ extern "C" {
           string s_whisper_msg = "<i>" 
                                + p_user->get_colored_name() 
                                + " "
-                               + p_lang->get_val("WHISPER") 
+                               + p_lang->get_elem("WHISPER") 
                                + ": <font color=\"#"
           		       + p_user->get_col2()
           		       + "\">";
@@ -64,10 +64,10 @@ extern "C" {
          {
           conf* p_conf = (conf*) ((dynamic_wrap*)c->elem[3])->CONF; 
           string s_msg = "<font color=\"#" 
-                       + p_conf->get_val("ERRORCOL")
+                       + p_conf->get_elem("ERRORCOL")
                        + "\"><b>" 
                        + s_whisper_user + "</b> "
-                       + p_lang->get_val("ERR_NOTAVAILABLE")
+                       + p_lang->get_elem("ERR_NOTAVAILABLE")
                        + "</font><br>\n";
 
           p_user->msg_post( &s_msg ); 

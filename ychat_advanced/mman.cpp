@@ -9,8 +9,8 @@ using namespace std;
 
 mman::mman()
 {
-    int i_initial = tool::string2int( wrap::CONF->get_val( "MIN_CONNECTIONS" ) );
-    int i_max     = tool::string2int( wrap::CONF->get_val( "MAX_CONNECTIONS" ) );
+    int i_initial = tool::string2int( wrap::CONF->get_elem( "MIN_CONNECTIONS" ) );
+    int i_max     = tool::string2int( wrap::CONF->get_elem( "MAX_CONNECTIONS" ) );
 
     pthread_mutex_init( &mut_i_used_con  , NULL);
     pthread_mutex_init( &mut_vec_mysql  , NULL);
@@ -40,11 +40,11 @@ mman::mman()
          << MYINITM << i_max << endl;
 #endif
 
- init( wrap::CONF->get_val( "MYSQL_HOST" ),
-       wrap::CONF->get_val( "MYSQL_USER" ), 
-       wrap::CONF->get_val( "MYSQL_PASS" ), 
-       wrap::CONF->get_val( "MYSQL_DB" ), 
-       tool::string2int( wrap::CONF->get_val( "MYSQL_PORT" ) ) ); 
+ init( wrap::CONF->get_elem( "MYSQL_HOST" ),
+       wrap::CONF->get_elem( "MYSQL_USER" ), 
+       wrap::CONF->get_elem( "MYSQL_PASS" ), 
+       wrap::CONF->get_elem( "MYSQL_DB" ), 
+       tool::string2int( wrap::CONF->get_elem( "MYSQL_PORT" ) ) ); 
 }
 void mman::init( string host, string user, string passwd, string db, unsigned int port)
 {

@@ -8,7 +8,7 @@
 using namespace std;
 
 string
-cont::get_val( string s_key )
+cont::get_elem( string s_key )
 {
     if ( map_vals.find( s_key ) != map_vals.end() )
         return map_vals[ s_key ];

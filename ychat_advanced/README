@@ -151,6 +151,9 @@ dir.cpp  - Encapsulates file system directory routines.
 hmap.cpp - The hash map implementation which is a very fast data
            structure. is needed for saving users, rooms and so on.
 
+smap.cpp - The syncronized map implementation which inherits the hmap
+           class and makes its public methods thread safe. 
+
 mcon.cpp - The MySQL connection class. Implements an instance of a
            MySQL database connection.
 
@@ -270,6 +273,13 @@ The basic class structure:
    /    \
   /      \
 conf     html
+
+
+ hmap
+  |
+  |
+  |
+ smap
 
 
 1.7 WRITING BUG REPORTS

@@ -69,7 +69,7 @@ int main()
     wrap::WRAP->HTML = wrap::HTML = new html(); 
 
     // init the language manager
-    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_val( "LANGUAGE") ); 
+    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_elem( "LANGUAGE") ); 
 
     // init the session manager.
     wrap::WRAP->SMAN = wrap::SMAN = new sman(); 

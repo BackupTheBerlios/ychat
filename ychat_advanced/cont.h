@@ -6,7 +6,7 @@
 #ifndef CONT_H
 #define CONT_H
 
-#include "hmap.h"
+#include "smap.h"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ public:
     } 
 
     // public methods:
-    virtual string get_val( string s_key ); // get a specific map_vals value.
+    virtual string get_elem( string s_key ); // get a specific map_vals value.
 };
 
 #endif

@@ -15,7 +15,7 @@ extern "C" {
         lang* p_lang = (lang*) ((dynamic_wrap*)c->elem[3])->LANG; 
         timr* p_timr = (timr*) ((dynamic_wrap*)c->elem[3])->TIMR; 
         
-        string s_msg = p_lang->get_val("UPTIME") + p_timr->get_uptime() + "<br>\n"; 
+        string s_msg = p_lang->get_elem("UPTIME") + p_timr->get_uptime() + "<br>\n"; 
 
         p_user->msg_post( &s_msg );
  }

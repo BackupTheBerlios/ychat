@@ -27,7 +27,7 @@ extern "C" {
         lang* p_lang = (lang*) ((dynamic_wrap*)c->elem[3])->LANG; 
 
         string s_msg = "<i>" + p_user->get_colored_name() + " "
-                       + p_lang->get_val("SCREAM")
+                       + p_lang->get_elem("SCREAM")
                        + " <font color=\"#" + p_user->get_col2() 
                        + "\"><b>";
         if ( ! params->empty() )

@@ -15,10 +15,10 @@ modl::modl(  )
 {
     map_mods = new smap<dynmod*,string>(80);
 
-    if ( wrap::CONF->get_val( "PRE_MODS_COMMANDS" ).compare( "ON" ) == 0 )
+    if ( wrap::CONF->get_elem( "PRE_MODS_COMMANDS" ).compare( "ON" ) == 0 )
      preload_modules( new string("mods/commands/") );
 
-    if ( wrap::CONF->get_val( "PRE_MODS_HTML" ).compare( "ON" ) == 0 )
+    if ( wrap::CONF->get_elem( "PRE_MODS_HTML" ).compare( "ON" ) == 0 )
      preload_modules( new string("mods/html/") );
 }
 

@@ -53,10 +53,13 @@ USERCOL2="FFFFFF";
 # standard error message color.
 ERRORCOL="FF0000";
 
-# length of the generated session id
+# length of the generated session id.
 SESSION_LENGTH="32";
 
-# html = "OFF" strips all html tags from incoming messages
+# max. length of the room topic set by yc_topic.so.
+ROOM_TOPIC_LENGTH="50";
+
+# html = "OFF" strips all html tags from incoming messages.
 HTML="OFF";
 
 # DATABASE:

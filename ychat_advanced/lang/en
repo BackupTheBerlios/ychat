@@ -1,6 +1,7 @@
 SCREAM="screams: ";
 SERVERTIME="The server system time: ";
 TOPIC="changes the topic to: ";
+TOPICCUT="The topic you've choosen was too long and has been cut!"; 
 TOPICDELETE="deletes the topic of the room.";
 UPTIME="yChat uptime: ";
 USERENTR=" enters the chat.";

@@ -29,8 +29,8 @@ extern "C" {
 
         if ( params->empty() )
         {
-	 s_color  = p_conf->get_val( "USERCOL1" );
-         s_color2 = p_conf->get_val( "USERCOL2" );
+	 s_color  = p_conf->get_elem( "USERCOL1" );
+         s_color2 = p_conf->get_elem( "USERCOL2" );
         }
 
         else
@@ -40,7 +40,7 @@ extern "C" {
          if ( ! params->empty() )
           s_color2 = (string) params->front();
          else
-          s_color2 = p_conf->get_val( "USERCOL2" );
+          s_color2 = p_conf->get_elem( "USERCOL2" );
         }
 
 	s_color  = tool::to_lower( s_color  );

@@ -110,7 +110,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
 #endif
 
     if (  s_ret.empty() )
-     s_ret = wrap::CONF->get_val( "STARTMPL" );
+     s_ret = wrap::CONF->get_elem( "STARTMPL" );
 
     map_params["request"] = s_ret;
     return s_ret;
@@ -124,7 +124,7 @@ reqp::get_content_type( string s_file )
     if(s_ext=="")
         s_ext="DEFAULT";
 
-    return wrap::CONF->get_val( "CT_" + s_ext );
+    return wrap::CONF->get_elem( "CT_" + s_ext );
 }
 void
 reqp::parse_headers( string s_req, map_string &map_params )
@@ -217,7 +217,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
     // store all request informations in map_params. store the url in
     // map_params["request"].
     if ( get_url( p_thrd, s_req, map_params ).compare("NOBYTE") == 0 )
-     map_params["request"] = wrap::CONF->get_val("NOTFOUND");
+     map_params["request"] = wrap::CONF->get_elem("NOTFOUND");
 
     parse_headers( s_req, map_params );
 
@@ -265,8 +265,8 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
             if ( ! b_found )
             {
-                map_params["INFO"]    = wrap::LANG->get_val( "ERR_NOTONL" );
-                map_params["request"] = wrap::CONF->get_val( "STARTMPL" ); // redirect to the startpage.
+                map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NOTONL" );
+                map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
             }
 
             else

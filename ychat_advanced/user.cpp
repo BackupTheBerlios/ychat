@@ -10,8 +10,8 @@ user::user( string s_name ) : name( s_name )
 {
     this -> b_online = true;
     this -> l_time   = tool::unixtime();
-    this -> s_col1   = wrap::CONF->get_val( "USERCOL1" );
-    this -> s_col2   = wrap::CONF->get_val( "USERCOL2" );
+    this -> s_col1   = wrap::CONF->get_elem( "USERCOL1" );
+    this -> s_col2   = wrap::CONF->get_elem( "USERCOL2" );
     map_mods = new smap<dynmod*,string>(80);
 
     pthread_mutex_init( &mut_b_online, NULL);
@@ -228,7 +228,7 @@ user::command( string &s_command )
 
     if ( mod == NULL )
     {
-        msg_post( new string( wrap::LANG->get_val( "ERRORCMD" ) ) );
+        msg_post( new string( wrap::LANG->get_elem( "ERRORCMD" ) ) );
         return;
     }
 

@@ -35,7 +35,7 @@ string sman::generate_id( int len )
 
 sess *sman::create_session( )
 {
-    string new_id=this->generate_id( tool::string2int( wrap::CONF->get_val( "SESSION_LENGTH" ) ) );
+    string new_id=this->generate_id( tool::string2int( wrap::CONF->get_elem( "SESSION_LENGTH" ) ) );
 
     sess* new_sess = new sess( new_id  );
 

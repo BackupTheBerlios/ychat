@@ -25,7 +25,7 @@ extern "C" {
          if ( p_vec_keys_iter->find( "mods/commands/", 0 ) != string::npos )
          {
           s_content->append( "<tr><td>" );
-          string s_helptext = p_lang->get_val( *p_vec_keys_iter ) ;
+          string s_helptext = p_lang->get_elem( *p_vec_keys_iter ) ;
 
           unsigned int i_pos = s_helptext.find( "||", 0 ); 
           if ( i_pos != string::npos )

@@ -9,7 +9,7 @@ using namespace std;
 html::html( )
 {
     set_name( wrap::CONF->
-                  get_val( "HTMLTEMP" ) );
+                  get_elem( "HTMLTEMP" ) );
     pthread_mutex_init( &mut_map_vals, NULL );
 }
 
@@ -33,7 +33,7 @@ html::parse( map_string &map_params )
 
     // check if s_file is in the container.
     pthread_mutex_lock  ( &mut_map_vals );
-    string s_templ = get_val( s_file );
+    string s_templ = get_elem( s_file );
     pthread_mutex_unlock( &mut_map_vals );
 
     // if not, read file.
@@ -58,11 +58,11 @@ html::parse( map_string &map_params )
             }
 #endif
             if(map_params["request"]== wrap::CONF->
-                        get_val( "NOTFOUND"  ))
+                        get_elem( "NOTFOUND"  ))
                     return "";
 
             map_params["request"] = wrap::CONF-> 
-                                        get_val( "NOTFOUND" );
+                                        get_elem( "NOTFOUND" );
             return parse( map_params );
 
         }
@@ -120,7 +120,7 @@ html::parse( map_string &map_params )
         // get key and val.
         auto string s_key = s_templ.substr( pos[0], pos[1]-pos[0] );
         auto string s_val = wrap::CONF-> 
-                                get_val( s_key );
+                                get_elem( s_key );
 
         // if s_val is empty use map_params.
         if ( s_val.empty() )

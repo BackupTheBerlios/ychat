@@ -1,6 +1,7 @@
 SCREAM="schreit: ";
 SERVERTIME="Die Serversystemzeit: ";
 TOPIC="ändert das Thema nach: ";
+TOPICCUT="Das von Dir gewählte Topic war zu lang und wurde gekürzt!"; 
 TOPICDELETE="Löscht das Raumthema.";
 UPTIME="Die yChat Uptime: ";
 ERRORCMD="<font color=#ff0000>Befehl nicht gefunden!</font><br>";

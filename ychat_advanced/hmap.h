@@ -85,34 +85,6 @@ public:
 
 };
 
-template <class obj_type, class key_type>
-class linearhmap : public hmap<obj_type, key_type>
-{
-public:
-    linearhmap(double moc) : hmap<obj_type, key_type>(moc)
-    {}
-    ;
-
-    virtual int find_pos( const key_type &k )
-    {
-        int i_collision_num = 0;
-        int i_current_pos = hash( k ) % array.size( );
-        lookups++;
-
-        while( array[ i_current_pos ].info != EMPTY &&
-                array[ i_current_pos ].key  !=  k )
-        {
-            lookups   ++;
-            i_current_pos++;
-
-            if( i_current_pos >= array.size( ) )
-                i_current_pos -= array.size( );
-        }
-
-        return i_current_pos;
-    }
-};
-
 #include "hmap.cpp"
 
 #endif

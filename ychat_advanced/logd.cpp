@@ -20,7 +20,7 @@ logd::logd( string filename )
     s_logfile=filename;
 
     i_lines=tool::string2int( wrap::CONF-> 
-                                    get_val("LOG_LINES"));
+                                    get_elem("LOG_LINES"));
 
 }
 void logd::flush()

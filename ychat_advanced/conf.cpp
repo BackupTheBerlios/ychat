@@ -30,7 +30,7 @@ conf::parse()
     if( homecheck )
     {
         homecheck.close();
-        s_configfile=homeconfig;
+        s_configfile = homeconfig;
     }
 
     ifstream fs_conf( s_configfile.c_str() );
@@ -71,7 +71,6 @@ conf::parse()
         string s_key = s_token.substr( 0      , --ui_pos          );
 
 #ifdef VERBOSE2
-
         cout << s_key << "=" << s_val << endl;
 #endif
 
