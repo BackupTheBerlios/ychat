@@ -55,12 +55,14 @@ private:
 
     void initialize();
     virtual void   set_changed_data( string s_varname, string s_value );
+    
 
 public:
     pthread_cond_t  cond_message;
     pthread_mutex_t mut_message;
 
     // public methods:
+    void clean();
     explicit user();
     explicit user( string s_name );      // a standard constructor.
     ~user();			      // user destructor.

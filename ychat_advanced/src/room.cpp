@@ -13,7 +13,6 @@ room::room( string s_name ) : name( s_name )
 room::~room()
 {
  pthread_mutex_destroy( &mut_s_topic );
- wrap::system_message( REMROOM + get_name() ); 
 }
 
 string
@@ -40,7 +39,7 @@ room::clean_room()
     pthread_mutex_lock  ( &mut_s_topic );
     this->s_topic = "";
     pthread_mutex_unlock( &mut_s_topic );
-    wrap::CHAT->del_elem( get_name() );
+    wrap::CHAT->del_elem( get_lowercase_name() );
     wrap::GCOL->add_room_to_garbage( this ); 
 }
 

@@ -64,7 +64,10 @@ gcol::remove_garbage()
  pthread_mutex_lock  ( &mut_vec_rooms );
  for ( vector<room*>::iterator iter = vec_rooms.begin();
        iter != vec_rooms.end(); iter++ )
+ {
+  wrap::system_message( REMROOM + (*iter)->get_name() ); 
   delete *iter;
+ }
  vec_rooms.clear();
  pthread_mutex_unlock( &mut_vec_rooms );
 
@@ -127,14 +130,27 @@ gcol::get_user_from_garbage( string s_user )
 #endif
   }
 
-
- return p_user;
+  return p_user;
 }
 
 void
 gcol::delete_users_( user *user_obj )
 {
+ wrap::system_message( REMUSER + user_obj->get_name() );
+ user_obj->clean(); 
  delete user_obj;
+}
+
+void
+gcol::lock_mutex()
+{
+ pthread_mutex_lock  ( &mut_vec_rooms ); 
+}
+
+void
+gcol::unlock_mutex()
+{
+ pthread_mutex_unlock ( &mut_vec_rooms ); 
 }
 
 #ifdef NCURSES

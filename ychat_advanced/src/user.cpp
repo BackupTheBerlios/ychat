@@ -49,7 +49,8 @@ user::initialize()
     pthread_mutex_init( &mut_map_changed_data, NULL );
 }
 
-user::~user()
+void
+user::clean()
 {
    // If this user has a session	
    if ( get_has_sess() )
@@ -61,7 +62,10 @@ user::~user()
 
      // wrap::system_message( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
    }
-    wrap::system_message( REMUSER + get_name() );
+}
+
+user::~user()
+{
 
     pthread_mutex_destroy( &mut_away     );
     pthread_mutex_destroy( &mut_b_online );

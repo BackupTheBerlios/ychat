@@ -35,6 +35,8 @@ class gcol
  virtual room* get_room_from_garbage();
  virtual room* get_room_from_garbage_or_new();
  user* get_user_from_garbage( string s_user );
+ virtual void lock_mutex();
+ virtual void unlock_mutex();
 };
 
 #endif
