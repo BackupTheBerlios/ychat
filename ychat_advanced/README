@@ -115,8 +115,9 @@ You may invoke make with the following options:
  gmake clean_base (only cleans the base obj files)
  gmake clean_modules (only cleans the modules .so files) 
  gmake stats (generates ychat statistics)
- gmake start (compiles everythinh ans starts the yChat)
+ gmake start (compiles everythinh and starts the yChat)
  gmake gpl (shows the GNU General Public License)		
+ gmake update (updates the sources to the current CVS version)		
 
 Now its time to run the server with ./bin/ychat.
 

@@ -56,6 +56,10 @@ sub filestats
   $stats{numhtmlfiles}++;
   $stats{linesofhtml} += countlines($shift);
  }
+ elsif ( $shift =~ /\.(gif|png|jpg)$/ )
+ {
+  $stats{numgfxfiles}++;
+ }
  elsif ( $shift =~ /(\.pl|\.sh|configure.*|Makefile.*)$/ )
  {
   $stats{numscriptfiles}++;
