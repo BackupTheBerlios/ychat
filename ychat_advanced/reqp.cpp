@@ -8,6 +8,7 @@
 #include "s_html.h"
 #include "s_modl.h"
 #include "s_mutx.h"
+#include "s_ncur.h"
 #include "s_sock.h"
 #include "s_tool.h"
 using namespace std;
@@ -74,8 +75,12 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
     if ( i_request == RQ_POST && s_params.empty() )
     {
         char c_req[READBUF];
-        read ( p_thrd->get_sock() , c_req, READBUF );
+
+        if ( read ( p_thrd->get_sock() , c_req, READBUF ) <= 0 )
+         return "NOBYTE";
+
         s_params = string( strstr( c_req, "event" ) );
+
     }
 
     auto unsigned int pos2;
@@ -131,18 +136,20 @@ reqp::parse_headers( string s_req, map_string &map_params )
 {
 
     int pos = s_req.find("\n");
-    map_params["QUERY_STRING"]=s_tool::trim(s_req.substr(0,pos-1));
-    while(pos!=string::npos)
+
+    map_params["QUERY_STRING"] = s_tool::trim(s_req.substr(0,pos-1));
+
+    while( pos != string::npos)
     {
         auto string s_line=s_req.substr(0,pos);
         auto int pos2=s_line.find(":");
+
         if(pos2!=string::npos)
         {
             auto string key=s_tool::trim(s_line.substr(0, pos2));
             auto string value=s_tool::trim(s_line.substr(pos2+1));
 
             map_params[key]=value;
-
 
         }
         s_req=s_req.substr(s_line.size()+1);
@@ -214,11 +221,13 @@ reqp::get_from_header( string s_req, string s_hdr )
 string
 reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 {
-
     // store all request informations in map_params. store the url in
     // map_params["request"].
-    get_url( p_thrd, s_req, map_params );
+    if ( get_url( p_thrd, s_req, map_params ).compare("NOBYTE") == 0 )
+     map_params["request"] = s_conf::get().get_val("NOTFOUND");
+
     parse_headers( s_req, map_params );
+
     // create the http header.
     string s_rep( HTTP_CODEOK );
     s_rep.append( HTTP_SERVER );
@@ -233,6 +242,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
     // check the event variable.
 
     string s_event( map_params["event"] );
+
     if ( ! s_event.empty() )
     {
         // login procedure.
@@ -304,7 +314,6 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             }
         }
     }
-
     // parse and get the requested html-template and also use
     // the values stored in map_params for %%KEY%% substituations.
     s_rep.append( s_html::get
