@@ -18,17 +18,18 @@ class room : public base<user>, public name
 private:
     string s_topic;
     pthread_mutex_t mut_s_topic;
-    virtual void reload_onlineframe();
 
 public:
     room( string s_name );
     ~room();  		 
 
+    virtual void reload_onlineframe();
+
     void add_user( user* p_user  )
     {
         add_elem( p_user );
-        reload_onlineframe(); 
         p_user->set_p_room( this );
+        reload_onlineframe(); 
     }
 
     user* get_user( string &s_name, bool &b_found )
