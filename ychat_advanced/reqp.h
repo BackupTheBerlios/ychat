@@ -34,6 +34,7 @@ private:
     virtual string get_from_header( string s_req, string s_hdr );
 
     virtual int htoi( string *s );
+    virtual void run_html_mod( string s_event, map_string &map_params, user* p_user );
 
 public:
     // public methods.

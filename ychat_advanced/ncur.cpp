@@ -9,7 +9,7 @@ ncur::ncur( )
 {
     p_messagelist = new list<char*>;
     pthread_mutex_init( &mut_messages, NULL );
-    i_message_length = 41;
+    i_message_length = 46;
     b_is_ready = false;
 }
 
@@ -36,18 +36,18 @@ ncur::start( void *v_pointer )
     refresh();
 
     char *choices[] = {
-                          "Unload all modules        ",
-                          "Reload all modules        ",
-                          "Clear template cache      ",
-                          "Run garbage collector     ",
-                          "Module-loader manager   NI",
-                          "MySQL connection manag. NI",
-                          "Session manager         NI",
-                          "Socket manager          NI",
+                          "Unload all modules      ",
+                          "Reload all modules      ",
+                          "Clear template cache    ",
+                          "Run garbage collector   ",
+                          "Module-loader manager NI",
+                          "MySQL manag.          NI",
+                          "Session manager       NI",
+                          "Socket manager        NI",
                           "Shut down server",
                       };
 
-    admin_interface->p_serveroutput = newwin( 19, 45, 1, 34 );
+    admin_interface->p_serveroutput = newwin( 19, 49, 1, 31 );
     wbkgd(admin_interface->p_serveroutput, COLOR_PAIR(1));
 
     box      ( admin_interface->p_serveroutput, 0, 0 );
@@ -59,12 +59,11 @@ ncur::start( void *v_pointer )
     pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 
 #ifdef NCURSES
-    wrap::MMAN->print_init_ncurses(); 
     wrap::SMAN->print_init_ncurses(); 
 #endif
 
     admin_interface->is_ready( true );
-    admin_interface->p_menu = new menu( 1, 1, 32, 19, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
+    admin_interface->p_menu = new menu( 1, 1, 30, 19, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
     admin_interface->p_menu->start( &switch_main_menu_ );
 
     admin_interface->shutdown();	

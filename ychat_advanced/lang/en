@@ -1,6 +1,7 @@
 SETAWAY="sets mode away: ";
 RESTOREAWAY="is back ";
 OPTIONSCHANGED="Your options have been changed!<br><br>";
+REGISTER_NICK="Your nick has been registered successfully, you may log in now!<br><br>"; 
 SCREAM="screams: ";
 SERVERTIME="The server system time: ";
 TOPIC="changes the topic to: ";
@@ -13,10 +14,18 @@ WHISPER="whispers to you";
 WHISPERTO="Whispered to";
 ERRORCMD=" <font color='#FF0000'>No such command!</font><br>";
 ERR_ALPNUM="The nick you have specified is not alphanumeric, please change that.<br><br>";
+ERR_CHANGE_PASSWORD="The old password you've entered is wrong. In order to change your password you need to enter a correct old passwort!<br><br>";
+ERR_CHANGE_PASSWORD2="The two password fields of the new password are not identical. Please chack that again otherwise the password will not be changed!<br><br>";
+ERR_NICK_LENGTH="Your nick is too long!<br><br>";
+ERR_PASS_LENGTH="Your password is too long!<br><br>";
+ERR_EMAIL_LENGTH="Your email address is too long!<br><br>";
 ERR_NONICK="You need to specify a nick name.<br><br>";
 ERR_NOTONL="An error occured. Your nick is not online.<br><br>";
 ERR_NOTAVAILABLE=" is not available!";
 ERR_ONLINE="The nick you have specified is already online. Try another nick.<br><br>";
+ERR_REGISTER_EXISTS="The nick you want to register already exists. Please chose another one!<br><br>";
+ERR_REGISTER_PASSWORD="The password selections are not the same. Please re-enter your password fields!<br><br>";
+ERR_WRONG_PASSWORD="The nickname you've selected already exists in the user database and you have entered a wrong password!<br><br>";
 
 # Chat-Hilfe ( || seperates command syntax and command description. )
 mods/commands/yc_away.so="/away AWAYTEXT||Set mode away";

@@ -1,7 +1,7 @@
 // class name implementation.
 
-#ifndef NAME_CXX
-#define NAME_CXX
+#ifndef NAME_CPP
+#define NAME_CPP
 
 #include "name.h"
 

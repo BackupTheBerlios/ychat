@@ -12,17 +12,30 @@
 <td align=center class=header>%%PGETITLE%%<br><br>%%INFO%%</td>
 </tr>
 <tr>
-	<td colspan=2>&nbsp;</td>
+<td colspan=2>&nbsp;</td>
 </tr>
 <tr>
-	<td align=center colspan=2>
-Enter your nick:
+<td align=center colspan=2>
 <form action="frameset.html" method="GET">
  <input type="hidden" name="event" value="login">
  <input type="hidden" name="room" accesskey="r"  value="%%STRDROOM%%">
- <input type="text"   name="nick" accesskey="n">
+Enter your nick:<br>
+ <input type="text"   name="nick" value="%%nick%%" accesskey="n">
+<br>
+<br>
+Enter your password:<br>
+ <input type="password" name="password" value="%%pass%%" accesskey="p">
+<br>
+<br>
  <input type="submit" value="login" accesskey="s">
 </form>
+<br>
+<a href="register.html">Register</a> a new nick
+<br>
+<br>
+If you don't want to register you may login
+<br>
+without a password using an unregistered nick. 
 </td>
 </tr>
 </table>

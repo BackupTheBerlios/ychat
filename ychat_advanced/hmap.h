@@ -70,6 +70,7 @@ protected:
 
 public:
     hmap( double moc );
+    ~hmap( );
 
     virtual int get_size();
     virtual void make_empty( );

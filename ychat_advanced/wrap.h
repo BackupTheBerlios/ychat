@@ -3,6 +3,7 @@
 
 #include "chat.h"
 #include "conf.h"
+#include "data.h"
 #include "gcol.h"
 #include "html.h"
 #include "lang.h"
@@ -21,6 +22,7 @@ class dynamic_wrap
  public: 
     chat* CHAT;
     conf* CONF;
+    data* DATA;
     gcol* GCOL;
     html* HTML;
     lang* LANG;
@@ -38,6 +40,7 @@ class wrap
 public:
     static chat* CHAT;
     static conf* CONF;
+    static data* DATA;
     static gcol* GCOL;
     static html* HTML;
     static lang* LANG;

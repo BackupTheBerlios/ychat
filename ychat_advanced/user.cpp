@@ -6,9 +6,24 @@
 
 using namespace std;
 
+user::user() : name( "" )
+{
+ this -> b_online = false;
+ this -> b_has_sess = false;
+ initialize();
+}
+
 user::user( string s_name ) : name( s_name )
 {
-    this -> b_online = true;
+ this -> b_online = true;
+ this -> b_has_sess = true;
+ initialize();
+}
+
+void
+user::initialize()
+{
+    this -> b_set_changed_data = false;
     this -> b_away   = false;
     this -> l_time   = tool::unixtime();
     this -> s_col1   = wrap::CONF->get_elem( "USERCOL1" );
@@ -17,33 +32,50 @@ user::user( string s_name ) : name( s_name )
 
     pthread_mutex_init( &mut_away    , NULL);
     pthread_mutex_init( &mut_b_online, NULL);
-    pthread_mutex_init( &mut_i_sock  , NULL);
+    pthread_mutex_init( &mut_b_has_sess, NULL);
     pthread_mutex_init( &mut_l_time  , NULL);
     pthread_mutex_init( &mut_p_room  , NULL);
     pthread_mutex_init( &mut_s_mess  , NULL);
     pthread_cond_init ( &cond_message, NULL);
     pthread_mutex_init( &mut_message , NULL);
     pthread_mutex_init( &mut_map_mods, NULL );
+    pthread_mutex_init( &mut_s_pass, NULL );
     pthread_mutex_init( &mut_s_col1, NULL );
     pthread_mutex_init( &mut_s_col2, NULL );
-    pthread_mutex_init( &mut_s_id, NULL );
+    pthread_mutex_init( &mut_s_email, NULL );
+    pthread_mutex_init( &mut_s_tmpid, NULL );
     pthread_mutex_init( &mut_r_rang, NULL );
+    pthread_mutex_init( &mut_map_changed_data, NULL );
 }
 
 user::~user()
 {
+    // Store all changed data into the mysql table if this user was registered:
+    wrap::DATA->update_user_data( get_name(), "DATA_SAVE_CHANGED_NICK", map_changed_data );    
+    wrap::SMAN->destroy_session( get_tmpid() );
+
+#ifdef NCURSES
+    wrap::NCUR->print( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
+#endif
+#ifdef VERBOSE
+    cout << SESSION << wrap::SMAN->get_session_count() << endl;
+#endif
+
     pthread_mutex_destroy( &mut_away     );
     pthread_mutex_destroy( &mut_b_online );
-    pthread_mutex_destroy( &mut_i_sock   );
+    pthread_mutex_destroy( &mut_b_has_sess );
     pthread_mutex_destroy( &mut_l_time   );
     pthread_mutex_destroy( &mut_p_room   );
     pthread_mutex_destroy( &mut_s_mess   );
     pthread_cond_destroy ( &cond_message );
     pthread_mutex_destroy( &mut_message  );
+    pthread_mutex_destroy( &mut_s_pass   );
     pthread_mutex_destroy( &mut_s_col1   );
     pthread_mutex_destroy( &mut_s_col2   );
-    pthread_mutex_destroy( &mut_s_id     );
+    pthread_mutex_destroy( &mut_s_email  );
+    pthread_mutex_destroy( &mut_s_tmpid     );
     pthread_mutex_destroy( &mut_r_rang   );
+    pthread_mutex_destroy( &mut_map_changed_data );
 
 #ifdef NCURSES
     wrap::NCUR->print( REMUSER + get_name() );
@@ -87,6 +119,24 @@ user::get_online( )
     b_ret = b_online;
     pthread_mutex_unlock( &mut_b_online );
     return b_ret;
+}
+
+bool
+user::get_has_sess( )
+{
+    bool b_ret;
+    pthread_mutex_lock  ( &mut_b_has_sess );
+    b_ret = b_has_sess;
+    pthread_mutex_unlock( &mut_b_has_sess );
+    return b_ret;
+}
+
+void
+user::set_has_sess( bool b_has_sess )
+{
+    pthread_mutex_lock  ( &mut_b_has_sess );
+    this -> b_has_sess = b_has_sess;
+    pthread_mutex_unlock( &mut_b_has_sess );
 }
 
 void
@@ -152,22 +202,14 @@ user::set_p_room( room* p_room )
     pthread_mutex_unlock( &mut_p_room );
 }
 
-int
-user::get_sock( )
+string
+user::get_pass()
 {
-    int i_ret;
-    pthread_mutex_lock  ( &mut_i_sock );
-    i_ret = i_sock;
-    pthread_mutex_unlock( &mut_i_sock );
-    return i_ret;
-}
-
-void
-user::set_sock( int i_sock )
-{
-    pthread_mutex_lock  ( &mut_i_sock );
-    this -> i_sock = i_sock;
-    pthread_mutex_unlock( &mut_i_sock );
+    string s_ret;
+    pthread_mutex_lock  ( &mut_s_pass );
+    s_ret = s_pass;
+    pthread_mutex_unlock( &mut_s_pass );
+    return s_ret;
 }
 
 string
@@ -191,26 +233,46 @@ user::get_col2()
 }
 
 string
-user::get_id()
+user::get_email()
 {
     string s_ret;
-    pthread_mutex_lock  ( &mut_s_id );
-    s_ret = s_id;
-    pthread_mutex_unlock( &mut_s_id );
+    pthread_mutex_lock  ( &mut_s_email );
+    s_ret = s_email;
+    pthread_mutex_unlock( &mut_s_email );
+    return s_ret;
+}
+
+string
+user::get_tmpid()
+{
+    string s_ret;
+    pthread_mutex_lock  ( &mut_s_tmpid );
+    s_ret = s_tmpid;
+    pthread_mutex_unlock( &mut_s_tmpid );
     return s_ret;
 }
 
 void
-user::set_id    ( string s_id   )
+user::set_tmpid    ( string s_tmpid   )
 {
-    pthread_mutex_lock  ( &mut_s_id );
-    this -> s_id = s_id;
-    pthread_mutex_unlock( &mut_s_id );
+    pthread_mutex_lock  ( &mut_s_tmpid );
+    this -> s_tmpid = s_tmpid;
+    pthread_mutex_unlock( &mut_s_tmpid );
+}
+
+void
+user::set_pass  ( string s_pass )
+{
+    set_changed_data( "password", s_pass );
+    pthread_mutex_lock  ( &mut_s_pass );
+    this -> s_pass = s_pass;
+    pthread_mutex_unlock( &mut_s_pass );
 }
 
 void
 user::set_col1  ( string s_col1 )
 {
+    set_changed_data( "color1", s_col1 );
     pthread_mutex_lock  ( &mut_s_col1 );
     this -> s_col1 = s_col1;
     pthread_mutex_unlock( &mut_s_col1 );
@@ -219,9 +281,19 @@ user::set_col1  ( string s_col1 )
 void
 user::set_col2  ( string s_col2 )
 {
+    set_changed_data( "color2", s_col2 );
     pthread_mutex_lock  ( &mut_s_col2 );
     this -> s_col2 = s_col2;
     pthread_mutex_unlock( &mut_s_col2 );
+}
+
+void
+user::set_email ( string s_email )
+{
+    set_changed_data( "email", s_email );
+    pthread_mutex_lock  ( &mut_s_email );
+    this -> s_email = s_email;
+    pthread_mutex_unlock( &mut_s_email );
 }
 
 rang
@@ -237,10 +309,22 @@ user::get_rang  ( )
 void
 user::set_rang  ( rang   r_rang )
 {
+    set_changed_data( "status", tool::int2string((int)r_rang));
     pthread_mutex_lock  ( &mut_r_rang );
     r_oldr = this -> r_rang;
     this -> r_rang = r_rang;
     pthread_mutex_unlock( &mut_r_rang );
+}
+
+void
+user::set_changed_data( string s_varname, string s_value )
+{
+    if ( b_set_changed_data )
+    { 
+     pthread_mutex_lock  ( &mut_map_changed_data );
+     map_changed_data[s_varname] = s_value; 
+     pthread_mutex_unlock( &mut_map_changed_data );
+    }
 }
 
 bool
@@ -325,6 +409,14 @@ user::renew_stamp( )
     pthread_mutex_lock  ( &mut_l_time );
     l_time = tool::unixtime();
     pthread_mutex_unlock( &mut_l_time );
+}
+
+void
+user::s_mess_delete( )
+{
+    pthread_mutex_lock  ( &mut_s_mess );
+    s_mess = "";
+    pthread_mutex_unlock( &mut_s_mess );
 }
 
 void

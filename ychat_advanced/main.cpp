@@ -37,7 +37,7 @@ int main()
           <<  " |___/ 			        " << endl << endl
 
           << DESCRIP << endl
-          << VERSION << ", "
+          << VERSION << endl 
           << CONTACT << endl
           << SEPERAT << endl
           << STARTMS << endl;
@@ -71,9 +71,6 @@ int main()
     // init the session manager.
     wrap::WRAP->SMAN = wrap::SMAN = new sman(); 
 
-    // init the mysql connection manager.
-    wrap::WRAP->MMAN = wrap::MMAN = new mman(); 
-
     // init the socket manager.
     wrap::WRAP->SOCK = wrap::SOCK = new sock(); 
 
@@ -96,9 +93,16 @@ int main()
       usleep(100);
 
 #endif
+    wrap::WRAP->MODL = wrap::MODL = new modl(); // init the module-loader manager.
 
     // init the garbage collector 
     wrap::WRAP->GCOL = wrap::GCOL = new gcol(); 
+
+    // init the mysql connection manager.
+    wrap::WRAP->MMAN = wrap::MMAN = new mman(); 
+
+    // init the data manager. (contains all mysql queries).
+    wrap::WRAP->DATA = wrap::DATA = new data(); 
 
     pthread_t timer_thread;
     pthread_create( &timer_thread,
@@ -106,10 +110,13 @@ int main()
                     wrap::TIMR->start, (void*) wrap::TIMR );
 
 
-    wrap::WRAP->MODL = wrap::MODL = new modl(); // init the module-loader manager.
+ //     map_string result_map = wrap::DATA->select_user_data( "test", "DATA_SELECT_LOGIN" );
+ //     wrap::NCUR->print( result_map["password"] );
+
 
     // start the socket manager. this one will listen for incoming http requests and will
     // forward them to the specified routines which will generate a http response.
+
     wrap::SOCK->start();
 
 #ifdef VERBOSE

@@ -13,8 +13,8 @@ using namespace std;
 class gcol
 {
  private:
-  vector<room*> p_vec_rooms; 
-  vector<user*> p_vec_users; 
+  vector<room*> vec_rooms; 
+  vector<user*> vec_users; 
 
   pthread_mutex_t mut_vec_rooms;
   pthread_mutex_t mut_vec_users;
@@ -27,6 +27,7 @@ class gcol
  void add_room_to_garbage( room* p_room );
  void add_user_to_garbage( user* p_user );
  room* get_room_from_garbage();
+ user* get_user_from_garbage( string s_user );
 };
 
 #endif

@@ -18,8 +18,11 @@ class sess : public name
 private:
     sess_map sess_values;
     string sess_id;
+
 public:
     sess(string s_id);
+    ~sess();
+
     string get_id();
     void set_value(string s_key, void *lpvalue);
     void *get_elem( string s_key );

@@ -8,6 +8,10 @@ sess::sess( string s_id )
     this->sess_id=s_id;
 }
 
+sess::~sess()
+{
+}
+
 string
 sess::get_id()
 {
@@ -32,16 +36,18 @@ sess::set_value( string s_key, void *lpvalue )
 void*
 sess::get_elem( string s_key )
 {
-    return this->sess_values[s_key];
+    return sess_values[s_key];
 }
 
 string
 sess::dump()
 {
-    string s_ret=string(SESSDMP) + this->get_id();
-    map<string, void*>::const_iterator it;
-    for(it=this->sess_values.begin();it!=this->sess_values.end();it++)
-        s_ret=s_ret + "\nkey: " + it->first;
+    string s_ret = string(SESSDMP) + get_id();
+    map<string, void*>::const_iterator iter;
+
+    for (iter = sess_values.begin(); iter != sess_values.end(); iter++)
+        s_ret = s_ret + "\nkey: " + iter->first;
+
     return s_ret;
 }
 

@@ -5,22 +5,6 @@
 #include <time.h>
 #include "tool.h"
 
-bool
-tool::is_alpha_numeric( string &s_digit )
-{
-    auto const char *digit = s_digit.c_str();
-    auto int   i_len = strlen( digit );
-
-    for( int i=0; i<i_len; i++ )
-    {
-        if ( ! isalnum( *digit ) )
-            return false;
-        digit++;
-    }
-
-    return true;
-}
-
 string
 tool::trim( string s_str )
 {
@@ -72,32 +56,5 @@ tool::int2char( int i_int )
     return buffer;
 }
 
-string
-tool::int2string( int i_int )
-{
-    char *buffer = new char[64];
-    sprintf(buffer, "%d", i_int);
 
-    string s_ret(buffer);	
-    free(buffer);
-
-    return s_ret;
-}
-
-long
-tool::unixtime()
-{
-    return (long) time( NULL );
-}
-
-
-string
-tool::to_lower( string s )
-{
-	string s_tmp("");
-	for(int i=0;i < s.size() ;i++)
-		s_tmp=s_tmp+(char)tolower(s.at(i));
-
-	return s_tmp;
-}
 #endif

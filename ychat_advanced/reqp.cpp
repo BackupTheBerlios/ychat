@@ -162,13 +162,13 @@ reqp::htoi(string *s)
     if(isupper(c))
         c=tolower(c);
 
-    value=(c>='0' && c<='9'?c-'0':c-'a'+10)*16;
+    value = (c >= '0' && c <= '9' ? c - '0' : c - 'a' + 10) * 16;
 
     c=s->c_str()[1];
     if(isupper(c))
         c=tolower(c);
 
-    value+=c>='0' && c<='9'?c-'0':c-'a'+10;
+    value += c >= '0' && c <= '9' ? c - '0' : c - 'a' + 10;
     return value;
 }
 
@@ -243,6 +243,15 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
         {
             wrap::CHAT->login( map_params );
         }
+
+        else if ( s_event == "register" )
+        {
+          user* p_user = new user;
+          map_params["INFO"] = "";
+          run_html_mod( s_event, map_params, p_user );
+          wrap::GCOL->add_user_to_garbage( p_user );
+        }
+
         else
         {
             bool b_found;
@@ -254,7 +263,6 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             if( sess_temp != NULL )
             {
                 string *s_nick = static_cast<string*>(sess_temp->get_elem(string("nick")));
-
                 p_user = wrap::CHAT->get_user( *s_nick, b_found);
             }
 
@@ -299,18 +307,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
              else if ( s_event != "input" ) 
              {
-
-              container *c = new container;
-              c->elem[0] = (void*) wrap::LANG ;
-              c->elem[1] = (void*) wrap::MODL;
-              c->elem[2] = (void*) &map_params;
-              c->elem[3] = (void*) p_user;
-
-              string s_mod = "mods/html/yc_" + s_event + ".so";
-    	      ( *( wrap::MODL
-                   -> get_module( s_mod )->the_func
-                  ) 
-              ) ( (void*) c );
+	      run_html_mod( s_event, map_params, p_user );  
              }
             }
         }
@@ -321,6 +318,23 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
     // return the parsed html-template.
     return  s_rep;
+}
+
+void 
+reqp::run_html_mod( string s_event, map_string &map_params, user* p_user )
+{
+    container *c = new container;
+
+    c->elem[0] = (void*) wrap::WRAP;
+    c->elem[1] = (void*) &map_params;
+    c->elem[2] = (void*) p_user;
+
+    string s_mod = "mods/html/yc_" + s_event + ".so";
+
+    ( *( wrap::MODL
+      -> get_module( s_mod )->the_func
+       ) 
+    ) ( (void*) c );
 }
 
 #endif

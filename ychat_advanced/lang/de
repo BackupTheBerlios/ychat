@@ -1,6 +1,7 @@
 SETAWAY="meldet sich ab: ";
 RESTOREAWAY="meldet sich zurück ";
 OPTIONSCHANGED="Ihre Einstellungen wurden geändert!<br><br>";
+REGISTER_NICK="Ihr Nickname wurde erfolgreich registriert. Sie koennen Sich damit nun einloggen!<br><br>"; 
 SCREAM="schreit: ";
 SERVERTIME="Die Serversystemzeit: ";
 TOPIC="ändert das Thema nach: ";
@@ -13,10 +14,15 @@ USERLEAV=" verschwindet aus dem Chat.";
 WHISPER="fluestert zu Dir";
 WHISPERTO="Gefluestert zu";
 ERR_ALPNUM="Den Nick den Sie sich ausgesucht haben besteht nicht nur aus Zahlen und Buchstaben.<br><br>";
+ERR_CHANGE_PASSWORD="Das alte Password ist falsch. Um das Passwort aender zu koennen muss ein korrektes altes Passwort angegeben werden!<br><br>";
+ERR_CHANGE_PASSWORD2="Die Passwortfelder des neuen Passwortes stimmen nicht ueberein! Bitte ueberpruefen!<br><br>";
 ERR_NONICK="Sie müssen einen Nick angeben.<br><br>";
 ERR_NOTAVAILABLE=" ist nicht da!";
 ERR_NOTONL="Es ist ein Fehler aufgetreten. Ihr Nick ist nicht online.<br><br>";
 ERR_ONLINE="Den Nick den Sie sich ausgesucht haben ist bereits eingeloggt. Bitte versuchen sie einen Anderen.<br><br>";
+ERR_REGISTER_EXISTS="Den Nicknamen den Sie sich ausgesucht haben existiert bereits. Bitte suchen Sie sich einen Anderen aus!<br><br>";
+ERR_REGISTER_PASSWORD="Die beiden Passwortfelder stimmen nicht ueberein. Bitte geben Sie Ihr password erneuert ein!<br><br>";
+ERR_WRONG_PASSWORD="Den Nicknamen den Sie Sich ausgesucht haben ex. schon in der Datenbank und Sie haben ein falsches Password eingegeben!<br><br>";
 
 # Chat-help ( || separiert Befehlssyntax und Befehlsbeschreibung. )
 mods/commands/yc_away.so="/away AWAYNACHRICHT||Sich vom Chat kurzfristig abmelden";

@@ -199,6 +199,9 @@ chat.cpp - The chat manager. Is responsible for managing the internal
 conf.cpp - The config manager. Parses the config file specified in
            glob.h and stores all the values of it in a map.
 
+data.cpp - The data manager. This class contains all required MySQL 
+           queries which are made by the chat server.
+
 gcol.cpp - The garbage collector. This class will be called every 10
            minutes by timr and cleans some user and room objects. 
 

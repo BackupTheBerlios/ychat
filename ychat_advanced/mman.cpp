@@ -9,33 +9,43 @@ using namespace std;
 
 mman::mman()
 {
-    int i_initial = tool::string2int( wrap::CONF->get_elem( "MIN_CONNECTIONS" ) );
-    int i_max     = tool::string2int( wrap::CONF->get_elem( "MAX_CONNECTIONS" ) );
+#ifdef NCURSES
+     wrap::NCUR->print( MYSINIT  );
+#endif
+#ifdef VERBOSE
+     cout << MYSINIT << endl;
+#endif
+
+    int i_initial = tool::string2int( wrap::CONF->get_elem( "MYSQL_MIN_CON" ) );
+    int i_max     = tool::string2int( wrap::CONF->get_elem( "MYSQL_MAX_CON" ) );
 
     pthread_mutex_init( &mut_i_used_con  , NULL);
     pthread_mutex_init( &mut_vec_mysql  , NULL);
 
-    this->i_used_connections=0;
+    i_active_connections = 0;
 
     if( i_max > MAXMSQL )
     {
-#ifdef VERBOSE
-    cerr << MYLIMIT << MAXMSQL << endl;
-#endif
 #ifdef NCURSES
-    wrap::NCUR->print( string(MYLIMIT) + tool::int2string(MAXMSQL) );
+     wrap::NCUR->print( MYLIMIT + tool::int2string(MAXMSQL) );
 #endif
-
+#ifdef VERBOSE
+     cerr << MYLIMIT << MAXMSQL << endl;
+#endif
      i_max = MAXMSQL;
     }
 
     if( i_initial > i_max )
         i_initial = i_max;
 
-    this->i_initial_connections = i_initial;
-    this->i_max_connections = i_max;
+    i_initial_connections = i_initial;
+    i_max_connections = i_max;
 
-#ifdef VERBOSE
+#ifdef NCURSES
+    wrap::NCUR->print(  MYINITC + tool::int2string( i_initial ) );
+    wrap::NCUR->print(  MYINITM + tool::int2string( i_max ) );
+#endif
+#ifdef SERVMSG
     cout << MYINITC << i_initial << endl
          << MYINITM << i_max << endl;
 #endif
@@ -45,99 +55,84 @@ mman::mman()
        wrap::CONF->get_elem( "MYSQL_PASS" ), 
        wrap::CONF->get_elem( "MYSQL_DB" ), 
        tool::string2int( wrap::CONF->get_elem( "MYSQL_PORT" ) ) ); 
-}
-void mman::init( string host, string user, string passwd, string db, unsigned int port)
-{
-    this->s_host=host;
-    this->s_user=user;
-    this->s_pass=passwd;
-    this->s_db=db;
-    this->i_port=port;
-
-    pthread_mutex_lock  ( &mut_vec_mysql );
-    for(int i=0; i<this->i_initial_connections;i++)
-        mysql.push_back( new_connection( ) );
-    pthread_mutex_unlock( &mut_vec_mysql );
-}
 
 #ifdef NCURSES
-void
-mman::print_init_ncurses()
-{
-        string s_tmp( MYINITC );
-        s_tmp.append( tool::int2string( i_initial_connections ) );
-        wrap::NCUR->print( s_tmp );
-
-        string s_tmp2( MYINITM );
-        s_tmp2.append( tool::int2string( i_max_connections ) );
-        wrap::NCUR->print( s_tmp2 );
-        print_used_connections(1);
-}
-void
-mman::print_used_connections( bool b_refresh )
-{
-    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-    mvprintw( NCUR_MYSQL_X,NCUR_MYSQL_Y, "MySQL: %d ", i_used_connections);
-    if ( b_refresh )
-     refresh();
-    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-}
+ print_active_connections( 1 );
 #endif
+}
 
 mman::~mman()
 {
     pthread_mutex_lock  ( &mut_vec_mysql );
-    for( int i = 0; i < mysql.size();i++)
+    for( vector<MYSQL*>::iterator iter = mysql.begin(); 
+         iter != mysql.end(); 
+         iter++)
     {
-        if( mysql[i] != NULL )
-            mysql_close( mysql[i] );
+          if( *iter != NULL )
+            mysql_close( *iter );
     }
-
+    mysql.clear();
     pthread_mutex_unlock( &mut_vec_mysql );
+
     pthread_mutex_destroy( &mut_i_used_con );
     pthread_mutex_destroy( &mut_vec_mysql );
 }
 
-MYSQL *mman::get_connection()
+void
+mman::init( string host, string user, string passwd, string db, unsigned int port)
+{
+    s_host = host;
+    s_user = user;
+    s_pass = passwd;
+    s_db = db;
+    i_port = port;
+
+    pthread_mutex_lock  ( &mut_vec_mysql );
+
+    for (int i = 0; i < i_initial_connections; i++)
+        mysql.push_back( new_connection() );
+
+    pthread_mutex_unlock( &mut_vec_mysql );
+}
+
+MYSQL*
+mman::get_connection()
 {
     pthread_mutex_lock  ( &mut_vec_mysql );
     if( ! mysql.empty() )
     {
-        MYSQL *x = mysql[mysql.size()-1];
+        MYSQL* p_mysql_con = mysql.back();
         mysql.pop_back();
+        pthread_mutex_unlock( &mut_vec_mysql );
 
-        if(mysql_ping(x) == 0)
+        if ( mysql_ping(p_mysql_con) != 0 )
         {
-            pthread_mutex_lock  ( &mut_i_used_con );
-            this->i_used_connections--;
-#ifdef NCURSES
-            print_used_connections(1);
-#endif
-            pthread_mutex_unlock( &mut_i_used_con );
-            mysql_close(x);
-
-            pthread_mutex_unlock( &mut_vec_mysql );
+            mysql_close(p_mysql_con);
             return new_connection();
         }
-        pthread_mutex_unlock( &mut_vec_mysql );
-        return x;
+        return p_mysql_con;
     }
-    pthread_mutex_unlock( &mut_vec_mysql );
- 
-#ifdef NCURSES
-    wrap::NCUR->print( MYERROR );
-#endif
-#ifdef SERVMSG
-    cerr << MYERROR << endl;
-#endif
-
-    return NULL;
+    return new_connection();
 }
-MYSQL *mman::new_connection( )
+
+MYSQL*
+mman::new_connection( )
 {
     pthread_mutex_lock  ( &mut_i_used_con );
-    if( i_used_connections > i_max_connections )
+    i_active_connections++;
+#ifdef NCURSES
+    wrap::NCUR->print( MYSCONN + tool::int2string(i_active_connections) );
+    print_active_connections(1);
+#endif
+#ifdef SERVMSG
+    cout << MYSCONN << i_active_connections << endl;
+#endif
+    pthread_mutex_unlock( &mut_i_used_con );
+
+    pthread_mutex_lock  ( &mut_i_used_con );
+    if( i_active_connections >= i_max_connections )
     {
+     pthread_mutex_unlock( &mut_i_used_con );
 #ifdef NCURSES
 	wrap::NCUR->shutdown();
     	cerr << MYERRO2 << endl;
@@ -149,9 +144,9 @@ MYSQL *mman::new_connection( )
     }
     pthread_mutex_unlock( &mut_i_used_con );
 
-    MYSQL *ms = mysql_init(NULL);
+    MYSQL* p_mysql_con = mysql_init(NULL);
 
-    if( ! ms )
+    if (!p_mysql_con)
     {
 #ifdef NCURSES
 	wrap::NCUR->shutdown();
@@ -163,7 +158,7 @@ MYSQL *mman::new_connection( )
         return NULL; 
     }
 
-    if( mysql_real_connect( ms, s_host.c_str(), 
+    if( mysql_real_connect( p_mysql_con, s_host.c_str(), 
                                 s_user.c_str(), 
                                 s_pass.c_str(), 
                                 s_db.c_str(),
@@ -171,47 +166,46 @@ MYSQL *mman::new_connection( )
                                 NULL, 0 ) == NULL )
     {
 #ifdef NCURSES
-	//wrap::NCUR->shutdown();
-        //wrap::NCUR->print( string( MYMANAG ) + string(  mysql_error(ms) ) );
-        cerr << MYMANAG << mysql_error(ms) << endl;
+        wrap::NCUR->print( MYMANAG + string(  mysql_error(p_mysql_con) ) );
 #endif
 #ifdef SERVMSG
-        cerr << MYMANAG << mysql_error(ms) << endl;
+        cerr << MYMANAG << mysql_error(p_mysql_con) << endl;
 #endif
         return NULL; 
     }
 
-    pthread_mutex_lock  ( &mut_i_used_con );
-    i_used_connections++;
-#ifdef NCURSES
-    print_used_connections(0);
-#endif
-    pthread_mutex_unlock( &mut_i_used_con );
-    return ms;
+    return p_mysql_con;
 }
-void mman::free_connection( MYSQL *msql)
-{
-    pthread_mutex_lock  ( &mut_i_used_con );
-    i_used_connections--;
-#ifdef NCURSES
-    print_used_connections(1);
-#endif
-    pthread_mutex_unlock( &mut_i_used_con );
 
-    if(mysql_ping( msql )==0)
+void
+mman::free_connection( MYSQL *p_mysql_con )
+{
+    if (mysql_ping( p_mysql_con ) != 0)
     {
-        mysql_close( msql );
+        mysql_close( p_mysql_con );
         pthread_mutex_lock  ( &mut_vec_mysql );
-        mysql.push_back( msql );
+        mysql.push_back( new_connection() );
         pthread_mutex_unlock( &mut_vec_mysql );
     }
 
     else
     {
         pthread_mutex_lock  ( &mut_vec_mysql );
-        mysql.push_back( new_connection() );
+        mysql.push_back( p_mysql_con );
         pthread_mutex_unlock( &mut_vec_mysql );
     }
 }
+
+#ifdef NCURSES
+void
+mman::print_active_connections( bool b_refresh )
+{
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+    mvprintw( NCUR_MYSQL_X,NCUR_MYSQL_Y, "MySQL: %d ", i_active_connections);
+    if ( b_refresh )
+     refresh();
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+}
+#endif
 
 #endif

@@ -28,7 +28,7 @@ void
 gcol::add_room_to_garbage( room* p_room )
 { 
  pthread_mutex_lock  ( &mut_vec_rooms ); 
- p_vec_rooms.push_back( p_room ); 
+ vec_rooms.push_back( p_room ); 
  pthread_mutex_unlock( &mut_vec_rooms );
 #ifdef NCURSES
  wrap::NCUR->print( GARROOM + p_room->get_name() );
@@ -41,8 +41,9 @@ gcol::add_room_to_garbage( room* p_room )
 void
 gcol::add_user_to_garbage( user* p_user )
 { 
+ p_user->s_mess_delete();
  pthread_mutex_lock  ( &mut_vec_users ); 
- p_vec_users.push_back( p_user ); 
+ vec_users.push_back( p_user ); 
  pthread_mutex_unlock( &mut_vec_users );
 #ifdef NCURSES
  wrap::NCUR->print( GARUSER + p_user->get_name() );
@@ -59,7 +60,7 @@ gcol::remove_garbage()
 
  pthread_mutex_lock  ( &mut_vec_rooms );
  pthread_mutex_lock  ( &mut_vec_users );
- b_empty  = ( p_vec_rooms.empty() && p_vec_users.empty() );
+ b_empty  = ( vec_rooms.empty() && vec_users.empty() );
  pthread_mutex_unlock( &mut_vec_users );
  pthread_mutex_unlock( &mut_vec_rooms );
 
@@ -74,17 +75,17 @@ gcol::remove_garbage()
 #endif
 
  pthread_mutex_lock  ( &mut_vec_rooms );
- for ( vector<room*>::iterator iter = p_vec_rooms.begin();
-       iter != p_vec_rooms.end(); iter++ )
+ for ( vector<room*>::iterator iter = vec_rooms.begin();
+       iter != vec_rooms.end(); iter++ )
   delete *iter;
- p_vec_rooms.clear();
+ vec_rooms.clear();
  pthread_mutex_unlock( &mut_vec_rooms );
 
  pthread_mutex_lock  ( &mut_vec_users );
- for ( vector<user*>::iterator iter = p_vec_users.begin();
-       iter != p_vec_users.end(); iter++ )
+ for ( vector<user*>::iterator iter = vec_users.begin();
+       iter != vec_users.end(); iter++ )
   delete *iter;
- p_vec_users.clear();
+ vec_users.clear();
  pthread_mutex_unlock( &mut_vec_users );
 
  return true;
@@ -95,16 +96,56 @@ gcol::get_room_from_garbage()
 {
  pthread_mutex_lock  ( &mut_vec_rooms );
 
- if ( p_vec_rooms.empty() )
+ if ( vec_rooms.empty() )
  {
   pthread_mutex_unlock( &mut_vec_rooms );
   return NULL;
  }
 
- room* p_room = p_vec_rooms.back();
- p_vec_rooms.pop_back();
+ room* p_room = vec_rooms.back();
+ vec_rooms.pop_back();
  pthread_mutex_unlock( &mut_vec_rooms );
 
  return p_room;
+}
+
+user*
+gcol::get_user_from_garbage( string s_user )
+{
+ pthread_mutex_lock  ( &mut_vec_users );
+
+ if ( vec_users.empty() )
+ {
+  pthread_mutex_unlock( &mut_vec_users );
+  return NULL;
+ }
+
+ vector<user*>::iterator iter;
+
+ user* p_user = NULL;
+
+ for ( iter = vec_users.begin(); iter != vec_users.end(); iter++ )
+ {
+  if ( tool::to_lower((*iter)->get_name()) == tool::to_lower(s_user) ) 
+  {
+   p_user = *iter;
+   vec_users.erase(iter);
+   p_user->set_name( s_user );
+#ifdef NCURSES
+   wrap::NCUR->print( GARUSE2 + p_user->get_name() );
+#endif
+#ifdef SERVMSG
+   pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+   cout << GARUSE2 << p_user->get_name();
+   pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+#endif
+   break;
+  }
+ }
+
+ pthread_mutex_unlock( &mut_vec_users );
+
+ p_user->set_online( true );
+ return p_user;
 }
 #endif

@@ -50,6 +50,9 @@
 // is used for interaction with the ncurses admin interface at stdout.
 #define NCURSES
 
+// is used if all mysql queries should be printed out.
+#define QUERIES
+
 // The following values define the positions of the data stats in the NCURSES interface.
 #ifdef NCURSES
 #define NCUR_HITS_X 21
@@ -82,14 +85,11 @@ using namespace std;
 // internal rang descriptors ( their external names may be specified different )
 enum rang
 {
-    CODER ,  // programmer.
-    ADMIN ,  // administrator.
-    MAGIC ,  // super user with special privileges.
-    SUPER ,  // temporary super user.
-    BASIC ,  // normal user without special privileges.
-    GUEST ,  // guest user, has almost no privileges.
-    RESTR ,  // a very restrivted user.
-    OUTBN    // banned out of the system.
+    OPERATOR , // Operator.
+    HALF_OP ,  // Half-Operator.
+    VOICE ,    // Normal user with temp. extra priv. 
+    NORMAL ,   // Normal user. 
+    GUEST      // Guest 
 };
 
 // some custom typedefs for datatypes which are needed often.
@@ -106,5 +106,7 @@ struct dynmod
     function *the_func  ;
     void     *the_module;
 };
+
+
 
 #endif

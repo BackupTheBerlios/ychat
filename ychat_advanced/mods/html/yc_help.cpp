@@ -12,18 +12,22 @@ extern "C" {
  int extern_function(void *v_arg)
  {
 	container* c         = (container*) v_arg;
-        string*    s_content = &(*((map_string*) c->elem[2]))["content"];
-        lang*      p_lang    = (lang*) c->elem[0]; 
+        dynamic_wrap* p_wrap = (dynamic_wrap*) c->elem[0];
+        modl*      p_modl    = (modl*) p_wrap->MODL; 
+        lang*      p_lang    = (lang*) p_wrap->LANG; 
+        string*    s_content = &(*((map_string*) c->elem[1]))["content"];
 
-        vector<string>* p_vec_keys =  
-          ((modl*) c->elem[1])->get_mod_vector();
+        vector<string>* p_vec_keys = p_modl->get_mod_vector();
+          
   	
 	sort(p_vec_keys->begin(), p_vec_keys->end());
 	vector<string>::iterator p_vec_keys_iter = p_vec_keys->begin();
 
         while( p_vec_keys_iter != p_vec_keys->end() ) {
+
          if ( p_vec_keys_iter->find( "mods/commands/", 0 ) != string::npos )
          {
+
           s_content->append( "<tr><td>" );
           string s_helptext = p_lang->get_elem( *p_vec_keys_iter ) ;
 
@@ -33,6 +37,7 @@ extern "C" {
 
           s_content->append( s_helptext );
           s_content->append( "</td></tr>\n" );
+
          }
          p_vec_keys_iter++;
         }

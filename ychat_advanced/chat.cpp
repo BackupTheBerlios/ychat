@@ -63,10 +63,19 @@ chat::login( map_string &map_params )
         return;
     }
 
-    // prove if the nick ist alphanumeric:
+    // prove if the nick is alphanumeric:
     else if ( ! tool::is_alpha_numeric( s_user ) )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ALPNUM" );
+        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+                                    
+        return;
+    }
+
+    // prove if the nick is too long:
+    else if ( s_user.length()  > tool::string2int( wrap::CONF->get_elem("MAX_NICK_LENGTH") ) ) 
+    {
+        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NICK_LENGTH" );
         map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
                                     
         return;
@@ -83,6 +92,74 @@ chat::login( map_string &map_params )
 	map_params["request"] = wrap::CONF->get_elem( "STARTMPL" );
 			    
 	return;
+    }
+
+    // Prove if user is recycleable from the garbage collector: 
+    user *p_user = wrap::GCOL->get_user_from_garbage( s_user );
+
+    if ( p_user != NULL )
+    {
+     // 1. possibility to prove the password at login! (using recycled user)
+     if ( p_user->get_pass() != map_params["password"] )
+     {
+      map_params["INFO"]    = wrap::LANG->get_elem( "ERR_WRONG_PASSWORD" );
+      map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+      return;
+     }
+     if ( p_user->get_has_sess() )
+     {
+      map_params["tmpid"] = p_user->get_tmpid();
+     }  
+     else
+     { 
+      sess* p_sess = wrap::SMAN->create_session();
+      p_sess->set_value( string("nick"), (void *) new string(s_user) );
+      map_params["tmpid"] = p_sess->get_id();
+      p_user->set_tmpid( map_params["tmpid"] );
+      p_user->set_has_sess( true );
+     } 
+    }
+
+    else //  if ( p_user == NULL ) // If not in garbage create a new user!
+    {
+     p_user = new user( s_user );
+
+     // prove if nick is registered
+     map_string map_results = wrap::DATA->select_user_data( tool::to_lower(s_user), "DATA_SELECT_LOGIN" );
+
+     if ( map_results["nick"] == tool::to_lower(s_user) )
+     { // User exists in database, prove password:
+       // 2. possibility to prove the password at login! (using new created user from database)
+      if ( map_results["password"] != map_params["password"] )
+      {
+       map_params["INFO"]    = wrap::LANG->get_elem( "ERR_WRONG_PASSWORD" );
+       map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+       return;
+      }
+      else
+      { // If registered use saved options
+       map_params["registered"] = "yes";
+       map_params["color1"] = map_results["color1"];
+       map_params["color2"] = map_results["color2"];
+       map_params["email"] = map_results["email"];
+       map_params["rang"] = map_results["status"];
+      }
+     }
+     else
+     { // If not registered use standard font colors
+      map_params["color1"] = wrap::CONF->get_elem( "USERCOL1" );
+      map_params["color2"] = wrap::CONF->get_elem( "USERCOL2" );
+      map_params["rang"] = wrap::CONF->get_elem( "STANDARD_RANG" );
+     }
+
+     sess* p_sess = wrap::SMAN->create_session();
+     p_sess->set_value( string("nick"), (void *) new string(s_user) );
+     map_params["tmpid"] = p_sess->get_id();
+     p_user->set_tmpid( map_params["tmpid"] );
+     p_user->set_col1( map_params["color1"] );
+     p_user->set_col2( map_params["color2"] );
+     p_user->set_rang( (rang) tool::string2int(map_params["rang"]));
+    // p_user->set_sess( p_sess );
     }
 
     string s_room = map_params["room"];
@@ -118,13 +195,9 @@ chat::login( map_string &map_params )
      add_elem( p_room );
     }
 
-    user *p_user = new user( s_user );
 
     // add user to the room.
     p_room->add_user( p_user );
-    sess *ns = wrap::SMAN->create_session();
-    ns->set_value( string("nick"), (void *) new string(s_user) );
-    map_params["tmpid"]=ns->get_id();
 
 #ifdef NCURSES
 
@@ -142,7 +215,14 @@ chat::login( map_string &map_params )
                  + wrap::LANG->get_elem( "USERENTR" )
                  + "<br>\n";
 
-
+    // If created a new user from database while logging on (not a recycled user, they already have this set)
+    if ( map_params["registered"] == "yes" ) 
+    {
+     p_user->set_email( map_params["email"] );
+     p_user->set_pass( map_params["password"] );
+     // Now we will store all wanted user data into MySQL after logging out! (recycled user already have this set)
+     p_user->set_changed_data_on(); 
+    }
     p_room->msg_post( &s_msg );
 }
 

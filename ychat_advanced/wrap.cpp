@@ -7,6 +7,7 @@ using namespace std;
 
 chat* wrap::CHAT;
 conf* wrap::CONF;
+data* wrap::DATA;
 gcol* wrap::GCOL;
 html* wrap::HTML;
 lang* wrap::LANG;

@@ -8,11 +8,36 @@ using namespace std;
 class tool
 {
 public:
-    static bool is_alpha_numeric( string &s_digit );
+    static bool is_alpha_numeric( string &s_digit )
+    {
+     auto const char *digit = s_digit.c_str();
+     auto int   i_len = strlen( digit );
+
+     for( int i=0; i<i_len; i++ )
+     {
+         if ( ! isalnum( *digit ) )
+             return false;
+         digit++;
+     }
+     return true;
+    }
+
     static char* int2char( int i_int );
-    static string int2string( int i_int );
     static string trim( string s_str );
-    static long unixtime();
+    static string int2string( int i_int )
+    {
+     char *buffer = new char[64];
+     sprintf(buffer, "%d", i_int);
+     string s_ret(buffer);	
+     free(buffer);
+     return s_ret;
+    }
+
+    static long unixtime()
+    {
+     return (long) time( NULL );
+    }
+
     static int string2int( string s_digit )
     {
      auto const char *digit = s_digit.c_str();
@@ -47,7 +72,13 @@ public:
     }
 
     static string get_extension( string s_file );
-    static string to_lower( string s );
+    static string to_lower( string s )
+    {
+	string s_tmp("");
+	for(int i=0;i < s.size() ;i++)
+		s_tmp=s_tmp+(char)tolower(s.at(i));
+	return s_tmp;
+    }
 };
 
 #endif

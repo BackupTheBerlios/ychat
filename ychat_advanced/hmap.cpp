@@ -17,6 +17,12 @@ hmap<obj_type, key_type>::hmap( double mop )
     make_empty( );
 }
 
+template <class obj_type, class key_type>
+hmap<obj_type, key_type>::~hmap( )
+{
+    make_empty( );
+}
+
 // Insert item x into the hash table. If the item is
 // already present, do nothing
 template <class obj_type, class key_type>
@@ -126,7 +132,7 @@ void hmap<obj_type, key_type>::make_empty( )
 {
     occupied = 0;
     for( int i = 0; i < array.size( ); i++ )
-     array[ i ].info = EMPTY;
+     array[i].info = EMPTY;
 }
 
 template <class obj_type, class key_type>

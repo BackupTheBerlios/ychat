@@ -41,6 +41,18 @@ LANGUAGE="en";
 # the html site which will be send if the requested file does not exists. 
 NOTFOUND="notfound.html";
 
+# Maximum length of a nickname
+MAX_NICK_LENGTH="15";
+
+# Maximum length of an email address 
+MAX_EMAIL_LENGTH="50";
+
+# Maximum length of an password 
+MAX_PASS_LENGTH="30";
+
+# Standard user rang/status
+STANDARD_RANG="3";
+
 # specifies the standard start html-template. 
 STARTMPL="index.html";
 
@@ -54,10 +66,11 @@ USERCOL2="FFFFFF";
 ERRORCOL="FF0000";
 
 # length of the generated session id.
-SESSION_LENGTH="32";
+SESSION_LENGTH="50";
 
 # max. length of the room topic set by yc_topic.so.
 ROOM_TOPIC_LENGTH="50";
+
 
 # html = "OFF" strips all html tags from incoming messages.
 HTML="OFF";
@@ -65,20 +78,38 @@ HTML="OFF";
 # DATABASE:
 
 # MySQL Settings
-MYSQL_HOST="www.ychat.org";
+MYSQL_HOST="localhost";
 MYSQL_USER="ychat";
 MYSQL_PASS="yctest";
 MYSQL_DB="ychat";
 
 # MySQL Connection Manager Settings
-MIN_CONNECTIONS="1";
-MAX_CONNECTIONS="5";
+
+# The amount of MySQL connections which will be created at yChat startup.
+MYSQL_MIN_CON="0";
+# The maximum amount of parallel opened connections in the connection pool.
+MYSQL_MAX_CON="10";
+
+# DATABASE QUERIES (Currently MySQL only)
+# The first entry represents the table name and the following the field names
+# to be selected from or to be insertet into the database.
+# This configuration are designed to work for other databases as well later on!
+
+# Inserts the following values into database while registering a nick. 
+DATA_REGISTER_NICK="user nick password color1 color2 email registerdate";
+# Data to be saved if a user loggs out / goes offline:
+DATA_SAVE_CHANGED_NICK="user password color1 color2 status email";
+# Selects the followinf values from database while logging in!
+DATA_SELECT_LOGIN="user nick password color1 color2 status email";
+# Selects a given nick only (needed for registration validation)!
+DATA_SELECT_NICK="user nick";
+
 
 # DYNAMIC MODULES:
 
 # yChat may preload all available modules.
 PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so on start if set to "ON".
-PRE_MODS_HTML="ON";     # yChat will preload mods/html/*.so on start if set to "ON".
+PRE_MODS_HTML="OFF";    # yChat will preload mods/html/*.so on start if set to "ON".
 
 # LOGGING:
 
