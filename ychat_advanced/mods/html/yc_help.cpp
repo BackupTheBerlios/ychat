@@ -21,8 +21,9 @@ extern "C" {
 
         vector<string>* p_vec_keys =  
           ((hmap<dynmod*,string>*) c->elem[1])->get_key_vector();
-  
-        vector<string>::iterator p_vec_keys_iter = p_vec_keys->begin();
+  	
+	sort(p_vec_keys->begin(), p_vec_keys->end());
+	vector<string>::iterator p_vec_keys_iter = p_vec_keys->begin();
 
         while( p_vec_keys_iter != p_vec_keys->end() ) {
          if ( p_vec_keys_iter->find( "mods/commands/", 0 ) != string::npos )
