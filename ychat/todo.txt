@@ -1,7 +1,10 @@
+BRAIN-STORMING:
 mysql
 tempid
 commands
 hash_maps
-free pthread memory ( reusable thread pool ? )
-pthread mode 2
-semaphore sync ( ?? )
+pthread mode 2 ?
+configure script
+
+10: bugfixes
+20: goto 10
