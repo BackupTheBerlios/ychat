@@ -4,9 +4,7 @@
 # administrative request.
 #
 # Not allowed are semicolons ';' inside or before the quotes " ", 
-# otherwise this might result in errors.
-#
-# The syntax is easy: KEYNAME="value";
+# otherwise this might result in errors.  # # The syntax is easy: KEYNAME="value";
 #
 # All lines which do not contain a semicolon and at least two quotes 
 # or start with a # will be ignored.
@@ -36,6 +34,15 @@ HTML_ONLINE_BEFORE="<tr><td>";
 
 # HTML-Tags which will be placed behind each nickname in the user online frame
 HTML_ONLINE_BEHIND="</td></tr>";
+
+# Specifies the location of the status (rang) symbols of the users.  
+# This path has to be reachable through the web, 
+# example: "http://www.webreachable.com/images/"
+# he following images have to exist in this directory: 
+# rang0.png, rang1.png, rang2.png, guest.png and away.gif
+# If no http:// is specified then the images are inside the
+# HTML_TEMPLATE_DIR directory.
+HTML_RANG_IMAGES_LOCATION="images/";
 
 # user's standard nick color.
 HTML_STANDARD_USER_COLOR1="AAAAAA";

@@ -17,6 +17,8 @@ user::user( string s_name ) : name( s_name )
 {
  this -> b_online = true;
  this -> b_has_sess = true;
+ this -> b_fake = false;
+ this -> b_invisible = false;
  initialize();
 }
 
@@ -34,6 +36,8 @@ user::initialize()
     pthread_mutex_init( &mut_away    , NULL);
     pthread_mutex_init( &mut_b_online, NULL);
     pthread_mutex_init( &mut_b_has_sess, NULL);
+    pthread_mutex_init( &mut_b_fake, NULL);
+    pthread_mutex_init( &mut_b_invisible, NULL);
     pthread_mutex_init( &mut_l_time  , NULL);
     pthread_mutex_init( &mut_p_room  , NULL);
     pthread_mutex_init( &mut_s_mess  , NULL);
@@ -62,6 +66,9 @@ user::clean()
 
      // wrap::system_message( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
    }
+
+   set_fake( false );
+   set_invisible( false );
 }
 
 user::~user()
@@ -70,6 +77,8 @@ user::~user()
     pthread_mutex_destroy( &mut_away     );
     pthread_mutex_destroy( &mut_b_online );
     pthread_mutex_destroy( &mut_b_has_sess );
+    pthread_mutex_destroy( &mut_b_fake );
+    pthread_mutex_destroy( &mut_b_invisible );
     pthread_mutex_destroy( &mut_l_time   );
     pthread_mutex_destroy( &mut_p_room   );
     pthread_mutex_destroy( &mut_s_mess   );
@@ -120,6 +129,24 @@ user::get_online( )
     pthread_mutex_unlock( &mut_b_online );
     return b_ret;
 }
+bool
+user::get_fake( )
+{
+    bool b_ret;
+    pthread_mutex_lock  ( &mut_b_fake );
+    b_ret = b_fake;
+    pthread_mutex_unlock( &mut_b_fake );
+    return b_ret;
+}
+bool
+user::get_invisible( )
+{
+    bool b_ret;
+    pthread_mutex_lock  ( &mut_b_invisible );
+    b_ret = b_invisible;
+    pthread_mutex_unlock( &mut_b_invisible );
+    return b_ret;
+}
 
 bool
 user::get_has_sess( )
@@ -159,6 +186,22 @@ user::set_online( bool b_online )
     pthread_mutex_lock  ( &mut_b_online );
     this -> b_online = b_online;
     pthread_mutex_unlock( &mut_b_online );
+}
+
+void
+user::set_fake( bool b_fake )
+{
+    pthread_mutex_lock  ( &mut_b_fake );
+    this -> b_fake = b_fake;
+    pthread_mutex_unlock( &mut_b_fake );
+}
+
+void
+user::set_invisible( bool b_invisible )
+{
+    pthread_mutex_lock  ( &mut_b_invisible );
+    this -> b_invisible = b_invisible;
+    pthread_mutex_unlock( &mut_b_invisible );
 }
 
 bool
@@ -446,7 +489,11 @@ user::msg_post( string *p_msg )
 void
 user::get_user_list( string &s_list  )
 {
+    if ( get_invisible() )
+     return;
+
     s_list.append( wrap::CONF->get_elem("HTML_ONLINE_BEFORE") );
+
     if ( get_away() )
     {
      s_list.append("<img src=\"" + wrap::CONF->get_elem("HTML_RANG_IMAGES_LOCATION")+ "away.gif\"" )
@@ -467,7 +514,7 @@ user::get_user_list( string &s_list  )
            .append( s_msgs )
            .append( "'> " );
     }
-    else if ( get_rang() != tool::string2int( wrap::CONF->get_elem("STANDARD_RANG") ) )
+    else if ( get_rang() != tool::string2int( wrap::CONF->get_elem("STANDARD_RANG") ) && ! get_fake() )
     {
      string s_rang = "RANG" + tool::int2string( (int)get_rang() );
      string s_msgs = wrap::LANG->get_elem( s_rang ); 

@@ -1,4 +1,8 @@
 GUEST="This person is a guest chatter!";
+SET_MODE_FAKE="Fake modus activated! :->";
+UNSET_MODE_FAKE="Fake modus deactivated!";
+SET_MODE_INVISIBLE="Invisible modus activated! :->";
+UNSET_MODE_INVISIBLE="Invisible modus deactivated!";
 SET_MODE_AWAY="sets mode away: ";
 UNSET_MODE_AWAY="is back ";
 OPTIONSCHANGED="Your options have been changed!<br><br>";
@@ -43,6 +47,7 @@ ERR_WRONG_PASSWORD="The nickname you've selected already exists in the user data
 # Chat-Hilfe ( || seperates command syntax and command description. )
 mods/commands/yc_away.so="/away AWAYTEXT||Set mode away";
 mods/commands/yc_col.so="/col NICKCOLOR TEXTCOLOR||Changing the color";
+mods/commands/yc_fake.so="/fake||Hides status logo (only works for rang 0, 1 and 2)";
 mods/commands/yc_getrusage.so="/getrusage||Shows informations describing the resources utilized by the ychat process";
 mods/commands/yc_j.so="/j ROOMNAME||Changes the room";
 mods/commands/yc_m.so="/m ACTIONTEXT||Writes the text italic ( two colors )";

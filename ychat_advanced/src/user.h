@@ -18,6 +18,8 @@ private:
     bool   b_has_sess; // true if user already has a session! 
     bool   b_is_reg; // true if user is registered 
     bool   b_away;   // true if user is away.
+    bool   b_fake;   // true if user hides his rang logo (does not work for guest)
+    bool   b_invisible;   // true if user hides his rang logo (does not work for guest)
     long   l_time;   // user's last activity time.
     rang   r_rang;   // user's rang ( see enum rang @ globals.h ).
     rang   r_oldr;   // user's previous rang.
@@ -40,6 +42,8 @@ private:
     pthread_mutex_t mut_map_mods;
     pthread_mutex_t mut_away;
     pthread_mutex_t mut_b_online;
+    pthread_mutex_t mut_b_fake;
+    pthread_mutex_t mut_b_invisible;
     pthread_mutex_t mut_b_has_sess;
     pthread_mutex_t mut_b_is_reg;
     pthread_mutex_t mut_l_time;
@@ -79,9 +83,13 @@ public:
      return "<b>" + get_colored_name() + "</b>";
     }
     virtual bool  get_online();
+    virtual bool  get_fake();
+    virtual bool  get_invisible();
     virtual bool  get_has_sess();
     virtual bool  get_is_reg();
     virtual void  set_online( bool b_online );
+    virtual void  set_fake( bool b_fake );
+    virtual void  set_invisible( bool b_invisible );
     virtual void  set_has_sess( bool b_has_sess );
     virtual void  set_is_reg( bool b_is_reg );
     void  set_changed_data_on() { b_set_changed_data = 1; }
