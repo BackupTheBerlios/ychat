@@ -5,13 +5,13 @@
 
 #include <vector>
 #include "incl.h"
-#include "data.h"
+#include "base.h"
 #include "room.h"
 #include "user.h"
 
 using namespace std;
 
-class chat : public data<room>
+class chat : public base<room>
 {
 private:
  bool b_strip_html;

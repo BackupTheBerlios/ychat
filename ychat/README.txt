@@ -53,7 +53,7 @@ Files:
 conf.txt - The yChat configuration file. ( read by conf.cpp ).
 
 base.cpp - Encapsulates vector fields of room's or user ( may be later
-           hash_maps ) and provides methods for manipulating base data
+           hash_maps ) and provides methods for manipulating data
            objects.
 
 hmap.cpp - The hash map implementation which is a very fast data
@@ -139,10 +139,6 @@ s_tool.cpp - Static class which includes some usefull global reachable
 Special header files ( all other header files which are not listed here
 belong to their respective .cpp files ):
 
-data.h   - Implements a generic class ( template class ) for accessing
-           data from a base ( see base.cpp ) object. this methods are
-           all inline and use rekursive algorithm and function pointers.  
-
 glob.h   - Defines global variables which are known by compilation 
            time. 
 
@@ -158,10 +154,7 @@ msgs.h  -  Defines console output messages for verbosity level 0 ( see
 
 The basic class structure:
 
- base<room> base<room>
-    |           |
-    |           | 
- data<room> data<user>
+ base<room> base<user>
     |           |   name 
     |           |  /    \
     |           | /      \
