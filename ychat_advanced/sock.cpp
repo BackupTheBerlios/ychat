@@ -72,7 +72,6 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     p_user->get_room()->del_elem( s_user );
 
 #ifdef NCURSES
-
     {
         string s_tmp( REMUSER );
         s_tmp.append( s_user );
@@ -282,21 +281,8 @@ sock::start()
 
     while( b_run )
     {
-        // block until input arrives on one or more active sockets.
-        read_fd_set = active_fd_set;
-        if (select (FD_SETSIZE, &read_fd_set, NULL, NULL, NULL) < 0)
-        {
-
-#ifdef NCURSES
-            s_ncur::get
-                ().print( SELCERR );
-#endif
-
-            exit( EXIT_FAILURE );
-        }
-
-        // service all the sockets with input pending.
         for ( i = 0; i < FD_SETSIZE; i++ )
+        {
             if ( FD_ISSET (i, &read_fd_set) )
             {
                 if ( i == sock )
@@ -310,18 +296,36 @@ sock::start()
 
                     int new_sock;
                     size = sizeof (clientname);
-                    new_sock = accept (sock,
-                                       (struct sockaddr *) &clientname,
-                                       &size);
+// DEBUG!
+#ifdef NCURSES
+    {
+        string s_tmp( "MARK2 " );
+        s_tmp.append( s_tool::int2string( i ) );
+        s_tmp.append( " " );
+        s_tmp.append( s_tool::int2string( size ) );
+        s_ncur::get
+            ().print( s_tmp.c_str() );
+    }
+#endif
+                    new_sock = accept ( sock,
+                                        ( struct sockaddr *) &clientname,
+                                        &size );
 
+#ifdef NCURSES
+    {
+        string s_tmp( "MARK3 " );
+        s_tmp.append( s_tool::int2string( i ) );
+        s_ncur::get
+            ().print( s_tmp.c_str() );
+    }
+#endif
                     if (new_sock < 0)
                     {
 
 #ifdef NCURSES
                         s_ncur::get
-                            ().print( ACCPERR);
+                            ().print( ACCPERR );
 #endif
-
                         close ( new_sock );
                     }
 
@@ -333,19 +337,31 @@ sock::start()
                     << endl;
 #endif
 
-                    FD_SET (new_sock, &active_fd_set);
-                }
-                else
-                {
+#ifdef NCURSES
+    {
+        string s_tmp( "MARK4 " );
+        s_tmp.append( s_tool::int2string( i ) );
+        s_ncur::get
+            ().print( s_tmp.c_str() );
+    }
+#endif
 
 #ifdef NCURSES
                     ///  s_ncur::get().print( NEWREQU );
 #endif
-
-                    thrd_pool->run( (void*) new thrd( i ) );
-                    FD_CLR( i, &active_fd_set );
+                    thrd_pool->run( (void*) new thrd( new_sock ) );
+// DEBUG!
+#ifdef NCURSES
+    {
+        string s_tmp( "MARK5 " );
+        s_tmp.append( s_tool::int2string( i ) );
+        s_ncur::get
+            ().print( s_tmp.c_str() );
+    }
+#endif
                 }
             }
+	}
     }
 }
 
