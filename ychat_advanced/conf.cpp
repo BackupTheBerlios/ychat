@@ -24,7 +24,18 @@ conf::parse()
  cout << CFILEOK << get_name() << endl;
 #endif
 
- ifstream fs_conf( get_name().c_str() );
+ string s_configfile=get_name();
+
+
+ string homeconfig=string(getenv("HOME"))+string("/.ychat/")+get_name();
+ ifstream homecheck( homeconfig.c_str() );
+	if( homecheck )
+	{
+		homecheck.close();
+		s_configfile=homeconfig;
+	}
+	
+ ifstream fs_conf( s_configfile.c_str() );
 
  if ( ! fs_conf ) 
  {
