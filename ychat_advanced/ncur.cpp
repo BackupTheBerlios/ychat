@@ -10,7 +10,7 @@ ncur::ncur( )
 {
   p_messagelist = new list<char*>;
   pthread_mutex_init( &mut_messages, NULL );
-  i_message_length = 42;
+  i_message_length = 41;
   b_is_ready = false;
 }
 
