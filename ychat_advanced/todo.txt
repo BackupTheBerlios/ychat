@@ -1,6 +1,7 @@
 BRAIN-STORMING:
 
 bugfixes ( see known bugs ).
+alphabetical ordered help site ( dynamic generation does not order it ) 
 rewrite html::online_list as a dynmod mods/html/yc_online_list.so
 add password nick protection
 add superuser privileges
