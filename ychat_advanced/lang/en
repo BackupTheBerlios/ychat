@@ -1,4 +1,7 @@
+SCREAM="screams: ";
 SERVERTIME="The server system time: ";
+TOPIC="changes the topic to: ";
+TOPICDELETE="deletes the topic of the room.";
 UPTIME="yChat uptime: ";
 USERENTR=" enters the chat.";
 USERLEAV=" leaves the chat.";
@@ -21,3 +24,5 @@ mods/commands/yc_version.so="/version||Shows version of the running yChat";
 mods/commands/yc_q.so="/q||Leaving the chat";
 mods/commands/yc_time.so="/time||Shows the server system time";
 mods/commands/yc_uptime.so="/uptime||Shows the yChat uptime";
+mods/commands/yc_s.so="/s TEXT||Screams the TEXT";
+mods/commands/yc_topic.so="/topic TOPIC||Changes the topic to TOPIC";

@@ -69,7 +69,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 #endif
     // post the room that the user has left the chat.
     wrap::SMAN->destroy_session( p_user->get_id() );
-    s_msg = wrap::TIMR->get_time()  
+    s_msg = wrap::TIMR->get_time() + " " 
           + p_user->get_colored_name()
           + wrap::LANG->get_val( "USERLEAV" )
           + "<br>\n";

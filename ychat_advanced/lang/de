@@ -1,4 +1,7 @@
+SCREAM="schreit: ";
 SERVERTIME="Die Serversystemzeit: ";
+TOPIC="ändert das Thema nach: ";
+TOPICDELETE="Löscht das Raumthema.";
 UPTIME="Die yChat Uptime: ";
 ERRORCMD="<font color=#ff0000>Befehl nicht gefunden!</font><br>";
 USERENTR=" betritt den Chat.";
@@ -21,4 +24,5 @@ mods/commands/yc_version.so="/version||Zeigt die Version des laufenden yChats";
 mods/commands/yc_q.so="/q||Verlassen des Chats";
 mods/commands/yc_time.so="/time||Zeigt die Serversystemzeit an";
 mods/commands/yc_uptime.so="/uptime||Zeigt die yChat Uptime an";
-
+mods/commands/yc_s.so="/s TEXT||Schreit den TEXT";
+mods/commands/yc_topic.so="/topic TOPIC||Ändert das Thema des Raumes nach TOPIC";

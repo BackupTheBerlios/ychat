@@ -6,7 +6,6 @@ typedef vector<string> str_vector;
 
 extern "C" {
  export int extern_function(void *v_arg);
- int valid_color( string );
  
  int extern_function(void *v_arg)
  {

@@ -145,18 +145,17 @@ html::online_list( user *p_user, map_string &map_params )
 {
     // prepare user_list.
     string s_list     ( ""     );
-    string s_seperator( "<br>" );
+    string s_seperator( "<br>\n" );
 
-    p_user->get_room()->get_user_list( s_list, s_seperator );
+    room* p_room = p_user->get_room();
+
+    p_room->get_user_list( s_list, s_seperator );
 
     // use the collected data as a message in html-templates.
-    map_params["MESSAGE"] = s_list;
-
+    map_params["MESSAGE"] = "<b>" + p_room->get_name() + "</b><br><br>\n"
+                          + p_room->get_topic() + s_list;
     // renew the timestamp.
     p_user->renew_stamp();
-
-    // send a ping to the client chat stream.
-    p_user->msg_post( new string("\n") );
 }
 
 #endif

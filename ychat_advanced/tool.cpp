@@ -112,25 +112,6 @@ tool::unixtime()
 }
 
 
-void
-tool::strip_html( string *s_str )
-{
-    auto int i_pos;
-
-    if((i_pos=s_str->find("<",0))==string::npos)
-        return;
-    while(true)
-    {
-
-        s_str->replace(i_pos,1,"&lt;");
-
-        if((i_pos=s_str->find("<",0))==string::npos)
-            return;
-
-    }
-
-
-}
 string
 tool::to_lower( string s )
 {

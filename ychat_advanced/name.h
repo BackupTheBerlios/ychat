@@ -11,9 +11,10 @@ class name
 protected:
     // private members:
     string s_name; // object's name.
+    pthread_mutex_t mut_s_name; 
 
 public:
-    virtual string get_name  ( ) const;
+    virtual string get_name  ( );
     virtual void   set_name  ( string s_name );
 
 
