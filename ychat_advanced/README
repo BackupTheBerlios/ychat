@@ -33,7 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 1.0.0 REQUIREMENTS: 
 
-- GCC 3.2 or higher
+- GCC 3.2 ( 3.3 does not work but will be fixed ) 
   The GNU C++ compiler.
 
 - GNU make 3.80 (gmake) or higher
@@ -110,9 +110,6 @@ you may remove the #define NCURSES line in the src/glob.h and enable
 Invoke "./configure" and afterwards "gmake", edit the conf.txt ( be sure
 to enter a valid mysql account and host. Take a look at docs/mysql_ychat.txt
 how to create a valid MySQL database ).
-If all MySQL values in the conf.txt are correct you may also run
-"gmake start" to compile everything and to start ychat_advanced right after
-that :-).
 
 You may invoke make with the following options:
 
