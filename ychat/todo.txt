@@ -1,10 +1,11 @@
 BRAIN-STORMING:
+
 mysql
-tempid
+security: tempid and crypto
 commands
-hash_maps [IN PROGRESS]
-pthread mode 2 ?
-configure script [DONE]
+hash_map []-operator
+hash_map in cont
+several different html templatetes
 
 10: bugfixes
 20: goto 10
