@@ -1,0 +1,647 @@
+2003-09-15 15:51  rover
+
+	* configure, configure.in: several changes for freebsd
+
+2003-09-15 15:34  rover
+
+	* quickstart.sh: made quickstart a bit more userfriendly
+
+2003-09-15 15:02  rover
+
+	* aclocal.m4, configure, configure.in: updated configure scripts
+
+2003-09-15 11:44  snooper
+
+	* todo.txt: Removed "alphabetical ordered help site" from the to do
+	  list. Its already done.
+
+2003-09-14 16:48  snooper
+
+	* README, msgs.h: Changed Version to 0.5 ( Will be released as soon
+	  as possible ).
+
+2003-09-14 16:31  snooper
+
+	* README, glob.h, sock.cpp: Minor bugfixes.
+
+2003-09-13 20:51  snooper
+
+	* html/favicon.ico: Added faficon.ico !
+
+2003-09-13 03:13  snooper
+
+	* html/input.html: Added popup javascript for the help site.
+
+2003-09-13 01:46  snooper
+
+	* html/: index.html, input.html: Modified html accesskeys.
+
+2003-09-13 01:37  snooper
+
+	* quickstart.sh, html/input.html: Added accesskeys
+
+	  Strg+e := select button Strg+s := send button
+
+2003-09-12 23:22  rover
+
+	* mods/html/yc_help.cpp: implemented sorting of commands
+
+2003-09-12 22:43  snooper
+
+	* lang/en: Type missmatch.
+
+2003-09-12 22:40  snooper
+
+	* mods/commands/: yc_m.cpp, yc_me.cpp: Bugfixes.
+
+2003-09-12 21:56  snooper
+
+	* chat.cpp, sock.cpp, user.cpp, user.h, mods/commands/yc_col.cpp,
+	  mods/commands/yc_m.cpp:
+	  Added string user::get_colored_name();
+
+2003-09-12 21:35  snooper
+
+	* todo.txt, lang/de, lang/en, mods/commands/yc_m.cpp,
+	  mods/commands/yc_me.cpp: Added two new commands.
+
+2003-09-12 20:56  snooper
+
+	* Makefile.in, conf.txt, dir.cpp, dir.h, main.cpp, modl.cpp,
+	  modl.h, sock.cpp, todo.txt: Added automatic module preloading at
+	  ychat startup.
+
+	  those two variables have been added to the conf.txt:
+
+	  PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so
+	  on start if set to "ON".  PRE_MODS_HTML="ON";     # yChat will
+	  preload mods/html/*.so on start if set to "ON".
+
+2003-09-12 02:42  snooper
+
+	* msgs.h, lang/de, lang/en, mods/commands/yc_version.cpp: Added the
+	  /version command module.
+
+2003-09-12 02:20  snooper
+
+	* logd.cpp, msgs.h, todo.txt: New ideas ( thx @ radix from russia )
+	  put all logd err msgs into msgs.h and also defined ncurse
+	  interface calls.
+
+2003-09-12 01:50  snooper
+
+	* conf.txt: Log files will be stored in the log/ subdirectory by
+	  now.
+
+2003-09-11 11:49  snooper
+
+	* glob.h, mman.cpp, mman.h, ncur.cpp:
+	  Added several mutex'.  Added MySQL i_used_connections value into
+	  the NCURSES interfacen.
+
+2003-09-11 10:46  snooper
+
+	* glob.h, ncur.cpp, sman.cpp, sman.h, sock.cpp: Added the session
+	  count value into the ncurses interface.
+
+2003-09-11 02:17  snooper
+
+	* chat.cpp: Added # infront of the user colors.
+
+2003-09-11 02:06  snooper
+
+	* chat.cpp, conf.txt, user.cpp, user.h, lang/de, lang/en,
+	  mods/commands/yc_col.cpp:
+	  Each user now may use two different colors ( nick and text ).
+	  See chat help for instructions how to do this!
+
+2003-09-09 16:20  snooper
+
+	* sock.cpp: RYANSF - Removed yet another nasty segmentation fault.
+
+	  In sock::start
+
+	  Removed client socket creation error's result ( segmentation
+	  fault ).
+
+2003-09-09 12:08  snooper
+
+	* README, todo.txt: Updated the README file.
+
+	  ( how to compile the modules ).
+
+2003-09-09 12:04  snooper
+
+	* todo.txt: New brainstorming.
+
+2003-09-09 11:03  snooper
+
+	* reqp.cpp: Ryansf - Removed yet another nasty segmentation fault!
+
+	  In reqp::get_url:  -> at the read function call  -> read could
+	  read 0 bytes , which could result in an empty string to parse  ->
+	  segmentation fault!
+
+	  read reads 0 bytes if someone's web brauser closes its connection
+	  unpredictably.
+
+	  if 0 bytes a read, NOBYTE will be returned from get_url and
+	  map_params["request"] will be set to
+	  s_conf::get().get_val("NOTFOUND");
+
+2003-09-09 00:40  snooper
+
+	* ncur.cpp, ncur.h, sock.cpp, sock.h, user.cpp: Added a few new
+	  mutex'!
+
+2003-09-08 23:29  snooper
+
+	* pool.cpp, user.cpp, user.h: astyle
+
+2003-09-08 23:16  snooper
+
+	* pool.cpp: [no log message]
+
+2003-09-08 23:00  snooper
+
+	* conf.txt, user.cpp, user.h, mods/commands/yc_col.cpp:
+	  Added new mutex' @ user.{cpp,h} q_col.cpp now ses USERCOL1
+	  instead of STDCOLOR if no parameter is used.
+
+2003-09-08 21:32  snooper
+
+	* mods/html/yc_help.cpp: Removed not used code.
+
+2003-09-08 21:19  snooper
+
+	* conf.txt, glob.h, user.cpp, mods/commands/yc_col.cpp:
+	  Removed segmentation fault error in yc_col.so!
+
+	  ( /col leds to a segfault if using it without a parameter ).
+
+	  If no parameter is given, the nick color will be changed to
+	  s_conf::get().get_val( "STDCOLOR" );
+
+2003-09-08 21:07  snooper
+
+	* hmap.cpp, hmap.h, html/help.html, lang/de, lang/en,
+	  mods/html/yc_help.cpp: All currently loaded chat modules will now
+	  be displayed at the "Help" site.  Later, all loaded chat modules
+	  accomplishable by a certain user only will be shown ( While using
+	  an individual map_mods ).
+
+	  The command help texts are defined in the lang/language files (
+	  lang/de lang/en etc ... ).
+
+	  - Later, we may load all available modules automaticaly at ychat
+	  start up ( prevents not showing all available command modules
+	  instead of all loaded command modules at the "Help" site ).
+
+2003-09-08 18:34  snooper
+
+	* html/input.html: Put "Help" Link right next to the select button.
+
+2003-09-08 15:34  snooper
+
+	* gfx/: y_ani_black.gif, y_ani_white.gif: Gif files already exist
+	  in the html/ direactory.
+
+2003-09-07 21:53  snooper
+
+	* html/help.html: [no log message]
+
+2003-09-07 05:48  snooper
+
+	* reqp.cpp: Fergot to remove a debug cout!
+
+2003-09-07 05:45  snooper
+
+	* base.cpp, chat.cpp, html.cpp, html.h, modl.cpp, modl.h, msgs.h,
+	  reqp.cpp, todo.txt, html/frameset.html, html/input.html, lang/de,
+	  lang/en, mods/compile.sh, mods/commands/yc_template.cpp,
+	  mods/html/yc_help.cpp:
+
+	  Started implementing dynamic modules for html site generation.
+
+	  The new help link loads mods/html/yc_help.so ( has to be
+	  completed tomorrow ).
+
+2003-09-07 03:04  snooper
+
+	* mods/commands/yc_col.cpp, s_tool.cpp, s_tool.h: [no log message]
+
+2003-09-07 01:00  snooper
+
+	* todo.txt: New todo ideas.
+
+2003-09-07 00:23  snooper
+
+	* todo.txt: Updated bug list!
+
+2003-09-07 00:22  snooper
+
+	* user.cpp: Removed segfault while executing dynamic modules on
+	  FreeBSD!
+
+	  changed     container *c;	c->elem[0]=(void*)ptr_command;
+	  c->elem[1]=(void*)this;     c->elem[2]=(void*)&params;
+
+	      ( *(mod->the_func) ) ( (void*) c );
+
+	  into:
+
+	      container *c = new container;
+	      c->elem[0]=(void*)ptr_command;
+	      c->elem[1]=(void*)this;
+	      c->elem[2]=(void*)&params;
+
+	      ( *(mod->the_func) ) ( (void*) c );
+
+	  Error: memory for the pointer "c" has not been allocated. Linux
+	  GCC seems to fix this automaticaly.
+
+2003-09-06 23:33  snooper
+
+	* pool.cpp: Removed bug in the thread pool which resulted ychat
+	  stop processing new requests if more than 1 jobs were in the
+	  thread_work_queue.
+
+2003-09-05 13:33  snooper
+
+	* conf.txt, todo.txt: Bugtracking.
+
+2003-09-05 13:23  snooper
+
+	* todo.txt:
+	  Bugtracking.
+
+2003-09-05 13:23  snooper
+
+	* todo.txt: Bugtracking, categorized into:
+
+	  a) Linux bugs b) Freebsd bugs c) All supported platforms.
+
+2003-09-05 07:23  rover
+
+	* ncur.cpp: removed the startup segfault
+
+2003-09-05 06:26  rover
+
+	* reqp.cpp: changed header separator to be rfc compliant
+
+2003-09-05 01:29  snooper
+
+	* README:
+	  Minor bugfix.
+
+2003-08-22 01:44  snooper
+
+	* sock.cpp: Testing.
+
+2003-08-22 01:39  snooper
+
+	* README, sock.cpp: Improved sock.cpp .
+
+2003-08-22 00:17  snooper
+
+	* README: FreeBSD 5.1 standard make seems not to work correctly (
+	  the sources will compile but no user can log in ). Instead use
+	  GNU make ( gmake )!
+
+2003-08-21 23:50  snooper
+
+	* todo.txt: Bug tracking.
+
+2003-07-24 10:58  snooper
+
+	* conf.txt, main.cpp, ncur.cpp, sock.cpp: Bugfix!
+
+2003-07-24 09:35  snooper
+
+	* README: Bugfix.
+
+2003-07-24 09:31  snooper
+
+	* README: Rewrote a lot of the README file.
+
+2003-07-16 01:23  snooper
+
+	* conf.txt: Changed yChat++ Basic - Fast Simple Extensible to
+	  yChat++ Advanced - Fast and extensible
+
+2003-07-14 01:30  snooper
+
+	* ncur.cpp: all mysql connections will be shut down after selecting
+	  "shut down server" at the admin menu.
+
+2003-07-14 01:22  snooper
+
+	* conf.txt, glob.h, html.cpp, main.cpp, mman.cpp, mman.h, msgs.h,
+	  ncur.cpp, ncur.h, sock.cpp: Upgraded mman.*
+
+	  added all messages to msgs.h and integrated ncurses output.
+
+2003-07-14 00:16  snooper
+
+	* ncur.cpp: If a message passed to the ncurses admin interface is
+	  too long it will be split into multiple messages ( several lines
+	  ).
+
+2003-07-13 23:12  snooper
+
+	* base.cpp, base.h, chat.cpp, chat.h, conf.cpp, conf.h, cont.cpp,
+	  cont.h, glob.h, hmap.cpp, hmap.h, html.cpp, html.h, lang.cpp,
+	  lang.h, logd.cpp, logd.h, main.cpp, mcon.cpp, mcon.h, menu.cpp,
+	  menu.h, mman.cpp, mman.h, modl.cpp, modl.h, mutx.cpp, mutx.h,
+	  name.cpp, name.h, ncur.cpp, ncur.h, pool.cpp, pool.h, reqp.cpp,
+	  reqp.h, room.h, s_chat.h, s_conf.h, s_html.h, s_lang.h, s_mman.h,
+	  s_modl.h, s_mutx.h, s_ncur.h, s_sman.h, s_sock.h, s_tool.cpp,
+	  s_tool.h, sess.cpp, sess.h, sman.cpp, sman.h, sock.cpp, sock.h,
+	  thrd.cpp, thrd.h, user.cpp, user.h: astyle *{h,cpp}
+
+2003-07-13 05:38  snooper
+
+	* ncur.cpp: Bugfix
+
+2003-07-13 05:14  snooper
+
+	* reqp.cpp, reqp.h: Added Pragma: no-cache and Expires: 0 to the
+	  HTTP response header.
+
+2003-07-13 04:46  snooper
+
+	* ncur.cpp, sock.cpp: Fixed the "white-screen-bug" !
+
+2003-07-13 04:17  snooper
+
+	* chat.cpp, html.cpp, sock.cpp, user.cpp, user.h: Minor
+	  modifications.
+
+2003-07-13 03:48  snooper
+
+	* html.cpp, msgs.h: Added "File not found" error messages to msgs.h
+	  and added ncurses admin interface output of it.
+
+2003-07-13 03:42  snooper
+
+	* hmap.cpp, hmap.h: Renamed some function and variable names.
+
+2003-07-13 01:13  snooper
+
+	* README: Added a small "screen" tutorial to use with ychat!
+
+2003-07-13 01:02  snooper
+
+	* Makefile.in, cmnd.cpp, cmnd.h: Deleted cmnd.cpp and cmnd.h
+	  because they are not needed due chat commands will be programmed
+	  as dynamic modules.
+
+2003-07-13 00:34  snooper
+
+	* base.cpp, base.h, chat.cpp, chat.h, cmnd.cpp, cmnd.h, conf.cpp,
+	  conf.h, cont.cpp, cont.h, glob.h, hmap.cpp, hmap.h, html.cpp,
+	  html.h, incl.h, lang.cpp, lang.h, logd.cpp, logd.h, main.cpp,
+	  mcon.cpp, mcon.h, menu.cpp, menu.h, mman.cpp, mman.h, modl.cpp,
+	  modl.h, msgs.h, mutx.cpp, mutx.h, name.cpp, name.h, ncur.cpp,
+	  ncur.h, pool.cpp, pool.h, reqp.cpp, reqp.h, room.cpp, room.h,
+	  s_chat.h, s_conf.h, s_html.h, s_lang.h, s_mman.h, s_modl.h,
+	  s_mutx.h, s_ncur.cpp, s_ncur.h, s_sman.h, s_sock.h, s_tool.cpp,
+	  s_tool.h, sess.cpp, sess.h, sman.cpp, sman.h, sock.cpp, sock.h,
+	  thrd.cpp, thrd.h, user.cpp, user.h: Did a astyle --style=gnu
+	  *{cpp,h};rm *orig
+
+2003-07-13 00:27  snooper
+
+	* sman.cpp, sman.h: Synchronized class members with pthread_mutex_t
+	  elements.
+
+2003-07-13 00:00  snooper
+
+	* chat.cpp, mcon.cpp, mcon.h, mman.cpp, mman.h, reqp.cpp, sess.cpp,
+	  sess.h, sman.cpp, sman.h, sock.cpp: substituate sessioncount
+	  session_count substituate generateID generate_id substituate
+	  getSession get_session substituate get_session_count
+	  get_session_count substituate create_session create_session
+	  substituate destroy_session destroy_session substituate
+	  get_connection get_connection substituate new_connection
+	  new_connection substituate free_connection free_connection
+	  substituate get_next_row get_next_row substituate get_elem
+	  get_elem substituate get_id get_id
+
+2003-07-09 17:25  snooper
+
+	* menu.cpp, menu.h, ncur.cpp, ncur.h: Added to menu::start a
+	  function pointer argument which decides which actions will take
+	  place after selection a menu point.
+
+	  See ncur::switch_main_menu_ and ncur::start for example.
+
+2003-07-09 11:25  snooper
+
+	* sock.cpp: Minor modifications.
+
+2003-07-08 23:57  snooper
+
+	* msgs.h, sock.cpp: Added "Session count X" output to the ncurces
+	  interface.
+
+2003-07-08 23:33  snooper
+
+	* msgs.h, pool.cpp: Added #define POOLERR to msgs.h and modified
+	  error messages in pool.cpp ( they will now also show up in the
+	  ncurses interface ).
+
+2003-07-07 17:36  rover
+
+	* mods/commands/yc_template.cpp: added template file for later
+	  module creation
+
+2003-07-07 17:31  rover
+
+	* mods/commands/yc_q.cpp: yc_q now uses the new container format
+
+2003-07-07 17:30  rover
+
+	* modl.cpp, user.cpp: changed the module loader to use a container
+	  to submit data to a module
+
+2003-07-07 15:23  snooper
+
+	* sock.cpp, sock.h: Minor changes.
+
+2003-07-07 15:15  snooper
+
+	* pool.cpp, sock.cpp, sock.h: Added the "Thread:
+	  NUMOFRUNNINGTHREADS" information to the admin interface.  At
+	  startup its initialized with 2 because the admin interface and
+	  the listening server socket each is running in its own thread.
+
+2003-07-07 14:12  snooper
+
+	* msgs.h, ncur.cpp: Manipulated a few strings. ( Not important
+	  changes ).
+
+2003-07-07 13:57  snooper
+
+	* menu.cpp, menu.h, ncur.cpp, sock.cpp: Added colors to ncurses
+	  interface.
+
+2003-07-07 13:10  snooper
+
+	* conf.cpp, main.cpp, ncur.cpp: Enlarged the windows height (  2
+	  more rows )!
+
+2003-07-07 12:43  snooper
+
+	* msgs.h, s_tool.cpp, sock.cpp: Added "Port: SERVERPORT" display to
+	  the ncurses admin interface.
+
+2003-07-07 12:23  snooper
+
+	* html.cpp, main.cpp, modl.cpp, ncur.cpp, s_tool.cpp, s_tool.h,
+	  sock.cpp, mods/commands/yc_q.cpp: Added int2string method to
+	  s_tool.h.  Added more system messages for the ncurses interface.
+
+2003-07-07 12:05  snooper
+
+	* ncur.cpp: If a system message string is too long it simply will
+	  get cut off!
+
+2003-07-07 11:56  snooper
+
+	* chat.cpp, msgs.h, sock.cpp: Added new system messages wich will
+	  appear in the ncurses admin interface.
+
+2003-07-07 11:36  snooper
+
+	* chat.cpp, msgs.h, ncur.cpp, ncur.h, sock.cpp: Now each time new
+	  server system messages are printed to the ncurses interface old
+	  lines will be overwritten.
+
+2003-07-07 09:25  snooper
+
+	* chat.cpp, conf.txt, glob.h, main.cpp, menu.cpp, msgs.h, ncur.cpp,
+	  ncur.h, pool.cpp, s_ncur.h, sock.cpp, sock.h:
+	  Added SYSTEM MESSAGES window to the ncurses admin menu. The
+	  correct output of it is still in developing stage.
+
+2003-07-04 20:39  snooper
+
+	* main.cpp: Bugfix!
+
+2003-07-04 19:58  snooper
+
+	* glob.h: Minor modification.
+
+2003-07-04 19:55  snooper
+
+	* menu.cpp: Minor modifications.
+
+2003-07-04 19:39  snooper
+
+	* glob.h, incl.h, menu.cpp, msgs.h, sock.cpp: Added "Server hits"
+	  to the ncurses admin interface and the NCURSES variable to glob.h
+	  which checks if code should be compiled with all ncurses options
+	  or not.
+
+2003-07-04 19:10  snooper
+
+	* menu.cpp: Minor bugfix.
+
+2003-07-04 19:07  snooper
+
+	* README, glob.h, main.cpp, menu.cpp, ncur.cpp, ncur.h, sock.cpp:
+	  Put the ncurses ychat admin interface into its own pthread and
+	  implemented the "Shut down server" selection.
+
+	  Also added menu interaction messages at the bottom.
+
+2003-07-04 16:34  snooper
+
+	* main.cpp, ncur.cpp: Edited the ncur menu entries.
+
+2003-07-04 13:02  snooper
+
+	* s_ncur.cpp, s_ncur.h: Added missed files. ( Static wrapper
+	  classes for the ncurses admin interface ).
+
+2003-07-04 02:37  snooper
+
+	* Makefile.in, README, glob.h, main.cpp, menu.cpp, menu.h, msgs.h,
+	  ncur.cpp, ncur.h, todo.txt: Started implementing a ncurse based
+	  administration menu which will be launched automaticly while
+	  starting the ychatd. It should be used together with the tool
+	  "screen" in order to run the ychatd in the background without
+	  restarting the ncurse menu if the administrator wants to connect
+	  to it later through another terminal.
+
+2003-07-03 23:32  snooper
+
+	* README, conf.txt, hmap.cpp: Removed nasty "hmap constructor"
+	  output.  Added MySQL-Server / Client 4.x requirements to the
+	  README.  Changed standard MySQL user name from "root" to "ychat".
+
+2003-04-27 21:57  rover
+
+	* conf.cpp: the configfiles are now searched int the following
+	  order: ~/.ychat/CONFILE -> local dir
+
+2003-04-27 20:48  rover
+
+	* Makefile.in, conf.txt, main.cpp, mcon.cpp, mcon.h, mman.cpp,
+	  mman.h, s_mman.cpp, s_mman.h, sock.cpp: added MySQL Connection
+	  Manager
+
+2003-04-26 23:13  snooper
+
+	* todo.txt: New brainstorming.
+
+2003-04-26 23:07  snooper
+
+	* cmnd/: yc_q.cpp, yc_test.cpp: Deletion of files which are no
+	  longer needed.
+
+2003-04-26 22:59  snooper
+
+	* user.cpp, user.h, mods/commands/yc_q.cpp,
+	  mods/commands/yc_test.cpp: Created new ./mods dir there all the
+	  modules will be sorted by their category.
+
+2003-04-26 13:56  rover
+
+	* Makefile.in, COPYING, base.cpp, README, base.h, chat.cpp, chat.h,
+	  cmnd.cpp, cmnd.h, conf.cpp, conf.h, conf.txt, configure,
+	  configure.in, cont.cpp, cont.h, glob.h, hmap.cpp, hmap.h,
+	  html.cpp, html.h, incl.h, lang.cpp, lang.h, logd.cpp, logd.h,
+	  main.cpp, modl.cpp, modl.h, msgs.h, mutx.cpp, mutx.h, name.cpp,
+	  name.h, pool.cpp, pool.h, reqp.cpp, reqp.h, room.cpp, room.h,
+	  s_chat.cpp, s_chat.h, s_conf.cpp, s_conf.h, s_html.cpp, s_html.h,
+	  s_lang.cpp, s_lang.h, s_modl.cpp, s_modl.h, s_mutx.cpp, s_mutx.h,
+	  s_sman.cpp, s_sman.h, s_sock.cpp, s_sock.h, s_tool.cpp, s_tool.h,
+	  sess.cpp, sess.h, sman.cpp, sman.h, sock.cpp, sock.h, thrd.cpp,
+	  thrd.h, todo.txt, user.cpp, user.h, cmnd/yc_q.cpp,
+	  cmnd/yc_test.cpp, gfx/y_ani_black.gif, gfx/y_ani_white.gif,
+	  html/blank.html, html/frameset.html, html/index.html,
+	  html/input.html, html/notfound.html, html/online.html,
+	  html/stream.html, html/style.css, html/y_ani.gif,
+	  html/y_black.gif, lang/de, lang/en: Initial revision
+
+2003-04-26 13:56  rover
+
+	* Makefile.in, COPYING, base.cpp, README, base.h, chat.cpp, chat.h,
+	  cmnd.cpp, cmnd.h, conf.cpp, conf.h, conf.txt, configure,
+	  configure.in, cont.cpp, cont.h, glob.h, hmap.cpp, hmap.h,
+	  html.cpp, html.h, incl.h, lang.cpp, lang.h, logd.cpp, logd.h,
+	  main.cpp, modl.cpp, modl.h, msgs.h, mutx.cpp, mutx.h, name.cpp,
+	  name.h, pool.cpp, pool.h, reqp.cpp, reqp.h, room.cpp, room.h,
+	  s_chat.cpp, s_chat.h, s_conf.cpp, s_conf.h, s_html.cpp, s_html.h,
+	  s_lang.cpp, s_lang.h, s_modl.cpp, s_modl.h, s_mutx.cpp, s_mutx.h,
+	  s_sman.cpp, s_sman.h, s_sock.cpp, s_sock.h, s_tool.cpp, s_tool.h,
+	  sess.cpp, sess.h, sman.cpp, sman.h, sock.cpp, sock.h, thrd.cpp,
+	  thrd.h, todo.txt, user.cpp, user.h, cmnd/yc_q.cpp,
+	  cmnd/yc_test.cpp, gfx/y_ani_black.gif, gfx/y_ani_white.gif,
+	  html/blank.html, html/frameset.html, html/index.html,
+	  html/input.html, html/notfound.html, html/online.html,
+	  html/stream.html, html/style.css, html/y_ani.gif,
+	  html/y_black.gif, lang/de, lang/en: initial import
+
