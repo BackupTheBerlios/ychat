@@ -84,17 +84,12 @@ sock::make_socket( uint16_t i_port )
     sock = socket (PF_INET, SOCK_STREAM, 0);
     if (sock < 0)
     {
-
-#ifdef NCURSES
-        wrap::NCUR->print( SOCKERR );
-#endif
+        wrap::system_message( SOCKERR );
 
         if ( ++i_port > MAXPORT )
             exit(-1);
 
-#ifdef NCURSES
-        wrap::NCUR->print( SOCKERR );
-#endif
+        wrap::system_message( SOCKERR );
 
         return make_socket( i_port );
     }
@@ -110,36 +105,19 @@ sock::make_socket( uint16_t i_port )
     if (bind (sock, (struct sockaddr *) &name, sizeof (name)) < 0)
     {
 
-#ifdef NCURSES
-     wrap::NCUR->print( BINDERR );
-#endif
+     wrap::system_message( BINDERR );
 
         if ( ++i_port > MAXPORT )
             exit(-1);
 
-#ifdef SERVMSG
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cout << SOCKERR << i_port << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
-#ifdef NCURSES
-        wrap::NCUR->print( SOCKERR );
-#endif
+        wrap::system_message( SOCKERR + i_port );
 
         return make_socket( i_port );
     }
 
-#ifdef VERBOSE
-    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-    cout << SOCKCRT << "localhost:" << i_port << endl;
-    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
-#ifdef NCURSES
+    wrap::system_message( SOCKCRT + string("localhost:") + tool::int2string(i_port) );
 
-    string s_tmp( SOCKCRT );
-    s_tmp.append( "localhost:" );
-    s_tmp.append( tool::int2string(i_port) );
-    wrap::NCUR->print( s_tmp );
+#ifdef NCURSES
     mvprintw( NCUR_PORT_X,NCUR_PORT_Y, "Port: %d ", i_port);
     refresh();
 #endif
@@ -157,10 +135,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
 
     if (i_bytes < 0)
     {
-#ifdef NCURSES
-     wrap::NCUR->print( new string( READERR ) );
-#endif
-
+     wrap::system_message( READERR );
     }
     else
     {
@@ -197,8 +172,8 @@ sock::read_write( thrd* p_thrd, int i_sock )
 int
 sock::start()
 {
+    wrap::system_message( STARTMS );
 #ifdef NCURSES
-    wrap::NCUR->print( STARTMS );
     print_hits();
     print_threads();
 #endif
@@ -217,21 +192,11 @@ sock::start()
 
     if (listen (sock, 1) < 0)
     {
-#ifdef NCURSES
-      wrap::NCUR->print( LISTERR );
-#endif
-
-        exit( EXIT_FAILURE );
+      wrap::system_message( LISTERR );
+      exit( EXIT_FAILURE );
     }
 
-#ifdef VERBOSE
-    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-    cout << SOCKRDY << endl;
-    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
-#ifdef NCURSES
-    wrap::NCUR->print( SOCKRDY );
-#endif
+    wrap::system_message( SOCKRDY );
 
     // initialize the set of active sockets.
     FD_ZERO (&active_fd_set);
@@ -243,12 +208,9 @@ sock::start()
         read_fd_set = active_fd_set;
         if (select (FD_SETSIZE, &read_fd_set, NULL, NULL, NULL) < 0)
         {
+         wrap::system_message( SELCERR );
 
-#ifdef NCURSES
-     wrap::NCUR->print( SELCERR );
-#endif
-
-            exit( EXIT_FAILURE );
+         exit( EXIT_FAILURE );
         }
 
         // service all the sockets with input pending.
@@ -260,7 +222,6 @@ sock::start()
                     // connection request on original socket.
                     i_req++;
 #ifdef NCURSES
-
                     print_hits();
 #endif
 
@@ -272,13 +233,8 @@ sock::start()
 
                     if (new_sock < 0)
                     {
-
-#ifdef NCURSES
-                     wrap::NCUR->print( ACCPERR);
-#endif
-
-                        close ( new_sock );
-			
+	             wrap::system_message( ACCPERR );
+                     close ( new_sock );
                     }
 		
                     else	
@@ -298,10 +254,6 @@ sock::start()
 
                 else
                 {
-
-#ifdef NCURSES
-                    ///  s_ncur::get().print( NEWREQU );
-#endif
 
                     thrd_pool->run( (void*) new thrd( i ) );
                     FD_CLR( i, &active_fd_set );

@@ -195,23 +195,14 @@ chat::login( map_string &map_params )
      if ( p_room )
      {
       p_room->set_name( s_room );
-#ifdef NCURSES
-      wrap::NCUR->print( REUROOM + s_room );
-#endif
-#ifdef SERVMSG
-      cout << REUROOM + s_room << endl;
-#endif
+      wrap::system_message( REUROOM + s_room );
      }
 
      else
      {
       p_room = new room( s_room );
 
-#ifdef NCURSES
-      string s_tmp( NEWROOM );
-      s_tmp.append( s_room );
-      wrap::NCUR->print( &s_tmp );
-#endif
+      wrap::system_message( NEWROOM + s_room );
      }
 
      add_elem( p_room );
@@ -221,15 +212,7 @@ chat::login( map_string &map_params )
     // add user to the room.
     p_room->add_user( p_user );
 
-#ifdef NCURSES
-
-    {
-        string s_tmp( NEWUSER );
-        s_tmp.append( s_user );
-        wrap::NCUR->
-            print(  s_tmp.c_str()  );
-    }
-#endif
+    wrap::system_message( NEWUSER + s_user );
 
     // post "username enters the chat" into the room.
     string s_msg = wrap::TIMR->get_time() + " "

@@ -27,15 +27,8 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
     // allocate a pool data structure
     if (( tpool = (tpool_t) malloc( sizeof( struct tpool ) ) ) == NULL )
     {
-#ifdef NCURSES
-        wrap::NCUR-> 
-            print( POOLERR );
-#endif
-
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cerr << POOLERR << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-        exit(-1);
+     wrap::system_message( POOLERR );
+     exit(-1);
     }
 
     // initialize th fields
@@ -45,13 +38,7 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
 
     if ( ( tpool->threads = (pthread_t*) malloc( sizeof( pthread_t ) *num_worker_threads ) ) == NULL )
     {
-#ifdef NCURSES
-        wrap::NCUR-> print( POOLERR );
-#endif
-
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cerr << POOLERR << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+        wrap::system_message( POOLERR );
         exit(-1);
     }
 
@@ -66,14 +53,8 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
 
+        wrap::system_message( s_err );
 
-#ifdef NCURSES
-	wrap::NCUR->print( s_err );
-#endif
-
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cerr << s_err << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     else if ( ( rtn = pthread_cond_init( &(tpool->queue_not_empty), NULL ) ) != 0 )
@@ -81,12 +62,8 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
 
+        wrap::system_message( s_err );
 
-#ifdef NCURSES
-        wrap::NCUR->print( s_err );
-#endif
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cerr << s_err << endl;
         pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
@@ -95,13 +72,8 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
 
-#ifdef NCURSES
-        wrap::NCUR->print( s_err );
-#endif
+        wrap::system_message( s_err );
 
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cerr << s_err << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     else if ( ( rtn = pthread_cond_init( &(tpool->queue_empty), NULL ) ) != 0 )
@@ -109,13 +81,8 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
 
-#ifdef NCURSES
-        wrap::NCUR->print( s_err );
-#endif
+        wrap::system_message( s_err );
 
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cerr << s_err << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     // create threads

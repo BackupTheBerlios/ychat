@@ -105,7 +105,7 @@ Now you may continue with the installation.
 
 If you dont want to use yChat's ncurses based administration interface 
 you may remove the #define NCURSES line in the src/glob.h and enable
-#define SERVMSG and #define VERBOSE instead.
+#define SERVMSG instead.
 
 Invoke "./configure" and afterwards "gmake", edit the conf.txt ( be sure
 to enter a valid mysql account and host. Take a look at docs/mysql_ychat.txt

@@ -13,12 +13,7 @@ room::room( string s_name ) : name( s_name )
 room::~room()
 {
  pthread_mutex_destroy( &mut_s_topic );
-#ifdef NCURSES
-    wrap::NCUR->print( REMROOM + get_name() );
-#endif
-#ifdef VERBOSE
-    cout << REMROOM + get_name() << endl;
-#endif
+ wrap::system_message( REMROOM + get_name() ); 
 }
 
 string

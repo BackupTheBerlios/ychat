@@ -110,9 +110,6 @@ int main()
                     wrap::TIMR->start, (void*) wrap::TIMR );
 
 
- //     map_string result_map = wrap::DATA->select_user_data( "test", "DATA_SELECT_LOGIN" );
- //     wrap::NCUR->print( result_map["password"] );
-
 
     // start the socket manager. this one will listen for incoming http requests and will
     // forward them to the specified routines which will generate a http response.

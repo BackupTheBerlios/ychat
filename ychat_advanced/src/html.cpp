@@ -20,12 +20,7 @@ void
 html::clear_cache( )
 {
     make_empty();
-#ifdef NCURSES
-    wrap::NCUR->print( CLRHTML );
-#endif
-#ifdef SERVMSG
-    cout << CLRHTML << endl;
-#endif
+    wrap::system_message( CLRHTML );
 }
 
 string
@@ -44,19 +39,7 @@ html::parse( map_string &map_params )
 
         if ( ! fs_templ )
         {
-
-#ifdef VERBOSE
-            cerr << NOFOUND << s_path << endl;
-#endif
-#ifdef NCURSES
-
-            {
-                string s_tmp( NOFOUND );
-                s_tmp.append( s_path );
-                wrap::NCUR-> 
-                    print( s_tmp );
-            }
-#endif
+    	    wrap::system_message( NOFOUND + s_path );
             if(map_params["request"]== wrap::CONF->
                         get_elem( "NOTFOUND"  ))
                     return "";
@@ -76,21 +59,7 @@ html::parse( map_string &map_params )
 
         fs_templ.close();
 
-#ifdef VERBOSE
-
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-        cout << TECACHE << s_path << endl;
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
-#ifdef NCURSES
-
-        {
-            string s_tmp( TECACHE );
-            s_tmp.append( s_path );
-            wrap::NCUR-> 
-                print( s_tmp.c_str() );
-        }
-#endif
+	wrap::system_message( TECACHE + s_path );
 
         // cache file.
         smap<string,string>::add_elem( s_templ, s_file ); 

@@ -36,13 +36,11 @@
 // max occupied percentage of a hash map:
 #define HMAPOCC 80
 
-// definition for verbosity level ( normal outputs ). see vmsg.h for custumizing all
 // the messages. this messages will only printed out by the master thread.
-// dont use this until NCURSES is defined! all messages will appear in the
-// ncurses interface anyways.
 //#define VERBOSE
 
-// displays important server messages such as socket or fatal errors!
+// displays important server messages. this one will print all messages
+// in stdout if no NCURSES is defined.  
 // dont use this until NCURSES is defined! all messages will appear in the
 // ncurses interface anyways.
 //#define SERVMSG
@@ -108,7 +106,5 @@ struct dynmod
     function *the_func  ;
     void     *the_module;
 };
-
-
 
 #endif

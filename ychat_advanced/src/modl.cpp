@@ -77,16 +77,7 @@ modl::cache_module( string s_name )
 
     if ( the_module == NULL )
     {
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-
-#ifdef NCURSES
-        wrap::NCUR->print( dlerror() );
-#endif
-#ifdef SERVMSG
-        cerr << "dlerror: " << dlerror() << endl;
-#endif
-
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
+        wrap::system_message( dlerror() );
         return NULL;
     }
 
@@ -94,29 +85,11 @@ modl::cache_module( string s_name )
 
     if ( the_func == NULL )
     {
-        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
-
-#ifdef NCURSES
-        wrap::NCUR->print( dlerror() );
-#endif
-#ifdef SERVMSG
-        cerr << "dlerror: " << dlerror() << endl;
-#endif
-
-        pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
+        wrap::system_message( dlerror() );
         return NULL;
     }
 
-#ifdef SERVMSG
-    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
-    cout << MODULEC << s_name << endl;
-    pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
-#endif
-#ifdef NCURSES
-    string s_tmp( MODULEC );
-    s_tmp.append( s_name );
-    wrap::NCUR->print( s_tmp.c_str() );
-#endif
+    wrap::system_message( MODULEC + s_name ); 
 
     dynmod *mod     = new dynmod; // encapsulates the function and module handler.
     mod->the_func   = the_func  ; // the function to execute
@@ -133,30 +106,15 @@ modl::cache_module( string s_name )
 dynmod*
 modl::get_module( string s_name )
 {
-#ifdef VERBOSE
-    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
-    cout << MODULER << s_name << endl;
-    pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
-#endif
-#ifdef NCURSES
-    string s_tmp( MODULER );
-    s_tmp.append( s_name );
-    wrap::NCUR->print( s_tmp.c_str() );
-#endif
+    wrap::system_message( MODULER + s_name );
     dynmod* mod = map_mods->get_elem( s_name );
-
     return ! mod ? cache_module( s_name ) : mod;
 }
 
 void
 modl::unload_modules()
 {
-#ifdef NCURSES
-    wrap::NCUR->print( MODUNLO );
-#endif
-#ifdef SERVMSG
-    cout << MODUNLO << endl;
-#endif
+    wrap::system_message( MODUNLO );
 
     // dlclose all the_module's first!
     map_mods->run_func   ( &modl::dlclose_ );
@@ -168,15 +126,11 @@ modl::unload_modules()
 void
 modl::reload_modules()
 {
-     unload_modules();
-#ifdef NCURSES
-    wrap::NCUR->print( MODRELO );
-#endif
-#ifdef SERVMSG
-    cout << MODRELO << endl;
-#endif
-     preload_modules( new string("mods/commands/") );
-     preload_modules( new string("mods/html/") );
+    unload_modules();
+
+    wrap::system_message( MODRELO );
+    preload_modules( new string("mods/commands/") );
+    preload_modules( new string("mods/html/") );
 }
 
 #endif

@@ -20,7 +20,7 @@ void
 conf::parse()
 {
 #ifdef VERBOSE
-    cout << CFILEOK << get_name() << endl;
+    wrap::system_message( CFILEOK + get_name() );
 #endif
 
     string s_configfile=get_name();
@@ -38,7 +38,7 @@ conf::parse()
     if ( ! fs_conf )
     {
 #ifdef VERBOSE
-        cout << CFILENO << get_name() << endl;
+        wrap::system_message( CFILENO + get_name() );
 #endif
 
         return;
@@ -69,10 +69,6 @@ conf::parse()
 
         string s_val = s_token.substr( ui_pos+1, s_token.length() );
         string s_key = s_token.substr( 0      , --ui_pos          );
-
-#ifdef VERBOSE2
-        cout << s_key << "=" << s_val << endl;
-#endif
 
         // fill the map.
         nmap<string,string>::add_elem(s_val, s_key); //map_vals[s_key] = s_val;

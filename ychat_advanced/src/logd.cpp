@@ -8,14 +8,8 @@ logd::logd( string filename )
 {
     if(filename.empty())
     {
-#ifdef NCURSES
-     wrap::NCUR-> 
-          print( LOGERR2 );
-#endif
-#ifdef SERVMSG
-        cerr << LOGERR2 << endl;
-#endif
-        exit(1);
+     wrap::system_message( LOGERR2 );
+     exit(1);
     }
 
     s_logfile=filename;
@@ -29,17 +23,9 @@ void logd::flush()
     ofstream s_output;
     s_output.open(s_logfile.c_str(), ios::app);
 
-    if(s_output==NULL)
+    if( s_output == NULL )
     {
-#ifdef NCURSES
-        string s_tmp( LOGERR1 );
-        s_tmp.append( s_logfile );
-        wrap::NCUR-> 
-            print( s_tmp.c_str() );
-#endif
-#ifdef SERVMSG
-        cerr << LOGERR1 << s_logfile << endl;
-#endif
+        wrap::system_message( LOGERR1 + s_logfile );
         exit(1);
     }
 

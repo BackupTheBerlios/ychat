@@ -9,12 +9,7 @@ using namespace std;
 
 mman::mman()
 {
-#ifdef NCURSES
-     wrap::NCUR->print( MYSINIT  );
-#endif
-#ifdef VERBOSE
-     cout << MYSINIT << endl;
-#endif
+    wrap::system_message( MYSINIT );
 
     int i_initial = tool::string2int( wrap::CONF->get_elem( "MYSQL_MIN_CON" ) );
     int i_max     = tool::string2int( wrap::CONF->get_elem( "MYSQL_MAX_CON" ) );
@@ -41,16 +36,11 @@ mman::mman()
     i_initial_connections = i_initial;
     i_max_connections = i_max;
 
-#ifdef NCURSES
-    wrap::NCUR->print(  MYINITC + tool::int2string( i_initial ) );
-    wrap::NCUR->print(  MYINITM + tool::int2string( i_max ) );
-#endif
-#ifdef SERVMSG
-    cout << MYINITC << i_initial << endl
-         << MYINITM << i_max << endl;
-#endif
+    wrap::system_message( MYINITC + tool::int2string( i_initial ) );
+    wrap::system_message( MYINITM + tool::int2string( i_max ) );
 
- init( wrap::CONF->get_elem( "MYSQL_HOST" ),
+
+    init( wrap::CONF->get_elem( "MYSQL_HOST" ),
        wrap::CONF->get_elem( "MYSQL_USER" ), 
        wrap::CONF->get_elem( "MYSQL_PASS" ), 
        wrap::CONF->get_elem( "MYSQL_DB" ), 
@@ -120,12 +110,9 @@ mman::new_connection( )
 {
     pthread_mutex_lock  ( &mut_i_used_con );
     i_active_connections++;
+    wrap::system_message( MYSCONN + tool::int2string(i_active_connections) );
 #ifdef NCURSES
-    wrap::NCUR->print( MYSCONN + tool::int2string(i_active_connections) );
     print_active_connections(1);
-#endif
-#ifdef SERVMSG
-    cout << MYSCONN << i_active_connections << endl;
 #endif
     pthread_mutex_unlock( &mut_i_used_con );
 
@@ -165,12 +152,7 @@ mman::new_connection( )
                                 i_port, 
                                 NULL, 0 ) == NULL )
     {
-#ifdef NCURSES
-        wrap::NCUR->print( MYMANAG + string(  mysql_error(p_mysql_con) ) );
-#endif
-#ifdef SERVMSG
-        cerr << MYMANAG << mysql_error(p_mysql_con) << endl;
-#endif
+        wrap::system_message( MYMANAG + string(  mysql_error(p_mysql_con) ) );
         return NULL; 
     }
 

@@ -20,4 +20,16 @@ sock* wrap::SOCK;
 timr* wrap::TIMR;
 dynamic_wrap* wrap::WRAP;
 
+void
+wrap::system_message( string s_message )
+{
+#ifdef NCURSES
+   wrap::NCUR->print( s_message );
+#endif
+#ifdef SERVMSG
+   pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+   cout << s_message << endl;
+   pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+#endif
+}
 #endif

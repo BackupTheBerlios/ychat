@@ -38,6 +38,16 @@ class dynamic_wrap
 class wrap
 {
 public:
+    static void system_message( char* c_message )
+    { 
+     wrap::system_message( string(c_message) );
+    }
+    static void system_message( string* p_message )
+    { 
+     wrap::system_message( *p_message );
+    }
+    static void system_message( string s_message );
+
     static chat* CHAT;
     static conf* CONF;
     static data* DATA;

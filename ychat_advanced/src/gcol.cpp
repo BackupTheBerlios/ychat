@@ -8,12 +8,9 @@ using namespace std;
 gcol::gcol()
 {
  p_map_users = new smap<user*,string>(HMAPOCC);
+ wrap::system_message( GARBAGE );
 #ifdef NCURSES
- wrap::NCUR->print( GARBAGE );
  print_garbage(); 
-#endif
-#ifdef SERVMSG
- cout << GARBAGE << endl;
 #endif
  pthread_mutex_init( &mut_vec_rooms  , NULL);
 }
@@ -31,12 +28,9 @@ gcol::add_room_to_garbage( room* p_room )
  pthread_mutex_lock  ( &mut_vec_rooms ); 
  vec_rooms.push_back( p_room ); 
  pthread_mutex_unlock( &mut_vec_rooms );
+ wrap::system_message( GARROOM + p_room->get_name() );
 #ifdef NCURSES
- wrap::NCUR->print( GARROOM + p_room->get_name() );
  print_garbage(); 
-#endif
-#ifdef SERVMSG
- cout << GARROOM + p_room->get_name() << endl;
 #endif
 }
 
@@ -45,12 +39,9 @@ gcol::add_user_to_garbage( user* p_user )
 { 
  p_user->s_mess_delete();
  p_map_users->add_elem( p_user, tool::to_lower(p_user->get_name()) ); 
+ wrap::system_message( GARUSER + p_user->get_name() );
 #ifdef NCURSES
- wrap::NCUR->print( GARUSER + p_user->get_name() );
  print_garbage(); 
-#endif
-#ifdef SERVMSG
- cout << GARUSER + p_user->get_name() << endl;
 #endif
 }
 
@@ -66,12 +57,7 @@ gcol::remove_garbage()
  if ( b_empty )
   return false;
 
-#ifdef NCURSES
- wrap::NCUR->print( GARBACT );
-#endif
-#ifdef SERVMSG
- cout << GARBACT << endl;
-#endif
+ wrap::system_message( GARBACT );
 
  pthread_mutex_lock  ( &mut_vec_rooms );
  for ( vector<room*>::iterator iter = vec_rooms.begin();
@@ -123,14 +109,9 @@ gcol::get_user_from_garbage( string s_user )
    p_map_users->del_elem( tool::to_lower(s_user) );
    p_user->set_name( s_user );
    p_user->set_online( true );
+   wrap::system_message(GARUSE2 + p_user->get_name() ); 
 #ifdef NCURSES
-   wrap::NCUR->print( GARUSE2 + p_user->get_name() );
    print_garbage(); 
-#endif
-#ifdef SERVMSG
-   pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-   cout << GARUSE2 << p_user->get_name();
-   pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
   }
 

@@ -104,9 +104,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
     while( true );
 
 #ifdef VERBOSE
-    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-    cout << REQUEST << s_ret << endl;
-    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+    wrap::system_message( REQUEST + s_ret );
 #endif
 
     if (  s_ret.empty() )

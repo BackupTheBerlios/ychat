@@ -59,13 +59,9 @@ user::~user()
      wrap::DATA->update_user_data( get_name(), "DATA_SAVE_CHANGED_NICK", map_changed_data );    
     wrap::SMAN->destroy_session( get_tmpid() );
 
-#ifdef NCURSES
-    wrap::NCUR->print( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
-#endif
-#ifdef VERBOSE
-    cout << SESSION << wrap::SMAN->get_session_count() << endl;
-#endif
+    wrap::system_message( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
    }
+    wrap::system_message( REMUSER + get_name() );
 
     pthread_mutex_destroy( &mut_away     );
     pthread_mutex_destroy( &mut_b_online );
@@ -82,13 +78,6 @@ user::~user()
     pthread_mutex_destroy( &mut_s_tmpid     );
     pthread_mutex_destroy( &mut_r_rang   );
     pthread_mutex_destroy( &mut_map_changed_data );
-
-#ifdef NCURSES
-    wrap::NCUR->print( REMUSER + get_name() );
-#endif
-#ifdef VERBOSE
-    cout << REMUSER + get_name() << endl;
-#endif
 }
 
 string

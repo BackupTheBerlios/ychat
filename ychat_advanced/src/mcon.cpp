@@ -5,17 +5,14 @@
 
 mcon::mcon( MYSQL *mysql )
 {
-    this->query_sent=false;
-    if(mysql==NULL)
+    this->query_sent = false;
+
+    if( mysql == NULL )
     {
-#ifdef SERVMSG
-        cerr << MYWARN1 << endl;
-#endif
-#ifdef NCURSES
-        wrap::NCUR->print( MYWARN1 );
-#endif
+        wrap::system_message( MYWARN1 );
     }
-    this->myc=mysql;
+
+    this->myc = mysql;
 }
 mcon::~mcon()
 {
@@ -29,12 +26,7 @@ int mcon::query( string query )
     if(mysql_error(this->myc)[0] != '\0')
     {
         string s_error( mysql_error( this->myc ) );
-#ifdef SERVMSG
-        cerr << MYERRO3 << s_error << endl;
-#endif
-#ifdef NCURSES
-        wrap::NCUR->print( string(MYERRO3) + s_error );
-#endif
+        wrap::system_message( MYERRO3 + s_error );
         return -1;
     }
     this->query_sent = true;

@@ -63,14 +63,7 @@ data::select_user_data( string s_user, vector<string> vec_query)
 
  if ( p_mysql == NULL )
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO4 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO4 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO4 );
   return result_map;
  }
 
@@ -80,14 +73,7 @@ data::select_user_data( string s_user, vector<string> vec_query)
 
  if ( iter == vec_query.end() )
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO5 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO5 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO5 );
   return result_map;
  }
 
@@ -133,14 +119,7 @@ data::insert_user_data( string s_user, vector<string> vec_query, map_string inse
 
  if ( p_mysql == NULL )
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO4 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO4 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO4 );
   return;
  }
 
@@ -148,14 +127,7 @@ data::insert_user_data( string s_user, vector<string> vec_query, map_string inse
 
  if ( iter == vec_query.end() )
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO5 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO5 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO5 );
   return;
  }
 
@@ -204,14 +176,7 @@ data::update_user_data( string s_user, vector<string> vec_query, map_string upda
 
  if ( p_mysql == NULL )
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO4 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO4 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO4 );
   return;
  }
 
@@ -221,14 +186,7 @@ data::update_user_data( string s_user, vector<string> vec_query, map_string upda
 
  if ( iter == vec_query.end() )
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO5 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO5 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO5 );
   return;
  }
 
@@ -273,14 +231,7 @@ data::mysql_query_store_results( MYSQL* p_mysql, string s_query )
 
  else
  {
-#ifdef NCURSES
-  wrap::NCUR->print( MYERRO4 );
-#endif
-#ifdef SERVMSG
-  pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-  cerr << MYERRO4 << endl;
-  pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+  wrap::system_message( MYERRO4 );
  }
  return NULL;
 }
@@ -291,14 +242,7 @@ data::mysql_query_store_results( MYSQL* p_mysql, string s_query )
 void
 data::print_query( string s_query )
 {
-#ifdef NCURSES
- wrap::NCUR->print( MYMANAG + s_query );
-#endif
-#ifdef SERVMSG
- pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
- cout << MYMANAG + s_query << endl;
- pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
-#endif
+ wrap::system_message( MYMANAG + s_query );
 }
 #endif
 
