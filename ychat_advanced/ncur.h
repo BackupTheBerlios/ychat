@@ -1,10 +1,10 @@
+#include "incl.h"
+
 #ifndef NCUR_H
 #define NCUR_H
 
 #include <ncurses.h>
 #include <list>
-#include "wrapper/s_mutx.h"
-#include "incl.h"
 #include "menu.h"
 
 using namespace std;

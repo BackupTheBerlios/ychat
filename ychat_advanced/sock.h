@@ -1,7 +1,7 @@
-// class sock declaration.
+#include "incl.h"
 
-#ifndef s_sock_H
-#define s_sock_H
+#ifndef SOCK_H
+#define SOCK_H
 
 #include <queue>
 #include <arpa/inet.h>
@@ -14,12 +14,12 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include "incl.h"
 #include "pool.h"
 #include "reqp.h"
 #include "thrd.h"
 #include "user.h"
 #include "logd.h"
+
 using namespace std;
 
 class sock

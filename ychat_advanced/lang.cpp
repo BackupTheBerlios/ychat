@@ -1,7 +1,5 @@
-// class conf implementation.
-
-#ifndef s_lang_CXX
-#define s_lang_CXX
+#ifndef LANG_CPP
+#define LANG_CPP
 
 #include <fstream>
 #include "lang.h"

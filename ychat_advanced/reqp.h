@@ -1,4 +1,4 @@
-// class reqp declaration. this class parses the client requests.
+#include "incl.h"
 
 #ifndef REQP_H
 #define REQP_H
@@ -7,7 +7,6 @@
 #define RQ_POST 2
 
 #include <map>
-#include "incl.h"
 #include "thrd.h"
 
 using namespace std;

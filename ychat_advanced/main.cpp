@@ -22,17 +22,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include "incl.h"
-#include "wrapper/s_chat.h"
-#include "wrapper/s_conf.h"
-#include "wrapper/s_html.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_modl.h"
-#include "wrapper/s_sock.h"
-#include "wrapper/s_lang.h"
-#include "wrapper/s_ncur.h"
-#include "wrapper/s_sman.h"
-#include "wrapper/s_mman.h"
-#include "wrapper/s_timr.h"
 
 using namespace std;
 
@@ -61,42 +50,60 @@ int main()
     // contain only empty pointers and the chat server won't work correctly.
     // the order of the initializations is very importand. for example the s_html::init()
     // invokations assumes an initialized s_conf class.
-    s_mutx::init(); // init the mutex manager.
-    s_conf::init(); // init the config manager.
-    s_html::init(); // init the html-template manager.
-    s_lang::init(); // init the language manager
-    s_sman::init(); // init the session manager.
-    s_mman::init(); // init the mysql connection manager.
-    s_sock::init(); // init the socket manager.
-    s_chat::init(); // init the chat manager.
-    s_timr::init(); // init the system timer.
+
+    // init the mutex manager.
+    wrap::MUTX = new mutx(); 
+
+    // init the config manager.
+    wrap::CONF = new conf( CONFILE ); 
+
+    // init the html-template manager.
+    wrap::HTML = new html(); 
+
+    // init the language manager
+    wrap::LANG = new lang( wrap::CONF->get_val( "LANGUAGE") ); 
+
+    // init the session manager.
+    wrap::SMAN = new sman(); 
+
+    // init the mysql connection manager.
+    wrap::MMAN = new mman(); 
+
+    // init the socket manager.
+    wrap::SOCK = new sock(); 
+
+    // init the chat manager.
+    wrap::CHAT = new chat(); 
+
+    // init the system timer.
+    wrap::TIMR = new timr(); 
 
     // begin to draw the ncurses amdin interface in a new pthread.
 #ifdef NCURSES
 
-    s_ncur::init(); // init the ncurses admin interface.
+    wrap::NCUR = new ncur(); // init the ncurses admin interface.
 
     pthread_t admin_thread;
     pthread_create( &admin_thread,
                     NULL,
-                    s_ncur::get().start, (void*) &s_ncur::get() );
+                    wrap::NCUR->start, (void*) wrap::NCUR );
 
     // wait until ncurses interface has been initialized.
-     while ( ! s_ncur::get().is_ready() )
+     while ( ! wrap::NCUR->is_ready() )
       usleep(100);
 #endif
 
     pthread_t timer_thread;
     pthread_create( &timer_thread,
                     NULL,
-                    s_timr::get().start, (void*) &s_timr::get() );
+                    wrap::TIMR->start, (void*) wrap::TIMR );
 
 
-    s_modl::init(); // init the module-loader manager.
+    wrap::MODL = new modl(); // init the module-loader manager.
 
     // start the socket manager. this one will listen for incoming http requests and will
     // forward them to the specified routines which will generate a http response.
-    s_sock::get().start();
+    wrap::SOCK->start();
         
 
 #ifdef VERBOSE

@@ -1,13 +1,10 @@
+#include "incl.h"
+
 #ifndef SMAN_H
 #define SMAN_H
 
-#include "incl.h"
 #include "hmap.h"
 #include "sess.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_ncur.h"
-#include "wrapper/s_tool.h"
-#include "wrapper/s_conf.h"
 #include <cstdlib>
 
 using namespace std;

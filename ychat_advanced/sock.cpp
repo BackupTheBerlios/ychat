@@ -1,19 +1,8 @@
-// class sock implementation. the multiplex socket implementation has been token from the
-// GNU C Library Examples and modified in order to fit in here ( POSIX threads etc. ).
-
-#ifndef s_sock_CXX
-#define s_sock_CXX
+#ifndef SOCK_CPP
+#define SOCK_CPP
 
 #include <unistd.h>
 #include "sock.h"
-#include "wrapper/s_chat.h"
-#include "wrapper/s_conf.h"
-#include "wrapper/s_tool.h"
-#include "wrapper/s_lang.h"
-#include "wrapper/s_sman.h"
-#include "wrapper/s_mman.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_ncur.h"
 #include "chat.h"
 #include "user.h"
 
@@ -30,9 +19,7 @@ sock::sock()
 #endif
     this->req_parser = new reqp();
     this->thrd_pool  = new pool();
-    this->log_daemon = new logd(s_conf::get
-                                    ().get_val( "ACCESS_LOG" ));
-
+    this->log_daemon = new logd( wrap::CONF->get_val( "ACCESS_LOG" ));
 
     pthread_mutex_init( &mut_threads, NULL );
 }
@@ -77,23 +64,19 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     {
         string s_tmp( REMUSER );
         s_tmp.append( s_user );
-        s_ncur::get
-            ().print( s_tmp.c_str() );
+        wrap::NCUR-> print( s_tmp.c_str() );
     }
 #endif
     // post the room that the user has left the chat.
-    p_user->get_room()->msg_post( new string( p_user->get_colored_name().append( s_lang::get
-                                      ().get_val( "USERLEAV" ) ) ) );
-    s_sman::get
-        ().destroy_session( p_user->get_id() );
+    p_user->get_room()->msg_post( new string( p_user->get_colored_name().append( 
+                                  wrap::LANG->get_val( "USERLEAV" ) ) ) );
+    wrap::SMAN->destroy_session( p_user->get_id() );
 
 #ifdef NCURSES
     {
         string s_tmp( SESSION );
-        s_tmp.append( s_tool::int2string( s_sman::get
-                                              ().get_session_count() ) );
-        s_ncur::get
-            ().print( s_tmp );
+        s_tmp.append( tool::int2string( wrap::SMAN->get_session_count() ) );
+        wrap::NCUR->print( s_tmp );
     }
 #endif
 #ifdef VERBOSE
@@ -117,17 +100,14 @@ sock::make_socket( uint16_t i_port )
     {
 
 #ifdef NCURSES
-        s_ncur::get
-            ().print( SOCKERR );
+        wrap::NCUR->print( SOCKERR );
 #endif
 
         if ( ++i_port > MAXPORT )
             exit(-1);
 
 #ifdef NCURSES
-
-        s_ncur::get
-            ().print( SOCKERR );
+        wrap::NCUR->print( SOCKERR );
 #endif
 
         return make_socket( i_port );
@@ -145,43 +125,35 @@ sock::make_socket( uint16_t i_port )
     {
 
 #ifdef NCURSES
-        s_ncur::get
-            ().print( BINDERR );
+     wrap::NCUR->print( BINDERR );
 #endif
 
         if ( ++i_port > MAXPORT )
             exit(-1);
 
 #ifdef SERVMSG
-        pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cout << SOCKERR << i_port << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
 #ifdef NCURSES
-
-        s_ncur::get
-            ().print( SOCKERR );
+        wrap::NCUR->print( SOCKERR );
 #endif
 
         return make_socket( i_port );
     }
 
 #ifdef VERBOSE
-    pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     cout << SOCKCRT << "localhost:" << i_port << endl;
-    pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
 #ifdef NCURSES
 
     string s_tmp( SOCKCRT );
     s_tmp.append( "localhost:" );
-    s_tmp.append( s_tool::int2string(i_port) );
-    s_ncur::get
-        ().print( s_tmp );
+    s_tmp.append( tool::int2string(i_port) );
+    wrap::NCUR->print( s_tmp );
     mvprintw( NCUR_PORT_X,NCUR_PORT_Y, "Port: %d ", i_port);
     refresh();
 #endif
@@ -200,8 +172,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
     if (i_bytes < 0)
     {
 #ifdef NCURSES
-        s_ncur::get
-            ().print( new string( READERR ) );
+     wrap::NCUR->print( new string( READERR ) );
 #endif
 
     }
@@ -241,14 +212,12 @@ int
 sock::start()
 {
 #ifdef NCURSES
-    s_ncur::get
-        ().print( STARTMS );
+    wrap::NCUR->print( STARTMS );
     print_hits();
     print_threads();
 #endif
 
-    auto int i_port = s_tool::string2int( s_conf::get
-                                              ().get_val( "SRVRPORT" ) );
+    auto int i_port = tool::string2int( wrap::CONF->get_val( "SRVRPORT" ) );
 
     int sock;
     fd_set active_fd_set, read_fd_set;
@@ -263,24 +232,19 @@ sock::start()
     if (listen (sock, 1) < 0)
     {
 #ifdef NCURSES
-        s_ncur::get
-            ().print( LISTERR );
+      wrap::NCUR->print( LISTERR );
 #endif
 
         exit( EXIT_FAILURE );
     }
 
 #ifdef VERBOSE
-    pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     cout << SOCKRDY << endl;
-    pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
 #ifdef NCURSES
-
-    s_ncur::get
-        ().print( SOCKRDY );
+    wrap::NCUR->print( SOCKRDY );
 #endif
 
     // initialize the set of active sockets.
@@ -295,8 +259,7 @@ sock::start()
         {
 
 #ifdef NCURSES
-            s_ncur::get
-                ().print( SELCERR );
+     wrap::NCUR->print( SELCERR );
 #endif
 
             exit( EXIT_FAILURE );
@@ -325,8 +288,7 @@ sock::start()
                     {
 
 #ifdef NCURSES
-                        s_ncur::get
-                            ().print( ACCPERR);
+                     wrap::NCUR->print( ACCPERR);
 #endif
 
                         close ( new_sock );
@@ -336,15 +298,13 @@ sock::start()
                     else	
 		    {
 #ifdef VERBOSE
-    		     pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    		     pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
                      cout << NEWREQU << i_req << " "
                      << inet_ntoa( clientname.sin_addr )
                      << ":"
                      << ntohs    ( clientname.sin_port )
                      << endl;
-                     pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    		     pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
                      FD_SET (new_sock, &active_fd_set);
                     }
@@ -393,19 +353,19 @@ sock::decrease_num_threads()
 void
 sock::print_threads()
 {
-    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     mvprintw( NCUR_THREADS_X,NCUR_THREADS_Y, "Threads: %d ", i_threads);
     refresh();
-    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 }
 
 void
 sock::print_hits()
 {
-    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     mvprintw( NCUR_HITS_X,NCUR_HITS_Y, "Hits: %d ", i_req);
     refresh();
-    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 }
 #endif
 

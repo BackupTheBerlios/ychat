@@ -1,20 +1,15 @@
-// class html implementation.
-
-#ifndef s_html_CXX
-#define s_html_CXX
+#ifndef HTML_CPP
+#define HTML_CPP
 
 #include <fstream>
 #include "html.h"
-#include "wrapper/s_chat.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_ncur.h"
 
 using namespace std;
 
 html::html( )
 {
-    set_name( s_conf::get
-                  ().get_val( "HTMLTEMP" ) );
+    set_name( wrap::CONF->
+                  get_val( "HTMLTEMP" ) );
     pthread_mutex_init( &mut_map_vals, NULL );
 }
 
@@ -58,16 +53,16 @@ html::parse( map_string &map_params )
             {
                 string s_tmp( NOFOUND );
                 s_tmp.append( s_path );
-                s_ncur::get
-                    ().print( s_tmp );
+                wrap::NCUR-> 
+                    print( s_tmp );
             }
 #endif
-            if(map_params["request"]==s_conf::get
-                        ().get_val( "NOTFOUND"  ))
+            if(map_params["request"]== wrap::CONF->
+                        get_val( "NOTFOUND"  ))
                     return "";
 
-            map_params["request"] = s_conf::get
-                                        ().get_val( "NOTFOUND" );
+            map_params["request"] = wrap::CONF-> 
+                                        get_val( "NOTFOUND" );
             return parse( map_params );
 
         }
@@ -83,19 +78,17 @@ html::parse( map_string &map_params )
 
 #ifdef VERBOSE
 
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cout << TECACHE << s_path << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
 #ifdef NCURSES
 
         {
             string s_tmp( TECACHE );
             s_tmp.append( s_path );
-            s_ncur::get
-                ().print( s_tmp.c_str() );
+            wrap::NCUR-> 
+                print( s_tmp.c_str() );
         }
 #endif
 
@@ -126,8 +119,8 @@ html::parse( map_string &map_params )
 
         // get key and val.
         auto string s_key = s_templ.substr( pos[0], pos[1]-pos[0] );
-        auto string s_val = s_conf::get
-                                ().get_val( s_key );
+        auto string s_val = wrap::CONF-> 
+                                get_val( s_key );
 
         // if s_val is empty use map_params.
         if ( s_val.empty() )

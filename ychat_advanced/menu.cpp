@@ -1,8 +1,7 @@
-#ifndef MENU_CXX
-#define MENU_CXX
+#ifndef MENU_CPP
+#define MENU_CPP
 
 #include "menu.h"
-#include "wrapper/s_sock.h"
 
 using namespace std;
 

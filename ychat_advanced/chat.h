@@ -1,7 +1,9 @@
 // class chat declaration.
 
-#ifndef s_chat_H
-#define s_chat_H
+class chat;
+
+#ifndef CHAT_H
+#define CHAT_H
 
 #include <vector>
 #include "incl.h"
@@ -9,11 +11,12 @@
 #include "room.h"
 #include "user.h"
 #include "sess.h"
-#include "wrapper/s_lang.h"
-#include "wrapper/s_sman.h"
+#include "tool.h"
 
 using namespace std;
 
+
+#undef chat
 class chat : public base<room>
 {
 private:
@@ -42,5 +45,4 @@ public:
     // will be called if a user posts a message.
     virtual void post ( user* u_user, map_string &map_params );
 };
-
 #endif

@@ -23,7 +23,7 @@ private:
 
     pthread_mutex_t mut_i_used_con;
 public:
-    mman(int initial, int max);
+    mman();
     ~mman();
     void init( string host, string user, string passwd, string db, unsigned int port = PRTMSQL );
     MYSQL *get_connection();

@@ -1,10 +1,7 @@
-// class thrd implementation.
-
-#ifndef THRD_CXX
-#define THRD_CXX
+#ifndef THRD_CPP
+#define THRD_CPP
 
 #include "thrd.h"
-#include "wrapper/s_sock.h"
 
 using namespace std;
 
@@ -22,8 +19,7 @@ thrd::~thrd()
 void
 thrd::run()
 {
-    s_sock::get
-        ().read_write( this, i_sock );
+    wrap::SOCK->read_write( this, i_sock );
 }
 
 #endif

@@ -1,10 +1,7 @@
-#ifndef NCUR_CXX
-#define NCUR_CXX
+#ifndef NCUR_CPP
+#define NCUR_CPP
 
 #include "ncur.h"
-#include "wrapper/s_mman.h"
-#include "wrapper/s_sman.h"
-#include "wrapper/s_sock.h"
 
 using namespace std;
 
@@ -24,7 +21,7 @@ ncur::~ncur()
 void*
 ncur::start( void *v_pointer )
 {
-    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     ncur* admin_interface = static_cast<ncur*>(v_pointer);
 
     initscr();
@@ -61,11 +58,11 @@ ncur::start( void *v_pointer )
 
 
     admin_interface->print( VERSION );
-    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 
 #ifdef NCURSES
-    s_mman::get().print_init_ncurses(); 
-    s_sman::get().print_init_ncurses(); 
+    wrap::MMAN->print_init_ncurses(); 
+    wrap::SMAN->print_init_ncurses(); 
 #endif
 
     admin_interface->is_ready( true );
@@ -139,7 +136,7 @@ ncur::switch_main_menu_( int i_choice )
         switch ( i_choice )
         {
         case 9: // Shut down server
-	    s_mman::get().~mman();
+	    wrap::MMAN->~mman();
             mvprintw( 21,2, "Good bye !");
             refresh();
             clrtoeol();
@@ -149,10 +146,10 @@ ncur::switch_main_menu_( int i_choice )
             break;
 
         default:
-            pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
             mvprintw( 20,2, "Selection # %d not yet implemented!", i_choice-1);
             refresh();
-            pthread_mutex_unlock  ( &s_mutx::get().mut_stdout );
+            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
         }
 }

@@ -3,10 +3,6 @@
 
 #include <sys/time.h>
 #include "timr.h"
-#include "wrapper/s_chat.h"
-#include "wrapper/s_ncur.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_tool.h"
 
 using namespace std;
 
@@ -37,14 +33,12 @@ timr::start( void *v_pointer )
     timr* p_timer = static_cast<timr*>(v_pointer);
 
 #ifdef NCURSES
-    s_ncur::get().print( TIMERAC );
+    wrap::NCUR->print( TIMERAC );
 #endif
 #ifdef SERVMSG
-    pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     cout << TIMERAC << endl;
-    pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
 #ifdef NCURSES
     p_timer->print_time( ); 
@@ -76,13 +70,11 @@ timr::start( void *v_pointer )
      if ( time_now.tm_sec == 0 )
      { 
 #ifdef SERVMSG
-      pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+      pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
       cout << TIMERUP << p_timer->get_uptime() << endl;
-      pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+      pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
-      s_chat::get().msg_post( new string( "<!-- PING! //-->\n" ) );
+      wrap::CHAT->msg_post( new string( "<!-- PING! //-->\n" ) );
      }
     }
 
@@ -92,11 +84,11 @@ timr::start( void *v_pointer )
 void
 timr::print_time( )
 {
-    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     mvprintw( NCUR_TIME_X, NCUR_TIME_Y, "Time:   %s ", get_time().c_str());
     mvprintw( NCUR_UPTIME_X, NCUR_UPTIME_Y, "Uptime: %s ", get_uptime().c_str());
     refresh();
-    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 }
 #endif
 
@@ -112,15 +104,15 @@ timr::set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur
      d_uptime -= 60;
 
     pthread_mutex_lock  ( &mut_s_time );
-    s_time = add_zero_to_front( s_tool::int2string( i_cur_hours ) ) + ":" +
-             add_zero_to_front( s_tool::int2string( i_cur_minutes ) ) + ":" +
-             add_zero_to_front( s_tool::int2string( i_cur_seconds ) );
+    s_time = add_zero_to_front( tool::int2string( i_cur_hours ) ) + ":" +
+             add_zero_to_front( tool::int2string( i_cur_minutes ) ) + ":" +
+             add_zero_to_front( tool::int2string( i_cur_seconds ) );
     pthread_mutex_unlock( &mut_s_time );
 
     pthread_mutex_lock  ( &mut_s_uptime );
-    s_uptime = add_zero_to_front( s_tool::int2string( i_hours ) ) + ":" +
-               add_zero_to_front( s_tool::int2string( i_minutes ) )  + ":" +
-               add_zero_to_front( s_tool::int2string( (int) d_uptime ) );
+    s_uptime = add_zero_to_front( tool::int2string( i_hours ) ) + ":" +
+               add_zero_to_front( tool::int2string( i_minutes ) )  + ":" +
+               add_zero_to_front( tool::int2string( (int) d_uptime ) );
     pthread_mutex_unlock( &mut_s_uptime );
 }
 

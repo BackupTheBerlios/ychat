@@ -1,10 +1,11 @@
 #pragma warning(disable:4786)
 
-#ifndef hmap_h
-#define hmap_h
+#include "incl.h"
+
+#ifndef HMAP_H
+#define HMAP_H
 
 #include <vector>
-#include "incl.h"
 
 using namespace std;
 

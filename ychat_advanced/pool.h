@@ -1,9 +1,7 @@
-// class pool declaration.
+#include "incl.h"
 
 #ifndef POOL_H
 #define POOL_H
-
-#include "incl.h"
 
 using namespace std;
 

@@ -1,7 +1,8 @@
-#ifndef SMAN_CXX
-#define SMAN_CXX
+#ifndef SMAN_CPP
+#define SMAN_CPP
 
 #include "sman.h"
+#include "tool.h"
 
 sman::sman()
 {
@@ -33,8 +34,7 @@ string sman::generate_id( int len )
 }
 sess *sman::create_session( )
 {
-    string new_id=this->generate_id( s_tool::string2int( s_conf::get
-                                         ().get_val( "SESSION_LENGTH" ) ) );
+    string new_id=this->generate_id( tool::string2int( wrap::CONF->get_val( "SESSION_LENGTH" ) ) );
 
     sess *new_sess= new sess( new_id  );
 
@@ -76,10 +76,10 @@ void sman::destroy_session( string s_id )
 #ifdef NCURSES
 void sman::print_sessions()
 {
-    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     mvprintw( NCUR_SESSION_X,NCUR_SESSION_Y, "Sessions: %d ", session_count);
     refresh();
-    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 }
 
 void sman::print_init_ncurses()

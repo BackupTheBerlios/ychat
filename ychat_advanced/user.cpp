@@ -1,23 +1,17 @@
-// class user implementation.
-
-#ifndef USER_CXX
-#define USER_CXX
+#ifndef USER_CPP
+#define USER_CPP
 
 #include "user.h"
-#include "wrapper/s_conf.h"
-#include "wrapper/s_modl.h"
-#include "wrapper/s_tool.h"
+#include "tool.h"
 
 using namespace std;
 
 user::user( string s_name ) : name( s_name )
 {
     this -> b_online = true;
-    this -> l_time   = s_tool::unixtime();
-    this -> s_col1   = s_conf::get
-                           ().get_val( "USERCOL1" );
-    this -> s_col2   = s_conf::get
-                           ().get_val( "USERCOL2" );
+    this -> l_time   = tool::unixtime();
+    this -> s_col1   = wrap::CONF->get_val( "USERCOL1" );
+    this -> s_col2   = wrap::CONF->get_val( "USERCOL2" );
     map_mods = new hmap<dynmod*,string>(80);
 
     pthread_mutex_init( &mut_b_online, NULL);
@@ -231,13 +225,11 @@ user::command( string &s_command )
     string s_command2=s_command.substr(0, pos2-1);
     s_mod.append( s_command2  ).append( ".so" );
 
-    dynmod *mod = s_modl::get
-                      ().get_module( s_mod );
+    dynmod *mod = wrap::MODL->get_module( s_mod );
 
     if ( mod == NULL )
     {
-        msg_post( new string( s_lang::get
-                                  ().get_val( "ERRORCMD" ) ) );
+        msg_post( new string( wrap::LANG->get_val( "ERRORCMD" ) ) );
         return;
     }
 
@@ -274,7 +266,7 @@ user::command( string &s_command )
     c->elem[0]=(void*) ptr_command;
     c->elem[1]=(void*) this;
     c->elem[2]=(void*) &params;
-    c->elem[3]=(void*) &s_conf::get();
+    c->elem[3]=(void*) &wrap::CONF;
 
     ( *(mod->the_func) ) ( (void*) c );
 
@@ -284,7 +276,7 @@ void
 user::renew_stamp( )
 {
     pthread_mutex_lock  ( &mut_l_time );
-    l_time = s_tool::unixtime();
+    l_time = tool::unixtime();
     pthread_mutex_unlock( &mut_l_time );
 }
 

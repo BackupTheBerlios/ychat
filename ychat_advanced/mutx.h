@@ -1,9 +1,7 @@
-// class mutx declaration.
-
-#ifndef s_mutx_H
-#define s_mutx_H
-
 #include "incl.h"
+
+#ifndef MUTX_H
+#define MUTX_H
 
 using namespace std;
 

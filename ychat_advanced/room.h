@@ -1,9 +1,10 @@
 // class room declaration.
 
+#include "incl.h"
+
 #ifndef ROOM_H
 #define ROOM_H
 
-#include "incl.h"
 #include "base.h"
 #include "name.h"
 #include "user.h"

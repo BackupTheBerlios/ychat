@@ -1,16 +1,10 @@
-// class reqp implementation.
 
-#ifndef REQP_CXX
-#define REQP_CXX
+#ifndef REQP_CPP
+#define REQP_CPP
 
 #include "reqp.h"
-#include "wrapper/s_chat.h"
-#include "wrapper/s_html.h"
-#include "wrapper/s_modl.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_ncur.h"
-#include "wrapper/s_sock.h"
-#include "wrapper/s_tool.h"
+#include "tool.h"
+
 using namespace std;
 
 // inititialization of static members.
@@ -107,15 +101,13 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
     while( true );
 
 #ifdef VERBOSE
-    pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
     cout << REQUEST << s_ret << endl;
-    pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
 
     if (  s_ret.empty() )
-     s_ret = s_conf::get().get_val( "STARTMPL" );
+     s_ret = wrap::CONF->get_val( "STARTMPL" );
 
     map_params["request"] = s_ret;
     return s_ret;
@@ -124,13 +116,12 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
 string
 reqp::get_content_type( string s_file )
 {
-    string s_ext=s_tool::getExtension( s_file );
+    string s_ext = tool::getExtension( s_file );
 
     if(s_ext=="")
         s_ext="DEFAULT";
 
-    return s_conf::get
-               ().get_val( "CT_"+s_ext );
+    return wrap::CONF->get_val( "CT_" + s_ext );
 }
 void
 reqp::parse_headers( string s_req, map_string &map_params )
@@ -138,7 +129,7 @@ reqp::parse_headers( string s_req, map_string &map_params )
 
     int pos = s_req.find("\n");
 
-    map_params["QUERY_STRING"] = s_tool::trim(s_req.substr(0,pos-1));
+    map_params["QUERY_STRING"] = tool::trim(s_req.substr(0,pos-1));
 
     while( pos != string::npos)
     {
@@ -147,8 +138,8 @@ reqp::parse_headers( string s_req, map_string &map_params )
 
         if(pos2!=string::npos)
         {
-            auto string key=s_tool::trim(s_line.substr(0, pos2));
-            auto string value=s_tool::trim(s_line.substr(pos2+1));
+            auto string key=tool::trim(s_line.substr(0, pos2));
+            auto string value=tool::trim(s_line.substr(pos2+1));
 
             map_params[key]=value;
 
@@ -225,7 +216,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
     // store all request informations in map_params. store the url in
     // map_params["request"].
     if ( get_url( p_thrd, s_req, map_params ).compare("NOBYTE") == 0 )
-     map_params["request"] = s_conf::get().get_val("NOTFOUND");
+     map_params["request"] = wrap::CONF->get_val("NOTFOUND");
 
     parse_headers( s_req, map_params );
 
@@ -249,23 +240,20 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
         // login procedure.
         if ( s_event == "login" )
         {
-            s_chat::get
-                ().login( map_params );
+            wrap::CHAT->login( map_params );
         }
         else
         {
             bool b_found;
 
             //   user* p_user = s_chat::get().get_user( map_params["nick"], b_found );
-            sess *sess_temp=s_sman::get
-                                ().get_session( map_params["tmpid"] );
+            sess *sess_temp= wrap::SMAN->get_session( map_params["tmpid"] );
 
             user *p_user;
             if( sess_temp != NULL )
             {
                 string *s_nick = static_cast<string*>(sess_temp->get_elem(string("nick")));
-                p_user = s_chat::get
-                             ().get_user( *s_nick, b_found);
+                p_user = wrap::CHAT->get_user( *s_nick, b_found);
 
                 map_params["nick"] = p_user->get_name().c_str();
 
@@ -276,40 +264,34 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             if ( ! b_found )
             {
                 map_params["INFO"]    = E_NOTONL;
-                map_params["request"] = s_conf::get
-                                            ().get_val( "STARTMPL" ); // redirect to the startpage.
+                map_params["request"] = wrap::CONF-> get_val( "STARTMPL" ); // redirect to the startpage.
             }
             // if a message post.
             else if ( s_event == "post" )
-                s_chat::get
-                    ().post( p_user, map_params );
-
+                wrap::CHAT->post( p_user, map_params );
 
             // if a chat stream
             else if ( s_event == "stream" )
             {
-                string s_msg(s_html::get
-                                 ().parse( map_params ) );
+                string s_msg ( wrap::HTML->parse( map_params ) );
                 p_user->msg_post( &s_msg);
-                s_sock::get
-                    ().chat_stream( p_thrd->get_sock(), p_user, map_params );
+                wrap::SOCK-> chat_stream( p_thrd->get_sock(), p_user, map_params );
             }
 
             // if a request for the online list of the active room.
             else if ( s_event == "online" )
-                s_html::get
-                    ().online_list( p_user, map_params );
+                wrap::HTML->online_list( p_user, map_params );
 
             else if ( s_event != "input" ) 
             {
              container *c = new container;
-             c->elem[0] = (void*) &s_lang::get();
-             c->elem[1] = (void*) s_modl::get().get_map_mods();
+             c->elem[0] = (void*) wrap::LANG ;
+             c->elem[1] = (void*) wrap::MODL->get_map_mods();
              c->elem[2] = (void*) &map_params;
 
              string s_mod = "mods/html/yc_" + s_event + ".so";
-    	     ( *(s_modl::get().
-                 get_module( s_mod )->the_func
+    	     ( *( wrap::MODL
+                  -> get_module( s_mod )->the_func
                  ) 
              ) ( (void*) c );
             }
@@ -317,8 +299,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
     }
     // parse and get the requested html-template and also use
     // the values stored in map_params for %%KEY%% substituations.
-    s_rep.append( s_html::get
-                      ().parse( map_params ) );
+    s_rep.append( wrap::HTML->parse( map_params ) );
 
     // return the parsed html-template.
     return  s_rep;

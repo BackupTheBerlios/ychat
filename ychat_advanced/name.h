@@ -1,9 +1,8 @@
 // class name declaration.
+#include "incl.h"
 
 #ifndef NAME_H
 #define NAME_H
-
-#include "incl.h"
 
 using namespace std;
 

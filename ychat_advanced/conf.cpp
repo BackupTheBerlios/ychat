@@ -1,10 +1,9 @@
 // class conf implementation.
 
-#ifndef s_conf_CXX
-#define s_conf_CXX
+#ifndef CONF_CPP
+#define CONF_CPP
 
 #include <fstream>
-#include "wrapper/s_ncur.h"
 #include "conf.h"
 
 using namespace std;

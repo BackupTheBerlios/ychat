@@ -1,12 +1,17 @@
-#ifndef s_sess_H
-#define s_sess_H
-
 #include "incl.h"
-#include "cont.h"
-#include "name.h"
+
+#ifndef SESS_H
+#define SESS_H
+
 #include <map>
 #include <string>
+
+class cont;
+
+#include "cont.h"
+#include "name.h"
 #include "hmap.h"
+
 using namespace std;
 
 typedef map<string, void *> sess_map;

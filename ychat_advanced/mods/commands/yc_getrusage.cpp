@@ -4,7 +4,6 @@
 #include <sys/resource.h>
 #include <iostream>
 #include "../../user.h"
-#include "../../wrapper/s_tool.h"
 
 #define   RUSAGE_SELF     0
 #define   RUSAGE_CHILDREN     -1

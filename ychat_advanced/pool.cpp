@@ -1,25 +1,15 @@
-// class pool implementation.
-
-#ifndef POOL_CXX
-#define POOL_CXX
+#ifndef POOL_CPP
+#define POOL_CPP
 
 #include "pool.h"
-
-#include "wrapper/s_conf.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_tool.h"
-#include "wrapper/s_ncur.h"
-#include "wrapper/s_sock.h"
 #include "thrd.h"
 
 using namespace std;
 
 pool::pool()
 {
-    i_thrd_pool_size  = s_tool::string2int( s_conf::get
-                                                ().get_val( "THRDPOOL" ) );
-    i_thrd_pool_queue = s_tool::string2int( s_conf::get
-                                                ().get_val( "THRDQUEU" ) );
+    i_thrd_pool_size  = tool::string2int( wrap::CONF->get_val( "THRDPOOL" ) );
+    i_thrd_pool_queue = tool::string2int( wrap::CONF->get_val( "THRDQUEU" ) );
     tpool_init( &thread_pool, i_thrd_pool_size, i_thrd_pool_queue, 0 );
 }
 
@@ -38,15 +28,13 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
     if (( tpool = (tpool_t) malloc( sizeof( struct tpool ) ) ) == NULL )
     {
 #ifdef NCURSES
-        s_ncur::get
-            ().print( POOLERR );
+        wrap::NCUR-> 
+            print( POOLERR );
 #endif
 
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cerr << POOLERR << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
 
@@ -58,15 +46,12 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
     if ( ( tpool->threads = (pthread_t*) malloc( sizeof( pthread_t ) *num_worker_threads ) ) == NULL )
     {
 #ifdef NCURSES
-        s_ncur::get
-            ().print( POOLERR );
+        wrap::NCUR-> print( POOLERR );
 #endif
 
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cerr << POOLERR << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
 
@@ -80,68 +65,57 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
     {
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
-#ifdef NCURSES
 
-        s_ncur::get
-            ().print( s_err );
+
+#ifdef NCURSES
+	wrap::NCUR->print( s_err );
 #endif
 
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cerr << s_err << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     else if ( ( rtn = pthread_cond_init( &(tpool->queue_not_empty), NULL ) ) != 0 )
     {
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
+
+
 #ifdef NCURSES
-
-        s_ncur::get
-            ().print( s_err );
+        wrap::NCUR->print( s_err );
 #endif
-
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cerr << s_err << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     else if ( ( rtn = pthread_cond_init( &(tpool->queue_not_full), NULL ) ) != 0 )
     {
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
-#ifdef NCURSES
 
-        s_ncur::get
-            ().print( s_err );
+#ifdef NCURSES
+        wrap::NCUR->print( s_err );
 #endif
 
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cerr << s_err << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     else if ( ( rtn = pthread_cond_init( &(tpool->queue_empty), NULL ) ) != 0 )
     {
         string s_err( "pthread_mutex_init " );
         s_err.append( strerror( rtn ) );
-#ifdef NCURSES
 
-        s_ncur::get
-            ().print( s_err );
+#ifdef NCURSES
+        wrap::NCUR->print( s_err );
 #endif
 
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
         cerr << s_err << endl;
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
         exit(-1);
     }
     // create threads
@@ -194,8 +168,7 @@ pool::tpool_thread( void* arg )
 
 void pool::run_func( void *v_pointer )
 {
-    s_sock::get
-        ().increase_num_threads();
+    wrap::SOCK->increase_num_threads();
 
     // recasting the client thread object.
     thrd *t = (thrd*) v_pointer;
@@ -206,8 +179,7 @@ void pool::run_func( void *v_pointer )
     // close the client socket.
     t->~thrd();
 
-    s_sock::get
-        ().decrease_num_threads();
+    wrap::SOCK->decrease_num_threads();
 
     free(v_pointer);
 }

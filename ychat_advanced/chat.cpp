@@ -1,19 +1,16 @@
 // class chat implementation.
 
-#ifndef s_chat_CXX
-#define s_chat_CXX
+#ifndef CHAT_CPP
+#define CHAT_CPP
 
 #include "chat.h"
-#include "wrapper/s_conf.h"
-#include "wrapper/s_tool.h"
-#include "wrapper/s_ncur.h"
+#include "tool.h"
 
 using namespace std;
 
 chat::chat( )
 {
-    if ( s_conf::get
-                ().get_val( "HTML" ) == "OFF" )
+    if ( wrap::CONF->get_val( "HTML" ) == "OFF" )
             b_strip_html = true;
     else
         b_strip_html = false;
@@ -61,17 +58,17 @@ chat::login( map_string &map_params )
     if ( s_user.empty() )
     {
         map_params["INFO"]    = E_NONICK;
-        map_params["request"] = s_conf::get
-                                    ().get_val( "STARTMPL" ); // redirect to the startpage.
+        map_params["request"] = wrap::CONF->
+                                    get_val( "STARTMPL" ); // redirect to the startpage.
         return;
     }
 
     // prove if the nick ist alphanumeric:
-    else if ( ! s_tool::is_alpha_numeric( s_user ) )
+    else if ( ! tool::is_alpha_numeric( s_user ) )
     {
         map_params["INFO"]    = E_ALPNUM;
-        map_params["request"] = s_conf::get
-                                    ().get_val( "STARTMPL" ); // redirect to the startpage.
+        map_params["request"] = wrap::CONF-> 
+                                    get_val( "STARTMPL" ); // redirect to the startpage.
         return;
     }
 
@@ -83,8 +80,8 @@ chat::login( map_string &map_params )
     if ( b_flag )
     {
         map_params["INFO"]    = E_ONLINE;
-        map_params["request"] = s_conf::get
-                                    ().get_val( "STARTMPL" );
+        map_params["request"] = wrap::CONF-> 
+                                    get_val( "STARTMPL" );
         return;
     }
 
@@ -100,8 +97,8 @@ chat::login( map_string &map_params )
 
         string s_tmp( NEWROOM );
         s_tmp.append( s_room );
-        s_ncur::get
-            ().print( &s_tmp );
+        wrap::NCUR->
+            print( &s_tmp );
 #endif
 
         add_elem( p_room );
@@ -111,8 +108,7 @@ chat::login( map_string &map_params )
 
     // add user to the room.
     p_room->add_user( p_user );
-    sess *ns =s_sman::get
-                  ().create_session();
+    sess *ns = wrap::SMAN->create_session();
     ns->setValue(string("nick"), (void *)new string(s_user) );
     map_params["tmpid"]=ns->get_id();
 
@@ -121,14 +117,14 @@ chat::login( map_string &map_params )
     {
         string s_tmp( NEWUSER );
         s_tmp.append( s_user );
-        s_ncur::get
-            ().print(  s_tmp.c_str()  );
+        wrap::NCUR->
+            print(  s_tmp.c_str()  );
     }
 #endif
 
     // post "username enters the chat" into the room.
-    p_room->msg_post( new string( p_user->get_colored_name().append( s_lang::get
-                                      ().get_val( "USERENTR" ) ) ) );
+    p_room->msg_post( new string( p_user->get_colored_name().append( wrap::LANG->
+     get_val( "USERENTR" ) ) ) );
 
 }
 
@@ -143,7 +139,7 @@ chat::post( user* p_user, map_string &map_params )
         return p_user->command( s_msg );
 
     if ( b_strip_html )
-        s_tool::strip_html( &s_msg );
+        tool::strip_html( &s_msg );
 
     string s_post( "<font color=\"#"   );
 

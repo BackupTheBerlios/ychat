@@ -1,10 +1,9 @@
 // class cont implementation.
 
-#ifndef CONT_CXX
-#define CONT_CXX
+#ifndef CONT_CPP
+#define CONT_CPP
 
 #include "cont.h"
-#include "wrapper/s_mutx.h"
 
 using namespace std;
 

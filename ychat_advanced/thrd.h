@@ -1,9 +1,8 @@
 // class thrd declaration.
+#include "incl.h"
 
 #ifndef THRD_H
 #define THRD_H
-
-#include "incl.h"
 
 using namespace std;
 

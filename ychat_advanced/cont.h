@@ -1,9 +1,11 @@
 // class cont declaration. defines a simple data container class.
 
+
+#include "incl.h"
+
 #ifndef CONT_H
 #define CONT_H
 
-#include "incl.h"
 #include "hmap.h"
 
 using namespace std;

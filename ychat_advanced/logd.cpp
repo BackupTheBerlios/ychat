@@ -1,8 +1,6 @@
-#ifndef LOGD_CXX
-#define LOGD_CXX
+#ifndef LOGD_CPP
+#define LOGD_CPP
 
-#include "wrapper/s_ncur.h"
-#include "glob.h"
 #include "logd.h"
 
 logd::logd( string filename )
@@ -10,8 +8,8 @@ logd::logd( string filename )
     if(filename.empty())
     {
 #ifdef NCURSES
-    s_ncur::get
-          ().print( LOGERR2 );
+     wrap::NCUR-> 
+          print( LOGERR2 );
 #endif
 #ifdef SERVMSG
         cerr << LOGERR2 << endl;
@@ -21,8 +19,8 @@ logd::logd( string filename )
 
     s_logfile=filename;
 
-    i_lines=s_tool::string2int( s_conf::get
-                                    ().get_val("LOG_LINES"));
+    i_lines=tool::string2int( wrap::CONF-> 
+                                    get_val("LOG_LINES"));
 
 }
 void logd::flush()
@@ -34,8 +32,8 @@ void logd::flush()
 #ifdef NCURSES
         string s_tmp( LOGERR1 );
         s_tmp.append( s_logfile );
-        s_ncur::get
-            ().print( s_tmp.c_str() );
+        wrap::NCUR-> 
+            print( s_tmp.c_str() );
 #endif
 #ifdef SERVMSG
         cerr << LOGERR1 << s_logfile << endl;

@@ -2,7 +2,7 @@
 #include "../../conf.h"
 #include "../../room.h"
 #include "../../user.h"
-#include "../../wrapper/s_tool.cpp"
+#include "../../tool.cpp"
 /*
  gcc -shared -o yc_name.so yc_name.cpp
 */
@@ -44,8 +44,8 @@ extern "C" {
           s_color2 = p_conf->get_val( "USERCOL2" );
         }
 
-	s_color  = s_tool::to_lower( s_color  );
-	s_color2 = s_tool::to_lower( s_color2 );
+	s_color  = tool::to_lower( s_color  );
+	s_color2 = tool::to_lower( s_color2 );
 
 	if( valid_color(s_color) != 1  )	
 	{

@@ -1,9 +1,9 @@
+#include "incl.h"
 
 #ifndef TIMR_H
 #define TIMR_H
 
 #include <unistd.h>
-#include "incl.h"
 
 using namespace std;
 

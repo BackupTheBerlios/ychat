@@ -1,12 +1,12 @@
+#include "incl.h"
+
 #ifndef LOGD_H
 #define LOGD_H
 
-#include "incl.h"
-#include "wrapper/s_tool.h"
-#include "wrapper/s_conf.h"
 #include <fstream>
 #include <queue>
 #include <time.h>
+
 class logd
 {
 

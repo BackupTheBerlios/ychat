@@ -1,14 +1,14 @@
-// class user declaration.
+#include "incl.h"
+
 #ifndef USER_H
 #define USER_H
 
-#include "incl.h"
 #include "hmap.h"
 #include "name.h"
-#include "wrapper/s_lang.h"
-using namespace std;
 
 class room;
+
+using namespace std;
 
 class user : public name
 {

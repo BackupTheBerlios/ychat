@@ -1,8 +1,9 @@
+#include "incl.h"
+
 #ifndef MENU_H
 #define MENU_H
 
 #include <ncurses.h>
-#include "incl.h"
 
 using namespace std;
 

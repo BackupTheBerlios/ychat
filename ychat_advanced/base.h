@@ -1,9 +1,9 @@
 // template class data declaration;
+#include "incl.h"
 
 #ifndef BASE_H
 #define BASE_H
 
-#include "incl.h"
 #include "hmap.h"
 
 template<class type>

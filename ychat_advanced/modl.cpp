@@ -1,5 +1,3 @@
-// class modl implementation.
-
 #ifndef MODL_CPP
 #define MODL_CPP
 
@@ -8,9 +6,6 @@
 #include <dlfcn.h>
 #include <stdio.h>
 
-#include "wrapper/s_conf.h"
-#include "wrapper/s_mutx.h"
-#include "wrapper/s_ncur.h"
 #include "modl.h"
 #include "dir.h"
 
@@ -21,10 +16,10 @@ modl::modl(  )
     map_mods = new hmap<dynmod*,string>(80);
     pthread_mutex_init( &mut_map_mods, NULL );
 
-    if ( s_conf::get().get_val( "PRE_MODS_COMMANDS" ).compare( "ON" ) == 0 )
+    if ( wrap::CONF->get_val( "PRE_MODS_COMMANDS" ).compare( "ON" ) == 0 )
      preload_modules( new string("mods/commands/") );
 
-    if ( s_conf::get().get_val( "PRE_MODS_HTML" ).compare( "ON" ) == 0 )
+    if ( wrap::CONF->get_val( "PRE_MODS_HTML" ).compare( "ON" ) == 0 )
      preload_modules( new string("mods/html/") );
 }
 
@@ -82,19 +77,17 @@ modl::cache_module( string s_name )
 
     if ( the_module == NULL )
     {
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
 #ifdef NCURSES
 
-        s_ncur::get
-            ().print( dlerror() );
+        wrap::NCUR->
+            print( dlerror() );
 #else
 
         cerr << "dlerror: " << dlerror() << endl;
 #endif
 
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
         return NULL;
     }
 
@@ -102,36 +95,31 @@ modl::cache_module( string s_name )
 
     if ( the_func == NULL )
     {
-        pthread_mutex_lock  ( &s_mutx::get
-                                  ().mut_stdout );
-#ifdef NCURSES
+        pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
 
-        s_ncur::get
-            ().print( dlerror() );
+#ifdef NCURSES
+        wrap::NCUR->
+            print( dlerror() );
 #else
 
         cerr << "dlerror: " << dlerror() << endl;
 #endif
 
-        pthread_mutex_unlock( &s_mutx::get
-                                  ().mut_stdout );
+        pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
         return NULL;
     }
 
 #ifdef VERBOSE
-    pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
     cout << MODULEC << s_name << endl;
-    pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
 #endif
 #ifdef NCURSES
 
     {
         string s_tmp( MODULEC );
         s_tmp.append( s_name );
-        s_ncur::get
-            ().print( s_tmp.c_str() );
+        wrap::NCUR->print( s_tmp.c_str() );
     }
 #endif
 
@@ -153,19 +141,16 @@ dynmod*
 modl::get_module( string s_name )
 {
 #ifdef VERBOSE
-    pthread_mutex_lock  ( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
     cout << MODULER << s_name << endl;
-    pthread_mutex_unlock( &s_mutx::get
-                              ().mut_stdout );
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
 #endif
 #ifdef NCURSES
 
     {
         string s_tmp( MODULER );
         s_tmp.append( s_name );
-        s_ncur::get
-            ().print( s_tmp.c_str() );
+        wrap::NCUR->print( s_tmp.c_str() );
     }
 #endif
     pthread_mutex_lock  ( &mut_map_mods );
