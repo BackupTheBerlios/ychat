@@ -26,6 +26,7 @@ WHISPER="fluestert zu Dir";
 WHISPER_TO="Gefluestert zu";
 ERR_ALPNUM="Den Nick den Sie sich ausgesucht haben besteht nicht nur aus Zahlen und Buchstaben.<br><br>";
 ERR_ALREADY_IN_ROOM="Sie befinden sich bereits im Raum ";
+ERR_EXEC_COMMAND="Konnte Befehl nicht ausfuehren!";
 ERR_CHANGE_PASSWORD="Das alte Password ist falsch. Um das Passwort aender zu koennen muss ein korrektes altes Passwort angegeben werden!<br><br>";
 ERR_CHANGE_PASSWORD2="Die Passwortfelder des neuen Passwortes stimmen nicht ueberein! Bitte ueberpruefen!<br><br>";
 ERR_MESSAGE_LENGTH="Ihre Nachricht war zu lang und wurde vekuerzt!";
