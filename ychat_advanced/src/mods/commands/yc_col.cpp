@@ -2,7 +2,7 @@
 #include "../../wrap.h"
 #include "../../room.h"
 #include "../../user.h"
-#include "../../tool.cpp"
+#include "../../tool.h"
 /*
  gcc -shared -o yc_name.so yc_name.cpp
 */
@@ -18,6 +18,7 @@ extern "C" {
  int extern_function(void *v_arg)
  {
 	container *c=(container *)v_arg;
+
 	
 	user *p_user = (user*)c->elem[1];		// the corresponding user
 	str_vector *params= (str_vector*) c->elem[2];	// param array
@@ -27,7 +28,6 @@ extern "C" {
 
         conf* p_conf = (conf*) ((dynamic_wrap*)c->elem[3])->CONF; 
         timr* p_timr = (timr*) ((dynamic_wrap*)c->elem[3])->TIMR; 
-
         if ( params->empty() )
         {
 	 s_color  = p_conf->get_elem( "USERCOL1" );
@@ -77,6 +77,7 @@ extern "C" {
 		if(valid.find(s_char)==string::npos)
 		return 0;
 	}	
+
 	return 1;
  }
 
