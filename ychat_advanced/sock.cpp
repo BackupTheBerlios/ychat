@@ -24,7 +24,7 @@ sock::sock()
 {
     this->b_run      = true;
     this->i_req      = 0;
-    this->i_threads  = 2; // currently there are 2 threads running ( admin interface + server listening );
+    this->i_threads  = 3; // currently there are 3 threads running ( admin interface, system timer and  server listening );
     this->req_parser = new reqp();
     this->thrd_pool  = new pool();
     this->log_daemon = new logd(s_conf::get
