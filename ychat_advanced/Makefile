@@ -25,6 +25,7 @@ cvsupdate:
 	cp lang/en lang/en.old &&
 	cp lang/de lang/de.old &&
 	@echo "Running cvs update" &&
+	mv src/msgs.h src/msgs.h.bak &&
 	cvs update &&
 	cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat logout &&
 	@echo "Done updating CVS sources!" &&

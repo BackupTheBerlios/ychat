@@ -82,6 +82,7 @@ user::~user()
     pthread_mutex_destroy( &mut_s_tmpid     );
     pthread_mutex_destroy( &mut_r_rang   );
     pthread_mutex_destroy( &mut_map_changed_data );
+    pthread_mutex_destroy( &mut_s_name );
 }
 
 string

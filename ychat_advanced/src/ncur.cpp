@@ -165,7 +165,7 @@ ncur::switch_main_menu_( int i_choice )
             break;
         case 9: // Shut down server
             delete wrap::GCOL;
-	    delete wrap::MMAN;
+	   // delete wrap::MMAN;
             mvprintw( 21,2, "Good bye !");
             refresh();
             clrtoeol();

@@ -16,8 +16,7 @@ name::name( string s_name )
 
 name::~name()
 {
- if ( mut_s_name != NULL )
-  pthread_mutex_destroy( &mut_s_name );
+//  pthread_mutex_destroy( &mut_s_name );
 }
 
 string

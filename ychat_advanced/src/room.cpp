@@ -16,6 +16,7 @@ room::~room()
 {
  delete p_logd;
  pthread_mutex_destroy( &mut_s_topic );
+ pthread_mutex_destroy( &mut_s_name );
 }
 
 string
