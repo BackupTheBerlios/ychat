@@ -72,7 +72,7 @@ menu::display()
 }
 
 void
-menu::start()
+menu::start( void (*swich_case_menu_action)(int) )
 {
  refresh();
  bool b_flag = 1;
@@ -106,23 +106,9 @@ menu::start()
    break;
   }
 
-  if( i_choice != 0 )
-   switch ( i_choice )
-   {
-    case 9: // Shut down server
-     mvprintw( 21,2, "Good bye !");
-     refresh();
-     clrtoeol();
-     refresh();
-     endwin();
-     exit(0);
-    break; 
+  // Menu action.
+  ( *swich_case_menu_action ) ( i_choice ); 
 
-    default: 
-     mvprintw( 21,2, "Selection # %d not yet implemented!", i_choice-1); 
-     refresh(); 
-     break;
-   }
  }       
 }
 #endif

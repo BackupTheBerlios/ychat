@@ -28,6 +28,8 @@ public:
  void print( string* p_msg );
  void is_ready( bool b_is_ready ) { this->b_is_ready = b_is_ready; }
  bool is_ready() const { return b_is_ready; }
+
+ static void switch_main_menu_( int i_choice );
 };
 
 #endif

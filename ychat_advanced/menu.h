@@ -24,7 +24,7 @@ public:
          ~menu( );
 
  void display(); 
- void start();
+ void start( void (*swich_case_menu_action)(int) );
 };
 
 #endif

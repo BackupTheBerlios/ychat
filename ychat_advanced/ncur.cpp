@@ -61,7 +61,7 @@ ncur::start( void *v_pointer )
  admin_interface->print( VERSION );
 
  admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
- admin_interface->p_menu->start();
+ admin_interface->p_menu->start( &switch_main_menu_ );
 
  clrtoeol();
  refresh();
@@ -104,13 +104,32 @@ ncur::print( char* c_print )
  iter = p_messagelist->begin();
 
  for ( i=4; i<16 && iter != p_messagelist->end(); i++, iter++ )
- {
   mvwprintw( p_serveroutput, i, 2, *iter );
- }
 
  wrefresh ( p_serveroutput ); 
 
  pthread_mutex_unlock( &mut_messages );
 }
 
+void
+ncur::switch_main_menu_( int i_choice )
+{
+ if( i_choice != 0 )
+  switch ( i_choice )
+  {
+   case 9: // Shut down server
+    mvprintw( 21,2, "Good bye !");
+    refresh();
+    clrtoeol();
+    refresh();
+    endwin();
+    exit(0);
+   break; 
+
+   default: 
+    mvprintw( 21,2, "Selection # %d not yet implemented!", i_choice-1); 
+    refresh(); 
+   break;
+  }
+}
 #endif
