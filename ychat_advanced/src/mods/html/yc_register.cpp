@@ -41,7 +41,7 @@ extern "C" {
         }
 
         // prove if the nick is too long:
-        else if ( p_nick->length() > tool::string2int( p_conf->get_elem("MAX_NICK_LENGTH") ) )
+        else if ( p_nick->length() > tool::string2int( p_conf->get_elem("MAX_USER_NICK_LENGTH") ) )
         {
          p_msgs->append( p_lang->get_elem( "ERR_NICK_LENGTH" ) );
         }
