@@ -9,7 +9,7 @@ using namespace std;
 html::html( ) : smap<string,string>::smap(HMAPOCC)
 {
     set_name( wrap::CONF->
-                  get_elem( "HTMLTEMP" ) );
+                  get_elem( "HTML_TEMPLATE_DIR" ) );
 }
 
 html::~html( )
@@ -39,13 +39,13 @@ html::parse( map_string &map_params )
 
         if ( ! fs_templ )
         {
-    	    wrap::system_message( NOFOUND + s_path );
+    	    wrap::system_message( OFFFOUND + s_path );
             if(map_params["request"]== wrap::CONF->
-                        get_elem( "NOTFOUND"  ))
+                        get_elem( "HTML_OFFTFOUND"  ))
                     return "";
 
             map_params["request"] = wrap::CONF-> 
-                                        get_elem( "NOTFOUND" );
+                                        get_elem( "HTML_OFFTFOUND" );
             return parse( map_params );
 
         }
@@ -114,18 +114,19 @@ void
 html::online_list( user *p_user, map_string &map_params )
 {
     // prepare user_list.
-    string s_list     ( "<table>\n<tr><td>\n"  );
-    string s_seperator( "</td></tr>\n<tr><td>\n" );
+    string s_list;
 
     room* p_room = p_user->get_room();
 
-    p_room->get_user_list( s_list, s_seperator );
+    p_room->get_user_list( s_list );
 
-    // use the collected data as a message in html-templates.
-    map_params["MESSAGE"] = "<b>" + p_room->get_name() + "</b><br><br>\n"
-                          + p_room->get_topic() + s_list + "</td></tr>\n</table>";
+    map_params["ROOMNAME"] = p_room->get_name();
+    map_params["ROOMTOPIC"] = p_room->get_topic();
+    map_params["USERLIST"] = s_list;
+
     // renew the timestamp.
     p_user->renew_stamp();
+
 }
 
 #endif

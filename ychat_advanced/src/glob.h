@@ -78,7 +78,7 @@
 #define PUSHSTR 1000
 
 //////////////////////////////////////////////////////////////////////////////////////////
-// DO NOT CHANGE ANYTHING BEHIND THIS LINE!
+// DO OFFT CHANGE ANYTHING BEHIND THIS LINE!
 //////////////////////////////////////////////////////////////////////////////////////////
 
 using namespace std;
@@ -89,7 +89,7 @@ enum rang
     OPERATOR , // Operator.
     HALF_OP ,  // Half-Operator.
     VOICE ,    // Normal user with temp. extra priv. 
-    NORMAL ,   // Normal user. 
+    OFFRMAL ,   // Normal user. 
     GUEST      // Guest 
 };
 

@@ -118,7 +118,7 @@ public:
     // appends a string to s_mess including br.
     virtual void msg_post( string *p_msg );
     virtual void s_mess_delete( );
-    virtual void get_user_list( string &s_list, string &s_seperator );
+    virtual void get_user_list( string &s_list );
     virtual void check_restore_away();
 };
 

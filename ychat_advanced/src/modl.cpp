@@ -97,7 +97,7 @@ modl::cache_module( string s_name )
     // is not needed anymore.
     map_mods->add_elem  ( mod, s_name  );
 
-    // DO NOT CLOSE AS LONG THERE EXIST A POINTER TO THE FUNCTION
+    // DO OFFT CLOSE AS LONG THERE EXIST A POINTER TO THE FUNCTION
     // dlclose( module );
 
     return mod;

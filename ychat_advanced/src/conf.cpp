@@ -39,7 +39,7 @@ conf::parse()
     if ( ! fs_conf )
     {
 #ifdef VERBOSE
-        wrap::system_message( CFILENO + get_name() );
+        wrap::system_message( CFILEOFF + get_name() );
 #endif
         return;
     }

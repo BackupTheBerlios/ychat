@@ -66,7 +66,7 @@ int main()
     wrap::WRAP->HTML = wrap::HTML = new html(); 
 
     // init the language manager
-    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_elem("LANGUAGE") ); 
+    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_elem("STANDARD_LANGUAGE") ); 
 
     // init the system message logd 
     wrap::WRAP->LOGD = wrap::LOGD = new logd( wrap::CONF->get_elem("LOG_SYSTEM_FILE"),

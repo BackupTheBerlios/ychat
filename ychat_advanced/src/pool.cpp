@@ -8,8 +8,8 @@ using namespace std;
 
 pool::pool()
 {
-    i_thrd_pool_size  = tool::string2int( wrap::CONF->get_elem( "THRDPOOL" ) );
-    i_thrd_pool_queue = tool::string2int( wrap::CONF->get_elem( "THRDQUEU" ) );
+    i_thrd_pool_size  = tool::string2int( wrap::CONF->get_elem( "THREAD_POOL_SIZE" ) );
+    i_thrd_pool_queue = tool::string2int( wrap::CONF->get_elem( "THREAD_QUEUE_SIZE" ) );
     tpool_init( &thread_pool, i_thrd_pool_size, i_thrd_pool_queue, 0 );
 }
 

@@ -63,7 +63,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     // post the room that the user has left the chat.
     s_msg = wrap::TIMR->get_time() + " " 
           + p_user->get_colored_bold_name()
-          + wrap::LANG->get_elem( "USERLEAV" )
+          + wrap::LANG->get_elem( "USER_LEAVES_CHAT" )
           + "<br>\n";
 
     p_user->get_room()->msg_post( &s_msg );
@@ -180,7 +180,7 @@ sock::start()
     print_threads();
 #endif
 
-    auto int i_port = tool::string2int( wrap::CONF->get_elem( "SRVRPORT" ) );
+    auto int i_port = tool::string2int( wrap::CONF->get_elem( "SERVER_PORT" ) );
 
     int sock;
     fd_set active_fd_set, read_fd_set;

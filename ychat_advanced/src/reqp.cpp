@@ -30,7 +30,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
     i_request= ( s_req.find("GET",0) != string::npos ) ? RQ_GET : RQ_POST;
 
     if ( i_request == RQ_POST )
-     return "NOBYTE";
+     return "OFFBYTE";
 
     pos = s_req.find( "HTTP", 0 );
 
@@ -74,7 +74,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
         char c_req[READBUF];
 
         if ( read ( p_thrd->get_sock() , c_req, READBUF ) <= 0 )
-         return "NOBYTE";
+         return "OFFBYTE";
 
         s_params = string( strstr( c_req, "event" ) );
 
@@ -108,7 +108,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
 #endif
 
     if (  s_ret.empty() )
-     s_ret = wrap::CONF->get_elem( "STARTMPL" );
+     s_ret = wrap::CONF->get_elem( "HTML_START_SITE" );
 
     map_params["request"] = s_ret;
     return s_ret;
@@ -214,8 +214,8 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 {
     // store all request informations in map_params. store the url in
     // map_params["request"].
-    if ( get_url( p_thrd, s_req, map_params ).compare("NOBYTE") == 0 )
-     map_params["request"] = wrap::CONF->get_elem("NOTFOUND");
+    if ( get_url( p_thrd, s_req, map_params ).compare("OFFBYTE") == 0 )
+     map_params["request"] = wrap::CONF->get_elem("HTML_OFFTFOUND");
 
     parse_headers( s_req, map_params );
 
@@ -271,8 +271,8 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
             if ( ! b_found )
             {
-                map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NOTONL" );
-                map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+                map_params["INFO"]    = wrap::LANG->get_elem( "ERR_OFFTONL" );
+                map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
             }
 
             else

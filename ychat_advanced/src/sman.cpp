@@ -17,7 +17,7 @@ sman::~sman()
 
 string sman::generate_id( int len )
 {
-    string valid_chars=".abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+    string valid_chars=".abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOFFPQRSTUVWXYZ0123456789-_";
     string s_ret = "";
 
     srand(time(0)+160682);

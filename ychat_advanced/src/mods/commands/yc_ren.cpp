@@ -49,7 +49,7 @@ extern "C" {
               NULL != p_chat->get_room( s_room_lower , b_found ) )
          {
           string s_msg = "<font color=\"#" 
-                       + p_conf->get_elem("ERRORCOL")
+                       + p_conf->get_elem("HTML_ERROR_COLOR")
                        + "\">" 
                        + p_lang->get_elem("ERR_ROOM_EXISTS")
                        + "</font><br>\n";

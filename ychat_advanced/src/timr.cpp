@@ -13,7 +13,7 @@ timr::timr()
   pthread_mutex_init( &mut_s_time, NULL);
   pthread_mutex_init( &mut_s_uptime, NULL);
   pthread_mutex_init( &mut_i_offset, NULL);
-  i_time_offset = tool::string2int( wrap::CONF->get_elem("TIME_OFFSET") );
+  i_time_offset = tool::string2int( wrap::CONF->get_elem("CHAT_TIME_OFFSET") );
   wrap::system_message( TIMEROF + tool::int2string( i_time_offset ) );
   s_time = "00:00:00";
   s_uptime = "00:00:00";

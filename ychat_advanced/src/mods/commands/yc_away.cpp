@@ -32,7 +32,7 @@ extern "C" {
               + " "
               + p_user->get_colored_bold_name()
               + " "
-              + p_lang->get_elem("SETAWAY")
+              + p_lang->get_elem("SET_MODE_AWAY")
               + "<font color=" + p_user->get_col2() + ">"; 
 
         for ( iter = params->begin(); iter != params->end(); iter++ )

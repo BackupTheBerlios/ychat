@@ -44,13 +44,13 @@ extern "C" {
          }
          s_msg.append( "</font>" );
 
-         int i_topic_length = tool::string2int(p_conf->get_elem("ROOM_TOPIC_LENGTH"));
+         int i_topic_length = tool::string2int(p_conf->get_elem("MAX_ROOM_TOPIC_LENGTH"));
          if ( s_topic.length() > i_topic_length )
          {
           s_topic = s_topic.substr(0, i_topic_length );
           s_topic.append(" ... ");
 
-          string s_private_msg = "<font color=#" + p_conf->get_elem("ERRORCOL") 
+          string s_private_msg = "<font color=#" + p_conf->get_elem("HTML_ERROR_COLOR") 
            + ">" + p_lang->get_elem( "TOPICCUT" ) + "</font><br>";
 
           p_user->msg_post ( &s_private_msg ); 
@@ -65,7 +65,7 @@ extern "C" {
                + " "
                + p_user->get_colored_name()
                + " "
-               + p_lang->get_elem("TOPICDELETE");
+               + p_lang->get_elem("TOPIC_DELETE");
         }
 
         s_msg.append( "<script language='JavaScript'>parent.online.location.reload();</script><br>\n" );

@@ -31,7 +31,7 @@ extern "C" {
          if ( b_found )
          {
           string s_msg         = "<i> " 
-                               + p_lang->get_elem("WHISPERTO") 
+                               + p_lang->get_elem("WHISPER_TO") 
                                + " " 
           		       + p_whisper_user->get_colored_name()
                                + ": <font color=\"#"
@@ -63,10 +63,10 @@ extern "C" {
          {
           conf* p_conf = (conf*) ((dynamic_wrap*)c->elem[3])->CONF; 
           string s_msg = "<font color=\"#" 
-                       + p_conf->get_elem("ERRORCOL")
+                       + p_conf->get_elem("HTML_ERROR_COLOR")
                        + "\"><b>" 
                        + s_whisper_user + "</b> "
-                       + p_lang->get_elem("ERR_NOTAVAILABLE")
+                       + p_lang->get_elem("ERR_OFFTAVAILABLE")
                        + "</font><br>\n";
 
           p_user->msg_post( &s_msg ); 

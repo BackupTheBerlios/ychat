@@ -51,19 +51,18 @@ public:
     // chat::get_user_list gets a list of all users of the system.
     // room::get_user_list gets a list of all users of the room.
     // user::get_user_list gets a "list" of a user <font color="usercolor">username</font>seperator
-    void get_user_list( string &s_list, string &s_seperator )
+    void get_user_list( string &s_list )
     {
 
         container c;
         c.elem[0] = (void*) &s_list;
-        c.elem[1] = (void*) &s_seperator;
 
         smap<type*,string>::run_func( &base<type>::get_user_list_, (void*)&c );
     }
     static void get_user_list_( type* type_obj, void* v_arg )
     {
         container *c = (container*) v_arg;
-        type_obj -> get_user_list( *((string*)c->elem[0]), *((string*)c->elem[1]) );
+        type_obj -> get_user_list( *((string*)c->elem[0]) );
     }
 };
 

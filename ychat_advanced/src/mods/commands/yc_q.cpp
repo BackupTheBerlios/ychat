@@ -20,7 +20,7 @@ extern "C" {
         conf* p_conf = (conf*) ((dynamic_wrap*)c->elem[3])->CONF; 
 
   	string s_quit = "<script language=JavaScript>top.location.href='/"
-                      + p_conf->get_elem("STARTMPL")
+                      + p_conf->get_elem("HTML_START_SITE")
                       + "';</script>";
 
 	p_user->msg_post( &s_quit );

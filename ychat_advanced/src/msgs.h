@@ -5,14 +5,14 @@
 #define ACCPERR "Sock: Accept error \0"
 #define BINDERR "Sock: Bind error \0"
 #define CFILEOK "Parsing config file \0"
-#define CFILENO "Failed opening config file \0"
+#define CFILEOFF "Failed opening config file \0"
 #define CONTACT "Contact: http://www.yChat.org, Mail@yChat.org, ICQ: 11655527\0"
 #define CLRHTML "HTML: Cleared the template cache \0"
 #define DESCRIP "yChat++: Copyright (C) 2003 Paul C. Buetow, Volker Richter\0"
 #define DOWNMSG "Shutting down \0"
 #define GARBAGE "Initializing garbage collector \0"
 #define GARBACT "Garbage collector activated \0"
-#define GARNONE "Garbage: No garbage to remove available \0"
+#define GAROFFNE "Garbage: No garbage to remove available \0"
 #define GARROOM "Garbage: Added room \0"
 #define GARUSER "Garbage: Added user \0"
 #define GARUSE2 "Garbage: Recycle user \0"
@@ -43,7 +43,7 @@
 #define NEWREQU "Sock: New request \0"
 #define NEWROOM "Chat: New room \0"
 #define NEWUSER "Chat: New user \0"
-#define NOFOUND "HTML: File not found \0"
+#define OFFFOUND "HTML: File not found \0"
 #define POOLERR "Pool: Malloc error \0"
 #define READERR "Sock: Read error \0"
 #define REMROOM "Garbage: Removing room \0"
@@ -66,7 +66,7 @@
 #define TIMERTH "Timer: Starting timer thread \0"
 #define TIMERUP "Timer: System uptime \0"
 #define VERSION "yChat++ Advanced 0.6-CURRENT (CVS)\0"
-#define BUILDNR 465
+#define BUILDNR 473
 #define UNAME "unknown\0" 
 
 #endif

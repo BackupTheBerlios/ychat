@@ -17,28 +17,43 @@
 
 # STANDARD SETTINGS:
 
-# directory of the html-template files.
-HTMLTEMP="html/";
+# Set to ON if for each chat message should the system time be printed 
+CHAT_PRINT_ALWAYS_TIME="ON";
 
-# thread pool size. 
-THRDPOOL="50";  
+# The time offset. Negative values are not allowed. If you have an offset
+# of X please enter 24+X+12 here.
+# Example: Offset = -6, 24-6+12 = 30 :)
+CHAT_TIME_OFFSET="0";
 
- # length of the thread pool queue.
-THRDQUEU="50";    
-
-# local port on which the server listens. 
-SRVRPORT="3000";
-
- # the name of the standard room.
-STRDROOM="Lounge";
-
-# language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED ). And you
-# still need to modify your HTML template files in order to make the 
-# language switch complete! 
-LANGUAGE="en";
+# standard error message color.
+HTML_ERROR_COLOR="FF0000";
 
 # the html site which will be send if the requested file does not exists. 
-NOTFOUND="notfound.html";
+HTML_OFFTFOUND="notfound.html";
+
+# HTML-Tags which will be placed before each nickname in the user online frame
+HTML_ONLINE_BEFORE="<tr><td>";
+
+# HTML-Tags which will be placed behind each nickname in the user online frame
+HTML_ONLINE_BEHIND="</td></tr>";
+
+# user's standard nick color.
+HTML_STANDARD_USER_COLOR1="AAAAAA";
+
+# user's standard text color.
+HTML_STANDARD_USER_COLOR2="FFFFFF";
+
+# specifies the standard start html-template. 
+HTML_START_SITE="index.html"; 
+
+# "OFF" strips all html tags from incoming messages.
+HTML_TAGS_ALLOW="OFF";
+
+# directory of the html-template files.
+HTML_TEMPLATE_DIR="html/";
+
+# Content of the <title> tag of each HTML site 
+HTML_TITLE_TAG_CONTENT="yChat++ Advanced - Fast and extensible ";
 
 # Maximum length of a chat message
 MAX_MESSAGE_LENGTH="500";
@@ -55,39 +70,33 @@ MAX_EMAIL_LENGTH="50";
 # Maximum length of an password 
 MAX_PASS_LENGTH="30";
 
-# Set to YES if for each chat message should the system time be printed 
-PRINT_ALWAYS_TIME="YES";
+# max. length of the room topic set by yc_topic.so.
+MAX_ROOM_TOPIC_LENGTH="50";
+
+# local port on which the server listens. 
+SERVER_PORT="3000";
+
+# language of the chat outputs ( CONSOLE OUTPUT IS OFFT AFFECTED ). And you
+# still need to modify your HTML template files in order to make the 
+# language switch complete! 
+STANDARD_LANGUAGE="en";
 
 # Standard user rang/status
 STANDARD_RANG="3";
 
-# specifies the standard start html-template. 
-STARTMPL="index.html"; 
+# the name of the standard room.
+STANDARD_ROOM="Lounge";
 
-# The time offset. Negative values are not allowed. If you have an offset
-# of X please enter 24+X+12 here.
-# Example: Offset = -6, 24-6+12 = 30 :)
-TIME_OFFSET="0";
+# thread pool size. 
+THREAD_POOL_SIZE="50";  
 
-# user's standard nick color.
-USERCOL1="AAAAAA";
-
-# user's standard text color.
-USERCOL2="FFFFFF";
-
-# standard error message color.
-ERRORCOL="FF0000";
+ # length of the thread pool queue.
+THREAD_QUEUE_SIZE="50";    
 
 # length of the generated session id.
 SESSION_LENGTH="50";
 
-# max. length of the room topic set by yc_topic.so.
-ROOM_TOPIC_LENGTH="50";
-
-# html = "OFF" strips all html tags from incoming messages.
-HTML="OFF";
-
-# DATABASE:
+# DATABASE SETTINGS:
 
 # MySQL Settings
 MYSQL_HOST="localhost";
@@ -125,9 +134,10 @@ PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "O
 
 # REPLACEMENT STRINGS:
 
-# Set to "YES" if this option should be activated
-REPLACE_STRINGS="YES";
-# Place here strings which will be replaced by the server
+# Set to "ON" if this option should be activated
+REPLACE_STRINGS="ON";
+
+# Place here strings which will be replaced by the server.
 # Syntax: REPLACE_ID="searchstring||replaced into this string";
 # The ID may be any string.
 REPLACE_RED="red||<font color="red">red</font>";
@@ -155,11 +165,6 @@ LOG_ACCESS_LINES="10";
 LOG_SYSTEM_LINES="10";
 LOG_ROOM_LINES="10";
 
-# HTML VARIABLES:
-
-# values which are used by the html-templates and are not sticked within the
-# yChat++ core source!
-PGETITLE="yChat++ Advanced - Fast and extensible ";
 
 # CONTENT-TYPES:
 

@@ -20,13 +20,13 @@ lang::parse()
   //  wrap::system_message( CFILEOK + get_name() );
 
     string filename("lang/");
-    filename.append(get_name());
+    filename.append(get_name()+".txt");
 
     ifstream fs_conf( filename.c_str() );
 
     if ( ! fs_conf )
     {
-    //    wrap::system_message( CFILENO + get_name() );
+    //    wrap::system_message( CFILEOFF + get_name() );
         return;
     }
 

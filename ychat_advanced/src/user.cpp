@@ -27,8 +27,8 @@ user::initialize()
     this -> b_set_changed_data = false;
     this -> b_away   = false;
     this -> l_time   = tool::unixtime();
-    this -> s_col1   = wrap::CONF->get_elem( "USERCOL1" );
-    this -> s_col2   = wrap::CONF->get_elem( "USERCOL2" );
+    this -> s_col1   = wrap::CONF->get_elem( "HTML_STANDARD_USER_COLOR1" );
+    this -> s_col2   = wrap::CONF->get_elem( "HTML_STANDARD_USER_COLOR2" );
     map_mods = new smap<dynmod*,string>(HMAPOCC);
 
     pthread_mutex_init( &mut_away    , NULL);
@@ -374,7 +374,7 @@ user::command( string &s_command )
 
     if ( mod == NULL )
     {
-        msg_post( new string( wrap::LANG->get_elem( "ERRORCMD" ) ) );
+        msg_post( new string( wrap::LANG->get_elem( "ERR_FINDING_COMMAND" ) ) );
         return;
     }
 
@@ -444,8 +444,9 @@ user::msg_post( string *p_msg )
 }
 
 void
-user::get_user_list( string &s_list, string &s_seperator )
+user::get_user_list( string &s_list  )
 {
+    s_list.append( wrap::CONF->get_elem("HTML_ONLINE_BEFORE") );
     if ( get_away() )
     {
      s_list.append("<img src=images/away.gif" )
@@ -483,9 +484,8 @@ user::get_user_list( string &s_list, string &s_seperator )
      s_list.append("<img src=images/blank.gif width=16 height=16> ");
     }
 
-
-    s_list.append( get_colored_name() )
-          .append( s_seperator );
+    s_list.append( get_colored_name() );
+    s_list.append( wrap::CONF->get_elem("HTML_ONLINE_BEHIND") );
 }
 
 void
@@ -497,7 +497,7 @@ user::check_restore_away()
    new string( 
     wrap::TIMR->get_time()
     + " <b>" + get_colored_name()
-    + "</b> " + wrap::LANG->get_elem( "RESTOREAWAY" )
+    + "</b> " + wrap::LANG->get_elem( "UNSET_MODE_AWAY" )
     + "( <font color=" + get_col2() + ">"
     + get_away_msg() + "</font>)<br>\n" 
    )

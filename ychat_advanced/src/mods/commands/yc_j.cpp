@@ -44,7 +44,7 @@ extern "C" {
 
          if ( tool::to_lower(s_room) == p_user->get_room()->get_lowercase_name() )
          {
-          string s_msg = "<font color=\"" + p_conf->get_elem("ERRORCOL") + "\">"
+          string s_msg = "<font color=\"" + p_conf->get_elem("HTML_ERROR_COLOR") + "\">"
 		       + p_lang->get_elem("ERR_ALREADY_IN_ROOM") + "<b>"
                        + p_user->get_room()->get_name() + "</b></font><br>\n";	
           p_user->msg_post( &s_msg );

@@ -68,12 +68,12 @@ extern "C" {
 	 {
   	  p_user->set_name( s_nick );
           p_msgs->append( p_lang->get_elem( "REGISTER_NICK" ) );
-          p_request->replace( 0, p_request->length(), p_conf->get_elem("STARTMPL") );
+          p_request->replace( 0, p_request->length(), p_conf->get_elem("HTML_START_SITE") );
 
           map_string map_insert = *((map_string*) c->elem[1]);
           map_insert["password"] = *p_pass;
-          map_insert["color1"] = p_conf->get_elem("USERCOL1");
-          map_insert["color2"] = p_conf->get_elem("USERCOL2");
+          map_insert["color1"] = p_conf->get_elem("HTML_STANDARD_USER_COLOR1");
+          map_insert["color2"] = p_conf->get_elem("HTML_STANDARD_USER_COLOR2");
           map_insert["registerdate"] = tool::int2string((int)tool::unixtime()); 
 
   	  p_user->set_pass( map_insert["password"] );

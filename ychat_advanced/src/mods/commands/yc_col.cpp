@@ -31,8 +31,8 @@ extern "C" {
         timr* p_timr = (timr*) ((dynamic_wrap*)c->elem[3])->TIMR; 
         if ( params->empty() )
         {
-	 s_color  = p_conf->get_elem( "USERCOL1" );
-         s_color2 = p_conf->get_elem( "USERCOL2" );
+	 s_color  = p_conf->get_elem( "HTML_STANDARD_USER_COLOR1" );
+         s_color2 = p_conf->get_elem( "HTML_STANDARD_USER_COLOR2" );
         }
 
         else
@@ -42,7 +42,7 @@ extern "C" {
          if ( ! params->empty() )
           s_color2 = (string) params->front();
          else
-          s_color2 = p_conf->get_elem( "USERCOL2" );
+          s_color2 = p_conf->get_elem( "HTML_STANDARD_USER_COLOR2" );
         }
 
 	s_color  = tool::to_lower( s_color  );

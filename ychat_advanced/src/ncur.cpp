@@ -164,7 +164,7 @@ ncur::switch_main_menu_( int i_choice )
             break;
         case 4:
             if ( ! wrap::GCOL->remove_garbage() )
-             wrap::NCUR->print( GARNONE );
+             wrap::NCUR->print( GAROFFNE );
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
             mvprintw( 20,2, "Garbage collector activated                                  ");
             refresh();
@@ -185,7 +185,7 @@ ncur::switch_main_menu_( int i_choice )
             break;
         case 9: // Shut down server
             if ( ! wrap::GCOL->remove_garbage() )
-             wrap::NCUR->print( GARNONE );
+             wrap::NCUR->print( GAROFFNE );
             mvprintw( 21,2, "Good bye !");
             refresh();
             clrtoeol();

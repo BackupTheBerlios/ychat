@@ -10,13 +10,13 @@ using namespace std;
 
 chat::chat( )
 {
-    if ( wrap::CONF->get_elem( "HTML" ) == "OFF" )
+    if ( wrap::CONF->get_elem( "HTML_TAGS_ALLOW" ) == "OFF" )
       b_strip_html = true;
 
-    if ( wrap::CONF->get_elem( "PRINT_ALWAYS_TIME" ) == "YES" )
+    if ( wrap::CONF->get_elem( "CHAT_PRINT_ALWAYS_TIME" ) == "ON" )
       b_print_always_time = true;
 
-    if ( wrap::CONF->get_elem( "REPLACE_STRINGS" ) == "YES" )
+    if ( wrap::CONF->get_elem( "REPLACE_STRINGS" ) == "ON" )
     {
       b_replace_strings = true;
       vector<string>* p_vec_keys = wrap::CONF->get_key_vector();
@@ -35,7 +35,7 @@ chat::chat( )
         map_replace_strings[s_conf_val.substr(0, i_pos)] = s_conf_val.substr(i_pos+2); 
        }
      }
-      delete p_vec_keys;
+     delete p_vec_keys;
     }
 
     i_max_message_length = tool::string2int(wrap::CONF->get_elem( "MAX_MESSAGE_LENGTH" ));
@@ -84,8 +84,8 @@ chat::login( map_string &map_params )
     // prove if nick is empty:
     if ( s_user.empty() )
     {
-        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NONICK" );
-        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_OFFNICK" );
+        map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
         wrap::system_message( LOGINE0 );
         return;
     }
@@ -94,7 +94,7 @@ chat::login( map_string &map_params )
     else if ( ! tool::is_alpha_numeric( s_user ) )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ALPNUM" );
-        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+        map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
         wrap::system_message( LOGINE1 + s_user  );
         return;
     }
@@ -103,7 +103,7 @@ chat::login( map_string &map_params )
     else if ( s_user.length()  > tool::string2int( wrap::CONF->get_elem("MAX_NICK_LENGTH") ) ) 
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NICK_LENGTH" );
-        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+        map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
         wrap::system_message( LOGINE2 + s_user  );
         return;
     }
@@ -112,7 +112,7 @@ chat::login( map_string &map_params )
     else if ( map_params["room"].length() > tool::string2int( wrap::CONF->get_elem("MAX_ROOMNAME_LENGTH") ) ) 
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ROOMNAME_LENGTH" );
-        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+        map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
         wrap::system_message( LOGINE3 + s_user + " / " + map_params["room"] );
         return;
     }
@@ -120,8 +120,8 @@ chat::login( map_string &map_params )
     // prove if the room name is valid 
     else if ( map_params["room"].length() < 1 ) 
     {
-        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NOROOM" );
-        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_OFFROOM" );
+        map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
         wrap::system_message( LOGINE3 + s_user + " / " + map_params["room"] );
         return;
     }
@@ -134,7 +134,7 @@ chat::login( map_string &map_params )
     if ( b_flag )
     {
 	map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ONLINE" ); 
-	map_params["request"] = wrap::CONF->get_elem( "STARTMPL" );
+	map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" );
 			    
 	return;
     }
@@ -148,7 +148,7 @@ chat::login( map_string &map_params )
      if ( p_user->get_pass() != map_params["password"] )
      {
       map_params["INFO"]    = wrap::LANG->get_elem( "ERR_WRONG_PASSWORD" );
-      map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+      map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
       wrap::system_message( LOGINER + s_user );
       return;
      }
@@ -181,7 +181,7 @@ chat::login( map_string &map_params )
       if ( map_results["password"] != map_params["password"] )
       {
        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_WRONG_PASSWORD" );
-       map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+       map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
        wrap::system_message( LOGINER + s_user );
        return;
       }
@@ -196,8 +196,8 @@ chat::login( map_string &map_params )
      }
      else
      { // If not registered use standard font colors
-      map_params["color1"] = wrap::CONF->get_elem( "USERCOL1" );
-      map_params["color2"] = wrap::CONF->get_elem( "USERCOL2" );
+      map_params["color1"] = wrap::CONF->get_elem( "HTML_STANDARD_USER_COLOR1" );
+      map_params["color2"] = wrap::CONF->get_elem( "HTML_STANDARD_USER_COLOR2" );
       map_params["rang"] = wrap::CONF->get_elem( "STANDARD_RANG" );
      }
 
@@ -244,7 +244,7 @@ chat::login( map_string &map_params )
     // post "username enters the chat" into the room.
     string s_msg = wrap::TIMR->get_time() + " "
                  + p_user->get_colored_bold_name()
-                 + wrap::LANG->get_elem( "USERENTR" )
+                 + wrap::LANG->get_elem( "USER_ENTERS_CHAT" )
                  + "<br>\n";
 
     // If created a new user from database while logging on (not a recycled user, they already have this set)
@@ -266,7 +266,7 @@ chat::post( user* p_user, map_string &map_params )
     if ( s_msg.length() > i_max_message_length )
     {
      s_msg = s_msg.substr( 0, i_max_message_length );
-     string s_private = "<font color=\"" + wrap::CONF->get_elem( "ERRORCOL" ) + "\">"
+     string s_private = "<font color=\"" + wrap::CONF->get_elem( "HTML_ERROR_COLOR" ) + "\">"
                        + wrap::LANG->get_elem( "ERR_MESSAGE_LENGTH" ) + "</font><br>\n";
      p_user->msg_post( &s_private );
     } 
