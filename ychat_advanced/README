@@ -33,10 +33,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 1.0.0 REQUIREMENTS: 
 
-- gcc 3.2
+- GCC 3.2 or higher
   The GNU C++ compiler.
 
-- Gmake 3.80
+- GNU make 3.80 (gmake) or higher
   If you dont have a gmake executable but make is gnu make then you need
   to add a symlink or alias from gmake to make.
   yChat Makefiles only have been tested with GNU Make and may not work with
@@ -48,7 +48,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 - ncurses 5.x   
   Includes libncurses and the ncurses.h header files.
 
-- screen
+- Screen
   Only needed if yChat should run in background with
   ncurses enabled.
 
@@ -57,12 +57,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   sometimes run perl stuff from scripts/*pl but not needed in order to
   use yChat :-).
 
+- CVS (Concurrent Versions System)
+  Needed if you want to use the CVS options which are build into the Makefile.
+  Type "gmake help" to see all of them.
+
+
 1.1.0 TESTED PLATFORMS:
 
 The following platforms have been tested with success:
 
-- Linux with GCC 3.2.0, GNU make 3.79.1
-- FreeBSD 5.1-RELEASE-p2, GCC 3.2.2, GNU make 3.80 
+- Gentoo Linux with GCC 3.2.0, GNU make 3.79.1
+- FreeBSD 5.1-RELEASE-p11, GCC 3.2.2, GNU make 3.80 
 
 1.2.0 IMPORTANT NOTES:
 
@@ -105,19 +110,23 @@ you may remove the #define NCURSES line in the src/glob.h and enable
 Invoke "./configure" and afterwards "gmake", edit the conf.txt ( be sure
 to enter a valid mysql account and host. Take a look at docs/mysql_ychat.txt
 how to create a valid MySQL database ).
+If all MySQL values in the conf.txt are correct you may also run
+"gmake start" to compile everything and to start ychat_advanced right after
+that :-).
 
 You may invoke make with the following options:
 
- gmake (compiles everything, also modules)
+ gmake help (shows all available ychat_advanced gmake targets)
+ gmake or gmake all (compiles everything, also modules)
+ gmake start (compiles everythinh and starts the yChat)
  gmake base (only compiles the base)
  gmake modules (only compiles modules)
  gmake clean (cleans everything)
  gmake clean_base (only cleans the base obj files)
  gmake clean_modules (only cleans the modules .so files) 
  gmake stats (generates ychat statistics)
- gmake start (compiles everythinh and starts the yChat)
  gmake gpl (shows the GNU General Public License)		
- gmake update (updates the sources to the current CVS version)		
+ gmake cvsupdate (updates the sources to the current CVS version via anoncvs)		
 
 Now its time to run the server with ./bin/ychat.
 

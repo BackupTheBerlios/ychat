@@ -60,7 +60,7 @@ MAX_PASS_LENGTH="30";
 STANDARD_RANG="3";
 
 # specifies the standard start html-template. 
-STARTMPL="index.html";
+STARTMPL="index.html"; 
 
 # user's standard nick color.
 USERCOL1="AAAAAA";
@@ -85,7 +85,7 @@ HTML="OFF";
 
 # MySQL Settings
 MYSQL_HOST="localhost";
-MYSQL_USER="ychat";
+MYSQL_USER="ychatuser";
 MYSQL_PASS="yctest";
 MYSQL_DB="ychat";
 

@@ -6,6 +6,8 @@
 
 use strict;
 
+use scripts::modules::file;
+
 my %stats;
 
 &recursive('.');
@@ -81,22 +83,4 @@ sub countlines
  my $shift = shift;
  my @file = fopen($shift);
  return $#file; 
-}
-
-sub dopen
-{
- my $shift = shift;
- opendir DIR, $shift or die "$!: $shift\n";
- my @dir = readdir(DIR);
- closedir DIR;
- return @dir;
-}
-
-sub fopen
-{
- my $shift = shift;
- open FILE, $shift or die "$!: $shift\n";
- my @file = <FILE>; 
- close FILE;
- return @file;
 }
