@@ -1,6 +1,6 @@
 /*
- * yChat++; Homepage: www.yChat.org
- * Copyright (C) 2003 Paul C. Buetow ( Snooper@yChat.org, ICQ: 11655527 )
+ * yChat++; Contact: www.yChat.org; Mail@yChat.org
+ * Copyright (C) 2003 Paul C. Buetow, Volker Richter 
  * -----------------------------------------------------------------
  *
  * This program is free software; you can redistribute it and/or
