@@ -49,7 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 The following platforms have been tested with success:
 
 - Linux with GCC 3.2.0, GNU make 3.79.1
-- FreeBSD 5.1-RELEASE-p2, GCC 3.2.2, GNU make 3.80 ( standard make does not seem work on FreeBSD ). 
+- FreeBSD 5.1-RELEASE-p2, GCC 3.2.2, GNU make 3.80 
 
 1.2.0 IMPORTANT NOTES:
 
@@ -89,18 +89,21 @@ If you dont want to use yChat's ncurses based administration interface
 you may remove the #define NCURSES line in the glob.h and enable
 #define SERVMSG and #define VERBOSE instead.
 
-Now invoke "./configure" and afterwards "make", edit the conf.txt ( be 
-sure to enter a valid mysql account ) host.
+To start very quickly just run "./quickstart.sh". But you may also do
+it manually while reading further :-).
 
-Now we want to compile all the dynamic loadable modules of ychat.
-Invoke "cd mods && ./compile.sh && cd -". All modules should get
+Invoke "./configure" and afterwards "make", edit the conf.txt ( be sure
+to enter a valid mysql account and host ).
+
+Now we want to compile all the dynamic loadable modules of yChat.
+Type "cd mods && ./compile.sh && cd -". All modules should get
 compiled.
 
 Now its time to run the server with ./ychat.
-Then point your webbrowser to http://yourip:port/index.html ( ignoring
-the index.html on the end of the url will not work! ). 
-... have fun :-).
 
+Aferwards point your webbrowser to http://yourip:port/index.html
+( ignoring the index.html on the end of the url will not work! ). 
+... have fun :-).
 
 1.4.0 HOW TO USE SCREEN WITH YCHAT++:
 
