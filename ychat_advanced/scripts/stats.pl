@@ -16,10 +16,20 @@ $stats{linestotal} = $stats{linesofsrc}
                    + $stats{linesofscripts}   
                    + $stats{linesoftxt}   
                    + $stats{linesofhtml};
-   
+
+my $bool = 0;
 foreach ( sort keys %stats )
 {
- print "$_ = " . $stats{$_} . "\n";
+ if ($bool == 0)
+ { 
+  print "$_ = " . $stats{$_} . ", ";
+  $bool = 1;
+ }
+ else
+ {
+  print "$_ = " . $stats{$_} . "\n";
+  $bool = 0;
+ }
 }
 
 

@@ -79,6 +79,8 @@ public:
 		s_tmp=s_tmp+(char)tolower(s.at(i));
 	return s_tmp;
     }
+
+   static void shell_command( string s_command );
 };
 
 #endif

@@ -5,11 +5,14 @@
 
 using namespace std;
 
+const string GMAKE_PARAMS[] = { "clean_base", "clean_modules",  "all" };
+const int    GMAKE_ELEMENTS = 3;
+
 ncur::ncur( )
 {
     p_messagelist = new list<char*>;
     pthread_mutex_init( &mut_messages, NULL );
-    i_message_length = 46;
+    i_message_length = 45;
     b_is_ready = false;
 }
 
@@ -41,9 +44,9 @@ ncur::start( void *v_pointer )
                           "Clear template cache    ",
                           "Run garbage collector   ",
                           "Module-loader manager NI",
-                          "MySQL manag.          NI",
-                          "Session manager       NI",
-                          "Update yChat via CVS    ",
+                          "Update sources via CVS  ",
+                          "Compile changed sources ",
+                          "Recompile all sources   ",
                           "Shut down server",
                       };
 
@@ -131,6 +134,8 @@ ncur::print( char* c_print )
 void
 ncur::switch_main_menu_( int i_choice )
 {
+    int i;
+
     if( i_choice != 0 )
         switch ( i_choice )
         {
@@ -151,7 +156,7 @@ ncur::switch_main_menu_( int i_choice )
         case 3:
             wrap::HTML->clear_cache();
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Cleared the template cache                      ");
+            mvprintw( 20,2, "Cleared the template cache                                   ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
@@ -159,16 +164,19 @@ ncur::switch_main_menu_( int i_choice )
             if ( ! wrap::GCOL->remove_garbage() )
              wrap::NCUR->print( GARNONE );
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Garbage collector activated                     ");
+            mvprintw( 20,2, "Garbage collector activated                                  ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
+        case 6:
+            tool::shell_command( string(GMAKE) + " cvsupdate 2> error.log");
+            break;
+        case 7:
+            tool::shell_command( string(GMAKE) + " 2> error.log");
+            break;
         case 8:
-            system("gmake clean cvsupdate all");
-            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Updated yChat. Pls edit conf.txt and sestart :-)");
-            refresh();
-            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+            for ( i = 0; i < GMAKE_ELEMENTS; i++ )
+              tool::shell_command( GMAKE + GMAKE_PARAMS[i] + " 2> error.log");
             break;
         case 9: // Shut down server
             if ( ! wrap::GCOL->remove_garbage() )
@@ -190,4 +198,5 @@ ncur::switch_main_menu_( int i_choice )
             break;
         }
 }
+
 #endif

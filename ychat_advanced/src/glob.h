@@ -108,4 +108,6 @@ struct dynmod
     void     *the_module;
 };
 
+// Define external executables:
+#define GMAKE "/usr/local/bin/gmake \0"
 #endif

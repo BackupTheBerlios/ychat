@@ -53,6 +53,8 @@
 #define SEPERAT "-----------------------\0"
 #define SESSION "Session: Count \0"
 #define SESSDMP "Session: Dump of session\0"
+#define SHELLER "Shell: Could not execute command\0"
+#define SHELLEX "Shell: Executing the following command:\0"
 #define REUROOM "Garbage: Reusing room object \0"
 #define SOCKCRT "Sock: Created socket on \0"
 #define SOCKERR "Sock: Can't create socket, trying next port \0"
@@ -64,7 +66,7 @@
 #define TIMERTH "Timer: Starting timer thread \0"
 #define TIMERUP "Timer: System uptime \0"
 #define VERSION "yChat++ Advanced 0.6-CURRENT (CVS)\0"
-#define BUILDNR 290
+#define BUILDNR 306
 #define UNAME "unknown\0" 
 
 #endif

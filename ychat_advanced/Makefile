@@ -5,21 +5,24 @@ modules:
 clean_modules:
 	gmake -C ./src/mods clean
 base:	
-	perl ./scripts/buildnr.pl || ./scripts/noperl.sh
-	gmake -C ./src
+	@echo backing up old binary
+	if test -f bin/ychat; then mv bin/ychat bin/ychat.old; fi
+	@perl ./scripts/buildnr.pl || ./scripts/noperl.sh
+	@perl ./scripts/setglobvals.pl || ./scripts/noperl.sh
+	gmake -C ./src 
 clean_base:
 	gmake -C ./src clean
 stats:
-	perl scripts/stats.pl || ./scripts/noperl.sh
+	@perl scripts/stats.pl || ./scripts/noperl.sh
 start:	base modules 
 	./bin/ychat
 gpl:
 	more COPYING
 cvsupdate:
 	@echo "Updating to newest CVS version of ychat_advanced"
-	@echo "Please just hit enter if you get asked about a password :)"
+	export CVSROOT=":pserver:anonymous@cvs.ychat.berlios.de:2401/cvsroot/ychat" 
 	touch ~/.cvspass 
-	cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat login &&
+	@echo "/1 :pserver:anonymous@cvs.ychat.berlios.de:2401/cvsroot/ychat A" >~/.cvspass &&
 	@echo "Backing up old configuration files" &&
 	cp conf.txt conf.txt.old &&
 	cp lang/en lang/en.old &&
@@ -27,9 +30,9 @@ cvsupdate:
 	@echo "Running cvs update" &&
 	mv src/msgs.h src/msgs.h.bak &&
 	cvs update &&
-	cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat logout &&
+	cvs logout &&
 	@echo "Done updating CVS sources!" &&
-	perl ./scripts/mergeconf.pl || ./scripts/noperl.sh &&
+	@perl ./scripts/mergeconf.pl || ./scripts/noperl.sh &&
 	rm conf.txt.old lang/*.old
 	@which cvs >/dev/null || ./scripts/nocvs.sh
 clean:	clean_base clean_modules

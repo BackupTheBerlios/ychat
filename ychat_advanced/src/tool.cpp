@@ -3,6 +3,12 @@
 
 #include <ctype.h>
 #include <time.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <fcntl.h>
+
 #include "tool.h"
 
 string
@@ -56,5 +62,32 @@ tool::int2char( int i_int )
     return buffer;
 }
 
+void
+tool::shell_command( string s_command )
+{
+    FILE *file;
+    char buffer[READBUF];
+
+    wrap::system_message(SHELLEX);
+    wrap::system_message(s_command);
+
+    if( (file=popen(s_command.c_str(), "r")) == NULL )
+    {
+     wrap::system_message( SHELLER );
+    }
+
+    else
+    { 
+     while(true)
+     {
+      if(fgets(buffer, READBUF, file) == NULL)
+       break;
+
+      wrap::system_message( string(buffer) );
+     }
+     pclose(file);
+    }
+}
 
 #endif
+
