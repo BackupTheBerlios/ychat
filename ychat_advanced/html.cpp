@@ -96,9 +96,9 @@ html::parse( map_string &map_params )
             s_tmp.append( s_path );
             s_ncur::get
                 ().print( s_tmp.c_str() );
+        }
 #endif
 
-        }
 
 
         // cache file.

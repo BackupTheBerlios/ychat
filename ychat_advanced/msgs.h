@@ -18,6 +18,13 @@
 #define DOWNMSG "Shutting down \0"
 #define LISTERR "Sock listen error \0"
 #define MODULEC "Caching module \0"
+#define MYMANAG "MySQL: \0" 
+#define MYLIMIT "MySQL reached hardlimit of connections: \0"
+#define MYINITC "MySQL initial connections: \0" 
+#define MYINITM "MySQL max. connections: \0" 
+#define MYERROR "MySQL error: no suitable connection found \0"
+#define MYERRO1 "MySQL error: init failed \0"
+#define MYERRO2 "MySQL error: reached connection limit \0"
 #define NEWREQU "New request \0"
 #define NEWROOM "New room \0"
 #define NEWUSER "New user \0"
@@ -34,6 +41,6 @@
 #define SOCKRDY "Server socket is ready \0"
 #define STARTMS "Starting up \0"
 #define TECACHE "Caching template \0"
-#define VERSION "Version: 0.4 CVS \0"
+#define VERSION "Version: 0.4.CVS \0"
 
 #endif

@@ -3,28 +3,36 @@
 
 #include "mman.h"
 #include "mcon.h"
+#include "mcon.h"
+#include "s_mutx.h"
+#include "s_ncur.h"
+#include "s_tool.h"
 
 using namespace std;
 
 mman::mman(int initial, int max)
 {
-
     this->i_used_connections=0;
 
-    if(max>CONNECTIONS_MAX)
+    if( max > MAXMSQL )
     {
-        cerr << LOG_PREFIX << "reached hardlimit of mysql connections! using " << CONNECTIONS_MAX << " as connection limit" << endl;
-        max=CONNECTIONS_MAX;
+#ifdef VERBOSE
+    cerr << MYLIMIT << MAXMSQL << endl;
+#endif
+
+    max = MAXMSQL;
+
     }
 
     if(initial>max)
         initial=max;
+
     this->i_initial_connections=initial;
     this->i_max_connections=max;
-#ifdef VERBOSE
 
-    cout << LOG_PREFIX << "initial connections: " << initial << endl;
-    cout << LOG_PREFIX << "max. connections: " << max << endl;
+#ifdef VERBOSE
+    cout << MYINITC << initial << endl
+         << MYINITM << max << endl;
 #endif
 }
 void mman::init( string host, string user, string passwd, string db, unsigned int port)
@@ -39,6 +47,23 @@ void mman::init( string host, string user, string passwd, string db, unsigned in
         this->mysql.push_back(new_connection( ));
 
 }
+
+#ifdef NCURSES
+void
+mman::print_init_ncurses()
+{
+        string s_tmp( MYINITC );
+        s_tmp.append( s_tool::int2string( i_initial_connections ) );
+        s_ncur::get
+            ().print( s_tmp );
+
+        string s_tmp2( MYINITM );
+        s_tmp2.append( s_tool::int2string( i_max_connections ) );
+        s_ncur::get
+            ().print( s_tmp2 );
+}
+#endif
+
 mman::~mman()
 {
 
@@ -63,7 +88,17 @@ MYSQL *mman::get_connection()
         }
         return x;
     }
-    cerr << LOG_PREFIX << " no suitable connection found " << endl;
+
+#ifdef NCURSES
+    {
+        s_ncur::get
+            ().print( MYERROR );
+    }
+#endif
+#ifdef SERVMSG
+    cerr << MYERROR << endl;
+#endif
+
     return NULL;
 }
 MYSQL *mman::new_connection( )
@@ -72,19 +107,37 @@ MYSQL *mman::new_connection( )
 
     if(this->i_used_connections>this->i_max_connections)
     {
-        cerr << LOG_PREFIX << "reached connection limit" << endl;
+#ifdef NCURSES
+	s_ncur::get().shutdown();
+    	cerr << MYERRO2 << endl;
+#endif
+#ifdef SERVMSG
+    	cerr << MYERRO2 << endl;
+#endif
         return NULL;
     }
     MYSQL *ms = mysql_init(NULL);
     if(!ms)
     {
-        cerr << LOG_PREFIX << "init failed" << endl;
+#ifdef NCURSES
+	s_ncur::get().shutdown();
+    	cerr << MYERRO1 << endl;
+#endif
+#ifdef SERVMSG
+    	cerr << MYERRO1 << endl;
+#endif
         exit(1);
     }
     if(mysql_real_connect( ms, this->s_host.c_str(), this->s_user.c_str(), this->s_pass.c_str(), this->s_db.c_str()
                            , this->i_port, NULL, 0 )==NULL)
     {
-        cerr << LOG_PREFIX << mysql_error(ms) << endl;
+#ifdef NCURSES
+	s_ncur::get().shutdown();
+        cerr << MYMANAG << mysql_error(ms) << endl;
+#endif
+#ifdef SERVMSG
+        cerr << MYMANAG << mysql_error(ms) << endl;
+#endif
         exit(1);
     }
     this->i_used_connections++;

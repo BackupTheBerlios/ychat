@@ -2,6 +2,7 @@
 #define NCUR_CXX
 
 #include "ncur.h"
+#include "s_mman.h"
 #include "s_sock.h"
 
 using namespace std;
@@ -60,13 +61,24 @@ ncur::start( void *v_pointer )
 
     admin_interface->print( VERSION );
 
+#ifdef NCURSES
+    s_mman::get().print_init_ncurses(); 
+#endif
+
     admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
     admin_interface->p_menu->start( &switch_main_menu_ );
 
+    admin_interface->shutdown();	
+}
+
+void
+ncur::shutdown()
+{
     clrtoeol();
     refresh();
     endwin();
 }
+
 
 void
 ncur::print( string *p_msg )

@@ -10,8 +10,17 @@
 #define true   1
 #define false  0
 
-// config filename.
+// config filename. ( will be searched in ~/.ychat/ and if not found in the working 
+// directory of ychat ).
 #define CONFILE "conf.txt"
+
+// the hard limit of mysql connections at the samte time in the mysql connection
+// manager.
+#define MAXMSQL 20
+
+// defines the standard value of the init method of the mysql connection manager
+// for the mysql server port. 
+#define PRTMSQL 3306
 
 // the highest port which is allowed to use. if ychat is unable to create the server
 // socket it will increment the port number and tries to create another socket.
@@ -26,9 +35,13 @@
 
 // definition for verbosity level ( normal outputs ). see vmsg.h for custumizing all
 // the messages. this messages will only printed out by the master thread.
+// dont use this until NCURSES is defined! all messages will appear in the
+// ncurses interface anyways.
 //#define VERBOSE
 
 // displays important server messages such as socket or fatal errors!
+// dont use this until NCURSES is defined! all messages will appear in the
+// ncurses interface anyways.
 //#define SERVMSG
 
 // is used for interaction with the ncurses admin interface at stdout.

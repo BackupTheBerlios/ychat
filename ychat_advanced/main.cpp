@@ -111,7 +111,6 @@ int main()
         ().start();
 
 #ifdef VERBOSE
-
     cout << DOWNMSG << endl;
 #endif
 

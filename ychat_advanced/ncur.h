@@ -36,6 +36,7 @@ public:
     }
 
     static void switch_main_menu_( int i_choice );
+    void shutdown();
 };
 
 #endif

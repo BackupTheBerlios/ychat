@@ -56,10 +56,11 @@ SESSION_LENGTH="64";
 # html = "OFF" strips all html tags from incoming messages
 HTML="OFF";
 
-# Logging
+# LOGGING:
 
 # relative or absolute path to logfile
 ACCESS_LOG="access_log";
+
 # we're using buffered logging for performance
 # LOG_LINES specifies after how many lines the log is flushed into a file
 # if you don't want buffered logging set LOG_LINES to 1
