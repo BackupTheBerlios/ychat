@@ -61,7 +61,7 @@ cout  <<  "         ___ _           _   "     << endl
 #endif
 
  // ignore SIGPIPE. otherwise the server will shut down with "Broken pipe" if
- // a client unexpected disconnects himself from a s_sock_STREAM.
+ // a client unexpected disconnects himself from a SOCK_STREAM.
  signal( SIGPIPE, SIG_IGN );
 
  // all the static data classes have to be initialized once. otherwise they will
