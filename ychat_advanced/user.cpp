@@ -136,10 +136,6 @@ user::command( string &s_command )
     string s_command2=s_command.substr(0, pos2-1);
     s_mod.append( s_command2  ).append( ".so" );
 
-    //pthread_mutex_lock  ( &mut_map_mods );
-    //dynmod* mod = map_mods->get_elem( s_name );
-    //pthread_mutex_unlock( &mut_map_mods );
-
     dynmod *mod = s_modl::get
                       ().get_module( s_mod );
 
@@ -180,9 +176,10 @@ user::command( string &s_command )
     }
 
     container *c = new container;
-    c->elem[0]=(void*)ptr_command;
-    c->elem[1]=(void*)this;
-    c->elem[2]=(void*)&params;
+    c->elem[0]=(void*) ptr_command;
+    c->elem[1]=(void*) this;
+    c->elem[2]=(void*) &params;
+    c->elem[3]=(void*) &s_conf::get();
 
     ( *(mod->the_func) ) ( (void*) c );
 

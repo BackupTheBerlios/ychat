@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../../conf.h"
 #include "../../user.h"
 #include "../../s_tool.cpp"
 /*
@@ -21,9 +22,16 @@ extern "C" {
 	user *p_user = (user*)c->elem[1];		// the corresponding user
 	str_vector *params=(str_vector*)c->elem[2];	// param array
 
-	
-	string sColor=(string)params->front();
+        string sColor;
+
+        if ( params->empty() )
+	 sColor = ((conf*) c->elem[3])->get_val( "STDCOLOR" );
+
+        else
+	 sColor = (string) params->front();
+
 	sColor=s_tool::to_lower(sColor);
+
 	if(valid_color(sColor)==1)	
 	{  	
 

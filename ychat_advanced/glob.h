@@ -72,7 +72,7 @@ typedef int function( void *v_arg );
 
 struct container
 {
-    void* elem[3];
+    void* elem[4];
 };
 
 struct dynmod
