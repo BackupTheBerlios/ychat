@@ -164,8 +164,8 @@ ncur::switch_main_menu_( int i_choice )
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
         case 9: // Shut down server
-            delete wrap::GCOL;
-	   // delete wrap::MMAN;
+            if ( ! wrap::GCOL->remove_garbage() )
+            wrap::NCUR->print( GARNONE );
             mvprintw( 21,2, "Good bye !");
             refresh();
             clrtoeol();

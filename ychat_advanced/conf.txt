@@ -67,7 +67,7 @@ STARTMPL="index.html";
 
 # The time offset. Negative values are not allowed. If you have an offset
 # of -6 please enter 18 (24-6) here :). 
-TIME_OFFSET="18";
+TIME_OFFSET="0";
 
 # user's standard nick color.
 USERCOL1="AAAAAA";
@@ -93,7 +93,7 @@ HTML="OFF";
 MYSQL_HOST="localhost";
 MYSQL_USER="ychat";
 MYSQL_PASS="yctest";
-MYSQL_DB="ychat_advanced";
+MYSQL_DB="ychat";
 
 # MySQL Connection Manager Settings
 
@@ -120,8 +120,8 @@ DATA_SELECT_NICK="user nick";
 # DYNAMIC MODULES:
 
 # yChat may preload all available modules.
-PRE_MODS_COMMANDS="xON"; # yChat will preload mods/commands/*.so on start if set to "ON".
-PRE_MODS_HTML="xON";    # yChat will preload mods/html/*.so on start if set to "ON".
+PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so on start if set to "ON".
+PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "ON".
 
 # LOGGING:
 
