@@ -1,13 +1,21 @@
 #ifndef LOGD_CXX
 #define LOGD_CXX
 
+#include "s_ncur.h"
+#include "glob.h"
 #include "logd.h"
 
 logd::logd( string filename )
 {
     if(filename.empty())
     {
-        cerr << "ycLog: No filename specified" << endl;
+#ifdef NCURSES
+    s_ncur::get
+          ().print( LOGERR2 );
+#endif
+#ifdef SERVMSG
+        cerr << LOGERR2 << endl;
+#endif
         exit(1);
     }
 
@@ -23,7 +31,15 @@ void logd::flush()
 
     if(s_output==NULL)
     {
-        cerr << "ycLog: Could not open file: " << s_logfile << endl;
+#ifdef NCURSES
+        string s_tmp( LOGERR1 );
+        s_tmp.append( s_logfile );
+        s_ncur::get
+            ().print( s_tmp.c_str() );
+#endif
+#ifdef SERVMSG
+        cerr << LOGERR1 << s_logfile << endl;
+#endif
         exit(1);
     }
 

@@ -17,6 +17,8 @@
 #define DESCRIP "yChat++: Copyright (C) 2003 Paul C. Buetow, Volker Richter\0"
 #define DOWNMSG "Shutting down \0"
 #define LISTERR "Sock listen error \0"
+#define LOGERR1 "Logging: Could not open logfile \0"
+#define LOGERR2 "Logging: No filename specified \0"
 #define MODULEC "Caching \0"
 #define MODULER "Requesting \0"
 #define MYMANAG "MySQL: \0" 
