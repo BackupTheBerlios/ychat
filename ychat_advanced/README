@@ -140,7 +140,7 @@ and reusing the interface later through another terminal.
 
 Just do:
  
- screen -S ychat ./ychat ( creates a new session and starts ychat in it )
+ screen -S ychat ./bin/ychat ( creates a new session and starts ychat in it )
  ctrl+d+a ( will detach the ychat session )
  ( closing the terminal )
  ( opening a new terminal )
@@ -154,11 +154,15 @@ For a closer look read the screen manual page ( man screen ).
 1.5.0 CUSTOMIZATION:
 
 If you like to customize the design/layout/language of yChat, you will have 
-to edit src/msgs.h and glob.h before you compile the sources. Afterwards you can
-change the html-template files which are placed in the html/ subdirectory and
-the language-template files which are placed in the lang/ subdirectory.
-Dynamic loadable modules can be found in the mods/ subdirectory. ( chat 
-commands are realized through modules too ).
+to edit src/msgs.h and src/glob.h before you compile the sources. Afterwards 
+you can change the html-template files which are placed in the html/ 
+subdirectory and the language-template files which are placed in the lang/ 
+subdirectory.
+Dynamic loadable modules can be found in the mods/ subdirectory. (chat 
+commands are realized through modules too). Sources of modules can be found
+in src/mods instead. If you want to create a new module just create a new
+.cpp file and run in src/mods the ./configure script again. Next time
+you run gmake your new module gets compiles.
 
 All messages defined in the msgs.h file contain server messages only ( a chat
 user never wont read them, only the administrator will get to see them ).
@@ -315,7 +319,7 @@ It writes a file named "core" or "ychat.core" depending on your OS to directory 
 
 So, if you have the core file and GNU debugger (gdb), you can get the backtrace with:
 
- gdb ychat core 
+ gdb ./bin/ychat ychat.core 
  bt 
 
 Paste all the lines starting from line having #0 at the beginning.

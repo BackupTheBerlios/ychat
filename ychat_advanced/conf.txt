@@ -136,7 +136,7 @@ LOG_ROOM_DIR="log/rooms/";
 # if you don't want buffered logging set LOG_LINES to 1.
 LOG_ACCESS_LINES="10";
 LOG_SYSTEM_LINES="10";
-LOG_ROOM_LINES="1";
+LOG_ROOM_LINES="10";
 
 # HTML VARIABLES:
 
