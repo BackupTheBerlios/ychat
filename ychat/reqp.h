@@ -3,6 +3,9 @@
 #ifndef REQP_H
 #define REQP_H
 
+#define RQ_GET 1
+#define RQ_POST 2
+
 #include <map> 
 #include "incl.h"
 

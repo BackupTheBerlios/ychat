@@ -25,13 +25,24 @@ reqp::reqp( )
 string
 reqp::get_url( string s_req, map_string &map_params )
 {
- auto unsigned int pos = s_req.find( "HTTP", 0 );
- string s_ret = s_req.substr( 5, pos-6 );
+auto unsigned int pos;
+string s_ret;
+string s_vars;
+auto int i_request;
 
+i_request= (s_req.find("GET",0)!=string::npos) ? RQ_GET : RQ_POST;
+
+ pos = s_req.find( "HTTP", 0 );
+ 
+ if(i_request==RQ_GET)
+ 	s_ret = s_req.substr( 5, pos-6 );
+ else
+ 	s_ret = s_req.substr( 6, pos-7 );
+ 
  // remove ".." from the request.
  do
  {
-  pos = s_ret.find( "..", 0 );
+  pos = s_ret.find( "../", 0 );
 
   if ( pos == string::npos )
    break; 
@@ -39,13 +50,26 @@ reqp::get_url( string s_req, map_string &map_params )
   s_ret.replace( pos, pos+2, "" );
  }
  while( true );
-
  // do not add the string behind "?" tp s_ret and add all params behind "?" to map_params. 
- pos = s_ret.find( "?", 0 );
- if ( pos != string::npos )
- {
-  auto string s_params = s_ret.substr( pos+1, s_ret.length() -pos-1 ); 
-  s_ret = s_ret.substr( 0, pos );
+ 
+  if(i_request==RQ_GET)
+  	pos = s_ret.find( "?", 0 );
+  else
+  	pos = s_req.find("\r\n\r\n", 0);
+  
+  
+  if ( pos != string::npos )
+  {
+  
+  	auto string s_params;
+  	
+	if(i_request==RQ_GET)
+	s_params = s_ret.substr( pos+1, s_ret.length() -pos-1 ); 
+	else
+	s_params = s_req.substr( pos+4, s_req.length() -pos-1 ); 
+	
+	
+	s_ret = s_ret.substr( 0, pos );
 
   auto unsigned int pos2;
   do
@@ -58,16 +82,18 @@ reqp::get_url( string s_req, map_string &map_params )
    if ( pos2 == string::npos )
    {
     auto string sValue=s_params.substr(pos+1, s_params.length()-pos-1);
-    string tmpstr=url_decode(sValue);
+    auto string tmpstr=url_decode(sValue);
     map_params[ s_params.substr( 0, pos ) ] = tmpstr;
+    	
     break;
    }
 
-   map_params[ s_params.substr( 0, pos ) ] = s_params.substr( pos+1, pos2-pos-1 );
+   auto string s_temp= s_params.substr( pos+1, pos2-pos-1 );
+   map_params[ s_params.substr( 0, pos ) ] =url_decode(s_temp);
+   
    s_params = s_params.substr( pos2+1, s_params.length()-pos2-1 );
   }
   while( true );
-
  }
 
 #ifdef _VERBOSE
