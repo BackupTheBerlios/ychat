@@ -75,8 +75,19 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
  // post the room that the user has left the chat.
  p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get().get_val( "USERLEAV" ) ) ) );  
  s_sman::get().destroySession( p_user->get_id() );
+
+int i_count = s_sman::get().getSessionCount();
+
+#ifdef NCURSES
+{
+ string s_tmp( SESSION );
+ s_tmp.append( s_tool::int2string( i_count ) );
+ s_ncur::get().print( s_tmp );  
+}
+#endif
 #ifdef VERBOSE
-	cout << s_user << " left | SessionCount: " << s_sman::get().getSessionCount() << endl;
+ cout << REMUSER << s_user << endl
+      << SESSION << i_count << endl;
 #endif
 
  p_user->~user();
