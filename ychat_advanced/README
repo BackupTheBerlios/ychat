@@ -49,8 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 The following platforms have been tested with success:
 
 - Linux with GCC 3.2.0, GNU make 3.79.1
-- FreeBSD 5.0-RELEASE, GCC 3.2.1, FreeBSD 5.0 make and GNU make 3.80
-- FreeBSD 5.1-RELEASE, GCC 3.2.2, FreeBSD 5.1 make and GNU make 3.80
+- FreeBSD 5.1-RELEASE, GCC 3.2.2, GNU make 3.80 ( standard make does not seem work on FreeBSD ). 
 
 1.2.0 IMPORTANT NOTES:
 
