@@ -61,6 +61,7 @@ ncur::start( void *v_pointer )
 
 
     admin_interface->print( VERSION );
+    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 
 #ifdef NCURSES
     s_mman::get().print_init_ncurses(); 
@@ -68,8 +69,6 @@ ncur::start( void *v_pointer )
 #endif
 
     admin_interface->is_ready( true );
-    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
-
     admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
     admin_interface->p_menu->start( &switch_main_menu_ );
 
@@ -151,7 +150,7 @@ ncur::switch_main_menu_( int i_choice )
 
         default:
             pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-            mvprintw( 21,2, "Selection # %d not yet implemented!", i_choice-1);
+            mvprintw( 20,2, "Selection # %d not yet implemented!", i_choice-1);
             refresh();
             pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
             break;

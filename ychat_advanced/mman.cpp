@@ -10,29 +10,31 @@
 
 using namespace std;
 
-mman::mman(int initial, int max)
+mman::mman(int i_initial, int i_max)
 {
+    pthread_mutex_init( &mut_i_used_con  , NULL);
+
     this->i_used_connections=0;
 
-    if( max > MAXMSQL )
+    if( i_max > MAXMSQL )
     {
 #ifdef VERBOSE
     cerr << MYLIMIT << MAXMSQL << endl;
 #endif
 
-    max = MAXMSQL;
+    i_max = MAXMSQL;
 
     }
 
-    if(initial>max)
-        initial=max;
+    if( i_initial > i_max )
+        i_initial = i_max;
 
-    this->i_initial_connections=initial;
-    this->i_max_connections=max;
+    this->i_initial_connections = i_initial;
+    this->i_max_connections = i_max;
 
 #ifdef VERBOSE
-    cout << MYINITC << initial << endl
-         << MYINITM << max << endl;
+    cout << MYINITC << i_initial << endl
+         << MYINITM << i_max << endl;
 #endif
 }
 void mman::init( string host, string user, string passwd, string db, unsigned int port)
@@ -61,6 +63,16 @@ mman::print_init_ncurses()
         s_tmp2.append( s_tool::int2string( i_max_connections ) );
         s_ncur::get
             ().print( s_tmp2 );
+        print_used_connections(1);
+}
+void
+mman::print_used_connections( bool b_refresh )
+{
+    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+    mvprintw( NCUR_MYSQL_X,NCUR_MYSQL_Y, "MySQL: %d ", i_used_connections);
+    if ( b_refresh )
+     refresh();
+    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 }
 #endif
 
@@ -72,17 +84,23 @@ mman::~mman()
         if(this->mysql[i] != NULL)
             mysql_close(this->mysql[i]);
     }
+
+    pthread_mutex_destroy( &mut_i_used_con );
 }
 MYSQL *mman::get_connection()
 {
-
     if(!this->mysql.empty())
     {
         MYSQL *x=this->mysql[this->mysql.size()-1];
         this->mysql.pop_back();
         if(mysql_ping(x)==0)
         {
+            pthread_mutex_lock  ( &mut_i_used_con );
             this->i_used_connections--;
+#ifdef NCURSES
+            print_used_connections(1);
+#endif
+            pthread_mutex_unlock( &mut_i_used_con );
             mysql_close(x);
             return new_connection();
         }
@@ -104,7 +122,7 @@ MYSQL *mman::get_connection()
 MYSQL *mman::new_connection( )
 {
 
-
+    pthread_mutex_lock  ( &mut_i_used_con );
     if(this->i_used_connections>this->i_max_connections)
     {
 #ifdef NCURSES
@@ -116,6 +134,8 @@ MYSQL *mman::new_connection( )
 #endif
         return NULL;
     }
+    pthread_mutex_unlock( &mut_i_used_con );
+
     MYSQL *ms = mysql_init(NULL);
     if(!ms)
     {
@@ -140,12 +160,24 @@ MYSQL *mman::new_connection( )
 #endif
         exit(1);
     }
+
+    pthread_mutex_lock  ( &mut_i_used_con );
     this->i_used_connections++;
+#ifdef NCURSES
+    print_used_connections(0);
+#endif
+    pthread_mutex_unlock( &mut_i_used_con );
     return ms;
 }
 void mman::free_connection( MYSQL *msql)
 {
+    pthread_mutex_lock  ( &mut_i_used_con );
     this->i_used_connections--;
+#ifdef NCURSES
+    print_used_connections(1);
+#endif
+    pthread_mutex_unlock( &mut_i_used_con );
+
     if(mysql_ping( msql )==0)
     {
         mysql_close( msql );
@@ -154,4 +186,5 @@ void mman::free_connection( MYSQL *msql)
     else
         this->mysql.push_back( new_connection() );
 }
+
 #endif

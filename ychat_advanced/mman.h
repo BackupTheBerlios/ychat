@@ -21,6 +21,7 @@ private:
     int i_max_connections;
     int i_used_connections;
 
+    pthread_mutex_t mut_i_used_con;
 public:
     mman(int initial, int max);
     ~mman();
@@ -30,6 +31,7 @@ public:
     void free_connection( MYSQL *msql );
 #ifdef NCURSES
     void print_init_ncurses();	
+    void print_used_connections( bool b_refresh );
 #endif	
 
 };
