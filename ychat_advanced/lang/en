@@ -1,4 +1,4 @@
-OPTIONSCHANGED="Your options have ben changed!<br><br>";
+OPTIONSCHANGED="Your options have been changed!<br><br>";
 SCREAM="screams: ";
 SERVERTIME="The server system time: ";
 TOPIC="changes the topic to: ";

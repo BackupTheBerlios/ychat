@@ -38,7 +38,7 @@ ncur::start( void *v_pointer )
     char *choices[] = {
                           "Unload all modules        ",
                           "Reload all modules        ",
-                          "Clear template chache     ",
+                          "Clear template cache      ",
                           "Language manager        NI",
                           "Module-loader manager   NI",
                           "MySQL connection manag. NI",
