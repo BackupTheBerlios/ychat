@@ -20,42 +20,19 @@
  */
 
 #include <unistd.h>
-
-// needed for ignoring SIGPIPE.
 #include <signal.h>
-
-// include header files which are included from every class too.
 #include "incl.h"
-
-// include the chat manager.
 #include "s_chat.h"
-
-// include the config manager.
 #include "s_conf.h"
-
-// include the html-template manager.
 #include "s_html.h"
-
-// include the mutex manager for global synchronization.
 #include "s_mutx.h"
-
-// include the module loader manager for global synchronization.
 #include "s_modl.h"
-
-// include the socket manager.
 #include "s_sock.h"
-
-// include the language manager.
 #include "s_lang.h"
-
-// include the ncurses admin menu.
 #include "s_ncur.h"
-
-// include the session manager.
 #include "s_sman.h"
-
-// include the MySQL Connection Manager.
 #include "s_mman.h"
+#include "s_timr.h"
 
 using namespace std;
 
@@ -92,11 +69,13 @@ int main()
     s_mman::init(); // init the mysql connection manager.
     s_sock::init(); // init the socket manager.
     s_chat::init(); // init the chat manager.
+    s_timr::init(); // init the system timer.
 
     // begin to draw the ncurses amdin interface in a new pthread.
 #ifdef NCURSES
 
     s_ncur::init(); // init the ncurses admin interface.
+
     pthread_t admin_thread;
     pthread_create( &admin_thread,
                     NULL,
@@ -107,6 +86,10 @@ int main()
       usleep(100);
 #endif
 
+    pthread_t timer_thread;
+    pthread_create( &timer_thread,
+                    NULL,
+                    s_timr::get().start, (void*) &s_timr::get() );
 
 
     s_modl::init(); // init the module-loader manager.

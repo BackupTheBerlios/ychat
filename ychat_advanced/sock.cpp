@@ -150,8 +150,11 @@ sock::make_socket( uint16_t i_port )
             exit(-1);
 
 #ifdef SERVMSG
-
+        pthread_mutex_lock  ( &s_mutx::get
+                              ().mut_stdout );
         cout << SOCKERR << i_port << endl;
+        pthread_mutex_unlock( &s_mutx::get
+                              ().mut_stdout );
 #endif
 #ifdef NCURSES
 
@@ -163,7 +166,11 @@ sock::make_socket( uint16_t i_port )
     }
 
 #ifdef VERBOSE
+    pthread_mutex_lock  ( &s_mutx::get
+                              ().mut_stdout );
     cout << SOCKCRT << "localhost:" << i_port << endl;
+    pthread_mutex_unlock( &s_mutx::get
+                              ().mut_stdout );
 #endif
 #ifdef NCURSES
 
@@ -261,7 +268,11 @@ sock::start()
     }
 
 #ifdef VERBOSE
+    pthread_mutex_lock  ( &s_mutx::get
+                              ().mut_stdout );
     cout << SOCKRDY << endl;
+    pthread_mutex_unlock( &s_mutx::get
+                              ().mut_stdout );
 #endif
 #ifdef NCURSES
 
@@ -322,11 +333,15 @@ sock::start()
                     else	
 		    {
 #ifdef VERBOSE
+    		     pthread_mutex_lock  ( &s_mutx::get
+                              ().mut_stdout );
                      cout << NEWREQU << i_req << " "
                      << inet_ntoa( clientname.sin_addr )
                      << ":"
                      << ntohs    ( clientname.sin_port )
                      << endl;
+                     pthread_mutex_unlock( &s_mutx::get
+                              ().mut_stdout );
 #endif
                      FD_SET (new_sock, &active_fd_set);
                     }
