@@ -58,6 +58,8 @@ public:
     virtual void  run_func( void (*func)(obj_type) );
     virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
 
+    virtual vector<key_type>*  get_key_vector( );
+    
     // inline:
     void get_size()
     {

@@ -29,7 +29,6 @@ void hmap<obj_type, key_type>::add_elem( const obj_type &x, const key_type &k  )
         return;
 
     array[ i_current_pos ] = hash_entry( x, k, ACTIVE );
-    //	cout << "Inserted=" << x << "= at " << i_current_pos << endl;
     if( ++occupied > array.size( ) * i_max_occupied_percentage )
         rehash( );
 }
@@ -177,6 +176,20 @@ hmap<obj_type, key_type>::run_func( void (*func)(obj_type, void*), void* v_arg )
         if ( array[i].info == ACTIVE )
             ( *func ) ( array[i].element, v_arg );
 }
+
+template<class obj_type, class key_type>
+vector<key_type>*
+hmap<obj_type, key_type>::get_key_vector()
+{
+    vector<key_type>* p_vec = new vector<key_type>;
+    for( int i = 0; i < array.size( ); i++ )
+        if ( array[i].info == ACTIVE )
+ 	    p_vec->push_back( array[i].key );	 	
+
+    return p_vec;
+}
+
+
 
 #endif
 
