@@ -127,6 +127,9 @@ sock::read_write( thrd* p_thrd, int i_sock )
   if ( map_params["event"] == "stream" )
    chat_stream( i_sock, map_params );
 
+  // we dont need the map_params anymore for this request. 
+  map_params.clear();
+
   return 0;
  }
  
@@ -136,7 +139,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
 int
 sock::start()
 {
- auto int i_port   = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
+ auto int i_port = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
 
  int sock;
  fd_set active_fd_set, read_fd_set;
