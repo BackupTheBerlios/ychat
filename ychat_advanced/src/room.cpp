@@ -31,6 +31,7 @@ room::set_topic( string s_topic)
     pthread_mutex_lock  ( &mut_s_topic );
     this->s_topic = s_topic;
     pthread_mutex_unlock( &mut_s_topic );
+    reload_onlineframe();
 }
 
 void

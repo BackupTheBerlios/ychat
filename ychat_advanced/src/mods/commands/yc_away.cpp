@@ -55,6 +55,7 @@ extern "C" {
          } while (true);
 
         p_user->set_away( true, s_away );
+        p_room->reload_onlineframe();
         p_room->msg_post ( &s_msg  );
  }
 }

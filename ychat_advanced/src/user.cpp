@@ -502,6 +502,7 @@ user::check_restore_away()
    )
   );
   set_away( false ); 
+  get_room()->reload_onlineframe();
  }
 }
 #endif
