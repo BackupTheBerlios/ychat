@@ -46,7 +46,7 @@ extern "C" {
          {
           string s_msg = "<font color=\"" + p_conf->get_elem("ERRORCOL") + "\">"
 		       + p_lang->get_elem("ERR_ALREADY_IN_ROOM") + "<b>"
-                       + s_room + "</b></font><br>\n";	
+                       + p_user->get_room()->get_name() + "</b></font><br>\n";	
           p_user->msg_post( &s_msg );
          }
 
