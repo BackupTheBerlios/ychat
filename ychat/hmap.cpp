@@ -21,7 +21,7 @@ hmap<obj_type, key_type>::hmap( double mop )
 // Insert item x into the hash table. If the item is
 // already present, do nothing
 template <class obj_type, class key_type>
-void hmap<obj_type, key_type>::insert( const obj_type & x )
+void hmap<obj_type, key_type>::add_elem( const obj_type & x )
 {
  // Insert x as active
  int currentPos = findPos( x->get_name() );
@@ -49,7 +49,7 @@ void hmap<obj_type, key_type>::rehash( )
  make_empty( );
  for( int i = 0; i < oldArray.size( ); i++ )
   if( oldArray[ i ].info == ACTIVE )
-   insert( oldArray[ i ].element );
+   add_elem( oldArray[ i ].element );
 }
 
 // Hash function, can only handle strings.
@@ -93,7 +93,7 @@ int hmap<obj_type, key_type>::findPos( const key_type &x )
 
 // Remove item x from the hash table.
 template <class obj_type, class key_type>
-void hmap<obj_type, key_type>::remove( const key_type & x )
+void hmap<obj_type, key_type>::del_elem( const key_type & x )
 {
     int currentPos = findPos( x );
     if( isActive( currentPos ) )
@@ -103,7 +103,7 @@ void hmap<obj_type, key_type>::remove( const key_type & x )
 // Find item x in the hash table.
 // Return a pointer to the matching item or 0 if not found
 template <class obj_type, class key_type>
-obj_type hmap<obj_type, key_type>::find( const key_type & x )
+obj_type hmap<obj_type, key_type>::get_elem( const key_type & x )
 {
  int currentPos = findPos( x );
  if( isActive( currentPos ) )
@@ -160,11 +160,11 @@ int hmap<obj_type, key_type>::nextPrime( int n ) const
  return n;
 }
 template<class obj_type, class key_type> void
-hmap<obj_type, key_type>::run_func( void (*func)(obj_type*, void*), void* v_arg )
+hmap<obj_type, key_type>::run_func( void (*func)(obj_type, void*), void* v_arg )
 {
  for( int i = 0; i < array.size( ); i++ )
   if ( array[i].info == ACTIVE )
-   ( *func ) ( &(array[i].element) , v_arg );
+   ( *func ) ( array[i].element, v_arg );
 }
 
 #endif

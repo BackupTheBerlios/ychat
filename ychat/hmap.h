@@ -8,9 +8,9 @@
 
 using namespace std;
 
-// void insert( obj_type x )       --> Insert x
-// void remove( key_type x )       --> Remove x
-// obj_type find( key_type x )  --> Return item that matches x
+// void add_elem( obj_type x )       --> Insert x
+// void del_elem( key_type x )       --> Remove x
+// obj_type get_elem( key_type x )  --> Return item that matches x
 // void make_empty( )      --> Remove all items
 
 template <class obj_type, class key_type>
@@ -48,11 +48,11 @@ public:
 
  virtual int  findPos  ( const key_type &x );
  virtual void make_empty( );
- virtual void insert   ( const obj_type &x );
- virtual void remove   ( const key_type &x );
- virtual obj_type find ( const key_type &x );
+ virtual void add_elem ( const obj_type &x );
+ virtual void del_elem ( const key_type &x );
+ virtual obj_type get_elem ( const key_type &x );
 
- virtual void  run_func( void (*func)(obj_type*, void*), void* v_arg );
+ virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
 
  // inline:
  void getSize() 
