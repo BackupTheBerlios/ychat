@@ -61,6 +61,10 @@
 #define NCUR_THREADS_Y 18 
 #endif
 
+// Defines the amount of newlines which have to send to the client's
+// chat stream the first log-in. ( prevents white screen because of buffers
+// or proxies ).
+#define PUSHSTR 1000
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // DO NOT CHANGE ANYTHING BEHIND THIS LINE!
