@@ -6,8 +6,7 @@ clean_modules:
 	gmake -C ./src/mods clean
 base:	
 	@echo backing up old binary
-	if test -f bin/ychat.old; then rm -f bin/ychat.old; fi
-	if test -f bin/ychat; then mv bin/ychat bin/ychat.old; fi
+	if test -f bin/ychat; then if test -f bin/ychat.old; then rm -f bin/ychat.old; fi; mv bin/ychat bin/ychat.old; fi
 	@perl ./scripts/buildnr.pl || ./scripts/noperl.sh
 	@perl ./scripts/setglobvals.pl || ./scripts/noperl.sh
 	gmake -C ./src 
