@@ -58,9 +58,9 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 
 #ifdef NCURSES
 {
-// string s_tmp( REMUSER );
-// s_tmp.append( s_user );
-// s_ncur::get().print( s_tmp.c_str() );  
+ string s_tmp( REMUSER );
+ s_tmp.append( s_user );
+ s_ncur::get().print( s_tmp.c_str() );  
 }
 #endif
  // post the room that the user has left the chat.
@@ -281,7 +281,7 @@ sock::start()
     {
 
 #ifdef NCURSES
-  s_ncur::get().print( NEWREQU );
+///  s_ncur::get().print( NEWREQU );
 #endif
 
       thrd_pool->run( (void*) new thrd( i ) );

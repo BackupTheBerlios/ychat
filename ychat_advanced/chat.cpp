@@ -111,9 +111,9 @@ chat::login( map_string &map_params )
 
 #ifdef NCURSES
 {
-// string s_tmp( NEWUSER );
-// s_tmp.append( s_user );
-// s_ncur::get().print(  s_tmp.c_str()  );
+ string s_tmp( NEWUSER );
+ s_tmp.append( s_user );
+ s_ncur::get().print(  s_tmp.c_str()  );
 }
 #endif
 
