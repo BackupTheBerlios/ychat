@@ -65,7 +65,7 @@ extern "C" {
                        + "<b>" + s_room + "</b><br>\n";
 
           p_chat->del_elem( p_room->get_lowercase_name() ); 
-          p_room->set_name( s_room_lower );
+          p_room->set_name( s_room );
           p_chat->add_elem( p_room ); 
           p_room->msg_post( &s_msg ); 
           p_room->reload_onlineframe();
