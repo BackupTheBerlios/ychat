@@ -1,16 +1,18 @@
 // class modl implementation.
 
-#ifndef MODL_CXX
-#define MODL_CXX
+#ifndef MODL_CPP
+#define MODL_CPP
 
 #include <limits.h>
 #include <stdlib.h>
 #include <dlfcn.h>
 #include <stdio.h>
 
+#include "s_conf.h"
 #include "s_mutx.h"
 #include "s_ncur.h"
 #include "modl.h"
+#include "dir.h"
 
 using namespace std;
 
@@ -18,6 +20,12 @@ modl::modl(  )
 {
     map_mods = new hmap<dynmod*,string>(80);
     pthread_mutex_init( &mut_map_mods, NULL );
+
+    if ( s_conf::get().get_val( "PRE_MODS_COMMANDS" ).compare( "ON" ) == 0 )
+     preload_modules( new string("mods/commands/") );
+
+    if ( s_conf::get().get_val( "PRE_MODS_HTML" ).compare( "ON" ) == 0 )
+     preload_modules( new string("mods/html/") );
 }
 
 modl::~modl()
@@ -32,6 +40,30 @@ modl::~modl()
 
     pthread_mutex_unlock ( &mut_map_mods );
     pthread_mutex_destroy( &mut_map_mods );
+}
+
+void
+modl::preload_modules( string *p_path )
+{
+ dir* p_dir = new dir();
+ p_dir->open_dir( *p_path );
+ p_dir->read_dir();
+
+ vector<string>* p_dir_vec = p_dir->get_dir_vec();
+
+ if ( ! p_dir_vec->empty() ) 
+ {
+  vector<string>::iterator iter = p_dir_vec->begin();
+
+  do
+  {
+   if ( iter->length() >= 3 && iter->compare( iter->length()-3, 3, ".so" ) == 0 )
+    cache_module( *p_path + *iter );
+  }
+  while ( ++iter != p_dir_vec->end() );
+ }
+ p_dir->close_dir();
+ p_dir->~dir();
 }
 
 void

@@ -24,7 +24,7 @@ STRDROOM="Lounge"; # the name of the standard room.
 LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 
 # MySQL Settings
-MYSQL_HOST="buetow.org";
+MYSQL_HOST="www.ychat.org";
 MYSQL_USER="ychat";
 MYSQL_PASS="yctest";
 MYSQL_DB="ychat";
@@ -53,7 +53,7 @@ SULEVEL6="Restr"; # a very restricted user.
 SULEVEL7="Outbn"; # banned out of the system.
 
 # length of the generated session id
-SESSION_LENGTH="64";
+SESSION_LENGTH="32";
 
 # html = "OFF" strips all html tags from incoming messages
 HTML="OFF";
@@ -63,14 +63,19 @@ HTML="OFF";
 # relative or absolute path to logfile
 ACCESS_LOG="log/access_log";
 
-# we're using buffered logging for performance
+# We're using buffered logging for performance
 # LOG_LINES specifies after how many lines the log is flushed into a file
-# if you don't want buffered logging set LOG_LINES to 1
+# if you don't want buffered logging set LOG_LINES to 1.
 LOG_LINES="10";
 
-# values which are used by the html-templates and are not sticked within the yC++ core source!
+# values which are used by the html-templates and are not sticked within the yC++ 
+# core source!
 GRAPHICS="http://paul.buetow.info/yChat"; # url for graphic files etc. 
 PGETITLE="yChat++ Advanced - Fast and extensible ";
+
+# yChat may preload all available modules.
+PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so on start if set to "ON".
+PRE_MODS_HTML="ON";     # yChat will preload mods/html/*.so on start if set to "ON".
 
 # do not edit beyond this line
 

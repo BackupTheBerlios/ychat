@@ -1,7 +1,6 @@
 BRAIN-STORMING:
 
 bugfixes ( see known bugs ).
-automatic module precaching at ychat startup if defined in conf.txt
 rewrite html::online_list as a dynmod mods/html/yc_online_list.so
 add password nick protection
 add superuser privileges

@@ -19,6 +19,8 @@
  *
  */
 
+#include <unistd.h>
+
 // needed for ignoring SIGPIPE.
 #include <signal.h>
 
@@ -87,7 +89,6 @@ int main()
     s_html::init(); // init the html-template manager.
     s_lang::init(); // init the language manager
     s_sman::init(); // init the session manager.
-    s_modl::init(); // init the module-loader manager.
     s_mman::init(); // init the mysql connection manager.
     s_sock::init(); // init the socket manager.
     s_chat::init(); // init the chat manager.
@@ -100,12 +101,20 @@ int main()
     pthread_create( &admin_thread,
                     NULL,
                     s_ncur::get().start, (void*) &s_ncur::get() );
+
+    // wait until ncurses interface has been initialized.
+     while ( ! s_ncur::get().is_ready() )
+      usleep(100);
 #endif
+
+
+
+    s_modl::init(); // init the module-loader manager.
 
     // start the socket manager. this one will listen for incoming http requests and will
     // forward them to the specified routines which will generate a http response.
-    s_sock::get
-        ().start();
+    s_sock::get().start();
+        
 
 #ifdef VERBOSE
     cout << DOWNMSG << endl;

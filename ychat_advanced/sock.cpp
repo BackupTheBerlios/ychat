@@ -231,11 +231,6 @@ int
 sock::start()
 {
 #ifdef NCURSES
-    // wait for the admin thread.
-    while ( ! s_ncur::get
-                ().is_ready() )
-            usleep(100);
-
     s_ncur::get
         ().print( STARTMS );
     print_hits();

@@ -17,6 +17,7 @@ private:
 
     static  void dlclose_( dynmod* mod   );
     dynmod* cache_module ( string s_name );
+    void preload_modules( string *p_path );
 
 public:
     modl();
