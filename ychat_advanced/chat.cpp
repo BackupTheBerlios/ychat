@@ -153,7 +153,7 @@ chat::post( user* p_user, map_string &map_params )
   .append( s_msg              )
   .append( "</font><br>\n"    );
 
-  p_user->get_p_room()->msg_post( &s_post );
+  p_user->get_room()->msg_post( &s_post );
 }
 
 #endif

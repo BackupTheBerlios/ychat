@@ -64,7 +64,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 
   // remove the user from its room.
   string s_user( p_user->get_name() );
-  p_user->get_p_room()->del_elem( s_user );
+  p_user->get_room()->del_elem( s_user );
 
 #ifdef NCURSES
 
@@ -76,7 +76,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
   }
 #endif
   // post the room that the user has left the chat.
-  p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get
+  p_user->get_room()->msg_post( new string( p_user->get_name().append( s_lang::get
                                     ().get_val( "USERLEAV" ) ) ) );
   s_sman::get
     ().destroy_session( p_user->get_id() );

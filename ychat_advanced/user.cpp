@@ -80,7 +80,7 @@ user::set_online( bool b_online )
 }
 
 room*
-user::get_p_room( )
+user::get_room( )
 {
   room* p_return;
   pthread_mutex_lock  ( &mut_p_room );

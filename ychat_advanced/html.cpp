@@ -51,13 +51,13 @@ html::parse( map_string &map_params )
         {
 
 #ifdef VERBOSE
-          cerr << NOFOUND << s_file << endl;
+          cerr << NOFOUND << s_path << endl;
 #endif
 #ifdef NCURSES
 
           {
             string s_tmp( NOFOUND );
-            s_tmp.append( s_file );
+    	    s_tmp.append( s_path );
             s_ncur::get
               ().print( s_tmp );
           }
@@ -154,7 +154,7 @@ html::online_list( user *p_user, map_string &map_params )
   string s_list     ( ""     );
   string s_seperator( "<br>" );
 
-  p_user->get_p_room()->get_user_list( s_list, s_seperator );
+  p_user->get_room()->get_user_list( s_list, s_seperator );
 
   // use the collected data as a message in html-templates.
   map_params["MESSAGE"] = s_list;

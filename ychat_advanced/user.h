@@ -85,7 +85,7 @@ class user : public name
 
     virtual bool  get_online();
     virtual void  set_online( bool b_online );
-    virtual room* get_p_room();
+    virtual room* get_room();
     virtual void  set_p_room( room* p_room );
     virtual int   get_sock  ( );
     virtual void  set_sock  ( int i_sock );
