@@ -38,8 +38,9 @@ If you like to support yChat++, please write me an email and tell me
 what you can/like/would help ;-]. Please also take a look at the
 yChat++ homepage ( www.yChat.org ).
 
-Installation: Just invoke "make", edit the conf.txt and run the
-server with ./ychat, point your webbrowser to http://yourip:port/index.html
+Installation: Just invoke "./configure" and afterwards "make", edit the 
+conf.txt and run the server with ./ychat. Then point your webbrowser
+to http://yourip:port/index.html
 ( ignoring the index.html on the end of the url will not work! ).
 ... have fun :-).
 
