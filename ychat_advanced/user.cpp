@@ -15,6 +15,7 @@ user::user( string s_name ) : name( s_name )
  this -> b_online = true; 
  this -> l_time   = s_tool::unixtime();
  this -> s_col1   = s_conf::get().get_val( "USERCOL1" );
+ map_mods = new hmap<dynmod*,string>(80);
 
  pthread_mutex_init( &mut_b_online, NULL);
  pthread_mutex_init( &mut_i_sock  , NULL);
@@ -23,6 +24,7 @@ user::user( string s_name ) : name( s_name )
  pthread_mutex_init( &mut_s_mess  , NULL);
  pthread_cond_init ( &cond_message, NULL);
  pthread_mutex_init( &mut_message , NULL);
+ pthread_mutex_init( &mut_map_mods, NULL );
 }
 
 user::~user()
@@ -123,8 +125,12 @@ user::command( string &s_command )
   pos = s_command.find( "/" ); 
  }
  
- string s_mod( "cmnd/yc_" );
+ string s_mod( "mods/commands/yc_" );
  s_mod.append( s_command  ).append( ".so" );
+
+ //pthread_mutex_lock  ( &mut_map_mods );
+ //dynmod* mod = map_mods->get_elem( s_name );
+ //pthread_mutex_unlock( &mut_map_mods );
 
  dynmod *mod = s_modl::get().get_module( s_mod );
 

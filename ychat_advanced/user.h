@@ -27,6 +27,10 @@ private:
  string s_mess;   // message string which has to be sent to the user.
  room*  p_room;   // pointer to the user's room.
 
+ // Modules which are allowed to be executed by the user.
+ hmap<dynmod*,string>* map_mods;
+
+ pthread_mutex_t mut_map_mods;
  pthread_mutex_t mut_b_online;
  pthread_mutex_t mut_i_sock;
  pthread_mutex_t mut_l_time;
