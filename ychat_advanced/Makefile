@@ -1,4 +1,5 @@
 all:    base modules stats
+	@echo "Done! Now edit the conf.txt and run ./bin/ychat"
 modules:
 	gmake -C ./src/mods 
 clean_modules:

@@ -10,6 +10,7 @@ gcol::gcol()
  p_map_users = new smap<user*,string>(HMAPOCC);
 #ifdef NCURSES
  wrap::NCUR->print( GARBAGE );
+ print_garbage(); 
 #endif
 #ifdef SERVMSG
  cout << GARBAGE << endl;
@@ -32,6 +33,7 @@ gcol::add_room_to_garbage( room* p_room )
  pthread_mutex_unlock( &mut_vec_rooms );
 #ifdef NCURSES
  wrap::NCUR->print( GARROOM + p_room->get_name() );
+ print_garbage(); 
 #endif
 #ifdef SERVMSG
  cout << GARROOM + p_room->get_name() << endl;
@@ -45,6 +47,7 @@ gcol::add_user_to_garbage( user* p_user )
  p_map_users->add_elem( p_user, tool::to_lower(p_user->get_name()) ); 
 #ifdef NCURSES
  wrap::NCUR->print( GARUSER + p_user->get_name() );
+ print_garbage(); 
 #endif
 #ifdef SERVMSG
  cout << GARUSER + p_user->get_name() << endl;
@@ -81,6 +84,9 @@ gcol::remove_garbage()
  p_map_users->run_func( delete_users_ );
  p_map_users->make_empty();
 
+#ifdef NCURSES
+ print_garbage(); 
+#endif
  return true;
 }
 
@@ -99,6 +105,10 @@ gcol::get_room_from_garbage()
  vec_rooms.pop_back();
  pthread_mutex_unlock( &mut_vec_rooms );
 
+#ifdef NCURSES
+ print_garbage(); 
+#endif
+
  return p_room;
 }
 
@@ -115,6 +125,7 @@ gcol::get_user_from_garbage( string s_user )
    p_user->set_online( true );
 #ifdef NCURSES
    wrap::NCUR->print( GARUSE2 + p_user->get_name() );
+   print_garbage(); 
 #endif
 #ifdef SERVMSG
    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
@@ -132,5 +143,19 @@ gcol::delete_users_( user *user_obj )
 {
  delete user_obj;
 }
+
+#ifdef NCURSES
+void
+gcol::print_garbage( )
+{
+    pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+    pthread_mutex_lock  ( &mut_vec_rooms );
+    mvprintw( NCUR_GARBAGE_X,NCUR_GARBAGE_Y, "Garbage: %d ", p_map_users->get_size() + vec_rooms.size() );
+    pthread_mutex_unlock( &mut_vec_rooms );
+    refresh();
+    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+}
+
+#endif
 
 #endif

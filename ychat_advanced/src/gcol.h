@@ -21,6 +21,10 @@ class gcol
 
   static void delete_users_( user* user_obj  );
 
+#ifdef NCURSES
+  void print_garbage( );
+#endif
+
  public:
   gcol();
   ~gcol();

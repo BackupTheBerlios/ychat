@@ -57,6 +57,8 @@
 #ifdef NCURSES
 #define NCUR_HITS_X 21
 #define NCUR_HITS_Y 35
+#define NCUR_GARBAGE_X 22
+#define NCUR_GARBAGE_Y 35
 #define NCUR_MYSQL_X 22
 #define NCUR_MYSQL_Y 2
 #define NCUR_PORT_X 21
