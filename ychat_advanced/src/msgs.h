@@ -59,10 +59,12 @@
 #define SOCKRDY "Sock: Server socket is ready \0"
 #define STARTMS "Initializing server socket \0"
 #define TECACHE "HTML: Caching template \0"
-#define TIMERAC "Initializing system timer\0"
+#define TIMERIN "Timer: Initializing \0"
+#define TIMEROF "Timer: Setting offset to \0"
+#define TIMERTH "Timer: Starting timer thread \0"
 #define TIMERUP "Timer: System uptime \0"
 #define VERSION "yChat++ Advanced 0.6-CURRENT (CVS)\0"
-#define BUILDNR 271
+#define BUILDNR 287
 #define UNAME "unknown\0" 
 
 #endif

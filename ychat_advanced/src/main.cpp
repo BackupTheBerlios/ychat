@@ -81,8 +81,6 @@ int main()
     // init the chat manager.
     wrap::WRAP->CHAT = wrap::CHAT = new chat(); 
 
-    // init the system timer.
-    wrap::WRAP->TIMR = wrap::TIMR = new timr(); 
 
 #ifdef NCURSES
     wrap::WRAP->NCUR = wrap::NCUR = new ncur(); // init the ncurses admin interface.
@@ -95,6 +93,9 @@ int main()
     // wait until ncurses interface has been initialized.
      while ( ! wrap::NCUR->is_ready() )
       usleep(100);
+
+    // init the system timer.
+    wrap::WRAP->TIMR = wrap::TIMR = new timr(); 
 
 #endif
     wrap::WRAP->MODL = wrap::MODL = new modl(); // init the module-loader manager.

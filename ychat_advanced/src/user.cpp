@@ -480,7 +480,7 @@ user::get_user_list( string &s_list, string &s_seperator )
 
     else 
     {
-     s_list.append("<img src=images/blank.gif> ");
+     s_list.append("<img src=images/blank.gif width=16 height=16> ");
     }
 
 

@@ -11,11 +11,13 @@ class timr
 {
 private:
  bool b_timer_active;
+ int  i_time_offset;
  string s_uptime;
  string s_time;
 
  pthread_mutex_t mut_s_time;
  pthread_mutex_t mut_s_uptime;
+ pthread_mutex_t mut_i_offset;
  
 public:
     timr();
@@ -51,6 +53,8 @@ public:
      pthread_mutex_unlock( &mut_s_uptime );
      return s_ret;
     }
+
+    virtual int get_offset();
 };
 
 #endif
