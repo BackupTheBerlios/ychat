@@ -34,7 +34,7 @@ public:
  // public methods.
  explicit reqp( ); // simple constructor.
  virtual string parse( string s_req, map_string &map_params ); 
- virtual string url_decode (string *);
+ virtual string url_decode (string );
 };
 
 #endif

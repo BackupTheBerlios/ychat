@@ -67,8 +67,8 @@ reqp::get_url( string s_req, map_string &map_params )
    if ( pos2 == string::npos )
    {
     auto string sValue=s_params.substr(pos+1, s_params.length()-pos-1);
-    string tmpstr=url_decode(&sValue);
-    map_params[ s_params.substr( 0, pos ) ] = tmpstr.c_str();
+    string tmpstr=url_decode(sValue);
+    map_params[ s_params.substr( 0, pos ) ] = tmpstr;
     break;
    }
 
@@ -95,7 +95,7 @@ reqp::htoi(string *s)
 {
 	int value;
 	int c;
-
+	
 	c=s->c_str()[0];
 	if(isupper(c))
 		c=tolower(c);
@@ -110,33 +110,31 @@ reqp::htoi(string *s)
 	return value;
 }
 string
-reqp::url_decode( string *s_str )
+reqp::url_decode( string s_str )
 {
-	#ifdef VERBOSE_
-	cout << "reqp::url_decode( \"" << s_str << "\")" << endl;
-	#endif
-	
-	int len;
-	string *dest=s_str;
-	string *data=s_str;
-	len=strlen(s_str->c_str());
-	
-	while( len-- )
-	{
-		if(*data=="+")
-		*dest=" ";
-		else if (*data == "%" && len >=2 )
-		{
-			*dest=htoi(data+1);
-			data+=2;
-			len-=2;	
-		}else
-			*dest=*data;
-		data++;
-		dest++;
+	auto string sDest="";
+	int len = s_str.size();
 
-	}	
-	return *dest;
+	for(int i=0;i<len;i++)
+	{
+		char ch = s_str.at(i);
+		if(ch=='+')
+		{
+			sDest+=" ";
+		}
+		else if(ch=='%')
+		{
+			auto string sTmp=s_str.substr(i+1,2);
+			ch=(char)htoi(&sTmp);
+			sDest+=ch;
+			i+=2;
+		
+		}
+		else
+
+		sDest+=ch;
+	}
+	return sDest;
 }
 string
 reqp::get_from_header( string s_req, string s_hdr )
