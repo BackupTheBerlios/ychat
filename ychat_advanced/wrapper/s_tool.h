@@ -11,6 +11,7 @@ public:
     static bool is_alpha_numeric( string &s_digit );
     static int  string2int( string s_digit );
     static char* int2char( int i_int );
+    static string int2string( int i_int );
     static string trim( string s_str );
     static long unixtime();
     static void strip_html( string *s_str);

@@ -111,30 +111,17 @@ timr::set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur
     while ( d_uptime >= 60 )
      d_uptime -= 60;
 
-    char* c_temp[6];
-   
-    c_temp[0] = s_tool::int2char( i_cur_hours ); 
-    c_temp[1] = s_tool::int2char( i_cur_minutes ); 
-    c_temp[2] = s_tool::int2char( i_cur_seconds ); 
-    c_temp[3] = s_tool::int2char( i_hours ); 
-    c_temp[4] = s_tool::int2char( i_minutes ); 
-    c_temp[5] = s_tool::int2char( (int) d_uptime ); 
-
-
     pthread_mutex_lock  ( &mut_s_time );
-    s_time = add_zero_to_front( c_temp[0] ) + ":" +
-             add_zero_to_front( c_temp[1] ) + ":" +
-             add_zero_to_front( c_temp[2] );
+    s_time = add_zero_to_front( s_tool::int2string( i_cur_hours ) ) + ":" +
+             add_zero_to_front( s_tool::int2string( i_cur_minutes ) ) + ":" +
+             add_zero_to_front( s_tool::int2string( i_cur_seconds ) );
     pthread_mutex_unlock( &mut_s_time );
 
     pthread_mutex_lock  ( &mut_s_uptime );
-    s_uptime = add_zero_to_front( c_temp[3] ) + ":" +
-               add_zero_to_front( c_temp[4] ) + ":" +
-               add_zero_to_front( c_temp[5] );
+    s_uptime = add_zero_to_front( s_tool::int2string( i_hours ) ) + ":" +
+               add_zero_to_front( s_tool::int2string( i_minutes ) )  + ":" +
+               add_zero_to_front( s_tool::int2string( (int) d_uptime ) );
     pthread_mutex_unlock( &mut_s_uptime );
-
-    for ( int i = 0; i < 6; i++ )
-     free( c_temp[i] );
 }
 
 string

@@ -90,7 +90,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 #ifdef NCURSES
     {
         string s_tmp( SESSION );
-        s_tmp.append( s_tool::int2char( s_sman::get
+        s_tmp.append( s_tool::int2string( s_sman::get
                                               ().get_session_count() ) );
         s_ncur::get
             ().print( s_tmp );
@@ -179,7 +179,7 @@ sock::make_socket( uint16_t i_port )
 
     string s_tmp( SOCKCRT );
     s_tmp.append( "localhost:" );
-    s_tmp.append( s_tool::int2char(i_port) );
+    s_tmp.append( s_tool::int2string(i_port) );
     s_ncur::get
         ().print( s_tmp );
     mvprintw( NCUR_PORT_X,NCUR_PORT_Y, "Port: %d ", i_port);

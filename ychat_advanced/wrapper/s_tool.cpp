@@ -93,6 +93,18 @@ s_tool::int2char( int i_int )
     return buffer;
 }
 
+string
+s_tool::int2string( int i_int )
+{
+    char *buffer = new char[64];
+    sprintf(buffer, "%d", i_int);
+
+    string s_ret(buffer);	
+    free(buffer);
+
+    return s_ret;
+}
+
 long
 s_tool::unixtime()
 {
