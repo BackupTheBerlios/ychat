@@ -42,9 +42,14 @@ sock::~sock()
 void
 sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 {
-  string s_msg( "" );
+  string s_msg( "\n" );
 
   pthread_mutex_lock  ( &(p_user->mut_message) );
+
+  for ( int i = 0; i < 500; i++ )
+  {
+    send( i_sock, s_msg.c_str(), s_msg.size(), 0 );
+  }
 
   do
     {
