@@ -20,6 +20,7 @@ class sman{
 		sman();
 		~sman();
 		sess *getSession( string s_id );
+		int getSessionCount( ) { return this->sessioncount; }
 		sess *createSession( );
 		void destroySession( string s_id );
 

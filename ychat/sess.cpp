@@ -24,4 +24,12 @@ void *sess::getValue( string s_key )
 {
 	return this->sess_values[s_key];
 }
+string sess::dump()
+{
+	string s_ret=string("Session Dump of Session ") + this->getId();
+	map<string, void*>::const_iterator it;
+	for(it=this->sess_values.begin();it!=this->sess_values.end();it++)
+		s_ret=s_ret + "\nkey: " + it->first;
+	return s_ret;
+}
 #endif

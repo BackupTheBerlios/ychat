@@ -23,5 +23,6 @@ class sess : public cont, name
 		void setValue(string s_key, void *lpvalue);
 		void *getValue( string s_key );
 		void invalidate();
+		string dump();
 };
 #endif

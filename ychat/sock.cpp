@@ -12,7 +12,7 @@
 #include "s_mutx.h"
 #include "s_tool.h"
 #include "s_lang.h"
-
+#include "s_sman.h"
 #include "chat.h"
 #include "user.h"
 
@@ -56,6 +56,10 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 
  // post the room that the user has left the chat.
  p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get().get_val( "USERLEAV" ) ) ) );  
+ s_sman::get().destroySession( p_user->get_id() );
+ #ifdef VERBOSE
+	cout << s_user << " left | SessionCount: " << s_sman::get().getSessionCount() << endl;
+ #endif
 
  p_user->~user();
 }
