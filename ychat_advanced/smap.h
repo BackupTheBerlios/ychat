@@ -20,6 +20,7 @@ class smap : public hmap<obj_type, key_type>
  public:
     smap( double moc );
     ~smap();
+    int get_size();
     void make_empty();
     void make_empty( void (*func)(key_type) );
     void add_elem ( const obj_type &x, const key_type &k );

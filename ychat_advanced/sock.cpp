@@ -59,14 +59,6 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     string s_user( p_user->get_name() );
     p_user->get_room()->del_elem( s_user );
 
-#ifdef NCURSES
-
-    {
-        string s_tmp( REMUSER );
-        s_tmp.append( s_user );
-        wrap::NCUR-> print( s_tmp.c_str() );
-    }
-#endif
     // post the room that the user has left the chat.
     wrap::SMAN->destroy_session( p_user->get_id() );
     s_msg = wrap::TIMR->get_time() + " " 
@@ -84,13 +76,11 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
     }
 #endif
 #ifdef VERBOSE
-  //  cout << REMUSER << s_user << endl
-  //       << SESSION << s_man::get().get_session_count() << endl;
-        
+    cout << REMUSER << s_user << endl
+         << SESSION << s_man::get().get_session_count() << endl;
 #endif
 
-    //p_user->~user();
-    delete p_user;
+    wrap::GCOL->add_user_to_garbage( p_user );
 }
 
 int

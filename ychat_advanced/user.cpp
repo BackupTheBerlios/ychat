@@ -44,6 +44,13 @@ user::~user()
     pthread_mutex_destroy( &mut_s_col2   );
     pthread_mutex_destroy( &mut_s_id     );
     pthread_mutex_destroy( &mut_r_rang   );
+
+#ifdef NCURSES
+    wrap::NCUR->print( REMUSER + get_name() );
+#endif
+#ifdef VERBOSE
+    cout << REMUSER + get_name() << endl;
+#endif
 }
 
 string

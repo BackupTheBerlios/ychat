@@ -199,6 +199,9 @@ chat.cpp - The chat manager. Is responsible for managing the internal
 conf.cpp - The config manager. Parses the config file specified in
            glob.h and stores all the values of it in a map.
 
+gcol.cpp - The garbage collector. This class will be called every 10
+           minutes by timr and cleans some user and room objects. 
+
 html.cpp - The html-template manager. Reads the requested html-template
            files, stores them in an internal cache ( averts reading 
            template-files from hd twice or more ) and parses the 

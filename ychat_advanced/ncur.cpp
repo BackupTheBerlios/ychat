@@ -39,7 +39,7 @@ ncur::start( void *v_pointer )
                           "Unload all modules        ",
                           "Reload all modules        ",
                           "Clear template cache      ",
-                          "Language manager        NI",
+                          "Run garbage collector     ",
                           "Module-loader manager   NI",
                           "MySQL connection manag. NI",
                           "Session manager         NI",
@@ -153,6 +153,13 @@ ncur::switch_main_menu_( int i_choice )
             wrap::HTML->clear_cache();
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
             mvprintw( 20,2, "Cleared the template cache         ");
+            refresh();
+            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+            break;
+        case 4:
+            wrap::GCOL->remove_garbage();
+            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+            mvprintw( 20,2, "Garbage collector activated        ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;

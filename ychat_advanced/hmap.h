@@ -66,12 +66,12 @@ protected:
         return get_elem( k );
     }
 
-    int get_size();
     int  find_pos  ( const key_type &k );
 
 public:
     hmap( double moc );
 
+    virtual int get_size();
     virtual void make_empty( );
     virtual void make_empty( void (*func)(key_type) );
     virtual void del_elem ( const key_type &k );
@@ -86,7 +86,7 @@ public:
     virtual obj_type get_elem ( const key_type &k );
     virtual obj_type operator[]( const key_type &k ) {
      return get_elem( k );
-    };
+    }
 
 };
 

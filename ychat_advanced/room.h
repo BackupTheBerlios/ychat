@@ -1,6 +1,7 @@
 // class room declaration.
 
 #include "incl.h"
+#include "wrap.h"
 
 #ifndef ROOM_H
 #define ROOM_H
@@ -19,6 +20,9 @@ private:
     pthread_mutex_t mut_s_topic;
 
 public:
+    room( string s_name );
+    ~room();  		 
+
     void add_user( user* p_user  )
     {
         p_user->set_p_room( this );
@@ -29,16 +33,17 @@ public:
     {
         return static_cast<user*>( get_elem( s_name, b_found ) );
     }
+
     void del_elem( string &s_name )
     {
-       smap<user*,string>::del_elem( s_name ); 
+     smap<user*,string>::del_elem( s_name ); 
+     if ( smap<user*,string>::get_size() == 0 ) 
+      clean_room();
     }
-
-    explicit room( string s_name );      // a constructor.
-    ~room();  			       // room destructor.
 
     virtual string get_topic();
     virtual void set_topic( string s_topic );
+    virtual void clean_room();
 };
 
 #endif

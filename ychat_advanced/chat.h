@@ -24,7 +24,6 @@ private:
 
 public:
 
-
     room* get_room( string &s_name, bool &b_found )
     {
         return static_cast<room*>( get_elem( s_name, b_found ) );
@@ -44,5 +43,10 @@ public:
 
     // will be called if a user posts a message.
     virtual void post ( user* u_user, map_string &map_params );
+
+    void del_elem( string s_name )
+    {
+     smap<room*,string>::del_elem( s_name ); 
+    }
 };
 #endif

@@ -22,8 +22,11 @@ extern "C" {
   	string s_quit = "<script language=JavaScript>top.location.href='/"
                       + p_conf->get_elem("STARTMPL")
                       + "';</script>";
+
 	p_user->msg_post( &s_quit );
         p_user->set_online(false);
+
+        delete s_command_line;
  }
 }
 

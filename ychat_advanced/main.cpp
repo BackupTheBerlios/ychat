@@ -94,7 +94,11 @@ int main()
     // wait until ncurses interface has been initialized.
      while ( ! wrap::NCUR->is_ready() )
       usleep(100);
+
 #endif
+
+    // init the garbage collector 
+    wrap::WRAP->GCOL = wrap::GCOL = new gcol(); 
 
     pthread_t timer_thread;
     pthread_create( &timer_thread,
@@ -107,7 +111,7 @@ int main()
     // start the socket manager. this one will listen for incoming http requests and will
     // forward them to the specified routines which will generate a http response.
     wrap::SOCK->start();
-        
+
 #ifdef VERBOSE
     cout << DOWNMSG << endl;
 #endif

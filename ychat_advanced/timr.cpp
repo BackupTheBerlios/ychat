@@ -74,6 +74,10 @@ timr::start( void *v_pointer )
       pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
       wrap::CHAT->msg_post( new string( "<!-- PING! //-->\n" ) );
+    
+      // run every ten minutes: 
+      if ( time_now.tm_min % 10 == 0 )
+       wrap::GCOL->remove_garbage();
      }
     }
 

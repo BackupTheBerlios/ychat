@@ -15,6 +15,16 @@ smap<obj_type, key_type>::~smap()
  pthread_mutex_destroy( &mut_smap );
 }
 
+template <class obj_type, class key_type> int
+smap<obj_type, key_type>::get_size()
+{
+ int i_size;
+ pthread_mutex_lock  ( &mut_smap );
+ i_size = hmap<obj_type,key_type>::get_size();
+ pthread_mutex_unlock( &mut_smap );
+ return i_size;
+}
+
 template <class obj_type, class key_type> void
 smap<obj_type, key_type>::make_empty()
 {
