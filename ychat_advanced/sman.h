@@ -14,15 +14,15 @@ class sman{
 
 	private:
 		hmap<sess *, string> *sessions;
-		string generateId( int len );
-		int sessioncount;	
+		string generate_id( int len );
+		int session_count;	
 	public:
 		sman();
 		~sman();
-		sess *getSession( string s_id );
-		int getSessionCount( ) { return this->sessioncount; }
-		sess *createSession( );
-		void destroySession( string s_id );
+		sess *get_session( string s_id );
+		int get_session_count( ) { return this->session_count; }
+		sess *create_session( );
+		void destroy_session( string s_id );
 
 
 };

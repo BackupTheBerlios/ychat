@@ -28,7 +28,7 @@ int mcon::query( string query )
 
 	this->current_result=mysql_store_result( this->myc );
 }
-MYSQL_ROW mcon::getNextRow()
+MYSQL_ROW mcon::get_next_row()
 {
 	if(query_sent)
 	{

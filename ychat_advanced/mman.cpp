@@ -34,7 +34,7 @@ void mman::init( string host, string user, string passwd, string db, unsigned in
 	this->i_port=port;
 
 	 for(int i=0; i<this->i_initial_connections;i++)
-                this->mysql.push_back(newConnection( ));
+                this->mysql.push_back(new_connection( ));
 
 }
 mman::~mman() {
@@ -45,7 +45,7 @@ mman::~mman() {
 			mysql_close(this->mysql[i]);
 	}
 }
-MYSQL *mman::getConnection(){
+MYSQL *mman::get_connection(){
 
 	if(!this->mysql.empty())
 	{
@@ -55,14 +55,14 @@ MYSQL *mman::getConnection(){
 		{
 			this->i_used_connections--;
 			mysql_close(x);
-			return newConnection();
+			return new_connection();
 		}
 		return x;
 	}
 	cerr << LOG_PREFIX << " no suitable connection found " << endl;
 	return NULL;
 }
-MYSQL *mman::newConnection( ){
+MYSQL *mman::new_connection( ){
 	
 	
 	if(this->i_used_connections>this->i_max_connections)
@@ -85,7 +85,7 @@ MYSQL *mman::newConnection( ){
 	this->i_used_connections++;
 	return ms;
 }
-void mman::freeConnection( MYSQL *msql){
+void mman::free_connection( MYSQL *msql){
 	this->i_used_connections--;
 	if(mysql_ping( msql )==0)
 	{
@@ -93,6 +93,6 @@ void mman::freeConnection( MYSQL *msql){
 		this->mysql.push_back( msql );
 	}
 	else
-		this->mysql.push_back( newConnection() );
+		this->mysql.push_back( new_connection() );
 }
 #endif

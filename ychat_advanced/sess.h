@@ -19,9 +19,9 @@ class sess : public cont, name
 		string sess_id;
 	public:
 		sess(string s_id);
-		string getId(); 
+		string get_id(); 
 		void setValue(string s_key, void *lpvalue);
-		void *getValue( string s_key );
+		void *get_elem( string s_key );
 		void invalidate();
 		string dump();
 };

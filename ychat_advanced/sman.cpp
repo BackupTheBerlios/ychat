@@ -6,13 +6,13 @@
 sman::sman()
 {
 	this->sessions=new hmap<sess *, string>(80);
-	this->sessioncount=0;
+	this->session_count=0;
 }
 sman::~sman()
 {
 	delete this->sessions;
 }
-string sman::generateId( int len )
+string sman::generate_id( int len )
 {
 	string valid_chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 	string s_ret="";
@@ -24,25 +24,25 @@ string sman::generateId( int len )
 	}
 	return s_ret;
 }
-sess *sman::createSession( )
+sess *sman::create_session( )
 {
-	string new_id=this->generateId(s_tool::string2int( s_conf::get().get_val( "SESSION_LENGTH" ) ) ); 
+	string new_id=this->generate_id(s_tool::string2int( s_conf::get().get_val( "SESSION_LENGTH" ) ) ); 
 
 	sess *new_sess= new sess( new_id  );
 
-	this->sessioncount++;
+	this->session_count++;
 	this->sessions->add_elem( new_sess, new_id );
 	
 	return new_sess;
 }
 
-sess *sman::getSession( string s_id )
+sess *sman::get_session( string s_id )
 {
 	return this->sessions->get_elem( s_id );
 }
-void sman::destroySession( string s_id )
+void sman::destroy_session( string s_id )
 {
-	this->sessioncount--;
+	this->session_count--;
 	this->sessions->del_elem( s_id );
 }
 #endif

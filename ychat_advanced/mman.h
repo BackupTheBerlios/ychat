@@ -15,9 +15,9 @@ class mman {
 		mman(int initial, int max);
 		~mman();
 		void init( string host, string user, string passwd, string db, unsigned int port=3306 );
-		MYSQL *getConnection();
-		MYSQL *newConnection( );
-		void freeConnection( MYSQL *msql );
+		MYSQL *get_connection();
+		MYSQL *new_connection( );
+		void free_connection( MYSQL *msql );
 	private:
 		vector<MYSQL *> mysql;
 		string s_host;

@@ -237,11 +237,11 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
    bool b_found;
    
 //   user* p_user = s_chat::get().get_user( map_params["nick"], b_found );
-	sess *sess_temp=s_sman::get().getSession( map_params["tmpid"] );
+	sess *sess_temp=s_sman::get().get_session( map_params["tmpid"] );
 	user *p_user;
 	if(sess_temp!=NULL)
 	{
-		string *s_nick=static_cast<string*>(sess_temp->getValue(string("nick")));
+		string *s_nick=static_cast<string*>(sess_temp->get_elem(string("nick")));
 		p_user = s_chat::get().get_user( *s_nick, b_found);
 	}
 	else
