@@ -16,24 +16,15 @@
 
 # server specific configurations ( not allowed to be removed ):
 
+# STANDARD SETTINGS:
+
 HTMLTEMP="html/";  # directory of the html-template files.
-THRDPOOL="50";    # thread pool size. 
-THRDQUEU="50";    # length of the thread pool queue.
+THRDPOOL="50";     # thread pool size. 
+THRDQUEU="50";     # length of the thread pool queue.
 SRVRPORT="3000";   # local port on which the server listens. 
 STRDROOM="Lounge"; # the name of the standard room.
-LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
-
-# MySQL Settings
-MYSQL_HOST="www.ychat.org";
-MYSQL_USER="ychat";
-MYSQL_PASS="yctest";
-MYSQL_DB="ychat";
-
-#MySQL Connection Manager Settings
-MIN_CONNECTIONS="1";
-MAX_CONNECTIONS="5";
-
-# the html template file which will be send if the requested file does not exists. 
+LANGUAGE="en";     # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
+# the html site which will be send if the requested file does not exists. 
 NOTFOUND="notfound.html";
 # specifies the standard start html-template. 
 STARTMPL="index.html";
@@ -41,22 +32,28 @@ STARTMPL="index.html";
 USERCOL1="AAAAAA";
 # user's standard text color.
 USERCOL2="FFFFFF";
-
-# superuser level names. level 0 has the most provileges.
-SULEVEL0="Coder"; # programmer.
-SULEVEL1="Admin"; # administrator.
-SULEVEL2="Magic"; # super user with special privileges.
-SULEVEL3="Super"; # temporary super user.
-SULEVEL4="Basic"; # normal user without special privileges.
-SULEVEL5="Guest"; # guest user, has almost no privileges.
-SULEVEL6="Restr"; # a very restricted user.
-SULEVEL7="Outbn"; # banned out of the system.
-
 # length of the generated session id
 SESSION_LENGTH="32";
-
 # html = "OFF" strips all html tags from incoming messages
 HTML="OFF";
+
+# DATABASE:
+
+# MySQL Settings
+MYSQL_HOST="www.ychat.org";
+MYSQL_USER="ychat";
+MYSQL_PASS="yctest";
+MYSQL_DB="ychat";
+
+# MySQL Connection Manager Settings
+MIN_CONNECTIONS="1";
+MAX_CONNECTIONS="5";
+
+# DYNAMIC MODULES:
+
+# yChat may preload all available modules.
+PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so on start if set to "ON".
+PRE_MODS_HTML="ON";     # yChat will preload mods/html/*.so on start if set to "ON".
 
 # LOGGING:
 
@@ -68,14 +65,13 @@ ACCESS_LOG="log/access_log";
 # if you don't want buffered logging set LOG_LINES to 1.
 LOG_LINES="10";
 
-# values which are used by the html-templates and are not sticked within the yC++ 
-# core source!
-GRAPHICS="http://paul.buetow.info/yChat"; # url for graphic files etc. 
+# HTML VARIABLES:
+
+# values which are used by the html-templates and are not sticked within the
+# yChat++ core source!
 PGETITLE="yChat++ Advanced - Fast and extensible ";
 
-# yChat may preload all available modules.
-PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so on start if set to "ON".
-PRE_MODS_HTML="ON";     # yChat will preload mods/html/*.so on start if set to "ON".
+# CONTENT-TYPES:
 
 # do not edit beyond this line
 
