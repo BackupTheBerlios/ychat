@@ -20,7 +20,7 @@ sub fwrite
 {
  my $shift = shift;
  my @file = @_;
- open FILE, >$shift or die "$!: $shift\n";
+ open FILE, ">$shift" or die "$!: $shift\n";
  print FILE @file;
  close FILE;
 }
