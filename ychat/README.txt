@@ -58,6 +58,10 @@ base.cpp - Encapsulates vector fields of room's or user ( may be later
 main.cpp - This includes the required manager headers for starting 
            the server and finally regulates the correct starting.
 
+pool.cpp - The implementation of the thread pool. all threads are stored 
+           in a queue. Each thread will be reused if the assigned job is 
+           finished.
+
 reqp.cpp - This class implements the http request parser. If a client
            starts a request to the server the reqp class will be
            invoked.

@@ -29,6 +29,8 @@ private:
  // ( s.t. like the User-Agent, Referer etc... ). 
  virtual string get_from_header( string s_req, string s_hdr ); 
 
+ virtual int htoi( string *s );
+
 public:
  // public methods.
  explicit reqp( ); // simple constructor.
