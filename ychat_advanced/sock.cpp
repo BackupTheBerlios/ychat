@@ -199,7 +199,7 @@ sock::start()
  cout << SOCKCRT << "localhost:" << i_port << endl;
 #endif
 #ifdef NCURSES
- s_ncur::get().print( new string( SOCKCRT ) );  
+ s_ncur::get().print( SOCKCRT );  
 #endif
 
  // create the server socket and set it up to accept connections.
@@ -208,13 +208,16 @@ sock::start()
  if (listen (sock, 1) < 0)
  {
 #ifdef NCURSES
-  s_ncur::get().print( new string( LISTERR ) );
+  s_ncur::get().print( LISTERR );
 #endif
   exit( EXIT_FAILURE );
  }
 
 #ifdef VERBOSE
  cout << SOCKRDY << endl;
+#endif
+#ifdef NCURSES
+ s_ncur::get().print( SOCKRDY );  
 #endif
 
  // initialize the set of active sockets. 
@@ -227,8 +230,9 @@ sock::start()
   read_fd_set = active_fd_set;
   if (select (FD_SETSIZE, &read_fd_set, NULL, NULL, NULL) < 0)
   {
+
 #ifdef NCURSES
-  s_ncur::get().print( new string( SELCERR ) );
+  s_ncur::get().print( SELCERR );
 #endif
 
    exit( EXIT_FAILURE );
@@ -256,26 +260,30 @@ sock::start()
      {
 
 #ifdef NCURSES
-  s_ncur::get().print( new string( ACCPERR ) );
+  s_ncur::get().print( ACCPERR);
 #endif
 
       close ( new_sock );
      }
 
-/*
 #ifdef VERBOSE
-     cout << CONNECT << i_req << " "  
+     cout << NEWREQU << i_req << " "  
           << inet_ntoa( clientname.sin_addr )
           << ":"
           << ntohs    ( clientname.sin_port )
           << endl;
 #endif
-*/ 
+
       FD_SET (new_sock, &active_fd_set);
     }
 
     else
     {
+
+#ifdef NCURSES
+  s_ncur::get().print( NEWREQU );
+#endif
+
       thrd_pool->run( (void*) new thrd( i ) );
       FD_CLR( i, &active_fd_set );
     }

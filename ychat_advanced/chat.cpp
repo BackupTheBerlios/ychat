@@ -93,9 +93,9 @@ chat::login( map_string &map_params )
   p_room = new room( s_room );
 
 #ifdef NCURSES
-//  string s_tmp( NEWROOM );
-//  s_tmp.append( s_room );
-//  s_ncur::get().print( &s_tmp );
+  string s_tmp( NEWROOM );
+  s_tmp.append( s_room );
+  s_ncur::get().print( &s_tmp );
 #endif
   
   add_elem( p_room );

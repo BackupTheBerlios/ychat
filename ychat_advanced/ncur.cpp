@@ -10,6 +10,7 @@ ncur::ncur( )
 {
  p_messagelist = new list<char*>;
  pthread_mutex_init( &mut_messages, NULL );
+ i_message_length = 41;
  b_is_ready = false; 
 }
 
@@ -75,19 +76,27 @@ ncur::print( string s_msg )
 void
 ncur::print( char* c_print )
 {
+
+ char* c_temp = new char[i_message_length];
+ int i;
+ for ( i = 0; i < i_message_length-1; i++ )
+  c_temp[i] = ' ';
+ c_temp[i] = '\0';
+
+ memcpy( c_temp, c_print, strlen(c_print) ); 
+
  pthread_mutex_lock( &mut_messages );
-
  if ( p_messagelist->size() > 8 )
-  p_messagelist->pop_front();
+   p_messagelist->pop_front();
 
- p_messagelist->push_back( c_print );
+ p_messagelist->push_back( c_temp );
 
  list<char*>::iterator iter;
  iter = p_messagelist->begin();
 
- for ( int i=4; i<14 && iter != p_messagelist->end(); i++, iter++ )
+ for ( i=4; i<14 && iter != p_messagelist->end(); i++, iter++ )
  {
-  mvwprintw( p_serveroutput, i, 2, "%s %d %d", *iter, i-3, p_messagelist->size() );
+  mvwprintw( p_serveroutput, i, 2, *iter );
  }
 
  wrefresh ( p_serveroutput ); 

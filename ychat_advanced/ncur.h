@@ -14,8 +14,9 @@ private:
  menu*   p_menu;
  WINDOW* p_serveroutput;
  list<char*>* p_messagelist;   // contains the messages for p_serveroutput!
- pthread_mutex_t mut_messages; // for syncronization of p_serveroutput!
- bool b_is_ready;
+ pthread_mutex_t mut_messages; // for syncronization of p_serveroutput! 
+ int  i_message_length;        // the maximum length of a system message!
+ bool b_is_ready;	       // is set to TRUE if the admin interface is initialized.	
 
 public:
  explicit ncur( );      	      // a standard constructor.
