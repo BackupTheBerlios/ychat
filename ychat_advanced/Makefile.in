@@ -15,11 +15,16 @@ $(SRCS):
 	$(CC) $(CFLAGS) -c $*.cpp
 infotext:
 	@echo Compiling base
+stats:
+	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
+	cat stats.txt 2>/dev/null
+pretasks:
+	perl scripts/uname.pl || ./scripts/noper.sh 	
 base:	infotext $(OBJS)
-ychat:  $(OBJS) modules
+ychat:  pretasks $(OBJS) modules
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
-	perl scripts/buildnr.pl
-	perl scripts/stats.pl > stats.txt
+	perl scripts/buildnr.pl || ./scripts/noperl.sh
+	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
 	cat stats.txt 2>/dev/null
 clean:	clean_base clean_modules
 

@@ -106,6 +106,7 @@ You may invoke make with the following options:
  make clean (cleans everything)
  make clean_base (only cleans the base obj files)
  make clean_modules (only cleans the modules .so files) 
+ make stats (generates ychat statistics)
 
 Now its time to run the server with ./ychat.
 
