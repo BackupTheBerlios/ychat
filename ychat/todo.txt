@@ -2,9 +2,9 @@ BRAIN-STORMING:
 mysql
 tempid
 commands
-hash_maps
+hash_maps [IN PROGRESS]
 pthread mode 2 ?
-configure script
+configure script [DONE]
 
 10: bugfixes
 20: goto 10
