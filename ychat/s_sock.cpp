@@ -1,10 +1,10 @@
 #ifndef GSOC_CXX
 #define GSOC_CXX
 
-#include "SOCK.h"
+#include "s_sock.h"
 
 using namespace std;
 
-sock* SOCK::obj;
+sock* s_sock::obj;
 
 #endif

@@ -1,14 +1,14 @@
 // class conf implementation.
 
-#ifndef CONF_CXX
-#define CONF_CXX
+#ifndef s_conf_CXX
+#define s_conf_CXX
 
 #include <fstream>
 #include "conf.h"
 
 using namespace std;
 
-conf::conf( string s_conf = CONFILE ) : name( s_conf )
+conf::conf( string s_conf = s_confILE ) : name( s_conf )
 {
  parse( ); // parse the config file. 
 }
@@ -20,7 +20,7 @@ conf::~conf()
 void
 conf::parse()
 {
-#ifdef _VERBOSE
+#ifdef VERBOSE
  cout << CFILEOK << get_name() << endl;
 #endif
 
@@ -28,7 +28,7 @@ conf::parse()
 
  if ( ! fs_conf ) 
  {
-#ifdef _VERBOSE
+#ifdef VERBOSE
  cout << CFILENO << get_name() << endl;
 #endif
   return;

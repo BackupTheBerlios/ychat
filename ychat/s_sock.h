@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class SOCK 
+class s_sock 
 {
 private:
  static sock* obj; 

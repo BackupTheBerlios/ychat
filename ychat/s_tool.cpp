@@ -1,12 +1,12 @@
-#ifndef TOOL_CXX
-#define TOOL_CXX
+#ifndef s_tool_CXX
+#define s_tool_CXX
 
 #include <ctype.h> 
 #include <time.h>
-#include "TOOL.h"
+#include "s_tool.h"
 
 bool
-TOOL::is_alpha_numeric( string &s_digit )
+s_tool::is_alpha_numeric( string &s_digit )
 {
  auto const char *digit = s_digit.c_str();
  auto int   i_len = strlen( digit );
@@ -22,7 +22,7 @@ TOOL::is_alpha_numeric( string &s_digit )
 }
 
 int
-TOOL::string2int( string s_digit )
+s_tool::string2int( string s_digit )
 {
  auto const char *digit = s_digit.c_str();
  int result = 0;
@@ -42,7 +42,7 @@ TOOL::string2int( string s_digit )
 }
 
 long
-TOOL::unixtime()
+s_tool::unixtime()
 {
  return (long) time( NULL );
 }

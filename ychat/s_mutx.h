@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class MUTX 
+class s_mutx 
 {
 private:
  static mutx* obj; 

@@ -2,7 +2,7 @@
 #define DATA_H
 
 #include "base.h"
-#include "MUTX.h"
+#include "s_mutx.h"
 
 using namespace std;
 

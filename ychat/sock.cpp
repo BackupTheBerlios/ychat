@@ -1,16 +1,16 @@
 // class sock implementation. the multiplex socket implementation has been token from the
 // GNU C Library Examples and modified in order to fit in here ( POSIX threads etc. ).
 
-#ifndef SOCK_CXX
-#define SOCK_CXX
+#ifndef s_sock_CXX
+#define s_sock_CXX
 
 #include <unistd.h>
 
 #include "sock.h"
-#include "CHAT.h"
-#include "CONF.h"
-#include "MUTX.h"
-#include "TOOL.h"
+#include "s_chat.h"
+#include "s_conf.h"
+#include "s_mutx.h"
+#include "s_tool.h"
 
 #include "chat.h"
 #include "user.h"
@@ -28,7 +28,7 @@ sock::sock()
 void
 sock::chat_stream( int i_sock, map_string &map_params )
 {
- user* p_user = CHAT::get().get_user( map_params["nick"] );
+ user* p_user = s_chat::get().get_user( map_params["nick"] );
  p_user->set_sock( i_sock );
 
  string s_msg( "" );
@@ -70,7 +70,7 @@ sock::make_socket( uint16_t i_port )
   if ( ++i_port > MAXPORT )
    exit(-1);
 
-  cerr << SOCKERR << i_port << endl;
+  cerr << s_sockERR << i_port << endl;
   return make_socket( i_port );
  }
 
@@ -89,7 +89,7 @@ sock::make_socket( uint16_t i_port )
   if ( ++i_port > MAXPORT )
    exit(-1);
 
-  cout << SOCKERR << i_port << endl;
+  cout << s_sockERR << i_port << endl;
   return make_socket( i_port );
  }
 
@@ -114,7 +114,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
   // stores the request params.
   map_string map_params; 
 
-  // get the s_rep ( HTML response which will be send imediatly to the client
+  // get the s_rep ( s_html response which will be send imediatly to the client
   // and fill map_params with request values. 
   auto string s_temp=(string)c_req;
 
@@ -136,7 +136,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
 int
 sock::start()
 {
- auto int i_port   = TOOL::string2int( CONF::get().get_val( "SRVRPORT" ) );
+ auto int i_port   = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
 
  int sock;
  fd_set active_fd_set, read_fd_set;
@@ -144,8 +144,8 @@ sock::start()
  struct sockaddr_in clientname;
  size_t size;
 
-#ifdef _VERBOSE
- cout << SOCKCRT << "localhost:" << i_port << endl;
+#ifdef VERBOSE
+ cout << s_sockCRT << "localhost:" << i_port << endl;
 #endif
 
  // create the server socket and set it up to accept connections.
@@ -157,8 +157,8 @@ sock::start()
   exit( EXIT_FAILURE );
  }
 
-#ifdef _VERBOSE
- cout << SOCKRDY << endl;
+#ifdef VERBOSE
+ cout << s_sockRDY << endl;
 #endif
 
  // initialize the set of active sockets. 
@@ -195,7 +195,7 @@ sock::start()
       close ( new_sock );
      }
 
-#ifdef _VERBOSE
+#ifdef VERBOSE
      cout << CONNECT << i_req << " "  
           << inet_ntoa( clientname.sin_addr )
           << ":"

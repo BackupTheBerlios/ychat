@@ -1,7 +1,7 @@
 // class sock declaration.
 
-#ifndef SOCK_H
-#define SOCK_H
+#ifndef s_sock_H
+#define s_sock_H
 
 #include <queue>
 #include <arpa/inet.h>

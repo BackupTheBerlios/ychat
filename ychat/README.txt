@@ -114,22 +114,22 @@ sock.cpp - The socket manager. Manages the socket connections. There
 
 Files written in capital letters contain static C++ classes
 
-CHAT.cpp - Static wrapper for the dynamic chat class. holds one global 
+s_chat.cpp - Static wrapper for the dynamic chat class. holds one global 
            reachable instance of chat until the program shuts down. 
 
-CONF.cpp - Static wrapper for the dynamic conf class. holds one global 
+s_conf.cpp - Static wrapper for the dynamic conf class. holds one global 
            reachable instance of conf until the program shuts down. 
 
-HTML.cpp - Static wrapper for the dynamic html class. holds one global 
+s_html.cpp - Static wrapper for the dynamic html class. holds one global 
            reachable instance of conf until the program shuts down. 
 
-MUTX.cpp - Static wrapper for the dynamic mutx class. holds one global 
+s_mutx.cpp - Static wrapper for the dynamic mutx class. holds one global 
            reachable instance of conf until the program shuts down. 
 
-SOCK.cpp - Static wrapper for the dynamic sock class. holds one global 
+s_sock.cpp - Static wrapper for the dynamic sock class. holds one global 
            reachable instance of conf until the program shuts down. 
 
-TOOL.cpp - Static class which includes some usefull global reachable
+s_tool.cpp - Static class which includes some usefull global reachable
            methods which are not integraded in independent classes.
 
 Special header files ( all other header files which are not listed here

@@ -1,11 +1,11 @@
-#ifndef TOOL_H
-#define TOOL_H
+#ifndef s_tool_H
+#define s_tool_H
 
 #include "incl.h" 
 
 using namespace std;
 
-class TOOL
+class s_tool
 {
 public:
  static bool is_alpha_numeric( string &s_digit ); 

@@ -1,18 +1,18 @@
 // class html implementation.
 
-#ifndef HTML_CXX
-#define HTML_CXX
+#ifndef s_html_CXX
+#define s_html_CXX
 
 #include <fstream>
 #include "html.h"
-#include "CHAT.h"
-#include "MUTX.h"
+#include "s_chat.h"
+#include "s_mutx.h"
 
 using namespace std;
 
 html::html( )
 {
- set_name( CONF::get().get_val( "HTMLTEMP" ) );
+ set_name( s_conf::get().get_val( "s_htmlTEMP" ) );
  pthread_mutex_init( &mut_map_vals, NULL );
 }
 
@@ -47,7 +47,7 @@ html::parse( map_string &map_params )
 
   if ( ! fs_templ ) 
   {
-   map_params["request"] = CONF::get().get_val( "NOTFOUND" );
+   map_params["request"] = s_conf::get().get_val( "NOTFOUND" );
    return parse( map_params );
   }
 
@@ -58,10 +58,10 @@ html::parse( map_string &map_params )
 
   fs_templ.close();
 
-#ifdef _VERBOSE
-  pthread_mutex_lock  ( &MUTX::get().mut_stdout );
+#ifdef VERBOSE
+  pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
   cout << TECACHE << s_path << endl;
-  pthread_mutex_unlock( &MUTX::get().mut_stdout );
+  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 #endif
 
   // cache file. 
@@ -89,7 +89,7 @@ html::parse( map_string &map_params )
 
   // get key and val.
   auto string s_key = s_templ.substr( pos[0], pos[1]-pos[0] );
-  auto string s_val = CONF::get().get_val( s_key );
+  auto string s_val = s_conf::get().get_val( s_key );
 
   // if s_val is empty use map_params.
   if ( s_val.empty() )

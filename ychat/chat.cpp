@@ -1,12 +1,12 @@
 // class chat implementation.
 
-#ifndef CHAT_CXX
-#define CHAT_CXX
+#ifndef s_chat_CXX
+#define s_chat_CXX
 
 #include "chat.h"
-#include "CONF.h"
-#include "MUTX.h"
-#include "TOOL.h"
+#include "s_conf.h"
+#include "s_mutx.h"
+#include "s_tool.h"
 
 using namespace std;
 
@@ -58,15 +58,15 @@ chat::login( map_string &map_params )
  if ( s_user.empty() )
  {
   map_params["INFO"]    = E_NONICK; 
-  map_params["request"] = CONF::get().get_val( "STARTMPL" ); // redirect to the startpage.
+  map_params["request"] = s_conf::get().get_val( "STARTMPL" ); // redirect to the startpage.
   return;
  }
 
  // prove if the nick ist alphanumeric:
- else if ( ! TOOL::is_alpha_numeric( s_user ) )
+ else if ( ! s_tool::is_alpha_numeric( s_user ) )
  {
   map_params["INFO"]    = E_ALPNUM; 
-  map_params["request"] = CONF::get().get_val( "STARTMPL" ); // redirect to the startpage.
+  map_params["request"] = s_conf::get().get_val( "STARTMPL" ); // redirect to the startpage.
   return;
  }
 
@@ -77,7 +77,7 @@ chat::login( map_string &map_params )
  if ( b_flag ) 
  {
   map_params["INFO"]    = E_ONLINE;
-  map_params["request"] = CONF::get().get_val( "STARTMPL" );
+  map_params["request"] = s_conf::get().get_val( "STARTMPL" );
   return;
  } 
 
@@ -89,10 +89,10 @@ chat::login( map_string &map_params )
  {
   p_room = new room( s_room );
 
-#ifdef _VERBOSE
-  pthread_mutex_lock  ( &MUTX::get().mut_stdout );
+#ifdef VERBOSE
+  pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
   cout << NEWROOM << s_room << endl;
-  pthread_mutex_unlock( &MUTX::get().mut_stdout );
+  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 #endif
   
   add_elem( p_room );
@@ -106,10 +106,10 @@ chat::login( map_string &map_params )
  // post "username enters the chat" into the room.
  p_room->msg_post( new string( s_user.append( USERENTR ) ) );  
 
-#ifdef _VERBOSE
- pthread_mutex_lock  ( &MUTX::get().mut_stdout );
+#ifdef VERBOSE
+ pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
  cout << LOGINPR << s_user << endl;
- pthread_mutex_unlock( &MUTX::get().mut_stdout );
+ pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 #endif
 }
 

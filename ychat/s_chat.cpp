@@ -1,10 +1,10 @@
 #ifndef GCHT_CXX
 #define GCHT_CXX
 
-#include "CHAT.h"
+#include "s_chat.h"
 
 using namespace std;
 
-chat* CHAT::obj;
+chat* s_chat::obj;
 
 #endif

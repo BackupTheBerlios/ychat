@@ -1,10 +1,10 @@
 #ifndef GHTM_CXX
 #define GHTM_CXX
 
-#include "HTML.h"
+#include "s_html.h"
 
 using namespace std;
 
-html* HTML::obj;
+html* s_html::obj;
 
 #endif

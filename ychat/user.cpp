@@ -4,16 +4,16 @@
 #define USER_CXX
 
 #include "user.h"
-#include "CONF.h"
-#include "TOOL.h"
+#include "s_conf.h"
+#include "s_tool.h"
 
 using namespace std;
 
 user::user( string s_name ) : name( s_name )
 {
  this -> b_online = true; 
- this -> l_time   = TOOL::unixtime();
- this -> s_col1   = CONF::get().get_val( "USERCOL1" );
+ this -> l_time   = s_tool::unixtime();
+ this -> s_col1   = s_conf::get().get_val( "USERCOL1" );
 
  pthread_mutex_init( &mut_b_online, NULL);
  pthread_mutex_init( &mut_i_sock  , NULL);
@@ -121,7 +121,7 @@ void
 user::renew_stamp( )
 {
  pthread_mutex_lock  ( &mut_l_time );
- l_time = TOOL::unixtime();
+ l_time = s_tool::unixtime();
  pthread_mutex_unlock( &mut_l_time );
 }
 

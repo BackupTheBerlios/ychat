@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class HTML 
+class s_html 
 {
 private:
  static html* obj; 

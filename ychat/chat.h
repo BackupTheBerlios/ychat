@@ -1,7 +1,7 @@
 // class chat declaration.
 
-#ifndef CHAT_H
-#define CHAT_H
+#ifndef s_chat_H
+#define s_chat_H
 
 #include <vector>
 #include "incl.h"

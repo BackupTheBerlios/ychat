@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class CHAT 
+class s_chat 
 {
 private:
  static chat* obj; 

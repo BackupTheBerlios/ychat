@@ -4,9 +4,9 @@
 #define REQP_CXX
 
 #include "reqp.h"
-#include "CHAT.h"
-#include "HTML.h"
-#include "MUTX.h"
+#include "s_chat.h"
+#include "s_html.h"
+#include "s_mutx.h"
 #include "sock.h"
 
 using namespace std;
@@ -100,10 +100,10 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
  }
  while( true );
 
-#ifdef _VERBOSE
- pthread_mutex_lock  ( &MUTX::get().mut_stdout );
+#ifdef VERBOSE
+ pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
  cout << REQUEST << s_ret << endl;
- pthread_mutex_unlock( &MUTX::get().mut_stdout );
+ pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 #endif
 
  map_params["request"] = s_ret;
@@ -189,33 +189,33 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
   // login procedure.
   if ( s_event == "login" )
   {
-   CHAT::get().login( map_params ); 
+   s_chat::get().login( map_params ); 
   }
 
   else
   {
    bool b_found;
-   user* u_user = CHAT::get().get_user( map_params["nick"], b_found );
+   user* u_user = s_chat::get().get_user( map_params["nick"], b_found );
 
    if ( ! b_found )
    {
      map_params["INFO"]    = E_NOTONL;
-     map_params["request"] = CONF::get().get_val( "STARTMPL" ); // redirect to the startpage.
+     map_params["request"] = s_conf::get().get_val( "STARTMPL" ); // redirect to the startpage.
    }
 
    // if a message post.
    else if ( s_event == "post" )
-    CHAT::get().post( u_user, map_params );
+    s_chat::get().post( u_user, map_params );
 
    // if a request for the online list of the active room.
    else if ( s_event == "online" )
-    HTML::get().online_list( u_user, map_params );
+    s_html::get().online_list( u_user, map_params );
   }
  }
 
  // parse and get the requested html-template and also use
  // the values stored in map_params for %%KEY%% substituations. 
- s_rep.append( HTML::get().parse( map_params ) );
+ s_rep.append( s_html::get().parse( map_params ) );
 
  // return the parsed html-template.
  return  s_rep;

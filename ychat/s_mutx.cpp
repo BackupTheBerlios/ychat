@@ -1,10 +1,10 @@
 #ifndef GMUT_CXX
 #define GMUT_CXX
 
-#include "MUTX.h"
+#include "s_mutx.h"
 
 using namespace std;
 
-mutx* MUTX::obj;
+mutx* s_mutx::obj;
 
 #endif
