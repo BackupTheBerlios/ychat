@@ -219,7 +219,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
  s_rep.append( HTTP_CONTAC ); s_rep.append( HTTP_CACHEC );
  s_rep.append( HTTP_CONNEC ); s_rep.append( HTTP_COTYPE );
  s_rep.append( get_content_type( map_params["request"] ) ); 
- s_rep.append("\n\n");
+ s_rep.append("\r\n\r\n");
 
  // check the event variable.
 
