@@ -11,7 +11,9 @@ AC_PROG_CXX
 dnl Checks for libraries.
 dnl Replace `main' with a function in -lstdc:
 AC_SEARCH_LIBS(dlopen, dl)
+if test "$ac_cv_search_dlopen" = "-ldl"; then
 LDFLAGS="$ac_cv_search_dlopen"
+fi
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
