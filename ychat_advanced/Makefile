@@ -21,8 +21,8 @@ gpl:
 cvsupdate:
 	@echo "Updating to newest CVS version of ychat_advanced"
 	export CVSROOT=`cat CVS/Root` 
-	export CVSUSER=`echo $CVSROOT | cut -d":" -f3 | cut -d"@" -f1`
-	if test $CVSUSER == "anonymous"; then echo "/1 :pserver:$CVSUSER@cvs.ychat.berlios.de:2401/cvsroot/ychat A" >>~/.cvspass; fi &&
+	export CVSUSER=`echo ${CVSROOT} | cut -d":" -f3 | cut -d"@" -f1`
+	if test ${CVSUSER} == "anonymous"; then echo "/1 :pserver:${CVSUSER}@cvs.ychat.berlios.de:2401/cvsroot/ychat A" >~/.cvspass; fi &&
 	@echo "Backing up old configuration files" &&
 	cp conf.txt conf.txt.old &&
 	cp lang/en lang/en.old &&
