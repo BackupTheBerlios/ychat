@@ -39,13 +39,13 @@ ncur::start( void *v_pointer )
   "HTML-template manager   NI",
   "Language manager        NI",
   "Module-loader manager   NI",
-  "MySQL connecion manager NI",
+  "MySQL connection manag. NI",
   "Session manager         NI",
   "Socket manager          NI",
   "Shut down server",
  };
 
- admin_interface->p_serveroutput = newwin( 15, 45, 4, 34 );
+ admin_interface->p_serveroutput = newwin( 17, 45, 3, 34 );
 
  box      ( admin_interface->p_serveroutput, 0, 0 ); 
  mvwprintw( admin_interface->p_serveroutput, 2, 2, "SERVER SYSTEM MESSAGES" );
@@ -55,7 +55,7 @@ ncur::start( void *v_pointer )
 
  admin_interface->print( VERSION );
 
- admin_interface->p_menu = new menu( 2, 4, 32, 15, "ADMIN MAIN MENU", choices, 9 );
+ admin_interface->p_menu = new menu( 2, 3, 32, 17, "ADMIN MAIN MENU", choices, 9 );
  admin_interface->p_menu->start();
 
  clrtoeol();
@@ -90,7 +90,7 @@ ncur::print( char* c_print )
  memcpy( c_temp, c_print, strlen(c_print) ); 
 
  pthread_mutex_lock( &mut_messages );
- if ( p_messagelist->size() > 8 )
+ if ( p_messagelist->size() > 10 )
    p_messagelist->pop_front();
 
  p_messagelist->push_back( c_temp );
@@ -98,7 +98,7 @@ ncur::print( char* c_print )
  list<char*>::iterator iter;
  iter = p_messagelist->begin();
 
- for ( i=4; i<14 && iter != p_messagelist->end(); i++, iter++ )
+ for ( i=4; i<16 && iter != p_messagelist->end(); i++, iter++ )
  {
   mvwprintw( p_serveroutput, i, 2, *iter );
  }

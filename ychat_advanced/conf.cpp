@@ -4,6 +4,7 @@
 #define s_conf_CXX
 
 #include <fstream>
+#include "s_ncur.h"
 #include "conf.h"
 
 using namespace std;
@@ -25,7 +26,6 @@ conf::parse()
 #endif
 
  string s_configfile=get_name();
-
 
  string homeconfig=string(getenv("HOME"))+string("/.ychat/")+get_name();
  ifstream homecheck( homeconfig.c_str() );

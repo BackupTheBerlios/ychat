@@ -89,12 +89,12 @@ cout  <<  "         ___ _           _   "     << endl
  s_sman::init(); // init the session manager.
  s_modl::init(); // init the module-loader manager. 
  s_mman::init(); // init the mysql connection manager.
- s_ncur::init(); // init the ncurses admin interface.
  s_sock::init(); // init the socket manager. 
  s_chat::init(); // init the chat manager. 
 
  // begin to draw the ncurses amdin interface in a new pthread.
 #ifdef NCURSES
+ s_ncur::init(); // init the ncurses admin interface.
  pthread_t admin_thread;
  pthread_create( &admin_thread, 
                  NULL, 
