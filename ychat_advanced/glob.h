@@ -33,6 +33,9 @@
 // max length of a char buffer
 #define CHARBUF 100
 
+// max occupied percentage of a hash map:
+#define HMAPOCC 80
+
 // definition for verbosity level ( normal outputs ). see vmsg.h for custumizing all
 // the messages. this messages will only printed out by the master thread.
 // dont use this until NCURSES is defined! all messages will appear in the

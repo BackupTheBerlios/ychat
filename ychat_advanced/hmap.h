@@ -46,23 +46,6 @@ protected:
     virtual unsigned int hash( const string &key ) const;
     vector<hash_entry> array;
 
-public:
-    hmap( double moc );
-
-    int  find_pos  ( const key_type &k );
-    virtual void make_empty( );
-    virtual void make_empty( void (*func)(key_type) );
-    virtual void add_elem ( const obj_type &x, const key_type &k );
-    virtual void del_elem ( const key_type &k );
-    virtual obj_type get_elem ( const key_type &k );
-
-    virtual void  run_func( void (*func)(obj_type) );
-    virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
-
-    virtual vector<key_type>*  get_key_vector( );
-    
-    int get_size();
-
     int get_lookups()
     {
         return lookups;
@@ -82,6 +65,28 @@ public:
     {
         return get_elem( k );
     }
+
+    int get_size();
+    int  find_pos  ( const key_type &k );
+
+public:
+    hmap( double moc );
+
+    virtual void make_empty( );
+    virtual void make_empty( void (*func)(key_type) );
+    virtual void del_elem ( const key_type &k );
+
+    virtual void  run_func( void (*func)(obj_type) );
+    virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
+    virtual vector<key_type>*  get_key_vector( );
+
+    virtual void add_elem ( const obj_type &x, const key_type &k );
+
+    virtual bool is_avail( const key_type &k );   
+    virtual obj_type get_elem ( const key_type &k );
+    virtual obj_type operator[]( const key_type &k ) {
+     return get_elem( k );
+    };
 
 };
 

@@ -6,7 +6,7 @@
 
 sman::sman()
 {
-    this->sessions=new smap<sess *, string>(80);
+    this->sessions=new smap<sess *, string>(HMAPOCC);
     this->session_count=0;
     pthread_mutex_init( &mut_sessions, NULL );
     pthread_mutex_init( &mut_session_count, NULL );

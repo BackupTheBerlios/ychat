@@ -4,17 +4,15 @@
 #ifndef HTML_H
 #define HTML_H
 
-#include "cont.h"
+#include "smap.h"
 #include "user.h"
 #include "name.h"
 
 using namespace std;
 
-class html : public cont, name
+class html : public smap<string, string>, name
 {
 private:
-    // needed for synchronizing the map_vals.
-    pthread_mutex_t mut_map_vals;
 
 public:
     // public methods.

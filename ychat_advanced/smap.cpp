@@ -57,6 +57,15 @@ obj_type smap<obj_type, key_type>::get_elem( const key_type &k )
  return ret_val;
 }
 
+template <class obj_type, class key_type>
+bool smap<obj_type, key_type>::is_avail( const key_type &k )
+{
+ pthread_mutex_lock  ( &mut_smap );
+ bool ret_val = hmap<obj_type,key_type>::is_avail( k );
+ pthread_mutex_unlock( &mut_smap );
+ return ret_val;
+}
+
 template<class obj_type, class key_type> void
 smap<obj_type, key_type>::run_func( void (*func)(obj_type) )
 {
@@ -80,6 +89,16 @@ smap<obj_type, key_type>::get_key_vector()
  vector<key_type>* p_ret_vector = hmap<obj_type,key_type>::get_key_vector();
  pthread_mutex_unlock( &mut_smap );
  return p_ret_vector;
+}
+
+template <class obj_type, class key_type>
+nmap<obj_type, key_type>::nmap( double moc ) : smap<obj_type, key_type>::smap(moc)
+{
+}
+
+template <class obj_type, class key_type>
+nmap<obj_type, key_type>::~nmap()
+{
 }
 
 #endif

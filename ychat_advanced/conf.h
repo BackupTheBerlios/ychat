@@ -6,12 +6,12 @@
 class conf;
 
 #include "incl.h"
-#include "cont.h"
+#include "smap.h"
 #include "name.h"
 
 using namespace std;
 
-class conf : public cont, name
+class conf : public nmap<string,string>, name
 {
 private:
 

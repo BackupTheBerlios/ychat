@@ -6,24 +6,20 @@
 
 using namespace std;
 
-html::html( )
+html::html( ) : smap<string,string>::smap(HMAPOCC)
 {
     set_name( wrap::CONF->
                   get_elem( "HTMLTEMP" ) );
-    pthread_mutex_init( &mut_map_vals, NULL );
 }
 
 html::~html( )
 {
-    pthread_mutex_destroy( &mut_map_vals );
 }
 
 void
 html::clear_cache( )
 {
-    pthread_mutex_lock  ( &mut_map_vals );
-    clear_vals();
-    pthread_mutex_unlock( &mut_map_vals );
+    make_empty();
 }
 
 string
@@ -32,12 +28,10 @@ html::parse( map_string &map_params )
     string s_file = map_params["request"];
 
     // check if s_file is in the container.
-    pthread_mutex_lock  ( &mut_map_vals );
-    string s_templ = get_elem( s_file );
-    pthread_mutex_unlock( &mut_map_vals );
+    string s_templ;
 
     // if not, read file.
-    if ( s_templ.empty() )
+    if ( ! smap<string,string>::is_avail( s_file ) )
     {
         auto string   s_path  = get_name();
         auto ifstream fs_templ( s_path.append( s_file ).c_str(), ios::binary );
@@ -92,12 +86,13 @@ html::parse( map_string &map_params )
         }
 #endif
 
-
-
         // cache file.
-        pthread_mutex_lock  ( &mut_map_vals );
-        map_vals[ s_file ] = s_templ;
-        pthread_mutex_unlock( &mut_map_vals );
+        smap<string,string>::add_elem( s_templ, s_file ); 
+    }
+
+    else
+    {
+        s_templ = smap<string,string>::get_elem( s_file );
     }
 
     // find %%KEY%% token and substituate those.

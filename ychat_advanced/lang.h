@@ -3,12 +3,12 @@
 #ifndef LANG_H
 #define LANG_H
 
-#include "cont.h"
 #include "name.h"
+#include "smap.h"
 
 using namespace std;
 
-class lang : public cont, name
+class lang : public nmap<string,string>, name
 {
 private:
 

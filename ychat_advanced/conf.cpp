@@ -8,7 +8,7 @@
 
 using namespace std;
 
-conf::conf( string s_conf = CONFILE ) : name( s_conf )
+conf::conf( string s_conf = CONFILE ) : nmap<string,string>::nmap(HMAPOCC), name::name( s_conf )
 {
     parse( ); // parse the config file.
 }
@@ -75,7 +75,7 @@ conf::parse()
 #endif
 
         // fill the map.
-        map_vals[s_key] = s_val;
+        nmap<string,string>::add_elem(s_val, s_key); //map_vals[s_key] = s_val;
     }
 
     fs_conf.close();

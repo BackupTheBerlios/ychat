@@ -22,7 +22,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include "incl.h"
-#include "smap.h"
 
 using namespace std;
 
@@ -108,7 +107,6 @@ int main()
     // forward them to the specified routines which will generate a http response.
     wrap::SOCK->start();
         
-
 #ifdef VERBOSE
     cout << DOWNMSG << endl;
 #endif

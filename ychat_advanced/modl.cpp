@@ -13,7 +13,7 @@ using namespace std;
 
 modl::modl(  )
 {
-    map_mods = new smap<dynmod*,string>(80);
+    map_mods = new smap<dynmod*,string>(HMAPOCC);
 
     if ( wrap::CONF->get_elem( "PRE_MODS_COMMANDS" ).compare( "ON" ) == 0 )
      preload_modules( new string("mods/commands/") );

@@ -12,7 +12,7 @@ user::user( string s_name ) : name( s_name )
     this -> l_time   = tool::unixtime();
     this -> s_col1   = wrap::CONF->get_elem( "USERCOL1" );
     this -> s_col2   = wrap::CONF->get_elem( "USERCOL2" );
-    map_mods = new smap<dynmod*,string>(80);
+    map_mods = new smap<dynmod*,string>(HMAPOCC);
 
     pthread_mutex_init( &mut_b_online, NULL);
     pthread_mutex_init( &mut_i_sock  , NULL);

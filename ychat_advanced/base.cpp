@@ -6,7 +6,7 @@
 template<class type>
 base<type>::base()
 {
-    map_elem = new smap<type*,string>(80);
+    map_elem = new smap<type*,string>(HMAPOCC);
 }
 
 template<class type>

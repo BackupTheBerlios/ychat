@@ -185,16 +185,12 @@ user.cpp - Specifies a chat user. For each chat user an instance of
 
 Abstract classes:
 
-cont.cpp - All classes which need to store "key - value" data sets
-           inherit from this class. ( cont for content ). 
-
 name.cpp - All classes which own a private member string name inherit
            from this class. It also provides public get_name and 
            set_name methods.
 
-As described ( main.cpp ), there are so called managers. Managers are 
-accessible through their assigned wrapper classes and may be 
-instanciated only once.       
+As described (main.cpp), there are so called managers. Managers are 
+accessible through the  wrapper classes and may be instanciated only once.       
 
 chat.cpp - The chat manager. Is responsible for managing the internal
            data structure of the system and also covers a lot of
@@ -216,6 +212,9 @@ lang.cpp - The language manager. This class reads the messages defined
 logd.cpp - The log manager. This class writes logging messages into the
            logs/ subdirectory.
 
+mman.cpp - The MySQL manager class. Implements an instance of a
+           MySQL database manager which contains several mcon instances.
+
 mutx.cpp - The mutex manager. Contains all global mutex handlers for
            synchronizing POSIX thread shared data. until now only the
            stdout is synchronized by mutx.cpp because most of objects
@@ -225,26 +224,9 @@ sock.cpp - The socket manager. Manages the socket connections. There
            are multiplexed sockets. For each requests a new POSIX thread
            will be created.
 
-Files with a leading s_ contain static C++ classes. The following files
-are located in the wrapper subdirectory.
-
-s_chat.cpp - Static wrapper for the dynamic chat class. holds one global 
-           reachable instance of chat until the program shuts down. 
-
-s_conf.cpp - Static wrapper for the dynamic conf class. holds one global 
-           reachable instance of conf until the program shuts down. 
-
-s_html.cpp - Static wrapper for the dynamic html class. holds one global 
-           reachable instance of conf until the program shuts down. 
-
-s_mutx.cpp - Static wrapper for the dynamic mutx class. holds one global 
-           reachable instance of conf until the program shuts down. 
-
-s_sock.cpp - Static wrapper for the dynamic sock class. holds one global 
-           reachable instance of conf until the program shuts down. 
-
-s_tool.cpp - Static class which includes some usefull global reachable
-           methods which are not integraded in independent classes.
+wrap.cpp - The wrapper class. This one contains references to object instances
+           which have to be accessible through the thole system. The wrapper
+           resists in the global namespace of yChat Advanced. 
 
 Special header files ( all other header files which are not listed here
 belong to their respective .cpp files ):
@@ -269,18 +251,18 @@ The basic class structure:
     |           | /      \
   chat         room      user
 
-    cont
-   /    \
-  /      \
-conf     html
-
-
- hmap
+ hmap (hash map)
+  | 
   |
-  |
-  |
- smap
-
+ smap (syncronized hash map)
+  |  \ 
+  |  html (html templates) 
+  |  
+ nmap (syncronized hash map, returning new object instead of NULL) 
+  |  \
+  |  lang (language templates)   
+  |  
+ conf (configuration values from conf.txt) 
 
 1.7 WRITING BUG REPORTS
 

@@ -1,6 +1,7 @@
 #ifndef LOGD_CPP
 #define LOGD_CPP
 
+#include <fstream>
 #include "logd.h"
 
 logd::logd( string filename )
@@ -25,6 +26,7 @@ logd::logd( string filename )
 }
 void logd::flush()
 {
+    ofstream s_output;
     s_output.open(s_logfile.c_str(), ios::app);
 
     if(s_output==NULL)

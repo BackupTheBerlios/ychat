@@ -6,7 +6,7 @@
 
 using namespace std;
 
-lang::lang( string s_lang = "en" ) : name( s_lang )
+lang::lang( string s_lang = "en" ) : nmap<string,string>::nmap(HMAPOCC), name::name( s_lang )
 {
     parse( ); // parse the config file.
 }
@@ -67,7 +67,7 @@ lang::parse()
 #endif
 
         // fill the map.
-        map_vals[s_key] = s_val;
+        nmap<string,string>::add_elem(s_val, s_key );
     }
 
     fs_conf.close();

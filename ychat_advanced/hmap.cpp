@@ -107,6 +107,16 @@ obj_type hmap<obj_type, key_type>::get_elem( const key_type &k )
     if( is_active( i_current_pos ) )
         return array[ i_current_pos ].element;
     else
+        return NULL;
+}
+
+template <class obj_type, class key_type>
+bool hmap<obj_type, key_type>::is_avail( const key_type &k )
+{
+    int i_current_pos = find_pos( k );
+    if( is_active( i_current_pos ) )
+        return 1; 
+    else
         return 0;
 }
 
