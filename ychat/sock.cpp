@@ -11,6 +11,7 @@
 #include "s_conf.h"
 #include "s_mutx.h"
 #include "s_tool.h"
+#include "s_lang.h"
 
 #include "chat.h"
 #include "user.h"
@@ -54,7 +55,7 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
  p_user->get_p_room()->del_elem( s_user );
 
  // post the room that the user has left the chat.
- p_user->get_p_room()->msg_post( new string( p_user->get_name().append( USERLEAV ) ) );  
+ p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get().get_val( "USERLEAV" ) ) ) );  
 
  p_user->~user();
 }

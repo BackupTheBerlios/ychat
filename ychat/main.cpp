@@ -43,6 +43,9 @@
 // include the socket manager.
 #include "s_sock.h"
 
+// include the language manager
+#include "s_lang.h"
+
 using namespace std;
 
 int main()
@@ -74,10 +77,11 @@ cout  <<  "         ___ _           _   "     << endl
  s_mutx::init(); // init the mutex manager.
  s_conf::init(); // init the config manager.
  s_html::init(); // init the html-template manager. 
+ s_lang::init(); // init the language manager
  s_modl::init(); // init the module-loader manager. 
  s_sock::init(); // init the socket manager. 
  s_chat::init(); // init the chat manager.
-
+ 
  // start the socket manager. this one will listen for incoming http requests and will
  // forward them to the specified routines which will generate a http response.
  s_sock::get().start();

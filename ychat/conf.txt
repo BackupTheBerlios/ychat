@@ -21,6 +21,7 @@ THRDPOOL="50";    # thread pool size.
 THRDQUEU="50";    # length of the thread pool queue.
 SRVRPORT="2000";   # local port on which the server listens. 
 STRDROOM="Lounge"; # the name of the standard room.
+LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 
 # the html template file which will be send if the requested file does not exists. 
 NOTFOUND="notfound.html";

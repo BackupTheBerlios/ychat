@@ -130,7 +130,7 @@ user::command( string &s_command )
 
  if ( mod == NULL ) 
  {
-  msg_post( new string( ERRORCMD ) ); 
+  msg_post( new string( s_lang::get().get_val( "ERRORCMD" ) ) ); 
   return;
  }
 

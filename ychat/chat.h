@@ -8,6 +8,7 @@
 #include "base.h"
 #include "room.h"
 #include "user.h"
+#include "s_lang.h"
 
 using namespace std;
 
