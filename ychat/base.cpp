@@ -2,9 +2,9 @@
 	This file is part of yChat
 
 	$Author: paul $
-	$Date: 2003/03/30 00:14:09 $
+	$Date: 2003/03/30 01:35:21 $
 	
-	$Header: /home/xubuntu/berlios_backup/github/tmp-cvs/ychat/Repository/ychat/base.cpp,v 1.6 2003/03/30 00:14:09 paul Exp $
+	$Header: /home/xubuntu/berlios_backup/github/tmp-cvs/ychat/Repository/ychat/base.cpp,v 1.7 2003/03/30 01:35:21 paul Exp $
 */
 // template class data implementation;
 
@@ -30,7 +30,7 @@ template<class type> void
 base<type>::add_elem( name* p_name )
 {
  pthread_mutex_lock  ( &mut_map_elem   );
- map_elem->add_elem  ( p_name          ); 
+ map_elem->add_elem  ( p_name, p_name->get_name()); 
  pthread_mutex_unlock( &mut_map_elem   );
 }
 

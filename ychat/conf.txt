@@ -54,4 +54,5 @@ CT_JPG="image/jpeg";
 CT_JPEG="image/jpeg";
 CT_PNG="image/png";
 CT_DEFAULT="text/html";
+
 # end.

@@ -21,14 +21,14 @@ hmap<obj_type, key_type>::hmap( double mop )
 // Insert item x into the hash table. If the item is
 // already present, do nothing
 template <class obj_type, class key_type>
-void hmap<obj_type, key_type>::add_elem( const obj_type & x )
+void hmap<obj_type, key_type>::add_elem( const obj_type &x, const key_type &k  )
 {
  // Insert x as active
- int currentPos = findPos( x->get_name() );
+ int currentPos = findPos( k );
  if( isActive( currentPos ) )
   return;
 
- array[ currentPos ] = hash_entry( x, ACTIVE );
+ array[ currentPos ] = hash_entry( x, k, ACTIVE );
  //	cout << "Inserted=" << x << "= at " << currentPos << endl;
  if( ++occupied > array.size( ) * maxOccupiedPercentage )
   rehash( );
@@ -49,7 +49,7 @@ void hmap<obj_type, key_type>::rehash( )
  make_empty( );
  for( int i = 0; i < oldArray.size( ); i++ )
   if( oldArray[ i ].info == ACTIVE )
-   add_elem( oldArray[ i ].element );
+   add_elem( oldArray[ i ].element, oldArray[ i ].key );
 }
 
 // Hash function, can only handle strings.
@@ -70,14 +70,14 @@ unsigned int hmap<obj_type, key_type>::hash( const string & key ) const
 // Method that performs quadratic probing resolution.
 // Return the position where the search for x terminates.
 template <class obj_type, class key_type>
-int hmap<obj_type, key_type>::findPos( const key_type &x )
+int hmap<obj_type, key_type>::findPos( const key_type &k )
 {
  int collisionNum = 0;
- int currentPos = hash( x ) % array.size( );
+ int currentPos = hash( k ) % array.size( );
  lookups++;
 
  while( array[ currentPos ].info != EMPTY &&
-        array[ currentPos ].element->get_name() != x )
+        array[ currentPos ].key != k )
  {
  //		cout <<  array[ currentPos ].element << "!=" << x << endl;
   lookups++;
@@ -93,9 +93,9 @@ int hmap<obj_type, key_type>::findPos( const key_type &x )
 
 // Remove item x from the hash table.
 template <class obj_type, class key_type>
-void hmap<obj_type, key_type>::del_elem( const key_type & x )
+void hmap<obj_type, key_type>::del_elem( const key_type & k )
 {
-    int currentPos = findPos( x );
+    int currentPos = findPos( k );
     if( isActive( currentPos ) )
         array[ currentPos ].info = DELETED;
 }
@@ -103,9 +103,9 @@ void hmap<obj_type, key_type>::del_elem( const key_type & x )
 // Find item x in the hash table.
 // Return a pointer to the matching item or 0 if not found
 template <class obj_type, class key_type>
-obj_type hmap<obj_type, key_type>::get_elem( const key_type & x )
+obj_type hmap<obj_type, key_type>::get_elem( const key_type &k )
 {
- int currentPos = findPos( x );
+ int currentPos = findPos( k );
  if( isActive( currentPos ) )
   return array[ currentPos ].element;
  else

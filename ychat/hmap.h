@@ -8,9 +8,9 @@
 
 using namespace std;
 
-// void add_elem( obj_type x )       --> Insert x
-// void del_elem( key_type x )       --> Remove x
-// obj_type get_elem( key_type x )  --> Return item that matches x
+// void add_elem( obj_type x, key_type k )       --> Insert x
+// void del_elem( key_type k )       --> Remove x
+// obj_type get_elem( key_type k )  --> Return item that matches x
 // void make_empty( )      --> Remove all items
 
 template <class obj_type, class key_type>
@@ -25,9 +25,10 @@ private:
  struct hash_entry
  {
   obj_type   element;
+  key_type   key;
   entry_type info;
 
-  hash_entry( const obj_type & e = obj_type( ), entry_type i = EMPTY ) : element( e ), info( i ) { }
+  hash_entry( const obj_type &e = obj_type( ), const key_type &k = key_type( ), entry_type i = EMPTY ) : element( e ), key( k ), info( i ) { }
  };
     
  int occupied;
@@ -40,17 +41,17 @@ private:
 
 protected:
  int lookups;
- unsigned int hash( const string & key ) const;
+ unsigned int hash( const string &key ) const;
  vector<hash_entry> array;
 
 public:
  hmap( double moc );
 
- virtual int  findPos  ( const key_type &x );
+ virtual int  findPos  ( const key_type &k );
  virtual void make_empty( );
- virtual void add_elem ( const obj_type &x );
- virtual void del_elem ( const key_type &x );
- virtual obj_type get_elem ( const key_type &x );
+ virtual void add_elem ( const obj_type &x, const key_type &k );
+ virtual void del_elem ( const key_type &k );
+ virtual obj_type get_elem ( const key_type &k );
 
  virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
 
@@ -86,14 +87,14 @@ class linearhmap : public hmap<obj_type, key_type> {
 public:
  linearhmap(double moc) : hmap<obj_type, key_type>(moc) {};
 
- virtual int findPos( const obj_type & x )
+ virtual int findPos( const key_type &k )
  {
   int collisionNum = 0;
-  int currentPos = hash( x ) % array.size( );
+  int currentPos = hash( k ) % array.size( );
   lookups++;
 
-  while( array[ currentPos ].info    != EMPTY &&
-         array[ currentPos ].element->get_name() != x )
+  while( array[ currentPos ].info != EMPTY &&
+         array[ currentPos ].key  !=  k )
   {	
    lookups   ++;
    currentPos++; 
