@@ -26,6 +26,7 @@ class gcol
  bool remove_garbage();
  void add_room_to_garbage( room* p_room );
  void add_user_to_garbage( user* p_user );
+ room* get_room_from_garbage();
 };
 
 #endif

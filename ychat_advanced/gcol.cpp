@@ -55,7 +55,15 @@ gcol::add_user_to_garbage( user* p_user )
 bool
 gcol::remove_garbage()
 {
- if ( p_vec_rooms.size() == 0 && p_vec_users.size() == 0 )
+ bool b_empty;
+
+ pthread_mutex_lock  ( &mut_vec_rooms );
+ pthread_mutex_lock  ( &mut_vec_users );
+ b_empty  = ( p_vec_rooms.empty() && p_vec_users.empty() );
+ pthread_mutex_unlock( &mut_vec_users );
+ pthread_mutex_unlock( &mut_vec_rooms );
+
+ if ( b_empty )
   return false;
 
 #ifdef NCURSES
@@ -82,4 +90,21 @@ gcol::remove_garbage()
  return true;
 }
 
+room*
+gcol::get_room_from_garbage()
+{
+ pthread_mutex_lock  ( &mut_vec_rooms );
+
+ if ( p_vec_rooms.empty() )
+ {
+  pthread_mutex_unlock( &mut_vec_rooms );
+  return NULL;
+ }
+
+ room* p_room = p_vec_rooms.back();
+ p_vec_rooms.pop_back();
+ pthread_mutex_unlock( &mut_vec_rooms );
+
+ return p_room;
+}
 #endif

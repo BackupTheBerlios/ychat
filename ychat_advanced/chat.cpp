@@ -79,10 +79,10 @@ chat::login( map_string &map_params )
 
     if ( b_flag )
     {
-        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ONLINE" ); 
-        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" );
-                                    
-        return;
+	map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ONLINE" ); 
+	map_params["request"] = wrap::CONF->get_elem( "STARTMPL" );
+			    
+	return;
     }
 
     string s_room = map_params["room"];
@@ -91,17 +91,31 @@ chat::login( map_string &map_params )
     // if room does not exist add room to list!
     if ( ! b_flag )
     {
-        p_room = new room( s_room );
+     p_room = wrap::GCOL->get_room_from_garbage();
+
+     if ( p_room )
+     {
+      p_room->set_name( s_room );
+#ifdef NCURSES
+      wrap::NCUR->print( REUROOM + s_room );
+#endif
+#ifdef SERVMSG
+      cout << REUROOM + s_room << endl;
+#endif
+     }
+
+     else
+     {
+      p_room = new room( s_room );
 
 #ifdef NCURSES
-
-        string s_tmp( NEWROOM );
-        s_tmp.append( s_room );
-        wrap::NCUR->
-            print( &s_tmp );
+      string s_tmp( NEWROOM );
+      s_tmp.append( s_room );
+      wrap::NCUR->print( &s_tmp );
 #endif
+     }
 
-        add_elem( p_room );
+     add_elem( p_room );
     }
 
     user *p_user = new user( s_user );
