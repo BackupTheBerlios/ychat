@@ -18,40 +18,60 @@ extern "C" {
  {
 	container *c=(container *)v_arg;
 	
-	string *sCommandLine=(string *)c->elem[0]; 	// contains the whole line
+//	string *s_command_line=(string *)c->elem[0]; 	// contains the whole line
 	user *p_user = (user*)c->elem[1];		// the corresponding user
-	str_vector *params=(str_vector*)c->elem[2];	// param array
+	str_vector *params= (str_vector*) c->elem[2];	// param array
 
-        string sColor;
+        string s_color;
+        string s_color2;
+
+        conf* p_conf = (conf*) c->elem[3]; 
 
         if ( params->empty() )
-	 sColor = ((conf*) c->elem[3])->get_val( "USERCOL1" );
+        {
+	 s_color  = p_conf->get_val( "USERCOL1" );
+         s_color2 = p_conf->get_val( "USERCOL2" );
+        }
 
         else
-	 sColor = (string) params->front();
+        {
+	 s_color = (string) params->front();
+         params->erase( params->begin() );
+         if ( ! params->empty() )
+          s_color2 = (string) params->front();
+         else
+          s_color2 = p_conf->get_val( "USERCOL2" );
+        }
 
-	sColor=s_tool::to_lower(sColor);
+	s_color  = s_tool::to_lower( s_color  );
+	s_color2 = s_tool::to_lower( s_color2 );
 
-	if(valid_color(sColor)==1)	
-	{  	
-
-		string *answerstring=new string(p_user->get_name()+ " changes color to " + sColor + "<br>");
-		p_user->msg_post( answerstring );
-		p_user->set_col1(sColor);
-	}else
+	if( valid_color(s_color) != 1  )	
 	{
-		string *answerstring=new string(sColor + " is not a valid color.<br>");
+		string *answerstring=new string(s_color + " is not a valid color.<br>\n");
+		p_user->msg_post( answerstring );
+	}
+	else if( valid_color(s_color2) != 1  )	
+	{
+		string *answerstring=new string(s_color2 + " is not a valid color.<br>\n");
+		p_user->msg_post( answerstring );
+	}
+        else  
+	{  	
+		p_user->set_col1(s_color);
+		p_user->set_col2(s_color2);
+		string *answerstring=new string(p_user->get_name()+ " changes color to " + s_color + " " + s_color2 + "<br>\n");
 		p_user->msg_post( answerstring );
 	}
  }
- int valid_color( string sCol ){
+ int valid_color( string s_color ){
 	
-	if(sCol.size()!=6) return 0;
+	if(s_color.size()!=6) return 0;
 	string valid="abcdef0123456789";
-	for(int i=0;i<sCol.size();i++)
+	for(int i=0;i<s_color.size();i++)
 	{
-		string sChar=sCol.substr(i,1);
-		if(valid.find(sChar)==string::npos)
+		string s_char=s_color.substr(i,1);
+		if(valid.find(s_char)==string::npos)
 		return 0;
 	}	
 	return 1;

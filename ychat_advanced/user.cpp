@@ -16,6 +16,8 @@ user::user( string s_name ) : name( s_name )
     this -> l_time   = s_tool::unixtime();
     this -> s_col1   = s_conf::get
                            ().get_val( "USERCOL1" );
+    this -> s_col2   = s_conf::get
+                           ().get_val( "USERCOL2" );
     map_mods = new hmap<dynmod*,string>(80);
 
     pthread_mutex_init( &mut_b_online, NULL);
@@ -27,6 +29,7 @@ user::user( string s_name ) : name( s_name )
     pthread_mutex_init( &mut_message , NULL);
     pthread_mutex_init( &mut_map_mods, NULL );
     pthread_mutex_init( &mut_s_col1, NULL );
+    pthread_mutex_init( &mut_s_col2, NULL );
     pthread_mutex_init( &mut_s_id, NULL );
     pthread_mutex_init( &mut_r_rang, NULL );
 }
@@ -41,6 +44,7 @@ user::~user()
     pthread_cond_destroy ( &cond_message );
     pthread_mutex_destroy( &mut_message  );
     pthread_mutex_destroy( &mut_s_col1   );
+    pthread_mutex_destroy( &mut_s_col2   );
     pthread_mutex_destroy( &mut_s_id     );
     pthread_mutex_destroy( &mut_r_rang   );
 }
@@ -130,6 +134,16 @@ user::get_col1()
 }
 
 string
+user::get_col2()
+{
+    string s_ret;
+    pthread_mutex_lock  ( &mut_s_col2 );
+    s_ret = s_col2;
+    pthread_mutex_unlock( &mut_s_col2 );
+    return s_ret;
+}
+
+string
 user::get_id()
 {
     string s_ret;
@@ -153,6 +167,14 @@ user::set_col1  ( string s_col1 )
     pthread_mutex_lock  ( &mut_s_col1 );
     this -> s_col1 = s_col1;
     pthread_mutex_unlock( &mut_s_col1 );
+}
+
+void
+user::set_col2  ( string s_col2 )
+{
+    pthread_mutex_lock  ( &mut_s_col2 );
+    this -> s_col2 = s_col2;
+    pthread_mutex_unlock( &mut_s_col2 );
 }
 
 rang

@@ -24,6 +24,7 @@ private:
     string s_agnt;   // user's http user agent.
     string s_away;   // user's last away message.
     string s_col1;   // user's nick color.
+    string s_col2;   // user's text color.
     string s_mess;   // message string which has to be sent to the user.
     room*  p_room;   // pointer to the user's room.
 
@@ -37,6 +38,7 @@ private:
     pthread_mutex_t mut_s_mess;
     pthread_mutex_t mut_p_room;
     pthread_mutex_t mut_s_col1;
+    pthread_mutex_t mut_s_col2;
     pthread_mutex_t mut_s_id;
     pthread_mutex_t mut_r_rang;
 
@@ -61,9 +63,11 @@ public:
     virtual int   get_sock  ( );
     virtual void  set_sock  ( int i_sock );
     virtual string get_col1();
+    virtual string get_col2();
     virtual string get_id();
     virtual void   set_id( string s_id );
     virtual void   set_col1( string s_col1 );
+    virtual void   set_col2( string s_col2 );
     virtual rang   get_rang( );
     virtual void   set_rang( rang   r_rang );
     virtual bool   new_msgs  ( );

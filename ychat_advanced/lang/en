@@ -3,5 +3,5 @@ USERENTR=" enters the chat<br>";
 USERLEAV=" leaves the chat<br>";
 
 # Chat-Hilfe ( || seperates command syntax and command description. )
-mods/commands/yc_col.so="/col COLORCODE||Changing the color";
-mods/commands/yc_q.so="/q||Quiting the chat";
+mods/commands/yc_col.so="/col NICKCOLOR TEXTCOLOR||Changing the color";
+mods/commands/yc_q.so="/q||Leaving the chat";
