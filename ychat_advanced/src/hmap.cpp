@@ -111,9 +111,12 @@ obj_type hmap<obj_type, key_type>::get_elem( const key_type &k )
 {
     int i_current_pos = find_pos( k );
     if( is_active( i_current_pos ) )
-        return array[ i_current_pos ].element;
-    else
-        return NULL;
+    {
+        array[i_current_pos ].hits++;
+        return array[i_current_pos].element;
+    }
+
+    return NULL;
 }
 
 template <class obj_type, class key_type>
@@ -216,6 +219,7 @@ hmap<obj_type, key_type>::get_key_vector()
 
     return p_vec;
 }
+
 
 template<class obj_type, class key_type> int
 hmap<obj_type, key_type>::get_size()

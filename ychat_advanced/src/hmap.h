@@ -28,6 +28,7 @@ protected:
         obj_type   element;
         key_type   key;
         entry_type info;
+        int        hits;
 
         hash_entry( const obj_type &e = obj_type( ), const key_type &k = key_type( ), entry_type i = EMPTY ) : element( e ), key( k ), info( i )
         { }

@@ -64,7 +64,7 @@ chat::login( map_string &map_params )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NONICK" );
         map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
-                                    
+        wrap::system_message( LOGINE0 );
         return;
     }
 
@@ -73,7 +73,7 @@ chat::login( map_string &map_params )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ALPNUM" );
         map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
-                                    
+        wrap::system_message( LOGINE1 + s_user  );
         return;
     }
 
@@ -82,7 +82,7 @@ chat::login( map_string &map_params )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NICK_LENGTH" );
         map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
-                                    
+        wrap::system_message( LOGINE2 + s_user  );
         return;
     }
 
@@ -91,7 +91,7 @@ chat::login( map_string &map_params )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ROOMNAME_LENGTH" );
         map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
-                                    
+        wrap::system_message( LOGINE3 + s_user + " / " + map_params["room"] );
         return;
     }
 
@@ -100,7 +100,7 @@ chat::login( map_string &map_params )
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NOROOM" );
         map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
-                                    
+        wrap::system_message( LOGINE3 + s_user + " / " + map_params["room"] );
         return;
     }
 
@@ -127,6 +127,7 @@ chat::login( map_string &map_params )
      {
       map_params["INFO"]    = wrap::LANG->get_elem( "ERR_WRONG_PASSWORD" );
       map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+      wrap::system_message( LOGINER + s_user );
       return;
      }
      if ( p_user->get_has_sess() )
@@ -159,6 +160,7 @@ chat::login( map_string &map_params )
       {
        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_WRONG_PASSWORD" );
        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+       wrap::system_message( LOGINER + s_user );
        return;
       }
       else

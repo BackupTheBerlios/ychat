@@ -121,6 +121,8 @@ PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "O
 
 # LOGGING:
 
+# Set to ON if logging should be active 
+
 # Relative or absolute path to logfiles 
 # Apache combined style logs
 LOG_ACCESS_FILE="log/access_log";
