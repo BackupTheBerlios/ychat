@@ -43,13 +43,16 @@
 // include the socket manager.
 #include "s_sock.h"
 
-// include the language manager
+// include the language manager.
 #include "s_lang.h"
 
-// include the session manager
+// include the ncurses admin menu.
+#include "s_ncur.h"
+
+// include the session manager.
 #include "s_sman.h"
 
-// include the MySQL Connection Manager
+// include the MySQL Connection Manager.
 #include "s_mman.h"
 
 using namespace std;
@@ -57,7 +60,6 @@ using namespace std;
 int main()
 {
 #ifdef VERBOSE
-
 cout  <<  "         ___ _           _   "     << endl
       <<  " _   _  / __\\ |__   __ _| |_ "    << endl
       <<  "| | | |/ /  | '_ \\ / _` | __|"    << endl
@@ -86,9 +88,13 @@ cout  <<  "         ___ _           _   "     << endl
  s_lang::init(); // init the language manager
  s_sman::init(); // init the session manager.
  s_modl::init(); // init the module-loader manager. 
- s_mman::init(); 
+ s_mman::init(); // init the mysql connection manager.
+ s_ncur::init(); // init the ncurses admin interface.
  s_sock::init(); // init the socket manager. 
  s_chat::init(); // init the chat manager.
+
+ // begin to draw the ncurses amdin interface.
+// s_ncur::get().start();  NOT FULLY IMPLEMENTED YET! IN DEVELOPING!
  
  // start the socket manager. this one will listen for incoming http requests and will
  // forward them to the specified routines which will generate a http response.

@@ -1,6 +1,6 @@
 BRAIN-STORMING:
 
-mysql
+add libmysqlclient and ncurses test to the configure script
 user profiles
 security: crypto
 more modules: commands etc..

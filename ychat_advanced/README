@@ -22,6 +22,7 @@ Requirements:
 
 MySQL-Server 4.x
 MySQL-Client 4.x
+libncurses
 
 Notes: I programmed this on FreeBSD but should also compile without 
 big problems on Linux or other UNIX-like systems.
@@ -31,15 +32,23 @@ right here:
 
 The following platforms have been tested with success:
 
+- Linux Kernel 2.4.19, GCC 3.2.0, GNU make 3.79.1
+
 - FreeBSD 5.0-RELEASE, GCC 3.2.1, FreeBSD 5.0 make and GNU make 3.80
 
 - FreeBSD 4.8-STABLE, GCC 3.2, FreeBSD 4.8 make and GNU make 3.80
 
-- Linux Kernel 2.4.19, GCC 3.2.0, GNU make 3.79.1
+  FreeBSD note: You must do a
+
+    ln -s /usr/local/lib/mysql/libmysqlclient.so \
+    /usr/local/lib/libmysqlclient.so
+
+ before being able to compile yChat correctly.
 
 Before you compile the source you have to be sure to use at least GCC
 version 3.x with pthreads enabled. ( Type gcc -v to check it ).
-GCC 2.95 did not work while testing on linux and won't be supported!
+GCC 2.95 did not work while testing on linux and won't be supported
+( although it seems to work with GCC 2.95 on FreeBSD 4.8 )!
 
 If you like to support yChat++, please write me an email and tell me
 what you can/like/would help ;-]. Please also take a look at the
@@ -176,11 +185,3 @@ The basic class structure:
   /      \
 conf     html
 
-Version  Lines of code
- 0.1     2402
- 0.2     2377
-
-New in 0.2:
- - POST request now work.
- - Thread pool ( pool.cpp ).
- - Bugfixes 

@@ -21,9 +21,9 @@
 // max length of a line read from a socket or a file ( config-file, html-template ).
 #define READBUF 1024
 
-// definition for verbosity level 0 ( normal outputs ). see vmsg.h for custumizing all 
+// definition for verbosity level ( normal outputs ). see vmsg.h for custumizing all 
 // the messages. this messages will only printed out by the master thread.
-#define VERBOSE
+//#define VERBOSE
 
 
 //////////////////////////////////////////////////////////////////////////////////////////

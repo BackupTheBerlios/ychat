@@ -8,11 +8,7 @@
 #define E_NOTONL "An error occured. Your nick is not online.<br><br>"
 #define E_ONLINE "The nick you have specified is already online. Try another nick.<br><br>"
 
-// all the custom messages for verbosity outputs. this messages may not
-// be used for html-template value substituation except the CONTACT and
-// DESCRIP variables. the verbosity output will appear in the standard
-// output of the server.
-// alphabetical ordered.
+// alphabetical ordered:
 #define CFILEOK "Parsing config file "
 #define CFILENO "Failed opening config file "
 #define CONNECT "Receiving connection "
