@@ -100,7 +100,7 @@ menu::start()
    case 10: i_choice = i_highlight; break;
 
    default:
-    mvprintw( 0, 3, "%3d %c", c, c);
+    mvprintw( 1, 70, "%3d %c", c, c);
     refresh();
    break;
   }
