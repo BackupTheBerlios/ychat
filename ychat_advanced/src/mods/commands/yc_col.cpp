@@ -3,6 +3,7 @@
 #include "../../room.h"
 #include "../../user.h"
 #include "../../tool.h"
+
 /*
  gcc -shared -o yc_name.so yc_name.cpp
 */
