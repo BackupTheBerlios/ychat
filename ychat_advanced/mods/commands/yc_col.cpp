@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../conf.h"
+#include "../../wrap.h"
 #include "../../room.h"
 #include "../../user.h"
 #include "../../tool.cpp"
@@ -19,14 +19,13 @@ extern "C" {
  {
 	container *c=(container *)v_arg;
 	
-//	string *s_command_line=(string *)c->elem[0]; 	// contains the whole line
 	user *p_user = (user*)c->elem[1];		// the corresponding user
 	str_vector *params= (str_vector*) c->elem[2];	// param array
 
         string s_color;
         string s_color2;
 
-        conf* p_conf = (conf*) c->elem[3]; 
+        conf* p_conf = (conf*) ((dynamic_wrap*)c->elem[3])->CONF; 
 
         if ( params->empty() )
         {

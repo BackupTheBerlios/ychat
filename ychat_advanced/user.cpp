@@ -207,7 +207,6 @@ user::new_msgs  ( )
 void
 user::command( string &s_command )
 {
-
     auto unsigned int pos = s_command.find( "/" );
     auto unsigned int pos2 = s_command.find( " " );
     if( pos != string::npos )
@@ -266,7 +265,7 @@ user::command( string &s_command )
     c->elem[0]=(void*) ptr_command;
     c->elem[1]=(void*) this;
     c->elem[2]=(void*) &params;
-    c->elem[3]=(void*) &wrap::CONF;
+    c->elem[3]=(void*) wrap::WRAP;
 
     ( *(mod->the_func) ) ( (void*) c );
 
