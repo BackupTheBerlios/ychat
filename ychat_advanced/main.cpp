@@ -49,6 +49,9 @@
 // include the session manager
 #include "s_sman.h"
 
+// include the MySQL Connection Manager
+#include "s_mman.h"
+
 using namespace std;
 
 int main()
@@ -83,6 +86,7 @@ cout  <<  "         ___ _           _   "     << endl
  s_lang::init(); // init the language manager
  s_sman::init(); // init the session manager.
  s_modl::init(); // init the module-loader manager. 
+ s_mman::init(); 
  s_sock::init(); // init the socket manager. 
  s_chat::init(); // init the chat manager.
  

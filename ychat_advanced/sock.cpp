@@ -13,6 +13,7 @@
 #include "s_tool.h"
 #include "s_lang.h"
 #include "s_sman.h"
+#include "s_mman.h"
 #include "chat.h"
 #include "user.h"
 

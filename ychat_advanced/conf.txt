@@ -23,6 +23,16 @@ SRVRPORT="2000";   # local port on which the server listens.
 STRDROOM="Lounge"; # the name of the standard room.
 LANGUAGE="en"; # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
 
+# MySQL Settings
+MYSQL_HOST="localhost";
+MYSQL_USER="root";
+MYSQL_PASS="";
+MYSQL_DB="ychat";
+
+#MySQL Connection Manager Settings
+MIN_CONNECTIONS="1";
+MAX_CONNECTIONS="5";
+
 # the html template file which will be send if the requested file does not exists. 
 NOTFOUND="notfound.html";
 # specifies the standard start html-template. 
