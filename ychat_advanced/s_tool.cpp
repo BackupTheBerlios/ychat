@@ -119,4 +119,13 @@ s_tool::strip_html( string *s_str )
 
 
 }
+string
+s_tool::to_lower( string s )
+{
+	string s_tmp("");
+	for(int i=0;i < s.size() ;i++)
+		s_tmp=s_tmp+(char)tolower(s.at(i));
+
+	return s_tmp;
+}
 #endif
