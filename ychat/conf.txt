@@ -40,6 +40,9 @@ SULEVEL5="Guest"; # guest user, has almost no privileges.
 SULEVEL6="Restr"; # a very restricted user.
 SULEVEL7="Outbn"; # banned out of the system.
 
+# length of the generated session id
+SESSION_LENGTH="64";
+
 # html = "OFF" strips all html tags from incoming messages
 HTML="OFF";
 

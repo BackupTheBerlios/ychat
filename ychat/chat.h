@@ -8,7 +8,9 @@
 #include "base.h"
 #include "room.h"
 #include "user.h"
+#include "sess.h"
 #include "s_lang.h"
+#include "s_sman.h"
 
 using namespace std;
 

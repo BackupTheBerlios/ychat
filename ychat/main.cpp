@@ -46,6 +46,9 @@
 // include the language manager
 #include "s_lang.h"
 
+// include the session manager
+#include "s_sman.h"
+
 using namespace std;
 
 int main()
@@ -78,6 +81,7 @@ cout  <<  "         ___ _           _   "     << endl
  s_conf::init(); // init the config manager.
  s_html::init(); // init the html-template manager. 
  s_lang::init(); // init the language manager
+ s_sman::init(); // init the session manager.
  s_modl::init(); // init the module-loader manager. 
  s_sock::init(); // init the socket manager. 
  s_chat::init(); // init the chat manager.

@@ -106,7 +106,8 @@ chat::login( map_string &map_params )
 
  // add user to the room.
  p_room->add_user( p_user );
-
+ sess *ns =s_sman::get().createSession();
+ map_params["tmpid"]=ns->getId();
  // post "username enters the chat" into the room.
  p_room->msg_post( new string( s_user.append( s_lang::get().get_val( "USERENTR" ) ) ) );  
 
