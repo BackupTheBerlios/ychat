@@ -49,6 +49,9 @@ html::parse( map_string &map_params )
   {
   
    cerr << "File not found: " << s_file << endl;
+   if(map_params["request"]==s_conf::get().get_val( "NOTFOUND"  ))
+	return "";
+   
    map_params["request"] = s_conf::get().get_val( "NOTFOUND" );
    return parse( map_params );
  
