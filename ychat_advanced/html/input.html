@@ -32,7 +32,7 @@
   <form name="input" action="input.html" target="blank" onsubmit="return delout();">
    <input type="hidden" name="event"   value="post"> 
    <input type="hidden" name="tmpid"   value="%%tmpid%%"> 
-   <input type="text"   name="message" size="50">
+   <input type="text"   name="message" size="60" maxlength="%%MAX_MESSAGE_LENGTH%%">
    <input type="submit" value="send" accesskey='s'>
    <input type="button" value="select"  accesskey='e' onclick="javascript:selectinput();">
   </form>

@@ -16,6 +16,7 @@ ERRORCMD=" <font color='#FF0000'>No such command!</font><br>";
 ERR_ALPNUM="The nick you have specified is not alphanumeric, please change that.<br><br>";
 ERR_CHANGE_PASSWORD="The old password you've entered is wrong. In order to change your password you need to enter a correct old passwort!<br><br>";
 ERR_CHANGE_PASSWORD2="The two password fields of the new password are not identical. Please chack that again otherwise the password will not be changed!<br><br>";
+ERR_MESSAGE_LENGTH="Your message was too long and has been cut!";
 ERR_NICK_LENGTH="Your nick is too long!<br><br>";
 ERR_PASS_LENGTH="Your password is too long!<br><br>";
 ERR_EMAIL_LENGTH="Your email address is too long!<br><br>";

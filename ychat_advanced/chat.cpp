@@ -14,6 +14,8 @@ chat::chat( )
             b_strip_html = true;
     else
         b_strip_html = false;
+
+    i_max_message_length = tool::string2int(wrap::CONF->get_elem( "MAX_MESSAGE_LENGTH" ));
 }
 
 chat::~chat( )
@@ -230,6 +232,16 @@ void
 chat::post( user* p_user, map_string &map_params )
 {
     string s_msg( map_params["message"] );
+
+    if ( s_msg.length() > i_max_message_length )
+    {
+     s_msg = s_msg.substr( 0, i_max_message_length );
+     string s_private = "<font color=\"" + wrap::CONF->get_elem( "ERRORCOL" ) + "\">"
+                       + wrap::LANG->get_elem( "ERR_MESSAGE_LENGTH" ) + "</font><br>\n";
+     p_user->msg_post( &s_private );
+    } 
+    
+
     if ( b_strip_html )
         tool::strip_html( &s_msg );
     auto unsigned i_pos = s_msg.find( "/" );

@@ -41,6 +41,9 @@ LANGUAGE="en";
 # the html site which will be send if the requested file does not exists. 
 NOTFOUND="notfound.html";
 
+# Maximum length of a chat message
+MAX_MESSAGE_LENGTH="500";
+
 # Maximum length of a nickname
 MAX_NICK_LENGTH="15";
 
