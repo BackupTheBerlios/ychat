@@ -34,6 +34,9 @@ private:
  logd* log_daemon; // the log daemon
  char* c_buffer;   // char buffer!
 
+ int   i_threads;     // total amount of threads inside the thread pool.
+ pthread_mutex_t mut_threads;
+
  // creates a server socket.
  virtual int make_socket( uint16_t port );
 
@@ -44,12 +47,18 @@ public:
 
  // public methods.
  explicit sock( ); // simple constructor.
+         ~sock( );
  virtual int  read_write( thrd* p_thrd, int filedes   );
  virtual int  start();
 
  // the chat stream there all the chat messages will sent through.
  static void chat_stream( int i_sock, user* p_user, map_string &map_params );
 
+ void increase_num_threads();
+ void decrease_num_threads();
+#ifdef NCURSES
+ void print_threads();
+#endif
 };
 
 #endif

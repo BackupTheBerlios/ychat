@@ -24,9 +24,18 @@ sock::sock()
 {
  this->b_run      = true;
  this->i_req      = 0;
+ this->i_threads  = 2; // currently there are 2 threads running ( admin interface + server listening );
  this->req_parser = new reqp();
  this->thrd_pool  = new pool();
  this->log_daemon = new logd(s_conf::get().get_val( "ACCESS_LOG" ));
+
+
+ pthread_mutex_init( &mut_threads, NULL );
+}
+
+sock::~sock()
+{
+ pthread_mutex_destroy( &mut_threads );
 }
 
 void
@@ -296,5 +305,34 @@ sock::start()
    }
  }
 }
+
+void
+sock::increase_num_threads() {
+  pthread_mutex_lock( &mut_threads );
+  i_threads++;
+#ifdef NCURSES
+  print_threads();
+#endif
+  pthread_mutex_unlock( &mut_threads );
+}
+
+void
+sock::decrease_num_threads() {
+  pthread_mutex_lock( &mut_threads );
+  i_threads--;
+#ifdef NCURSES
+  print_threads();
+#endif
+  pthread_mutex_unlock( &mut_threads );
+}
+
+#ifdef NCURSES
+void
+sock::print_threads()
+{
+   mvprintw( 22,25, "Threads: %d ", i_threads);
+   refresh();
+ }
+#endif
 
 #endif

@@ -8,6 +8,8 @@
 #include "s_conf.h"
 #include "s_mutx.h"
 #include "s_tool.h"
+#include "s_ncur.h"
+#include "s_sock.h"
 #include "thrd.h"
 
 using namespace std;
@@ -16,7 +18,6 @@ pool::pool()
 {
  i_thrd_pool_size  = s_tool::string2int( s_conf::get().get_val( "THRDPOOL" ) );
  i_thrd_pool_queue = s_tool::string2int( s_conf::get().get_val( "THRDQUEU" ) );
-
  tpool_init( &thread_pool, i_thrd_pool_size, i_thrd_pool_queue, 0 );
 }
 
@@ -140,6 +141,8 @@ pool::tpool_thread( void* arg )
 
 void pool::run_func( void *v_pointer )
 {
+  s_sock::get().increase_num_threads();
+
   // recasting the client thread object.
   thrd *t = (thrd*) v_pointer;
 
@@ -148,6 +151,8 @@ void pool::run_func( void *v_pointer )
 
   // close the client socket.
   t->~thrd();
+
+  s_sock::get().decrease_num_threads();
 
   free(v_pointer);
 }
