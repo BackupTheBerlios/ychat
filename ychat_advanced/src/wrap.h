@@ -7,6 +7,7 @@
 #include "gcol.h"
 #include "html.h"
 #include "lang.h"
+#include "logd.h"
 #include "mman.h"
 #include "modl.h"
 #include "mutx.h"
@@ -26,6 +27,7 @@ class dynamic_wrap
     gcol* GCOL;
     html* HTML;
     lang* LANG;
+    logd* LOGD;
     mman* MMAN;
     modl* MODL;
     mutx* MUTX;
@@ -54,6 +56,7 @@ public:
     static gcol* GCOL;
     static html* HTML;
     static lang* LANG;
+    static logd* LOGD;
     static mman* MMAN;
     static modl* MODL;
     static mutx* MUTX;

@@ -68,6 +68,10 @@ int main()
     // init the language manager
     wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_elem("LANGUAGE") ); 
 
+    // init the system message logd 
+    wrap::WRAP->LOGD = wrap::LOGD = new logd( wrap::CONF->get_elem("LOG_SYSTEM_FILE"),
+                                              wrap::CONF->get_elem("LOG_SYSTEM_LINES") );
+
     // init the session manager.
     wrap::WRAP->SMAN = wrap::SMAN = new sman(); 
 

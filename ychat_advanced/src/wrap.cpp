@@ -11,6 +11,7 @@ data* wrap::DATA;
 gcol* wrap::GCOL;
 html* wrap::HTML;
 lang* wrap::LANG;
+logd* wrap::LOGD;
 mman* wrap::MMAN;
 modl* wrap::MODL;
 mutx* wrap::MUTX;
@@ -31,5 +32,6 @@ wrap::system_message( string s_message )
    cout << s_message << endl;
    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
+   wrap::LOGD->log_simple_line( s_message );
 }
 #endif

@@ -122,13 +122,17 @@ PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "O
 
 # LOGGING:
 
-# Relative or absolute path to logfile (Apache combined style)
-ACCESS_LOG="log/access_log";
+# Relative or absolute path to logfiles 
+# Apache combined style logs
+LOG_ACCESS_FILE="log/access_log";
+# yChat system messages
+LOG_SYSTEM_FILE="log/system_log";
 
 # We're using buffered logging for performance
 # LOG_LINES specifies after how many lines the log is flushed into a file
 # if you don't want buffered logging set LOG_LINES to 1.
-LOG_LINES="10";
+LOG_ACCESS_LINES="10";
+LOG_SYSTEM_LINES="10";
 
 # HTML VARIABLES:
 

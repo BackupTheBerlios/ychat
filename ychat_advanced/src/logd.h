@@ -13,11 +13,18 @@ private:
     string s_logfile;
     queue<string> s_queue;
     int i_lines;
+    void initialize( string s_filename, int i_log_lines );
+    void flush();
+    string get_time_string();
+
 public:
-    logd( string filename );
+    logd( string s_filename, string s_log_lines );
+    logd( string s_filename, int i_log_lines );
     ~logd();
 
-    void flush();
-    void log( map_string request );
+    void log_access( map_string request );
+    void log_simple_line( string s_line );
 };
+
+
 #endif

@@ -19,7 +19,8 @@ sock::sock()
 #endif
     this->req_parser = new reqp();
     this->thrd_pool  = new pool();
-    this->log_daemon = new logd( wrap::CONF->get_elem( "ACCESS_LOG" ));
+    this->log_daemon = new logd( wrap::CONF->get_elem( "LOG_ACCESS_FILE" ),
+                                 wrap::CONF->get_elem( "LOG_ACCESS_LINES" ) );
 
     pthread_mutex_init( &mut_threads, NULL );
 }
@@ -157,7 +158,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
 
         string s_rep = req_parser->parse( p_thrd, string( c_req ), map_params );
         // send s_rep to the client.
-        log_daemon->log(map_params);
+        log_daemon->log_access(map_params);
 
         send( i_sock, s_rep.c_str(), s_rep.size(), 0 );
 
