@@ -18,67 +18,114 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 -----------------------------------------------------------------
 
-Requirements: 
+0.0.0 YCHAT++ ADVANCED TABLE OF CONTENTS 
+1.0.0 REQUIREMENTS
+1.1.0 TESTED PLATFORMS
+1.2.0 IMPORTANT NOTES
+1.3.0 HOW TO OBTAIN YCHAT++ 
+1.3.1 INSTALLATION
+1.4.0 HOW TO USE SCREEN WITH YCHAT++
+1.5.0 CUSTOMIZATION
+1.6.0 FILES
+1.8.0 CONTACT
 
-MySQL-Server 4.x
-MySQL-Client 4.x
-libncurses
+1.0.0 REQUIREMENTS: 
 
-Notes: I programmed this on FreeBSD but should also compile without 
-big problems on Linux or other UNIX-like systems.
-If you have tested one of those then pleace write me the name of the OS,
-kernel version, make version and compiler & version. I will list it
-right here:
+- gcc 3.2
+  The GNU C++ compiler.
+
+- mysql-client 4.x ( 3.x may do too )
+  Includes libmysqlclient and the mysql.h header files.
+
+- ncurses 5.x   
+  Includes libncurses and the ncurses.h header files.
+
+- screen
+  Only needed if yChat should run in background with
+  ncurses enabled.
+
+1.1.0 TESTED PLATFOTMS:
 
 The following platforms have been tested with success:
 
-- Linux Kernel 2.4.19, GCC 3.2.0, GNU make 3.79.1
-
+- Linux with GCC 3.2.0, GNU make 3.79.1
 - FreeBSD 5.0-RELEASE, GCC 3.2.1, FreeBSD 5.0 make and GNU make 3.80
+- FreeBSD 5.1-RELEASE, GCC 3.2.2, FreeBSD 5.1 make and GNU make 3.80
 
-- FreeBSD 4.8-STABLE, GCC 2.95, FreeBSD 4.8 make and GNU make 3.80
-  ( Dynamic modules segfault, this wont be fixed because we focus on
-    gcc 3.x ).
-
-  FreeBSD note: You must do a
-    ln -s /usr/local/lib/mysql/libmysqlclient.so \
-    /usr/local/lib/libmysqlclient.so
-
- before being able to compile yChat correctly.
+1.2.0 IMPORTANT NOTES:
 
 Before you compile the source you have to be sure to use at least GCC
 version 3.x with pthreads enabled. ( Type gcc -v to check it ).
-GCC 2.95 did not work while testing on linux and won't be supported!
+GCC 2.95 did not work while testing on linux and WON'T BE SUPPORTED!
+If you like to support yChat++, please write us an email and tell what 
+you can/like/would help ;-]. Please also take a look at the yChat++
+homepage which is located at http://www.yChat.org.
 
-If you like to support yChat++, please write me an email and tell me
-what you can/like/would help ;-]. Please also take a look at the
-yChat++ homepage ( www.yChat.org ).
+1.3.0 HOW TO OBTAIN YCHAT++:
 
-Installation: Just invoke "./configure" and afterwards "make", edit the 
-conf.txt and run the server with ./ychat. Then point your webbrowser
-to http://yourip:port/index.html
-( ignoring the index.html on the end of the url will not work! ).
+yChat can be downloaded as a source package or through CVS. 
+
+The packages are located at http://www.yChat.org -> Sourcecode -> 
+Packages or go to http://programming.buetow.org/CPP-yChat .
+
+For CVS download type:
+
+cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat login
+( You will be asked for a password. Use "just enter" ).
+
+cvs -z3 -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat co \
+ ychat_advanced
+( The sources will be copied into your local folder. However, if you 
+  want to obtain the yChat++ Basic sources then replace "ychat_advanced"
+  "ychat" ).
+
+cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat login
+( Logs your CVS session out ).
+
+Now you may continue with the installation.
+
+1.3.1 INSTALLATION:
+
+If you dont want to use yChat's ncurses based administration interface 
+you may remove the #define NCURSES line in the glob.h and enable
+#define SERVMSG and #define VERBOSE instead.
+
+Now invoke "./configure" and afterwards "make", edit the conf.txt ( be 
+sure to enter valid mysql data ) hostand run the server with ./ychat.
+Then point your webbrowser tp http://yourip:port/index.html ( ignoring
+the index.html on the end of the url will not work! ). 
 ... have fun :-).
 
-If you are running ychat in ncurses mode you might want to install
+1.4.0 HOW TO USE SCREEN WITH YCHAT++:
+
+If you are running yChat in ncurses mode you might want to install
 the tool which is called "screen". This will enable you putting the
-ncurses interface to the background, closing the terminal session
+ncurses interface into the background, closing the terminal session
 and reusing the interface later through another terminal. 
 
 Just do:
  
- screen ./ychat
- strg+d+a ( will detach ychat )
+ screen -S ychat ./ychat ( creates a new session and starts ychat in it )
+ strg+d+a ( will detach the ychat session )
  ( closing the terminal )
  ( opening a new terminal )
- screen -r ( will print a list of all screen sessions )
- screen -r PID ( will return you to ychat )
+ screen -r ychat ( will return you to the ychat process )
 
-If you like customizing the design/layout/language of yChat, you will have 
+Screen will terminate automaticaly if all processes in its sessions are 
+terminated.
+
+For a closer look read the screen manual page ( man screen ). 
+
+1.5.0 CUSTOMIZATION:
+
+If you like to customize the design/layout/language of yChat, you will have 
 to edit msgs.h and glob.h before you compile the sources. Afterwards you can
-change the html-template files which are placed in the html/ subdirectory.
+change the html-template files which are placed in the html/ subdirectory and
+the language-template files which are placed in the lang/ subdirectory.
+Dynamic loadable modules with can be found in the mods/ subdirectory. ( chat
+commands are realized through modules too ).
 
-Files: 
+1.6.0 FILES: ( This list is not complete )
 
 conf.txt - The yChat configuration file. ( read by conf.cpp ).
 
@@ -185,7 +232,6 @@ msgs.h  -  Defines console output messages for verbosity level 0 ( see
            all the system messages. you may edit this file for translating
            the system user language.
 
-
 The basic class structure:
 
  base<room> base<user>
@@ -199,3 +245,20 @@ The basic class structure:
   /      \
 conf     html
 
+1.8 CONTACT:
+
+You may contact us through the following addresses:
+
+- Homepage
+  The yChat homepage is located at http://www.yChat.org
+
+- E-Mail
+  Paul C. Buetow: Snooper@yChat.org ( core developer )
+  Volker Richter: Rover@yChat.org ( core developer )
+  Mail@yChat.org ( reaches everybody of yChat )
+ 
+- ICQ
+  Paul C. Buetow: 11655527
+
+- IRC
+  #ychat at irc.german-elite.net  
