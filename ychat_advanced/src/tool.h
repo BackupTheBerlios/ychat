@@ -23,6 +23,7 @@ public:
     }
 
     static char* int2char( int i_int );
+    static char* clean_char( char* c_str);
     static string trim( string s_str );
     static string int2string( int i_int )
     {

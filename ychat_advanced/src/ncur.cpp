@@ -46,7 +46,8 @@ ncur::start( void *v_pointer )
                           "Update sources via CVS  ",
                           "Compile changed sources ",
                           "Recompile all sources   ",
-                          "Shut down server",
+                          "Show source stats       ",
+                          "Shut down server"
                       };
 
     admin_interface->p_serveroutput = newwin( 19, 49, 1, 31 );
@@ -81,7 +82,7 @@ ncur::shutdown()
 void
 ncur::print( string *p_msg )
 {
-    print( (char*)p_msg->c_str() );
+    print( *p_msg );
 }
 
 void
@@ -93,17 +94,19 @@ ncur::print( string s_msg )
 void
 ncur::print( char* c_print )
 {
-    if ( strlen( c_print ) > i_message_length )
+  
+    // Removing \n
+    if ( strlen(c_print) > i_message_length )
     {
-	string s_tmp( c_print );
+        string s_tmp(c_print);
 	print( s_tmp.substr( 0, i_message_length ) );
-        print( s_tmp.substr( i_message_length, s_tmp.length() ) ); 
+        print( s_tmp.substr( i_message_length, s_tmp.length()-i_message_length ) ); 
 	return;
     }	
 
+    int i;
     char* c_temp = new char[i_message_length];
     memcpy( c_temp, c_print, strlen(c_print) );
-    int i;
     for ( i = strlen(c_print); i < i_message_length; i++ )
         c_temp[i] = ' ';
     c_temp[i] = '\0';
@@ -177,7 +180,10 @@ ncur::switch_main_menu_( int i_choice )
             for ( i = 0; i < GMAKE_ELEMENTS; i++ )
               tool::shell_command( GMAKE + GMAKE_PARAMS[i] + " 2> error.log");
             break;
-        case 8: // Shut down server
+        case 8:
+            tool::shell_command( string(GMAKE) + " stats 2> error.log");
+            break;
+        case 9: // Shut down server
             if ( ! wrap::GCOL->remove_garbage() )
              wrap::NCUR->print( GARNONE );
             mvprintw( 21,2, "Good bye !");

@@ -6,6 +6,7 @@ clean_modules:
 	gmake -C ./src/mods clean
 base:	
 	@echo backing up old binary
+	if test -f bin/ychat.old; then rm -f bin/ychat.old; fi
 	if test -f bin/ychat; then mv bin/ychat bin/ychat.old; fi
 	@perl ./scripts/buildnr.pl || ./scripts/noperl.sh
 	@perl ./scripts/setglobvals.pl || ./scripts/noperl.sh
@@ -28,7 +29,7 @@ cvsupdate:
 	cp lang/en lang/en.old &&
 	cp lang/de lang/de.old &&
 	@echo "Running cvs update" &&
-	mv src/msgs.h src/msgs.h.bak &&
+	if test -f src/msgs.h; then mv src/msgs.h src/msgs.h.old; fi &&
 	cvs update &&
 	cvs logout &&
 	@echo "Done updating CVS sources!" &&

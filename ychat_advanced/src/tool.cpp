@@ -40,6 +40,25 @@ tool::trim( string s_str )
     return s_str;
 }
 
+char*
+tool::clean_char( char* c_str )
+{
+ int i_len = strlen(c_str);
+
+ if(i_len == 0)
+  return c_str;
+
+ char* c_pos = c_str;
+
+ while ( *c_pos != '\0' )
+ {
+  if ( iscntrl(*c_pos) )
+    *c_pos = ' ';
+  c_pos++;
+ }
+ return c_str;
+}
+
 string
 tool::get_extension( string s_file )
 {
@@ -67,6 +86,7 @@ tool::shell_command( string s_command )
 {
     FILE *file;
     char buffer[READBUF];
+    char* c_pos;
 
     wrap::system_message(SHELLEX);
     wrap::system_message(s_command);
@@ -82,8 +102,8 @@ tool::shell_command( string s_command )
      {
       if(fgets(buffer, READBUF, file) == NULL)
        break;
-
-      wrap::system_message( string(buffer) );
+      
+      wrap::system_message( clean_char(buffer) );
      }
      pclose(file);
     }
