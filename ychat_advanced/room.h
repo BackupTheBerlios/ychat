@@ -16,7 +16,6 @@ class room : public base<user>, public name
 {
 private:
     string s_topic;
-
     pthread_mutex_t mut_s_topic;
 
 public:
@@ -29,6 +28,10 @@ public:
     user* get_user( string &s_name, bool &b_found )
     {
         return static_cast<user*>( get_elem( s_name, b_found ) );
+    }
+    void del_elem( string &s_name )
+    {
+       smap<user*,string>::del_elem( s_name ); 
     }
 
     explicit room( string s_name );      // a constructor.

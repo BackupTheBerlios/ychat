@@ -36,7 +36,7 @@ chat::get_user( string &s_user, bool &b_found )
 
     b_found = false;
 
-    run_func( get_user_, (void*)&param );
+    smap<room*,string>::run_func( get_user_, (void*)&param );
 
     if ( *( (bool*) param.elem[1] ) )
         return (user*) param.elem[2];

@@ -40,8 +40,8 @@ void smap<obj_type, key_type>::add_elem( const obj_type &x, const key_type &k  )
  pthread_mutex_unlock( &mut_smap );
 }
 
-template <class obj_type, class key_type>
-void smap<obj_type, key_type>::del_elem( const key_type & k )
+template <class obj_type, class key_type> void
+smap<obj_type, key_type>::del_elem( const key_type & k )
 {
  pthread_mutex_lock  ( &mut_smap );
  hmap<obj_type,key_type>::del_elem( k );

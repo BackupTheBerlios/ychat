@@ -20,15 +20,15 @@ class smap : public hmap<obj_type, key_type>
  public:
     smap( double moc );
     ~smap();
-    virtual void make_empty();
-    virtual void make_empty( void (*func)(key_type) );
-    virtual void add_elem ( const obj_type &x, const key_type &k );
-    virtual void del_elem ( const key_type &k );
-    virtual bool is_avail ( const key_type &k );
-    virtual obj_type get_elem ( const key_type &k );
-    virtual void run_func( void (*func)(obj_type) );
-    virtual void run_func( void (*func)(obj_type, void*), void* v_arg );
-    virtual vector<key_type>* get_key_vector();
+    void make_empty();
+    void make_empty( void (*func)(key_type) );
+    void add_elem ( const obj_type &x, const key_type &k );
+    void del_elem ( const key_type &k );
+    bool is_avail ( const key_type &k );
+    obj_type get_elem ( const key_type &k );
+    void run_func( void (*func)(obj_type) );
+    void run_func( void (*func)(obj_type, void*), void* v_arg );
+    vector<key_type>* get_key_vector();
 };
 
 template <class obj_type, class key_type>

@@ -7,8 +7,6 @@ add superuser privileges
 completion of the admin ncurses interface.
 user profiles
 security: crypto
-hash_map []-operator
-hash_map in cont
 each user should be able to select his favourite html style
 each user should be able to select his favourite system language
 several different html templates

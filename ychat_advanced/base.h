@@ -7,28 +7,21 @@
 #include "smap.h"
 
 template<class type>
-class base
+class base : smap<type*,string>
 {
-private:
-    smap<type*,string>* map_elem;
-
 public:
     base();
     ~base();
 
-    virtual void  add_elem( type*   p_type );                // add a element.
-    virtual void  del_elem( string &s_name );                // delete a alement.
     virtual type* get_elem( string &s_name, bool &b_found ); // get a element.
-
-    // execute func on all elements of map_elem. v_pointer is the argument.
-    virtual void  run_func( void (*func)(type*, void*), void* v_arg );
+    virtual void  add_elem( type*   p_type );                // add a element.
 
     // chat::msg_post sends to all users of the system a message.
     // room::msg_post sends to all users of the room a message.
     // user::msg_post sends to the user a message.
     void msg_post( string *s_msg )
     {
-        run_func( &base<type>::msg_post_ , (void*)s_msg );
+        smap<type*,string>::run_func( &base<type>::msg_post_ , (void*)s_msg );
     }
     static void msg_post_( type* type_obj, void* v_arg )
     {
@@ -38,13 +31,14 @@ public:
 
     void get_data( map_string *p_map_string )
     {
-        run_func( &base<type>::get_data_ , (void*)p_map_string );
+        smap<type*,string>::run_func( &base<type>::get_data_ , (void*)p_map_string );
     }
     static void get_data_( type* type_obj, void* v_arg )
     {
         map_string *map_params = (map_string*) v_arg;
         type_obj -> get_data ( map_params );
     }
+
 
     // chat::get_user_list gets a list of all users of the system.
     // room::get_user_list gets a list of all users of the room.
@@ -56,7 +50,7 @@ public:
         c.elem[0] = (void*) &s_list;
         c.elem[1] = (void*) &s_seperator;
 
-        run_func( &base<type>::get_user_list_, (void*)&c );
+        smap<type*,string>::run_func( &base<type>::get_user_list_, (void*)&c );
     }
     static void get_user_list_( type* type_obj, void* v_arg )
     {
