@@ -6,7 +6,7 @@
 
 sman::sman()
 {
-    this->sessions=new hmap<sess *, string>(80);
+    this->sessions=new smap<sess *, string>(80);
     this->session_count=0;
     pthread_mutex_init( &mut_sessions, NULL );
     pthread_mutex_init( &mut_session_count, NULL );
@@ -32,11 +32,12 @@ string sman::generate_id( int len )
     }
     return s_ret;
 }
+
 sess *sman::create_session( )
 {
     string new_id=this->generate_id( tool::string2int( wrap::CONF->get_val( "SESSION_LENGTH" ) ) );
 
-    sess *new_sess= new sess( new_id  );
+    sess* new_sess = new sess( new_id  );
 
     pthread_mutex_lock( &mut_session_count );
     this->session_count++;

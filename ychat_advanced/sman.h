@@ -3,16 +3,17 @@
 #ifndef SMAN_H
 #define SMAN_H
 
-#include "hmap.h"
-#include "sess.h"
 #include <cstdlib>
+
+#include "sess.h"
+#include "smap.h"
 
 using namespace std;
 
 class sman
 {
 private:
-    hmap<sess *, string> *sessions;
+    smap<sess*, string> *sessions;
     string generate_id( int len );
     int session_count;
 

@@ -21,8 +21,9 @@ public:
     // small inline methods:
     void clear_vals()
     {
-        map_vals.clear();
-    } // removes all values.
+     // removes all values.
+      map_vals.clear();
+    } 
 
     // public methods:
     virtual string get_val( string s_key ); // get a specific map_vals value.

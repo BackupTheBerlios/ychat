@@ -35,6 +35,7 @@
 #define SELCERR "Sock select error \0"
 #define SEPERAT "-----------------------\0"
 #define SESSION "Session count \0"
+#define SESSDMP "Session dump of session\0"
 #define SOCKCRT "Created server socket on \0"
 #define SOCKERR "Couldn't create socket, trying next port \0"
 #define SOCKRDY "Server socket is ready \0"

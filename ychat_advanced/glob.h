@@ -37,15 +37,15 @@
 // the messages. this messages will only printed out by the master thread.
 // dont use this until NCURSES is defined! all messages will appear in the
 // ncurses interface anyways.
-#define VERBOSE
+//#define VERBOSE
 
 // displays important server messages such as socket or fatal errors!
 // dont use this until NCURSES is defined! all messages will appear in the
 // ncurses interface anyways.
-#define SERVMSG
+//#define SERVMSG
 
 // is used for interaction with the ncurses admin interface at stdout.
-//#define NCURSES
+#define NCURSES
 
 // The following values define the positions of the data stats in the NCURSES interface.
 #ifdef NCURSES

@@ -109,7 +109,7 @@ chat::login( map_string &map_params )
     // add user to the room.
     p_room->add_user( p_user );
     sess *ns = wrap::SMAN->create_session();
-    ns->setValue(string("nick"), (void *)new string(s_user) );
+    ns->set_value( string("nick"), (void *) new string(s_user) );
     map_params["tmpid"]=ns->get_id();
 
 #ifdef NCURSES

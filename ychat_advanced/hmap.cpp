@@ -170,6 +170,7 @@ int hmap<obj_type, key_type>::next_prime( int n ) const
 
     return n;
 }
+
 template<class obj_type, class key_type>
 void
 hmap<obj_type, key_type>::run_func( void (*func)(obj_type) )
@@ -199,6 +200,17 @@ hmap<obj_type, key_type>::get_key_vector()
 
     return p_vec;
 }
+
+template<class obj_type, class key_type> int
+hmap<obj_type, key_type>::get_size()
+{
+        int size = 0;
+        for( int j = 0; j < array.size( ); j++ )
+            if (array[ j ].info == ACTIVE)
+                size++;
+        return size;
+}
+
 
 
 

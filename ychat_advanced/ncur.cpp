@@ -40,7 +40,7 @@ ncur::start( void *v_pointer )
     char *choices[] = {
                           "Unload all modules        ",
                           "Reload all modules        ",
-                          "HTML-template manager   NI",
+                          "Clear template chache     ",
                           "Language manager        NI",
                           "Module-loader manager   NI",
                           "MySQL connection manag. NI",
@@ -148,6 +148,13 @@ ncur::switch_main_menu_( int i_choice )
             wrap::MODL->reload_modules();
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
             mvprintw( 20,2, "Reloaded all modules               ");
+            refresh();
+            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+            break;
+        case 3:
+            wrap::HTML->clear_cache();
+            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+            mvprintw( 20,2, "Cleared the template cache         ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;

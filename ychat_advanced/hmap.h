@@ -17,7 +17,7 @@ using namespace std;
 template <class obj_type, class key_type>
 class hmap
 {
-private:
+protected:
     enum entry_type
     {
         ACTIVE, EMPTY, DELETED
@@ -42,9 +42,8 @@ private:
     virtual int  next_prime( int n ) const;
     double       i_max_occupied_percentage;
 
-protected:
     int lookups;
-    unsigned int hash( const string &key ) const;
+    virtual unsigned int hash( const string &key ) const;
     vector<hash_entry> array;
 
 public:
@@ -62,15 +61,7 @@ public:
 
     virtual vector<key_type>*  get_key_vector( );
     
-    // inline:
-    void get_size()
-    {
-        int size = 0;
-        for( int j = 0; j < array.size( ); j++ )
-            if (array[ j ].info == ACTIVE)
-                size++;
-        return size;
-    };
+    int get_size();
 
     int get_lookups()
     {

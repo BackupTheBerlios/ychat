@@ -3,7 +3,7 @@
 #ifndef USER_H
 #define USER_H
 
-#include "hmap.h"
+#include "smap.h"
 #include "name.h"
 
 class room;
@@ -29,7 +29,7 @@ private:
     room*  p_room;   // pointer to the user's room.
 
     // Modules which are allowed to be executed by the user.
-    hmap<dynmod*,string>* map_mods;
+    smap<dynmod*,string>* map_mods;
 
     pthread_mutex_t mut_map_mods;
     pthread_mutex_t mut_b_online;

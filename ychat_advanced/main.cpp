@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "incl.h"
+#include "smap.h"
 
 using namespace std;
 
@@ -41,6 +42,9 @@ int main()
     << SEPERAT << endl
     << STARTMS << endl ;
 #endif
+
+    
+
 
     // ignore SIGPIPE. otherwise the server will shut down with "Broken pipe" if
     // a client unexpected disconnects himself from a SOCK_STREAM.

@@ -4,14 +4,13 @@
 #ifndef BASE_H
 #define BASE_H
 
-#include "hmap.h"
+#include "smap.h"
 
 template<class type>
 class base
 {
 private:
-    hmap<type*,string>* map_elem;
-    pthread_mutex_t mut_map_elem;
+    smap<type*,string>* map_elem;
 
 public:
     base();

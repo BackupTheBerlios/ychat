@@ -3,15 +3,14 @@
 #ifndef MODL_H
 #define MODL_H
 
-#include "hmap.h"
+#include "smap.h"
 
 using namespace std;
 
 class modl
 {
 private:
-    hmap<dynmod*,string>* map_mods;
-    pthread_mutex_t mut_map_mods;
+    smap<dynmod*,string>* map_mods;
 
     static  void dlclose_( dynmod* mod   );
     dynmod* cache_module ( string s_name );
@@ -25,9 +24,7 @@ public:
 
     vector<string>* get_mod_vector()
     {
-     pthread_mutex_lock  ( &mut_map_mods );
      vector<string>* p_ret = map_mods->get_key_vector(); 
-     pthread_mutex_unlock( &mut_map_mods );
      return p_ret;
     }
 
