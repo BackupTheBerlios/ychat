@@ -27,7 +27,7 @@ extern "C" {
         {
          str_vector::iterator iter = params->begin();
          for ( iter = params->begin(); iter != params->end(); iter++ )
-          s_msg.append( *iter );
+          s_msg.append( *iter + " " );
         }
 
         s_msg.append( "</font></i><br>\n" );
