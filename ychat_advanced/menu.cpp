@@ -101,7 +101,7 @@ menu::start( void (*swich_case_menu_action)(int) )
             break;
 
         default:
-            mvprintw( 1, 70, "%3d %c", c, c);
+            mvprintw( 0, 70, "%3d %c", c, c);
             refresh();
             break;
         }

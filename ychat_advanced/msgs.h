@@ -43,6 +43,6 @@
 #define TECACHE "Caching template \0"
 #define TIMERAC "System timer activated \0"
 #define TIMERUP "System uptime \0"
-#define VERSION "yChat++ Advanced 0.5.CVS \0"
+#define VERSION "yChat++ Advanced 0.6 pre (CVS)\0"
 
 #endif

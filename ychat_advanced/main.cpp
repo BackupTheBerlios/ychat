@@ -30,21 +30,18 @@ int main()
 {
 #ifdef VERBOSE
     cout  <<  "         ___ _           _   "     << endl
-    <<  " _   _  / __\\ |__   __ _| |_ "    << endl
-    <<  "| | | |/ /  | '_ \\ / _` | __|"    << endl
-    <<  "| |_| / /___| | | | (_| | |_ "     << endl
-    <<  " \\__, \\____/|_| |_|\\__,_|\\__|" << endl
-    <<  " |___/ 			"     << endl << endl
+          <<  " _   _  / __\\ |__   __ _| |_ "    << endl
+          <<  "| | | |/ /  | '_ \\ / _` | __|"    << endl
+          <<  "| |_| / /___| | | | (_| | |_ "     << endl
+          <<  " \\__, \\____/|_| |_|\\__,_|\\__|" << endl
+          <<  " |___/ 			        " << endl << endl
 
-    << DESCRIP << endl
-    << VERSION << ", "
-    << CONTACT << endl
-    << SEPERAT << endl
-    << STARTMS << endl ;
+          << DESCRIP << endl
+          << VERSION << ", "
+          << CONTACT << endl
+          << SEPERAT << endl
+          << STARTMS << endl;
 #endif
-
-    
-
 
     // ignore SIGPIPE. otherwise the server will shut down with "Broken pipe" if
     // a client unexpected disconnects himself from a SOCK_STREAM.
@@ -69,7 +66,7 @@ int main()
     wrap::WRAP->HTML = wrap::HTML = new html(); 
 
     // init the language manager
-    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_elem( "LANGUAGE") ); 
+    wrap::WRAP->LANG = wrap::LANG = new lang( wrap::CONF->get_elem("LANGUAGE") ); 
 
     // init the session manager.
     wrap::WRAP->SMAN = wrap::SMAN = new sman(); 

@@ -31,9 +31,7 @@ ncur::start( void *v_pointer )
     cbreak();       // Line buffering disabled. pass on everything
 
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
-
-    mvprintw(0, 2, DESCRIP );
-    mvprintw(1, 2, CONTACT );
+    mvprintw( 0,2, VERSION);
 
     refresh();
 
@@ -49,7 +47,7 @@ ncur::start( void *v_pointer )
                           "Shut down server",
                       };
 
-    admin_interface->p_serveroutput = newwin( 17, 45, 3, 34 );
+    admin_interface->p_serveroutput = newwin( 19, 45, 1, 34 );
     wbkgd(admin_interface->p_serveroutput, COLOR_PAIR(1));
 
     box      ( admin_interface->p_serveroutput, 0, 0 );
@@ -66,7 +64,7 @@ ncur::start( void *v_pointer )
 #endif
 
     admin_interface->is_ready( true );
-    admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
+    admin_interface->p_menu = new menu( 1, 1, 32, 19, "ADMINISTRATOR's MAIN MENU", choices, 9, COLOR_PAIR(1));
     admin_interface->p_menu->start( &switch_main_menu_ );
 
     admin_interface->shutdown();	
@@ -111,7 +109,7 @@ ncur::print( char* c_print )
 
     pthread_mutex_lock( &mut_messages );
 
-    if ( p_messagelist->size() > 10 )
+    if ( p_messagelist->size() > 12 )
     {
         char* c_front = p_messagelist->front();
         p_messagelist->pop_front();
@@ -123,7 +121,7 @@ ncur::print( char* c_print )
     list<char*>::iterator iter;
     iter = p_messagelist->begin();
 
-    for ( i=4; i<16 && iter != p_messagelist->end(); i++, iter++ )
+    for ( i=4; i<18 && iter != p_messagelist->end(); i++, iter++ )
         mvwprintw( p_serveroutput, i, 2, *iter );
 
     wrefresh ( p_serveroutput );
