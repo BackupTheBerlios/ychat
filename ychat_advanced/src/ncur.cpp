@@ -43,7 +43,7 @@ ncur::start( void *v_pointer )
                           "Module-loader manager NI",
                           "MySQL manag.          NI",
                           "Session manager       NI",
-                          "Socket manager        NI",
+                          "Update yChat via CVS    ",
                           "Shut down server",
                       };
 
@@ -137,21 +137,21 @@ ncur::switch_main_menu_( int i_choice )
         case 1:
             wrap::MODL->unload_modules();
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Unloaded all modules               ");
+            mvprintw( 20,2, "Unloaded all modules                             ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
         case 2:
             wrap::MODL->reload_modules();
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Reloaded all modules               ");
+            mvprintw( 20,2, "Reloaded all modules                            ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
         case 3:
             wrap::HTML->clear_cache();
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Cleared the template cache         ");
+            mvprintw( 20,2, "Cleared the template cache                      ");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
@@ -159,13 +159,20 @@ ncur::switch_main_menu_( int i_choice )
             if ( ! wrap::GCOL->remove_garbage() )
              wrap::NCUR->print( GARNONE );
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
-            mvprintw( 20,2, "Garbage collector activated        ");
+            mvprintw( 20,2, "Garbage collector activated                     ");
+            refresh();
+            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+            break;
+        case 8:
+            system("gmake clean cvsupdate all");
+            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+            mvprintw( 20,2, "Updated yChat. Pls edit conf.txt and sestart :-)");
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
         case 9: // Shut down server
             if ( ! wrap::GCOL->remove_garbage() )
-            wrap::NCUR->print( GARNONE );
+             wrap::NCUR->print( GARNONE );
             mvprintw( 21,2, "Good bye !");
             refresh();
             clrtoeol();
