@@ -301,8 +301,6 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
                  get_module( s_mod )->the_func
                  ) 
              ) ( (void*) c );
-
-cout << map_params["content"];
             }
         }
     }
