@@ -1694,10 +1694,20 @@ cd mods &&
 ./configure 
 cd ..
 
+#../obj/base.o: base.cpp 
+#	$(CC) $(CFLAGS) -c -o $*.o $(notdir $*).cpp
+
 mv Makefile Makefile.bak && 
 srcs="SRCS=`ls *.cpp`" && echo $srcs > Makefile &&
 cat Makefile.bak >> Makefile &&
 rm Makefile.bak
+for i in *.cpp
+do
+ ofile=`echo $i | sed s/.cpp/.o/`
+ echo "../obj/$ofile: $i" >> Makefile 
+ echo "		\$(CC) \$(CFLAGS) -c -o ../obj/$ofile $i" >> Makefile	
+done
+
 
 echo "You are now ready to compile. Type gmake."
 
