@@ -14,6 +14,7 @@
 #include "s_lang.h"
 #include "s_sman.h"
 #include "s_mman.h"
+#include "s_ncur.h"
 #include "chat.h"
 #include "user.h"
 
@@ -55,6 +56,13 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
  string s_user( p_user->get_name() );
  p_user->get_p_room()->del_elem( s_user );
 
+#ifdef NCURSES
+{
+// string s_tmp( REMUSER );
+// s_tmp.append( s_user );
+// s_ncur::get().print( s_tmp.c_str() );  
+}
+#endif
  // post the room that the user has left the chat.
  p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get().get_val( "USERLEAV" ) ) ) );  
  s_sman::get().destroySession( p_user->get_id() );
@@ -75,14 +83,16 @@ sock::make_socket( uint16_t i_port )
  sock = socket (PF_INET, SOCK_STREAM, 0);
  if (sock < 0)
  {
-#ifdef SERVMSG
-  cerr << "Sock: socket error" << endl;
+ 
+#ifdef NCURSES
+  s_ncur::get().print( new string( SOCKERR ) );
 #endif
+
   if ( ++i_port > MAXPORT )
    exit(-1);
 
-#ifdef SERVMSG
-  cerr << SOCKERR << i_port << endl;
+#ifdef NCURSES
+  s_ncur::get().print( new string( SOCKERR ) );
 #endif
 
   return make_socket( i_port );
@@ -99,8 +109,8 @@ sock::make_socket( uint16_t i_port )
  if (bind (sock, (struct sockaddr *) &name, sizeof (name)) < 0)
  {
 
-#ifdef SERVMSG
-  cerr << "Sock: bind error" << endl;
+#ifdef NCURSES
+  s_ncur::get().print( new string( BINDERR ) );
 #endif
 
   if ( ++i_port > MAXPORT )
@@ -108,6 +118,9 @@ sock::make_socket( uint16_t i_port )
 
 #ifdef SERVMSG
   cout << SOCKERR << i_port << endl;
+#endif
+#ifdef NCURSES
+  s_ncur::get().print( new string( SOCKERR ) );
 #endif
 
   return make_socket( i_port );
@@ -126,8 +139,8 @@ sock::read_write( thrd* p_thrd, int i_sock )
 
  if (i_bytes < 0)
  {
-#ifdef SERVMSG
-  cerr << "Sock: read error " << endl;
+#ifdef NCURSES
+  s_ncur::get().print( new string( READERR ) );
 #endif
  }
 
@@ -166,7 +179,15 @@ sock::read_write( thrd* p_thrd, int i_sock )
 int
 sock::start()
 {
- auto int i_port   = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
+#ifdef NCURSES
+ // wait for the admin thread.
+ while ( ! s_ncur::get().is_ready() )
+  usleep(100); 
+
+ s_ncur::get().print( new string( STARTMS ) );  
+#endif
+
+ auto int i_port = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
 
  int sock;
  fd_set active_fd_set, read_fd_set;
@@ -177,16 +198,18 @@ sock::start()
 #ifdef VERBOSE
  cout << SOCKCRT << "localhost:" << i_port << endl;
 #endif
+#ifdef NCURSES
+ s_ncur::get().print( new string( SOCKCRT ) );  
+#endif
 
  // create the server socket and set it up to accept connections.
  sock = make_socket ( i_port );
 
  if (listen (sock, 1) < 0)
  {
-#ifdef SERVMSG
-  cerr << "Sock: listen error" << endl;
+#ifdef NCURSES
+  s_ncur::get().print( new string( LISTERR ) );
 #endif
-
   exit( EXIT_FAILURE );
  }
 
@@ -204,8 +227,8 @@ sock::start()
   read_fd_set = active_fd_set;
   if (select (FD_SETSIZE, &read_fd_set, NULL, NULL, NULL) < 0)
   {
-#ifdef SERVMSG
-   cerr << "Sock: select error" << endl;
+#ifdef NCURSES
+  s_ncur::get().print( new string( SELCERR ) );
 #endif
 
    exit( EXIT_FAILURE );
@@ -232,13 +255,14 @@ sock::start()
      if (new_sock < 0)
      {
 
-#ifdef SERVMSG
-      cerr << "Sock: accept error" << endl;
+#ifdef NCURSES
+  s_ncur::get().print( new string( ACCPERR ) );
 #endif
 
       close ( new_sock );
      }
 
+/*
 #ifdef VERBOSE
      cout << CONNECT << i_req << " "  
           << inet_ntoa( clientname.sin_addr )
@@ -246,7 +270,7 @@ sock::start()
           << ntohs    ( clientname.sin_port )
           << endl;
 #endif
- 
+*/ 
       FD_SET (new_sock, &active_fd_set);
     }
 

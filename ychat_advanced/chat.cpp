@@ -5,8 +5,8 @@
 
 #include "chat.h"
 #include "s_conf.h"
-#include "s_mutx.h"
 #include "s_tool.h"
+#include "s_ncur.h"
 
 using namespace std;
 
@@ -16,7 +16,6 @@ chat::chat( )
   b_strip_html = true;
  else
   b_strip_html = false;
-
 }
 
 chat::~chat( )
@@ -93,10 +92,10 @@ chat::login( map_string &map_params )
  {
   p_room = new room( s_room );
 
-#ifdef VERBOSE
-  pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cout << NEWROOM << s_room << endl;
-  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+#ifdef NCURSES
+//  string s_tmp( NEWROOM );
+//  s_tmp.append( s_room );
+//  s_ncur::get().print( &s_tmp );
 #endif
   
   add_elem( p_room );
@@ -109,14 +108,18 @@ chat::login( map_string &map_params )
  sess *ns =s_sman::get().createSession();
  ns->setValue(string("nick"), (void *)new string(s_user) );
  map_params["tmpid"]=ns->getId();
+
+#ifdef NCURSES
+{
+// string s_tmp( NEWUSER );
+// s_tmp.append( s_user );
+// s_ncur::get().print(  s_tmp.c_str()  );
+}
+#endif
+
  // post "username enters the chat" into the room.
  p_room->msg_post( new string( s_user.append( s_lang::get().get_val( "USERENTR" ) ) ) );  
 
-#ifdef VERBOSE
- pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
- cout << LOGINPR << s_user << endl;
- pthread_mutex_unlock( &s_mutx::get().mut_stdout );
-#endif
 }
 
 void 

@@ -32,6 +32,8 @@ private:
  reqp* req_parser; // parses the http requests from clients.
  pool* thrd_pool;  // the thread pool.
  logd* log_daemon; // the log daemon
+ char* c_buffer;   // char buffer!
+
  // creates a server socket.
  virtual int make_socket( uint16_t port );
 

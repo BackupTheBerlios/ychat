@@ -56,13 +56,13 @@ menu::display()
   if( i_highlight == i + 1 ) /* High light the present choice */
   {       
    wattron( win, A_REVERSE); 
-   mvwprintw( win, y, x, "%d. %s", i+1, choices[i]);
+   mvwprintw( win, y, x, "%d. %s", i, choices[i]);
    wattroff( win, A_REVERSE);
   }
 
   else
   {
-   mvwprintw( win, y, x, "%d. %s", i+1, choices[i]);
+   mvwprintw( win, y, x, "%d. %s", i, choices[i]);
   }
  }
 
@@ -72,7 +72,6 @@ menu::display()
 void
 menu::start()
 {
-
  refresh();
  bool b_flag = 1;
 
@@ -118,7 +117,7 @@ menu::start()
     break; 
 
     default: 
-     mvprintw( 20,3, "Selection # %d not yet implemented!", i_choice); 
+     mvprintw( 20,3, "Selection # %d not yet implemented!", i_choice-1); 
      refresh(); 
      break;
    }

@@ -2,21 +2,25 @@
 #define NCUR_CXX
 
 #include "ncur.h"
+#include "s_sock.h"
 
 using namespace std;
 
 ncur::ncur( )
 {
+ p_messagelist = new list<char*>;
+ pthread_mutex_init( &mut_messages, NULL );
+ b_is_ready = false; 
 }
 
 ncur::~ncur()
 {
+ pthread_mutex_destroy( &mut_messages );
 }
 
 void*
 ncur::start( void *v_pointer )
 {
-
  ncur* admin_interface = static_cast<ncur*>(v_pointer);
 
  initscr();
@@ -40,7 +44,13 @@ ncur::start( void *v_pointer )
   "Shut down server",
  };
 
-// admin_interface->p_info = newwin( 34, 15, 15, 36); 
+ admin_interface->p_serveroutput = newwin( 15, 45, 4, 34 );
+
+ box      ( admin_interface->p_serveroutput, 0, 0 ); 
+ mvwprintw( admin_interface->p_serveroutput, 2, 2, "SERVER SYSTEM MESSAGES" );
+ wrefresh ( admin_interface->p_serveroutput ); 
+
+ admin_interface->is_ready( true );
 
  admin_interface->p_menu = new menu( 2, 4, 32, 15, "ADMIN MAIN MENU", choices, 9 );
  admin_interface->p_menu->start();
@@ -51,13 +61,38 @@ ncur::start( void *v_pointer )
 }
 
 void
-ncur::print( string &s_print )
+ncur::print( string *p_msg )
 {
+ print( (char*)p_msg->c_str() );
+}
+
+void
+ncur::print( string s_msg )
+{
+ print( (char*)s_msg.c_str() );
 }
 
 void
 ncur::print( char* c_print )
 {
+ pthread_mutex_lock( &mut_messages );
+
+ if ( p_messagelist->size() > 8 )
+  p_messagelist->pop_front();
+
+ p_messagelist->push_back( c_print );
+
+ list<char*>::iterator iter;
+ iter = p_messagelist->begin();
+
+ for ( int i=4; i<14 && iter != p_messagelist->end(); i++, iter++ )
+ {
+  mvwprintw( p_serveroutput, i, 2, "%s %d %d", *iter, i-3, p_messagelist->size() );
+ }
+
+ wrefresh ( p_serveroutput ); 
+
+ pthread_mutex_unlock( &mut_messages );
 }
 
 #endif

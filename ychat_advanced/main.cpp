@@ -94,6 +94,7 @@ cout  <<  "         ___ _           _   "     << endl
  s_chat::init(); // init the chat manager. 
 
  // begin to draw the ncurses amdin interface in a new pthread.
+
  pthread_t admin_thread;
  pthread_create( &admin_thread, 
                  NULL, 

@@ -140,12 +140,6 @@ pool::tpool_thread( void* arg )
 
 void pool::run_func( void *v_pointer )
 {
-#ifdef VERBOSE
-  pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cout << THREADS << endl;
-  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
-#endif
-
   // recasting the client thread object.
   thrd *t = (thrd*) v_pointer;
 
@@ -156,12 +150,6 @@ void pool::run_func( void *v_pointer )
   t->~thrd();
 
   free(v_pointer);
-
-#ifdef VERBOSE
-  pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cout << THREADE << endl;
-  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
-#endif
 }
 
 int
