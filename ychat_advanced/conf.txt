@@ -59,7 +59,7 @@ HTML_TITLE_TAG_CONTENT="yChat++ Advanced - Fast and extensible ";
 MAX_MESSAGE_LENGTH="500";
 
 # Maximum length of a nickname
-MAX_USER_NICK_LENGTH="15";
+MAX_USERNAME_LENGTH="15";
 
 # Maximum length of an email address 
 MAX_ROOMNAME_LENGTH="20";

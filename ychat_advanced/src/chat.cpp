@@ -100,7 +100,7 @@ chat::login( map_string &map_params )
     }
 
     // prove if the nick is too long:
-    else if ( s_user.length()  > tool::string2int( wrap::CONF->get_elem("MAX_USER_NICK_LENGTH") ) ) 
+    else if ( s_user.length()  > tool::string2int( wrap::CONF->get_elem("MAX_USERNAME_LENGTH") ) ) 
     {
         map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NICK_LENGTH" );
         map_params["request"] = wrap::CONF->get_elem( "HTML_START_SITE" ); // redirect to the startpage.
