@@ -24,7 +24,7 @@ private:
 		HTTP_CACHEC,
  		HTTP_CONNEC,
  		HTTP_COTYPE;
-
+ 
  // returns the request url from thr client's http request header
  // until the first "?" and stores all request parameter values
  // ( behind "?" ) into map_params. 
