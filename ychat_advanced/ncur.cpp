@@ -138,6 +138,7 @@ ncur::switch_main_menu_( int i_choice )
         switch ( i_choice )
         {
         case 9: // Shut down server
+	    s_mman::get().~mman();
             mvprintw( 21,2, "Good bye !");
             refresh();
             clrtoeol();
