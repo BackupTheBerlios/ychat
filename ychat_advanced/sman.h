@@ -10,25 +10,29 @@
 
 using namespace std;
 
-class sman{
-	private:
-		hmap<sess *, string> *sessions;
-		string generate_id( int len );
-		int session_count;	
+class sman
+  {
+  private:
+    hmap<sess *, string> *sessions;
+    string generate_id( int len );
+    int session_count;
 
-		pthread_mutex_t mut_sessions;
-		pthread_mutex_t mut_session_count;
+    pthread_mutex_t mut_sessions;
+    pthread_mutex_t mut_session_count;
 
-	public:
-		sman();
-		~sman();
-		sess *get_session( string s_id );
-		int get_session_count( ) { return this->session_count; }
-		sess *create_session( );
-		void destroy_session( string s_id );
+  public:
+    sman();
+    ~sman();
+    sess *get_session( string s_id );
+    int get_session_count( )
+    {
+      return this->session_count;
+    }
+    sess *create_session( );
+    void destroy_session( string s_id );
 
 
-};
+  };
 
 
 #endif

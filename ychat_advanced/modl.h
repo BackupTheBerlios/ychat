@@ -9,21 +9,21 @@
 using namespace std;
 
 
-class modl 
-{
-private:
- hmap<dynmod*,string>* map_mods;
- pthread_mutex_t mut_map_mods;
+class modl
+  {
+  private:
+    hmap<dynmod*,string>* map_mods;
+    pthread_mutex_t mut_map_mods;
 
- static  void dlclose_( dynmod* mod   );
- dynmod* cache_module ( string s_name );
+    static  void dlclose_( dynmod* mod   );
+    dynmod* cache_module ( string s_name );
 
-public:
- modl();
- ~modl();
+  public:
+    modl();
+    ~modl();
 
- dynmod* get_module  ( string s_name );
+    dynmod* get_module  ( string s_name );
 
-};
+  };
 
 #endif

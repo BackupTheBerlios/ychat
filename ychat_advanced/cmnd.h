@@ -7,12 +7,12 @@
 
 using namespace std;
 
-class cmnd 
-{
-public:
- // public methods: 
- explicit cmnd( );      	      // a standard constructor.
-         ~cmnd( );
-};
+class cmnd
+  {
+  public:
+    // public methods:
+    explicit cmnd( );      	      // a standard constructor.
+    ~cmnd( );
+  };
 
 #endif

@@ -7,17 +7,18 @@
 
 using namespace std;
 
-class mcon {
- 	
-	private: 
-		bool query_sent;
-		MYSQL_RES *current_result;
-	public:
-		MYSQL *myc;
-		mcon( MYSQL *mysql );
-		~mcon();
-		int query(string query);
-		MYSQL_ROW get_next_row();
-		
-};
+class mcon
+  {
+
+  private:
+    bool query_sent;
+    MYSQL_RES *current_result;
+  public:
+    MYSQL *myc;
+    mcon( MYSQL *mysql );
+    ~mcon();
+    int query(string query);
+    MYSQL_ROW get_next_row();
+
+  };
 #endif

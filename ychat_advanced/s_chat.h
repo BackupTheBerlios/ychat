@@ -5,22 +5,23 @@
 
 using namespace std;
 
-class s_chat 
-{
-private:
- static chat* obj; 
+class s_chat
+  {
+  private:
+    static chat* obj;
 
-public:
- static void init()
- {
-   obj = new chat();
- }
+  public:
+    static void init()
+    {
+      obj = new chat();
+    }
 
- static chat& get()
- {
-  return *obj;
- }
-};
+    static chat& get
+      ()
+      {
+        return *obj;
+      }
+  };
 
 
 #endif

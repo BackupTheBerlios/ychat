@@ -5,21 +5,22 @@
 
 using namespace std;
 
-class s_ncur 
-{
-private:
- static ncur* obj; 
+class s_ncur
+  {
+  private:
+    static ncur* obj;
 
-public:
- static void init()
- {
-   obj = new ncur();
- }
+  public:
+    static void init()
+    {
+      obj = new ncur();
+    }
 
- static ncur& get()
- {
-  return *obj;
- }
-};
+    static ncur& get
+      ()
+      {
+        return *obj;
+      }
+  };
 
 #endif
