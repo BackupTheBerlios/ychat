@@ -245,15 +245,15 @@ pool::tpool_add_work( tpool_t tpool, void(*routine)(void*), void* arg ) ///
     if( tpool->cur_queue_size == 0 )
     {
         tpool->queue_tail = tpool->queue_head = workp;
+        pthread_cond_signal( &tpool->queue_not_empty );
     }
     else
     {
-        tpool->queue_tail->next = workp;
-        tpool->queue_tail       = workp;
+        (tpool->queue_tail)->next = workp;
+        tpool->queue_tail         = workp;
     }
 
     tpool->cur_queue_size++;
-    pthread_cond_signal( &(tpool->queue_not_empty) );
     pthread_mutex_unlock( &(tpool->queue_lock) );
     return 1;
 }
