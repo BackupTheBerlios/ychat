@@ -9,7 +9,6 @@
 #include "MUTX.h"
 #include "TOOL.h"
 #include "thrd.h"
-#include "sock.h"
 
 using namespace std;
 
