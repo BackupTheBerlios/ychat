@@ -277,7 +277,10 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
              if ( s_event == "post" )
              {
                 if ( p_user )
+                {
+                 p_user->check_restore_away();
                  wrap::CHAT->post( p_user, map_params );
+                }
              }
 
              // if a chat stream

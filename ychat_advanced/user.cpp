@@ -9,11 +9,13 @@ using namespace std;
 user::user( string s_name ) : name( s_name )
 {
     this -> b_online = true;
+    this -> b_away   = false;
     this -> l_time   = tool::unixtime();
     this -> s_col1   = wrap::CONF->get_elem( "USERCOL1" );
     this -> s_col2   = wrap::CONF->get_elem( "USERCOL2" );
     map_mods = new smap<dynmod*,string>(HMAPOCC);
 
+    pthread_mutex_init( &mut_away    , NULL);
     pthread_mutex_init( &mut_b_online, NULL);
     pthread_mutex_init( &mut_i_sock  , NULL);
     pthread_mutex_init( &mut_l_time  , NULL);
@@ -30,6 +32,7 @@ user::user( string s_name ) : name( s_name )
 
 user::~user()
 {
+    pthread_mutex_destroy( &mut_away     );
     pthread_mutex_destroy( &mut_b_online );
     pthread_mutex_destroy( &mut_i_sock   );
     pthread_mutex_destroy( &mut_l_time   );
@@ -85,6 +88,43 @@ user::set_online( bool b_online )
     pthread_mutex_lock  ( &mut_b_online );
     this -> b_online = b_online;
     pthread_mutex_unlock( &mut_b_online );
+}
+
+bool
+user::get_away()
+{
+    bool b_ret;
+    pthread_mutex_lock  ( &mut_away );
+    b_ret = b_away;
+    pthread_mutex_unlock( &mut_away );
+    return b_ret;
+}
+
+string
+user::get_away_msg()
+{
+    string s_ret;
+    pthread_mutex_lock  ( &mut_away );
+    s_ret = s_away;
+    pthread_mutex_unlock( &mut_away );
+    return s_ret;
+}
+
+void
+user::set_away( bool b_away, string s_away )
+{
+    pthread_mutex_lock  ( &mut_away );
+    this -> b_away = b_away;
+    this -> s_away = s_away;
+    pthread_mutex_unlock( &mut_away );
+}
+
+void
+user::set_away( bool b_away )
+{
+    pthread_mutex_lock  ( &mut_away );
+    this -> b_away = b_away;
+    pthread_mutex_unlock( &mut_away );
 }
 
 room*
@@ -207,6 +247,8 @@ user::new_msgs  ( )
 void
 user::command( string &s_command )
 {
+    check_restore_away();
+
     auto unsigned int pos = s_command.find( "/" );
     auto unsigned int pos2 = s_command.find( " " );
     if( pos != string::npos )
@@ -216,9 +258,8 @@ user::command( string &s_command )
     else
         return;
 
-
-    if(pos2==string::npos)
-        pos2=s_command.size()+1;
+    if (pos2 == string::npos)
+        pos2 = s_command.size() + 1;
 
     string s_mod( "mods/commands/yc_" );
     string s_command2=s_command.substr(0, pos2-1);
@@ -292,12 +333,36 @@ user::msg_post( string *p_msg )
 void
 user::get_user_list( string &s_list, string &s_seperator )
 {
-    s_list.append( "<font color=\"" )
-    .append( get_col1()       )
-    .append( "\">"            )
-    .append( get_name()       )
-    .append( "</font>\n"      )
-    .append( s_seperator      );
+    if ( get_away() )
+    {
+     string s_away = get_away_msg();
+     s_list.append("<img src=images/away.gif" )
+           .append( " alt='" )
+           .append( get_away_msg() )
+           .append( "' title='" )
+           .append( get_away_msg() )
+           .append( "'> " );
+    }
 
+    s_list.append( get_colored_name() )
+          .append( s_seperator );
+}
+
+void
+user::check_restore_away()
+{
+ if ( get_away() )
+ {
+  get_room()->msg_post( 
+   new string( 
+    wrap::TIMR->get_time()
+    + " " + get_colored_name()
+    + " " + wrap::LANG->get_elem( "RESTOREAWAY" )
+    + "( <font color=" + get_col2() + ">"
+    + get_away_msg() + "</font>)<br>\n" 
+   )
+  );
+  set_away( false ); 
+ }
 }
 #endif

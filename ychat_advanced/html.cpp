@@ -139,8 +139,8 @@ void
 html::online_list( user *p_user, map_string &map_params )
 {
     // prepare user_list.
-    string s_list     ( ""     );
-    string s_seperator( "<br>\n" );
+    string s_list     ( "<table>\n<tr><td>\n"  );
+    string s_seperator( "</td></tr>\n<tr><td>\n" );
 
     room* p_room = p_user->get_room();
 
@@ -148,7 +148,7 @@ html::online_list( user *p_user, map_string &map_params )
 
     // use the collected data as a message in html-templates.
     map_params["MESSAGE"] = "<b>" + p_room->get_name() + "</b><br><br>\n"
-                          + p_room->get_topic() + s_list;
+                          + p_room->get_topic() + s_list + "</td></tr>\n</table>";
     // renew the timestamp.
     p_user->renew_stamp();
 }

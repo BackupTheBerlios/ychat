@@ -14,8 +14,8 @@ class user : public name
 {
 private:
     // private members:
-    bool   b_away;   // true if user is away.
     bool   b_online; // true if user is online.
+    bool   b_away;   // true if user is away.
     int    i_sock;   // user's stream socket descriptor.
     long   l_time;   // user's last activity time.
     rang   r_rang;   // user's rang ( see enum rang @ globals.h ).
@@ -32,6 +32,7 @@ private:
     smap<dynmod*,string>* map_mods;
 
     pthread_mutex_t mut_map_mods;
+    pthread_mutex_t mut_away;
     pthread_mutex_t mut_b_online;
     pthread_mutex_t mut_i_sock;
     pthread_mutex_t mut_l_time;
@@ -59,6 +60,10 @@ public:
     virtual string get_colored_name();
     virtual bool  get_online();
     virtual void  set_online( bool b_online );
+    virtual bool  get_away( );
+    virtual string  get_away_msg( );
+    virtual void  set_away( bool b_away, string s_away );
+    virtual void  set_away( bool b_away );
     virtual room* get_room();
     virtual void  set_p_room( room* p_room );
     virtual int   get_sock  ( );
@@ -87,6 +92,7 @@ public:
     // appends a string to s_mess including br.
     virtual void msg_post( string *p_msg );
     virtual void get_user_list( string &s_list, string &s_seperator );
+    virtual void check_restore_away();
 };
 
 #endif
