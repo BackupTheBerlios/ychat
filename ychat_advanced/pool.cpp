@@ -35,8 +35,11 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
  // allocate a pool data structure
  if (( tpool = (tpool_t) malloc( sizeof( struct tpool ) ) ) == NULL )
  {
+#ifdef NCURSES
+  s_ncur::get().print( POOLERR );  
+#endif
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cerr << "malloc" << endl;
+  cerr << POOLERR << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   exit(-1);
  }
@@ -48,8 +51,11 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
 
  if ( ( tpool->threads = (pthread_t*) malloc( sizeof( pthread_t ) *num_worker_threads ) ) == NULL )
  {
+#ifdef NCURSES
+  s_ncur::get().print( POOLERR );  
+#endif
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cerr << "malloc" << endl;
+  cerr << POOLERR << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   exit(-1);
  }
@@ -62,32 +68,52 @@ pool::tpool_init( tpool_t *tpoolp, int num_worker_threads, int max_queue_size, i
 
  if ( ( rtn = pthread_mutex_init( &(tpool->queue_lock), NULL ) ) != 0 )
  {
+  string s_err( "pthread_mutex_init " );
+  s_err.append( strerror( rtn ) );
+#ifdef NCURSES
+  s_ncur::get().print( s_err );  
+#endif
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cerr << "pthread_mutex_init " << strerror( rtn ) << endl;
+  cerr << s_err << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   exit(-1);
  }
 
  else if ( ( rtn = pthread_cond_init( &(tpool->queue_not_empty), NULL ) ) != 0 )
  {
+  string s_err( "pthread_mutex_init " );
+  s_err.append( strerror( rtn ) );
+#ifdef NCURSES
+  s_ncur::get().print( s_err );  
+#endif
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cerr << "pthread_cond_init " << strerror( rtn ) << endl;
+  cerr << s_err << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   exit(-1);
  }
 
  else if ( ( rtn = pthread_cond_init( &(tpool->queue_not_full), NULL ) ) != 0 )
  {
+  string s_err( "pthread_mutex_init " );
+  s_err.append( strerror( rtn ) );
+#ifdef NCURSES
+  s_ncur::get().print( s_err );  
+#endif
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cerr << "pthread_cond_init " << strerror( rtn ) << endl;
+  cerr << s_err << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   exit(-1);
  }
 
  else if ( ( rtn = pthread_cond_init( &(tpool->queue_empty), NULL ) ) != 0 )
  {
+  string s_err( "pthread_mutex_init " );
+  s_err.append( strerror( rtn ) );
+#ifdef NCURSES
+  s_ncur::get().print( s_err );  
+#endif
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-  cerr << "pthread_cond_init " << strerror( rtn ) << endl;
+  cerr << s_err << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   exit(-1);
  }
