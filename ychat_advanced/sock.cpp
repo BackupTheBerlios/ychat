@@ -76,18 +76,16 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
  p_user->get_p_room()->msg_post( new string( p_user->get_name().append( s_lang::get().get_val( "USERLEAV" ) ) ) );  
  s_sman::get().destroySession( p_user->get_id() );
 
-int i_count = s_sman::get().getSessionCount();
-
 #ifdef NCURSES
 {
  string s_tmp( SESSION );
- s_tmp.append( s_tool::int2string( i_count ) );
+ s_tmp.append( s_tool::int2string( s_sman::get().getSessionCount() ) );
  s_ncur::get().print( s_tmp );  
 }
 #endif
 #ifdef VERBOSE
  cout << REMUSER << s_user << endl
-      << SESSION << i_count << endl;
+      << SESSION << s_man::get().getSessionCount() << endl;
 #endif
 
  p_user->~user();
