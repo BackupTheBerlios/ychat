@@ -12,5 +12,9 @@ clean_base:
 stats:
 	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
 	cat stats.txt 2>/dev/null
+start:	base modules 
+	./bin/ychat
+gpl:
+	more COPYING
 clean:	clean_base clean_modules
 

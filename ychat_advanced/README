@@ -102,22 +102,21 @@ If you dont want to use yChat's ncurses based administration interface
 you may remove the #define NCURSES line in the src/glob.h and enable
 #define SERVMSG and #define VERBOSE instead.
 
-To start very quickly just run "./quickstart.sh". But you may also do
-it manually while reading further :-).
-
-Invoke "./configure" and afterwards "make", edit the conf.txt ( be sure
+Invoke "./configure" and afterwards "gmake", edit the conf.txt ( be sure
 to enter a valid mysql account and host. Take a look at docs/mysql_ychat.txt
 how to create a valid MySQL database ).
 
 You may invoke make with the following options:
 
- make (compiles everything, also modules)
- make base (only compiles the base)
- make modules (only compiles modules)
- make clean (cleans everything)
- make clean_base (only cleans the base obj files)
- make clean_modules (only cleans the modules .so files) 
- make stats (generates ychat statistics)
+ gmake (compiles everything, also modules)
+ gmake base (only compiles the base)
+ gmake modules (only compiles modules)
+ gmake clean (cleans everything)
+ gmake clean_base (only cleans the base obj files)
+ gmake clean_modules (only cleans the modules .so files) 
+ gmake stats (generates ychat statistics)
+ gmake start (compiles everythinh ans starts the yChat)
+ gmake gpl (shows the GNU General Public License)		
 
 Now its time to run the server with ./bin/ychat.
 
