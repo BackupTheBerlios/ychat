@@ -1,4 +1,7 @@
 GUEST="Diese Person ist ein Gastchatter!";
+RANG0="Operator";
+RANG1="Halb-Operator";
+RANG2="Voiced Benutzer";
 SETAWAY="meldet sich ab: ";
 RESTOREAWAY="meldet sich zurück ";
 OPTIONSCHANGED="Ihre Einstellungen wurden geändert!<br><br>";
