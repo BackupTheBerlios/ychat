@@ -58,12 +58,10 @@ user::get_data( map_string *p_map_data )
 string
 user::get_mess( )
 {
-    string s_ret( "" );
     pthread_mutex_lock  ( &mut_s_mess );
-    s_ret.append( s_mess );
-    s_mess = *new string("");
+    string s_ret = s_mess;
+    s_mess = "";
     pthread_mutex_unlock( &mut_s_mess );
-
     return s_ret;
 }
 

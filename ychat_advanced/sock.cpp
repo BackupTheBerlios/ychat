@@ -44,15 +44,13 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 {
     string s_msg( "\n" );
 
-    pthread_mutex_lock  ( &(p_user->mut_message) );
 
-    for ( int i = 0; i < 500; i++ )
-    {
+    for ( int i = 0; i < 1000; i++ )
         send( i_sock, s_msg.c_str(), s_msg.size(), 0 );
-    }
 
     do
     {
+        pthread_mutex_lock  ( &(p_user->mut_message) );
         s_msg = p_user->get_mess( );
         if ( 0 > send( i_sock, s_msg.c_str(), s_msg.size(), 0 ) )
             p_user->set_online( false );
@@ -354,12 +352,11 @@ sock::increase_num_threads()
 {
     pthread_mutex_lock( &mut_threads );
     i_threads++;
+    pthread_mutex_unlock( &mut_threads );
 #ifdef NCURSES
-
     print_threads();
 #endif
 
-    pthread_mutex_unlock( &mut_threads );
 }
 
 void
@@ -367,27 +364,31 @@ sock::decrease_num_threads()
 {
     pthread_mutex_lock( &mut_threads );
     i_threads--;
-#ifdef NCURSES
+    pthread_mutex_unlock( &mut_threads );
 
+#ifdef NCURSES
     print_threads();
 #endif
 
-    pthread_mutex_unlock( &mut_threads );
 }
 
 #ifdef NCURSES
 void
 sock::print_threads()
 {
+    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
     mvprintw( 22,28, "Threads: %d ", i_threads);
     refresh();
+    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 }
 
 void
 sock::print_hits()
 {
+    pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
     mvprintw( 22,16, "Hits: %d ", i_req);
     refresh();
+    pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 }
 #endif
 

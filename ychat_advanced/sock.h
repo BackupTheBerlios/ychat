@@ -36,6 +36,7 @@ private:
 
     int   i_threads;     // total amount of threads inside the thread pool.
     pthread_mutex_t mut_threads;
+    pthread_mutex_t mut_hits;
 
     // creates a server socket.
     virtual int make_socket( uint16_t port );
