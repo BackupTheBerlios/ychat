@@ -81,8 +81,8 @@ Invoke "cd cmnd && ./compile.sh && cd -". All command modules should get
 compiled.
 
 Now its time to run the server with ./ychat.
-Then point your webbrowser to http://yourip:port/index.html ( ignoring
-the index.html on the end of the url will not work! ). 
+Then point your webbrowser to http://yourip:port !
+
 ... have fun :-).
 
 1.5.0 CUSTOMIZATION:

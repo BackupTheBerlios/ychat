@@ -109,6 +109,9 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 #endif
 
+ if ( s_ret.empty() )
+  s_ret = s_conf::get().get_val( "STARTMPL" );
+
  map_params["request"] = s_ret;
 
  return s_ret;
