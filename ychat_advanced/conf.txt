@@ -1,20 +1,19 @@
 #
-# please notice this: 
-# the server parses this configuration file while starting or by an 
-# administrator's request.
+# Please notice this: 
+# The server parses this configuration file while starting or by an 
+# administrative request.
 #
-# not allowed are semicolons ';' inside or before the quotes " ", 
+# Not allowed are semicolons ';' inside or before the quotes " ", 
 # otherwise this might result in errors.
 #
-# the syntax is easy: KEYNAME="value";
+# The syntax is easy: KEYNAME="value";
 #
-# all lines which do not contain a semicolon and at least two quotes 
+# All lines which do not contain a semicolon and at least two quotes 
 # or start with a # will be ignored.
 #
-# greets, paul c. buetow ( snooper@ychat.org );
-#
+# Please do not remove any options from this file unless you know
+# what you do! Missing options may behave badly! 
 
-# server specific configurations ( not allowed to be removed ):
 
 # STANDARD SETTINGS:
 
@@ -129,12 +128,13 @@ PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "O
 # Set to "YES" if this option should be activated
 REPLACE_STRINGS="YES";
 # Place here strings which will be replaced by the server
-# Syntax: REPLACE_NUM="searchstring||replaced into this string";
-REPLACE_1="red||<font color="red">red</font>";
-REPLACE_2="green||<font color="green">green</font>";
-REPLACE_3="blue||<font color="blue">blue</font>";
-REPLACE_4="orange||<font color="orange">orange</font>";
-REPLACE_5="yellow||<font color="yellow">yellow</font>";
+# Syntax: REPLACE_ID="searchstring||replaced into this string";
+# The ID may be any string.
+REPLACE_RED="red||<font color="red">red</font>";
+REPLACE_GREEN="green||<font color="green">green</font>";
+REPLACE_BLUE="blue||<font color="blue">blue</font>";
+REPLACE_ORANGE="orange||<font color="orange">orange</font>";
+REPLACE_YELLOW="yellow||<font color="yellow">yellow</font>";
 
 # LOGGING:
 

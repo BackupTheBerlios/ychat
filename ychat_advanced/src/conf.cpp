@@ -23,14 +23,15 @@ conf::parse()
     wrap::system_message( CFILEOK + get_name() );
 #endif
 
-    string s_configfile=get_name();
+    string s_configfile = get_name();
 
-    string homeconfig=string(getenv("HOME"))+string("/.ychat/")+get_name();
-    ifstream homecheck( homeconfig.c_str() );
-    if( homecheck )
+    string s_homeconfig = string(getenv("HOME"))+string("/.ychat/")+get_name();
+    ifstream if_homecheck( s_homeconfig.c_str() );
+
+    if( if_homecheck )
     {
-        homecheck.close();
-        s_configfile = homeconfig;
+        if_homecheck.close();
+        s_configfile = s_homeconfig;
     }
 
     ifstream fs_conf( s_configfile.c_str() );
@@ -40,7 +41,6 @@ conf::parse()
 #ifdef VERBOSE
         wrap::system_message( CFILENO + get_name() );
 #endif
-
         return;
     }
 
@@ -75,7 +75,7 @@ conf::parse()
     }
 
     fs_conf.close();
-    fs_conf.~ifstream();
+    //fs_conf.~ifstream();
 }
 
 #endif
