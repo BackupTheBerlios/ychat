@@ -18,7 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 -----------------------------------------------------------------
 
-0.0.0 YCHAT++ ADVANCED TABLE OF CONTENTS 
+0.0.0 YCHAT++ ADVANCED TABLE OF CONTENTS: 
+
 1.0.0 REQUIREMENTS
 1.1.0 TESTED PLATFORMS
 1.2.0 IMPORTANT NOTES
@@ -65,7 +66,7 @@ homepage which is located at http://www.yChat.org.
 yChat can be downloaded as a source package or through CVS. 
 
 The packages are located at http://www.yChat.org -> Sourcecode -> 
-Packages or go to http://programming.buetow.org/CPP-yChat .
+Packages or go to ftp://ftp.yChat.org/pub/yChat/CPP-yChat .
 
 For CVS download type:
 
@@ -133,6 +134,9 @@ change the html-template files which are placed in the html/ subdirectory and
 the language-template files which are placed in the lang/ subdirectory.
 Dynamic loadable modules can be found in the mods/ subdirectory. ( chat 
 commands are realized through modules too ).
+
+All messages defined in the msgs.h file contain server messages only ( a chat
+user never wont read them, only the administrator will get to see them ).
 
 1.6.0 FILES: ( This list is not complete )
 
