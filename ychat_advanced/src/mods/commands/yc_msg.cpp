@@ -28,7 +28,6 @@ extern "C" {
          bool b_found;
          user* p_whisper_user = p_chat->get_user( s_whisper_user, b_found );
        
-
          if ( b_found )
          {
           string s_msg         = "<i> " 

@@ -48,6 +48,8 @@ void
 chat::get_user_( room *room_obj, void *v_arg )
 {
     container* param = (container*) v_arg;
+    if ( *((bool*)param->elem[1]) )
+     return; 
     param->elem[2] = (void*)room_obj->get_elem( *((string*)param->elem[0]), *((bool*)param->elem[1]) );
 }
 

@@ -24,9 +24,9 @@ public:
     ~ncur( );
 
     static void* start( void *v_pointer );
-    void print( char* c_print );
-    void print( string  s_msg );
-    void print( string* p_msg );
+    virtual void print( char* c_print );
+    virtual void print( string  s_msg );
+    virtual void print( string* p_msg );
     void is_ready( bool b_is_ready )
     {
         this->b_is_ready = b_is_ready;
