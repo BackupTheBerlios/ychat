@@ -172,7 +172,7 @@ sock::make_socket( uint16_t i_port )
     s_tmp.append( s_tool::int2string(i_port) );
     s_ncur::get
         ().print( s_tmp );
-    mvprintw( 22,2, "Port: %d ", i_port);
+    mvprintw( NCUR_PORT_X,NCUR_PORT_Y, "Port: %d ", i_port);
     refresh();
 #endif
 
@@ -381,7 +381,7 @@ void
 sock::print_threads()
 {
     pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-    mvprintw( 22,28, "Threads: %d ", i_threads);
+    mvprintw( NCUR_THREADS_X,NCUR_THREADS_Y, "Threads: %d ", i_threads);
     refresh();
     pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 }
@@ -390,7 +390,7 @@ void
 sock::print_hits()
 {
     pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
-    mvprintw( 22,16, "Hits: %d ", i_req);
+    mvprintw( NCUR_HITS_X,NCUR_HITS_Y, "Hits: %d ", i_req);
     refresh();
     pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 }

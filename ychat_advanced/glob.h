@@ -47,6 +47,19 @@
 // is used for interaction with the ncurses admin interface at stdout.
 #define NCURSES
 
+// The following values define the positions of the data stats in the NCURSES interface.
+#ifdef NCURSES
+#define NCUR_HITS_X 22
+#define NCUR_HITS_Y 16
+#define NCUR_PORT_X 21
+#define NCUR_PORT_Y 2
+#define NCUR_SESSION_X 22
+#define NCUR_SESSION_Y 2
+#define NCUR_THREADS_X 21
+#define NCUR_THREADS_Y 16 
+#endif
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 // DO NOT CHANGE ANYTHING BEHIND THIS LINE!
 //////////////////////////////////////////////////////////////////////////////////////////

@@ -3,6 +3,7 @@
 
 #include "ncur.h"
 #include "s_mman.h"
+#include "s_sman.h"
 #include "s_sock.h"
 
 using namespace std;
@@ -63,6 +64,7 @@ ncur::start( void *v_pointer )
 
 #ifdef NCURSES
     s_mman::get().print_init_ncurses(); 
+    s_sman::get().print_init_ncurses(); 
 #endif
 
     admin_interface->is_ready( true );

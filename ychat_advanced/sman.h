@@ -4,6 +4,8 @@
 #include "incl.h"
 #include "hmap.h"
 #include "sess.h"
+#include "s_mutx.h"
+#include "s_ncur.h"
 #include "s_tool.h"
 #include "s_conf.h"
 #include <cstdlib>
@@ -19,6 +21,9 @@ private:
 
     pthread_mutex_t mut_sessions;
     pthread_mutex_t mut_session_count;
+#ifdef NCURSES
+    void print_sessions();
+#endif
 
 public:
     sman();
@@ -30,8 +35,9 @@ public:
     }
     sess *create_session( );
     void destroy_session( string s_id );
-
-
+#ifdef NCURSES
+    void print_init_ncurses();
+#endif
 };
 
 
