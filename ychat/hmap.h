@@ -80,6 +80,11 @@ public:
   return static_cast<double>(getSize())/static_cast<double>(getCapacity());
  }
 
+ obj_type& operator[]( key_type &k )
+ {
+  return get_elem( k );
+ }
+
 };
 
 template <class obj_type, class key_type>
