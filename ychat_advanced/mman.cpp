@@ -55,12 +55,12 @@ void
 mman::print_init_ncurses()
 {
         string s_tmp( MYINITC );
-        s_tmp.append( s_tool::int2string( i_initial_connections ) );
+        s_tmp.append( s_tool::int2char( i_initial_connections ) );
         s_ncur::get
             ().print( s_tmp );
 
         string s_tmp2( MYINITM );
-        s_tmp2.append( s_tool::int2string( i_max_connections ) );
+        s_tmp2.append( s_tool::int2char( i_max_connections ) );
         s_ncur::get
             ().print( s_tmp2 );
         print_used_connections(1);

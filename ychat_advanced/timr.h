@@ -31,7 +31,7 @@ public:
     void set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur_hours );
     string get_uptime( );
     string get_time( );
-    string* add_zero_to_front( string *s_time );
+    string add_zero_to_front( string s_time );
 };
 
 #endif

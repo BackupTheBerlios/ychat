@@ -86,7 +86,7 @@ s_tool::string2int( string s_digit )
 }
 
 char*
-s_tool::int2string( int i_int )
+s_tool::int2char( int i_int )
 {
     char *buffer = new char[64];
     sprintf(buffer, "%d", i_int);

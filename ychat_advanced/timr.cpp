@@ -54,7 +54,7 @@ timr::start( void *v_pointer )
 
     time( &clock_start );
     tm time_start = *localtime( &clock_start );
-
+    tm time_now;
     while ( p_timer->get_timer_active() )
     {
      // sleep a second!
@@ -62,16 +62,16 @@ timr::start( void *v_pointer )
 
      // get the current time!
      time( &clock_now );
-     tm time_now = *localtime( &clock_now );
+
+     time_now = *localtime( &clock_now );
+
 
      // set the current time && the current ychat uptime!
      p_timer->set_time( difftime( clock_now, clock_start ),
                         time_now.tm_sec, time_now.tm_min, time_now.tm_hour );
-     
 #ifdef NCURSES
      p_timer->print_time( );
 #endif      
-
      // run every minute:
      if ( time_now.tm_sec == 0 )
      { 
@@ -85,6 +85,7 @@ timr::start( void *v_pointer )
       s_chat::get().msg_post( new string( "<!-- PING! //-->\n" ) );
      }
     }
+
 }
 
 #ifdef NCURSES
@@ -110,18 +111,30 @@ timr::set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur
     while ( d_uptime >= 60 )
      d_uptime -= 60;
 
+    char* c_temp[6];
+   
+    c_temp[0] = s_tool::int2char( i_cur_hours ); 
+    c_temp[1] = s_tool::int2char( i_cur_minutes ); 
+    c_temp[2] = s_tool::int2char( i_cur_seconds ); 
+    c_temp[3] = s_tool::int2char( i_hours ); 
+    c_temp[4] = s_tool::int2char( i_minutes ); 
+    c_temp[5] = s_tool::int2char( (int) d_uptime ); 
+
+
     pthread_mutex_lock  ( &mut_s_time );
-    s_time = *add_zero_to_front( new string( s_tool::int2string( i_cur_hours ) ) ) + ":" +
-             *add_zero_to_front( new string( s_tool::int2string( i_cur_minutes ) ) ) + ":" +
-             *add_zero_to_front( new string( s_tool::int2string( (int) i_cur_seconds ) ) );
+    s_time = add_zero_to_front( c_temp[0] ) + ":" +
+             add_zero_to_front( c_temp[1] ) + ":" +
+             add_zero_to_front( c_temp[2] );
     pthread_mutex_unlock( &mut_s_time );
 
     pthread_mutex_lock  ( &mut_s_uptime );
-    s_uptime = *add_zero_to_front( new string( s_tool::int2string( i_hours ) ) ) + ":" +
-               *add_zero_to_front( new string( s_tool::int2string( i_minutes ) ) ) + ":" +
-               *add_zero_to_front( new string( s_tool::int2string( (int) d_uptime ) ) );
+    s_uptime = add_zero_to_front( c_temp[3] ) + ":" +
+               add_zero_to_front( c_temp[4] ) + ":" +
+               add_zero_to_front( c_temp[5] );
     pthread_mutex_unlock( &mut_s_uptime );
 
+    for ( int i = 0; i < 6; i++ )
+     free( c_temp[i] );
 }
 
 string
@@ -143,15 +156,15 @@ timr::get_uptime(  )
     return s_ret;
 }
 
-string*
-timr::add_zero_to_front( string* s_time )
+string
+timr::add_zero_to_front( string s_time )
 {
-    if ( s_time->length() == 1 )
+    if ( s_time.length() == 1 )
     {
-     string *s_new = new string( "0" );
-     s_new->append( *s_time );
+     string s_new = "0" + s_time;
      return s_new;
     }
+
     return s_time;
 }
 #endif
