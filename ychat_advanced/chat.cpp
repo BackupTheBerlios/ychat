@@ -145,12 +145,12 @@ chat::post( user* p_user, map_string &map_params )
     if ( b_strip_html )
         s_tool::strip_html( &s_msg );
 
-    string s_post( "<font color=\""   );
+    string s_post( "<font color=\"#"   );
 
     s_post.append( p_user->get_col1() )
     .append( "\">"              )
     .append( p_user->get_name() )
-    .append( ":</font> <font color=\"")
+    .append( ":</font> <font color=\"#")
     .append( p_user->get_col2() )
     .append( "\">"  )
     .append( s_msg              )
