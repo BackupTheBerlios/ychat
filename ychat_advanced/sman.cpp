@@ -70,7 +70,9 @@ void sman::destroy_session( string s_id )
 #endif
     pthread_mutex_unlock( &mut_session_count );
 
+    pthread_mutex_lock( &mut_sessions );
     this->sessions->del_elem( s_id );
+    pthread_mutex_unlock( &mut_sessions );
 }
 
 #ifdef NCURSES

@@ -18,24 +18,44 @@
 
 # STANDARD SETTINGS:
 
-HTMLTEMP="html/";  # directory of the html-template files.
-THRDPOOL="50";     # thread pool size. 
-THRDQUEU="50";     # length of the thread pool queue.
-SRVRPORT="3000";   # local port on which the server listens. 
-STRDROOM="Lounge"; # the name of the standard room.
-LANGUAGE="en";     # language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED )
+# directory of the html-template files.
+HTMLTEMP="html/";
+
+# thread pool size. 
+THRDPOOL="50";  
+
+ # length of the thread pool queue.
+THRDQUEU="50";    
+
+# local port on which the server listens. 
+SRVRPORT="3000";
+
+ # the name of the standard room.
+STRDROOM="Lounge";
+
+# language of the chat outputs ( CONSOLE OUTPUT IS NOT AFFECTED ). And you
+# still need to modify your HTML template files in order to make the 
+# language switch complete! 
+LANGUAGE="en";
+
 # the html site which will be send if the requested file does not exists. 
 NOTFOUND="notfound.html";
+
 # specifies the standard start html-template. 
 STARTMPL="index.html";
+
 # user's standard nick color.
 USERCOL1="AAAAAA";
+
 # user's standard text color.
 USERCOL2="FFFFFF";
+
 # standard error message color.
 ERRORCOL="FF0000";
+
 # length of the generated session id
 SESSION_LENGTH="32";
+
 # html = "OFF" strips all html tags from incoming messages
 HTML="OFF";
 

@@ -17,8 +17,12 @@ extern "C" {
 	string* s_command_line = (string*) c->elem[0];
 	user* p_user = (user*)c->elem[1];
 
-  	string *quitstring=new string("<script language=JavaScript>top.location.href='/index.html';</script>");
-	p_user->msg_post( quitstring );
+        conf* p_conf = (conf*) ((dynamic_wrap*)c->elem[3])->CONF; 
+
+  	string s_quit = "<script language=JavaScript>top.location.href='/"
+                      + p_conf->get_val("STARTMPL")
+                      + "';</script>";
+	p_user->msg_post( &s_quit );
         p_user->set_online(false);
  }
 }
