@@ -1,4 +1,3 @@
-SRCS=chat.cpp conf.cpp dir.cpp html.cpp lang.cpp logd.cpp main.cpp modl.cpp mutx.cpp name.cpp pool.cpp reqp.cpp room.cpp sock.cpp thrd.cpp user.cpp sess.cpp sman.cpp mman.cpp mcon.cpp menu.cpp ncur.cpp timr.cpp wrap.cpp tool.cpp smap.cpp gcol.cpp data.cpp
 OBJS=$(SRCS:.cpp=.o)
 CC=g++
 LDFLAGS=@LDFLAGS@ -lstdc++ -lmysqlclient -lncurses -g 

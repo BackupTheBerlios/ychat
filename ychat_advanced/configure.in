@@ -25,4 +25,10 @@ AC_OUTPUT(Makefile)
 cd mods &&
 ./configure
 cd ..
+
+mv Makefile Makefile.bak && 
+srcs="SRCS=`ls *.cpp`" && echo $srcs > Makefile &&
+cat Makefile.bak >> Makefile &&
+rm Makefile.bak
+
 echo "You are now ready to compile. Type make"
