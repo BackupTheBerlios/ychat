@@ -90,10 +90,17 @@ you may remove the #define NCURSES line in the glob.h and enable
 #define SERVMSG and #define VERBOSE instead.
 
 Now invoke "./configure" and afterwards "make", edit the conf.txt ( be 
-sure to enter a valid mysql account ) hostand run the server with ./ychat.
+sure to enter a valid mysql account ) host.
+
+Now we want to compile all the dynamic loadable modules of ychat.
+Invoke "cd mods && ./compile.sh && cd -". All modules should get
+compiled.
+
+Now its time to run the server with ./ychat.
 Then point your webbrowser to http://yourip:port/index.html ( ignoring
 the index.html on the end of the url will not work! ). 
 ... have fun :-).
+
 
 1.4.0 HOW TO USE SCREEN WITH YCHAT++:
 
