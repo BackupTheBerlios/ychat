@@ -101,8 +101,8 @@ compiled.
 
 Now its time to run the server with ./ychat.
 
-Aferwards point your webbrowser to http://yourip:port/index.html
-( ignoring the index.html on the end of the url will not work! ). 
+Aferwards point your webbrowser to http://yourip:port !
+
 ... have fun :-).
 
 1.4.0 HOW TO USE SCREEN WITH YCHAT++:

@@ -107,7 +107,6 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
     while( true );
 
 #ifdef VERBOSE
-
     pthread_mutex_lock  ( &s_mutx::get
                               ().mut_stdout );
     cout << REQUEST << s_ret << endl;
@@ -115,8 +114,10 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
                               ().mut_stdout );
 #endif
 
-    map_params["request"] = s_ret;
+    if (  s_ret.empty() )
+     s_ret = s_conf::get().get_val( "STARTMPL" );
 
+    map_params["request"] = s_ret;
     return s_ret;
 }
 
