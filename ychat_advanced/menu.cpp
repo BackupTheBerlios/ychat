@@ -6,7 +6,7 @@
 
 using namespace std;
 
-menu::menu( int i_startx, int i_starty, int i_width, int i_height, char *c_header, char **choices, int i_numchoices )	
+menu::menu( int i_startx, int i_starty, int i_width, int i_height, char *c_header, char **choices, int i_numchoices, const chtype ch )	
 {
  this->i_startx = i_startx;
  this->i_starty = i_starty;
@@ -16,7 +16,7 @@ menu::menu( int i_startx, int i_starty, int i_width, int i_height, char *c_heade
  this->choices  = choices;
  this->i_numchoices = i_numchoices; 
 
- initialize();
+ initialize( ch );
 }
 
 menu::~menu()
@@ -29,12 +29,14 @@ menu::~menu()
 }
 
 void
-menu::initialize()
+menu::initialize( const chtype ch )
 {
  this->i_highlight = 1;
  this->i_choice = 0;
 
- win = newwin( i_height, i_width, i_starty, i_startx);
+ win = newwin( i_height, i_width, i_starty, i_startx );
+ wbkgd(win, ch);
+ 
  keypad(win, TRUE);
 }
 
@@ -108,7 +110,7 @@ menu::start()
    switch ( i_choice )
    {
     case 9: // Shut down server
-     mvprintw( 20,3, "Good bye !");
+     mvprintw( 21,2, "Good bye !");
      refresh();
      clrtoeol();
      refresh();
@@ -117,7 +119,7 @@ menu::start()
     break; 
 
     default: 
-     mvprintw( 20,3, "Selection # %d not yet implemented!", i_choice-1); 
+     mvprintw( 21,2, "Selection # %d not yet implemented!", i_choice-1); 
      refresh(); 
      break;
    }

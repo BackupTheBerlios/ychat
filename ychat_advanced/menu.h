@@ -17,10 +17,10 @@ private:
 
  WINDOW *win;
 
- void initialize();
+ void initialize( const chtype ch );
 
 public:
- explicit menu( int i_startx, int i_starty, int i_width, int i_height, char *c_header, char **choices, int i_numchoices );	
+ explicit menu( int i_startx, int i_starty, int i_width, int i_height, char *c_header, char **choices, int i_numchoices, const chtype ch );	
          ~menu( );
 
  void display(); 

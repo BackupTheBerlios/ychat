@@ -25,12 +25,16 @@ ncur::start( void *v_pointer )
  ncur* admin_interface = static_cast<ncur*>(v_pointer);
 
  initscr();
+ start_color();
  clear();
  noecho();
  cbreak();       // Line buffering disabled. pass on everything 
 
- mvprintw(1, 3, DESCRIP );
- mvprintw(2, 3, CONTACT );
+ init_pair(1, COLOR_WHITE, COLOR_BLUE);
+
+ mvprintw(0, 2, DESCRIP );
+ mvprintw(1, 2, CONTACT );
+
  refresh();
 
  char *choices[] = { 
@@ -46,6 +50,7 @@ ncur::start( void *v_pointer )
  };
 
  admin_interface->p_serveroutput = newwin( 17, 45, 3, 34 );
+ wbkgd(admin_interface->p_serveroutput, COLOR_PAIR(1));
 
  box      ( admin_interface->p_serveroutput, 0, 0 ); 
  mvwprintw( admin_interface->p_serveroutput, 2, 2, "SERVER SYSTEM MESSAGES" );
@@ -55,7 +60,7 @@ ncur::start( void *v_pointer )
 
  admin_interface->print( VERSION );
 
- admin_interface->p_menu = new menu( 2, 3, 32, 17, "ADMIN MAIN MENU", choices, 9 );
+ admin_interface->p_menu = new menu( 1, 3, 32, 17, "ADMIN MAIN MENU", choices, 9, COLOR_PAIR(1));
  admin_interface->p_menu->start();
 
  clrtoeol();

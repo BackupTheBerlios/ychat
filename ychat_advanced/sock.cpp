@@ -134,7 +134,7 @@ sock::make_socket( uint16_t i_port )
  s_tmp.append( "localhost:" );
  s_tmp.append( s_tool::int2string(i_port) );
  s_ncur::get().print( s_tmp );  
- mvprintw( 22,3, "Port: %d ", i_port);
+ mvprintw( 22,2, "Port: %d ", i_port);
  refresh();
 #endif
 
@@ -253,7 +253,7 @@ sock::start()
      // connection request on original socket.
      i_req++;
 #ifdef NCURSES
-     mvprintw( 22,15, "Hits: %d ", i_req);
+     mvprintw( 22,14, "Hits: %d ", i_req);
      refresh();
 #endif
      int new_sock;
