@@ -21,6 +21,7 @@
 #define NEWREQU "New request \0"
 #define NEWROOM "New room \0"
 #define NEWUSER "New user \0"
+#define NOFOUND "File not found \0"
 #define POOLERR "Thread pool malloc error \0"
 #define READERR "Sock read error \0"
 #define REMUSER "Removing user \0"

@@ -50,7 +50,18 @@ html::parse( map_string &map_params )
       if ( ! fs_templ )
         {
 
-          cerr << "File not found: " << s_file << endl;
+#ifdef VERBOSE
+          cerr << NOFOUND << s_file << endl;
+#endif
+#ifdef NCURSES
+
+          {
+            string s_tmp( NOFOUND );
+            s_tmp.append( s_file );
+            s_ncur::get
+              ().print( s_tmp );
+          }
+#endif
           if(map_params["request"]==s_conf::get
                 ().get_val( "NOTFOUND"  ))
               return "";
