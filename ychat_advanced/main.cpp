@@ -91,6 +91,7 @@ cout  <<  "         ___ _           _   "     << endl
  s_mman::init(); // init the mysql connection manager.
  s_ncur::init(); // init the ncurses admin interface.
  s_sock::init(); // init the socket manager. 
+ s_chat::init(); // init the chat manager. 
 
  // begin to draw the ncurses amdin interface in a new pthread.
  pthread_t admin_thread;
