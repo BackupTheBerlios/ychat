@@ -171,8 +171,9 @@ MYSQL *mman::new_connection( )
                                 NULL, 0 ) == NULL )
     {
 #ifdef NCURSES
-	wrap::NCUR->shutdown();
-        wrap::NCUR->print( string( MYMANAG ) + string(  mysql_error(ms) ) );
+	//wrap::NCUR->shutdown();
+        //wrap::NCUR->print( string( MYMANAG ) + string(  mysql_error(ms) ) );
+        cerr << MYMANAG << mysql_error(ms) << endl;
 #endif
 #ifdef SERVMSG
         cerr << MYMANAG << mysql_error(ms) << endl;

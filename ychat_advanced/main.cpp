@@ -50,6 +50,7 @@ int main()
     // contain only empty pointers and the chat server won't work correctly.
     // the order of the initializations is very importand. for example the s_html::init()
     // invokations assumes an initialized s_conf class.
+    // begin to draw the ncurses amdin interface in a new pthread.
 
     // init the dynamic wrapper (is needed to pass all wrapped objects through a single pointer).
     wrap::WRAP = new dynamic_wrap;
@@ -81,9 +82,7 @@ int main()
     // init the system timer.
     wrap::WRAP->TIMR = wrap::TIMR = new timr(); 
 
-    // begin to draw the ncurses amdin interface in a new pthread.
 #ifdef NCURSES
-
     wrap::WRAP->NCUR = wrap::NCUR = new ncur(); // init the ncurses admin interface.
 
     pthread_t admin_thread;
