@@ -57,11 +57,11 @@ extern "C" {
                         + p_user->get_colored_bold_name(); 
           string s_msg = s_user 
                        + p_lang->get_elem( "USER_LEAVES_ROOM" )
-	               + "<b>" + s_room + "</b><br>\n";
+	               + "<b>";
 
           string s_msg2 = s_user
                         + p_lang->get_elem( "USER_ENTERS_ROOM" )
-	                + s_room + "<br>\n";
+	                + "<b>";
 
 	  bool b_flag;
           room*  p_room = p_chat->get_room( s_room , b_flag );
@@ -72,13 +72,18 @@ extern "C" {
            p_room = p_gcol->get_room_from_garbage_or_new();
            p_room->set_name( s_room );
 
+           s_msg.append( s_room + "</b><br>\n" );
+           s_msg2.append( s_room + "</b><br>\n" );
+
            room* p_room_old = p_user->get_room();
 
            string s_name_lowercase = p_user->get_lowercase_name();
            p_user->get_room()->del_elem( s_name_lowercase );
 
+           p_gcol->lock_mutex();
            if ( p_room_old != NULL )
  	    p_room_old->msg_post( &s_msg ); 
+           p_gcol->unlock_mutex();
 
            p_room->add_user( p_user );
            p_chat->add_elem( p_room );
@@ -87,10 +92,19 @@ extern "C" {
 
           else // p_room != NULL
           {
-           // add user to the room.
- 	   p_user->get_room()->msg_post( &s_msg ); 
-           string s_name = p_user->get_lowercase_name();
-           p_user->get_room()->del_elem( s_name );
+           s_msg.append( p_room->get_name() + "</b><br>\n" );
+           s_msg2.append( p_room->get_name() + "</b><br>\n" );
+
+           room* p_room_old = p_user->get_room();
+
+           string s_name_lowercase = p_user->get_lowercase_name();
+           p_user->get_room()->del_elem( s_name_lowercase );
+
+           p_gcol->lock_mutex();
+           if ( p_room_old != NULL )
+ 	    p_room_old->msg_post( &s_msg ); 
+           p_gcol->unlock_mutex();
+
            p_room->add_user( p_user );
            p_room->msg_post( &s_msg2 );
 	  }
