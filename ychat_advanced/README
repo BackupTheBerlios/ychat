@@ -46,6 +46,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   Only needed if yChat should run in background with
   ncurses enabled.
 
+- Perl 5.x
+  Only optional. May be usefull for the configure and make scripts which
+  sometimes run perl stuff from scripts/*pl but not needed in order to
+  use yChat :-).
+
 1.1.0 TESTED PLATFORMS:
 
 The following platforms have been tested with success:

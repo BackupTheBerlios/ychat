@@ -19,6 +19,9 @@ stats:
 	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
 	cat stats.txt 2>/dev/null
 base:	infotext $(OBJS)
+stats:
+	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
+	cat stats.txt 2>/dev/null
 ychat:  $(OBJS) modules
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
 	perl scripts/buildnr.pl || ./scripts/noperl.sh
