@@ -18,6 +18,7 @@
 #include "pool.h"
 #include "reqp.h"
 #include "thrd.h"
+#include "user.h"
 
 using namespace std;
 
@@ -31,9 +32,6 @@ private:
  reqp* req_parser; // parses the http requests from clients.
  pool* thrd_pool;  // the thread pool.
 
- // the chat stream there all the chat messages will sent through.
- static void chat_stream( int i_sock, map_string &map_params );
-
  // creates a server socket.
  virtual int make_socket( uint16_t port );
 
@@ -46,6 +44,10 @@ public:
  explicit sock( ); // simple constructor.
  virtual int  read_write( thrd* p_thrd, int filedes   );
  virtual int  start();
+
+ // the chat stream there all the chat messages will sent through.
+ static void chat_stream( int i_sock, user* p_user, map_string &map_params );
+
 };
 
 #endif

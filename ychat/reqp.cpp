@@ -7,7 +7,7 @@
 #include "s_chat.h"
 #include "s_html.h"
 #include "s_mutx.h"
-#include "sock.h"
+#include "s_sock.h"
 
 using namespace std;
 
@@ -195,7 +195,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
   else
   {
    bool b_found;
-   user* u_user = s_chat::get().get_user( map_params["nick"], b_found );
+   user* p_user = s_chat::get().get_user( map_params["nick"], b_found );
 
    if ( ! b_found )
    {
@@ -205,11 +205,15 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
    // if a message post.
    else if ( s_event == "post" )
-    s_chat::get().post( u_user, map_params );
+    s_chat::get().post( p_user, map_params );
+
+   // if a chat stream 
+   else if ( s_event == "stream" )
+    s_sock::get().chat_stream( p_thrd->get_sock(), p_user, map_params );
 
    // if a request for the online list of the active room.
    else if ( s_event == "online" )
-    s_html::get().online_list( u_user, map_params );
+    s_html::get().online_list( p_user, map_params );
   }
  }
 

@@ -26,11 +26,8 @@ sock::sock()
 }
 
 void
-sock::chat_stream( int i_sock, map_string &map_params )
+sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 {
- user* p_user = s_chat::get().get_user( map_params["nick"] );
- p_user->set_sock( i_sock );
-
  string s_msg( "" );
 
  pthread_mutex_lock  ( &(p_user->mut_message) );
@@ -123,11 +120,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
   // send s_rep to the client.
   send( i_sock, s_rep.c_str(), s_rep.size(), 0 );
 
-  // prove if this is a request for a chat stream!
-  if ( map_params["event"] == "stream" )
-   chat_stream( i_sock, map_params );
-
-  // we dont need the map_params anymore for this request. 
+  // dont need those vals anymore. 
   map_params.clear();
 
   return 0;
@@ -139,7 +132,7 @@ sock::read_write( thrd* p_thrd, int i_sock )
 int
 sock::start()
 {
- auto int i_port = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
+ auto int i_port   = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
 
  int sock;
  fd_set active_fd_set, read_fd_set;
