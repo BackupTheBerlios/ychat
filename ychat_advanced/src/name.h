@@ -15,6 +15,7 @@ protected:
 
 public:
     virtual string get_name  ( );
+    virtual string get_lowercase_name  ( );
     virtual void   set_name  ( string s_name );
 
 

@@ -42,7 +42,7 @@ extern "C" {
          if ( i_max_room_len < s_room.length() )
           s_room = s_room.substr(0, i_max_room_len );         
 
-         if ( s_room == p_user->get_room()->get_name() )
+         if ( tool::to_lower(s_room) == p_user->get_room()->get_lowercase_name() )
          {
           string s_msg = "<font color=\"" + p_conf->get_elem("ERRORCOL") + "\">"
 		       + p_lang->get_elem("ERR_ALREADY_IN_ROOM") + "<b>"

@@ -4,6 +4,7 @@
 #define NAME_CPP
 
 #include "name.h"
+#include "tool.h"
 
 using namespace std;
 
@@ -26,6 +27,12 @@ name::get_name()
     s_ret = s_name;
     pthread_mutex_unlock( &mut_s_name );
     return s_ret;
+}
+
+string
+name::get_lowercase_name() 
+{
+    return tool::to_lower(get_name()); 
 }
 
 void

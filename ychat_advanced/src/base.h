@@ -13,7 +13,15 @@ public:
     base();
     ~base();
 
-    virtual type* get_elem( string &s_name, bool &b_found ); // get a element.
+    static string to_lower( string s )
+    {
+	string s_tmp("");
+	for(int i=0;i < s.size() ;i++)
+		s_tmp=s_tmp+(char)tolower(s.at(i));
+	return s_tmp;
+    }
+
+    virtual type* get_elem( string s_name, bool &b_found ); // get a element.
     virtual void  add_elem( type*   p_type );                // add a element.
 
     // chat::msg_post sends to all users of the system a message.
