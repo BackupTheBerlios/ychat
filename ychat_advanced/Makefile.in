@@ -4,11 +4,13 @@ CC=g++
 LDFLAGS=@LDFLAGS@ -lstdc++ -lmysqlclient -lncurses -g 
 LDADD=-pthread -D_THREAD_SAFE
 all: ychat	
-$(SRCS):
+$(SRCS): 
 	$(CC) $(CFLAGS) -c $*.cpp
 ychat:  $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
+	make -C ./mods
 	perl scripts/buildnr.pl
 	perl scripts/stats.pl > stats.txt
 clean:
-	rm *.o 
+	rm *.o  
+	make -C ./mods clean

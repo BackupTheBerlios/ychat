@@ -6,18 +6,7 @@
 
 use strict;
 
-my %stats = ( 	dirs => 0,
-		files => 0,
-		srcfiles => 0,
-                scriptfiles => 0,
-                htmlfiles => 0,
-                txtfiles => 0,
-		modulefiles => 0,
-		htmlfiles => 0,
-		linesofsrc => 0,
-		linesofscripts => 0,
-                linesoftxt => 0,
-		linesofhtml => 0 );
+my %stats;
 
 &recursive('.');
 
@@ -43,12 +32,12 @@ sub recursive
 
   if ( -f "$shift/$_" )
   {
-   $stats{files}++;
+   $stats{numfilestotal}++;
    &filestats("$shift/$_");
   }
   elsif ( -d "$shift/$_" )
   {
-   $stats{dirs}++;
+   $stats{numdirstotal}++;
    &recursive("$shift/$_");
   }
  }
@@ -59,27 +48,27 @@ sub filestats
  my $shift = shift;
  if ( $shift =~ /\.(cpp|h)$/ )
  {
-  $stats{srcfiles}++;
+  $stats{numsrcfiles}++;
   $stats{linesofsrc} += countlines($shift);
  }
  elsif ( $shift =~ /\.(html|css)$/ )
  {
-  $stats{htmlfiles}++;
+  $stats{numhtmlfiles}++;
   $stats{linesofhtml} += countlines($shift);
  }
  elsif ( $shift =~ /(\.pl|\.sh|configure.*|Makefile.*)$/ )
  {
-  $stats{scriptfiles}++;
+  $stats{numscriptfiles}++;
   $stats{linesofscripts} += countlines($shift);
  }
  elsif ( $shift =~ /(\.txt|README|INSTALL|COPYING|ChangeLog)$/ )
  {
-  $stats{txtfiles}++;
+  $stats{numtxtfiles}++;
   $stats{linesoftxt} += countlines($shift);
  }
  elsif ( $shift =~ /\.so$/ )
  {
-  $stats{modulefiles}++;
+  $stats{nummodulefiles}++;
  }
 }
 
