@@ -296,10 +296,12 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 
              else if ( s_event != "input" ) 
              {
+
               container *c = new container;
               c->elem[0] = (void*) wrap::LANG ;
               c->elem[1] = (void*) wrap::MODL;
               c->elem[2] = (void*) &map_params;
+              c->elem[3] = (void*) p_user;
 
               string s_mod = "mods/html/yc_" + s_event + ".so";
     	      ( *( wrap::MODL

@@ -3,14 +3,14 @@
   <title>
    %%PGETITLE%%
   </title>
-<link rel=stylesheet href="style.css" type=text/css>
+  <link rel=stylesheet href="style.css" type=text/css>
   <script language="JavaScript">
    <!--
     function delout()
     {
-     document.input.message.focus();
-     document.input.message.select();
      document.input.submit();
+     document.input.message.value = "";
+     document.input.message.focus();
      return false;
     }
     function selectinput()
@@ -37,9 +37,13 @@
    <input type="button" value="select"  accesskey='e' onclick="javascript:selectinput();">
   </form>
   </td>
-  <td>
+  <td valign=top>
+   <a href='#' onclick="javascript:popup('options.html?event=options&tmpid=%%tmpid%%', 576, 480)">Options</a>
+  </td>
+  <td valign=top>
    <a href='#' onclick="javascript:popup('help.html?event=help&tmpid=%%tmpid%%', 576, 480)">Help</a>
-  </td></tr>
+  </td>
+  </tr>
   </table>
  </body>
 </html>

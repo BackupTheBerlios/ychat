@@ -1,3 +1,4 @@
+OPTIONSCHANGED="Ihre Einstellungen wurden geändert!<br><br>";
 SCREAM="schreit: ";
 SERVERTIME="Die Serversystemzeit: ";
 TOPIC="ändert das Thema nach: ";
