@@ -44,6 +44,16 @@ extern "C" {
 
         room* p_room = p_user->get_room();
 
+        // Remove ' from away message:
+        auto unsigned int pos;
+
+        do {
+         pos = s_away.find_first_of( "'" );
+         if ( pos == string::npos )
+          break;
+         s_away.replace( pos, 1, "\"" );
+         } while (true);
+
         p_user->set_away( true, s_away );
         p_room->msg_post ( &s_msg  );
  }

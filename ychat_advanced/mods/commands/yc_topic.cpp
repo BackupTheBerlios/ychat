@@ -72,10 +72,8 @@ extern "C" {
 
         room* p_room = p_user->get_room();
 
-
         p_room->set_topic( s_topic );
         p_room->msg_post ( &s_msg  );
-
  }
 }
 

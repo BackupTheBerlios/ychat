@@ -5,26 +5,33 @@
  </title>
 <link rel=stylesheet href="style.css" type=text/css>
  <script language="JavaScript">
+  var scrolling;
+  var isOn;
   function autoScroll()
   {
-   window.scroll(1, 50000 );
-   timer = setTimeout('autoScroll()',200);
+   if(!isOn)
+   {
+    scrolling = window.setInterval("window.scroll(1,1606682)",70);
+    isOn = true;
+   }
   }
-
-  autoScroll();
 
   function stopScroll()
   {
-   clearTimeout(timer);
-  }
-
-  function startScroll()
-  {
-   timer = setTimeout('autoScroll()', 200);
+   if(isOn)
+   {
+    window.clearInterval(scrolling); 
+    isOn=false;
+   }
   }
  </script>
 </head>
 <body bgcolor=#000000 text=#ffffff>
+<script>
+autoScroll();
+</script>
+
  Welcome to yChat %%nick%%!
  <br>
  <br>
+
