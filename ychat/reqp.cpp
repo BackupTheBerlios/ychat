@@ -121,6 +121,30 @@ reqp::get_content_type( string s_file )
 
 	return s_conf::get().get_val( "CT_"+s_ext );	
 }
+void
+reqp::parse_headers( string s_req, map_string &map_params )
+{
+
+        int pos = s_req.find("\n");
+        while(pos!=string::npos)
+        {
+                auto string s_line=s_req.substr(0,pos);
+                auto int pos2=s_line.find(":");
+                if(pos2!=string::npos)
+                {
+                        auto string key=s_tool::trim(s_line.substr(0, pos2));
+                        auto string value=s_tool::trim(s_line.substr(pos2+1));
+
+                        map_params[key]=value;
+
+
+                }
+                s_req=s_req.substr(s_line.size()+1);
+                pos=s_req.find("\n");
+        }
+
+}
+
 
 int
 reqp::htoi(string *s)
@@ -188,7 +212,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
  // store all request informations in map_params. store the url in 
  // map_params["request"].
  get_url( p_thrd, s_req, map_params ); 
-
+ parse_headers( s_req, map_params );
  // create the http header.
  string s_rep( HTTP_CODEOK ); s_rep.append( HTTP_SERVER );
  s_rep.append( HTTP_CONTAC ); s_rep.append( HTTP_CACHEC );
@@ -197,6 +221,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
  s_rep.append("\n\n");
 
  // check the event variable.
+
  string s_event( map_params["event"] );
  if ( ! s_event.empty() )
  {
@@ -211,15 +236,16 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
    bool b_found;
    user* p_user = s_chat::get().get_user( map_params["nick"], b_found );
 
+
    if ( ! b_found )
    {
      map_params["INFO"]    = E_NOTONL;
      map_params["request"] = s_conf::get().get_val( "STARTMPL" ); // redirect to the startpage.
    }
-
    // if a message post.
    else if ( s_event == "post" )
     s_chat::get().post( p_user, map_params );
+
 
    // if a chat stream 
    else if ( s_event == "stream" )

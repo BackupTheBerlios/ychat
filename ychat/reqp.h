@@ -41,6 +41,7 @@ public:
  virtual string parse( thrd* p_thrd, string s_req, map_string &map_params ); 
  virtual string url_decode ( string );
  virtual string get_content_type( string );
+ virtual void parse_headers( string s_req, map_string &map_params );
 };
 
 #endif
