@@ -72,6 +72,10 @@ public:
     virtual void get_data( map_string *p_map_data );
 
     virtual string get_colored_name();
+    string get_colored_bold_name()
+    { 
+     return "<b>" + get_colored_name() + "</b>";
+    }
     virtual bool  get_online();
     virtual bool  get_has_sess();
     virtual bool  get_is_reg();

@@ -59,7 +59,7 @@ extern "C" {
 	}
         else  
 	{  	
-		string *answerstring=new string(p_timr->get_time() + " " + p_user->get_colored_name()+ " changes color to <font color=\"#" 
+		string *answerstring=new string(p_timr->get_time() + " " + p_user->get_colored_bold_name()+ " changes color to <font color=\"#" 
                        + s_color + "\">" + s_color + "</font> <font color=\"#" 
                        + s_color2 + "\">" + s_color2 + "</font><br>\n");
 		p_user->get_room()->msg_post( answerstring );

@@ -32,7 +32,7 @@ extern "C" {
 
          s_msg = p_timr->get_time()
                + " "
-               + p_user->get_colored_name()
+               + p_user->get_colored_bold_name()
                + " "
                + p_lang->get_elem("TOPIC")
                + s_col;

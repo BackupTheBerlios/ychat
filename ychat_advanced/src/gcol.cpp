@@ -7,12 +7,14 @@ using namespace std;
 
 gcol::gcol()
 {
+ pthread_mutex_init( &mut_vec_rooms  , NULL);
+
  p_map_users = new smap<user*,string>(HMAPOCC);
  wrap::system_message( GARBAGE );
+
 #ifdef NCURSES
  print_garbage(); 
 #endif
- pthread_mutex_init( &mut_vec_rooms  , NULL);
 }
 
 gcol::~gcol()
@@ -87,6 +89,7 @@ gcol::get_room_from_garbage()
   return NULL;
  }
 
+
  room* p_room = vec_rooms.back();
  vec_rooms.pop_back();
  pthread_mutex_unlock( &mut_vec_rooms );
@@ -95,6 +98,15 @@ gcol::get_room_from_garbage()
  print_garbage(); 
 #endif
 
+ return p_room;
+}
+
+room*
+gcol::get_room_from_garbage_or_new()
+{
+ room* p_room = get_room_from_garbage();
+ if ( p_room == NULL )
+  return new room("");
  return p_room;
 }
 

@@ -30,7 +30,7 @@ extern "C" {
 
         s_msg = s_time
               + " "
-              + p_user->get_colored_name()
+              + p_user->get_colored_bold_name()
               + " "
               + p_lang->get_elem("SETAWAY")
               + "<font color=" + p_user->get_col2() + ">"; 

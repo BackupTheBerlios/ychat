@@ -218,7 +218,7 @@ chat::login( map_string &map_params )
 
     // post "username enters the chat" into the room.
     string s_msg = wrap::TIMR->get_time() + " "
-                 + p_user->get_colored_name()
+                 + p_user->get_colored_bold_name()
                  + wrap::LANG->get_elem( "USERENTR" )
                  + "<br>\n";
 
