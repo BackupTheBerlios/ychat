@@ -31,9 +31,9 @@ name::get_name()
 void
 name::set_name( string s_name )
 {
-    pthread_mutex_lock  ( &mut_s_name );
+//    pthread_mutex_lock  ( &mut_s_name );
     this->s_name = s_name;
-    pthread_mutex_unlock( &mut_s_name );
+//    pthread_mutex_unlock( &mut_s_name );
 }
 
 
