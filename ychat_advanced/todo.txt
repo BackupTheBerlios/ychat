@@ -1,5 +1,7 @@
 BRAIN-STORMING:
 
+bugfixes ( see known bugs ).
+completion of the admin ncurses interface.
 add libmysqlclient and ncurses test to the configure script
 user profiles
 security: crypto
@@ -12,3 +14,8 @@ several different html templates
 
 10: bugfixes
 20: goto 10
+
+Known bugs:
+
+segfault if a user floods the chat ( we have to check the msg post thread subroutines ).
+some user do not log out automaticaly ( we have to implement an activity counter ).
