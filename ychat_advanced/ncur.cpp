@@ -31,7 +31,7 @@ ncur::start( void *v_pointer )
     cbreak();       // Line buffering disabled. pass on everything
 
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
-    mvprintw( 0,2, VERSION);
+    mvprintw( 0,2, (string(VERSION) + " Build " + tool::int2string(BUILDNR)).c_str());
 
     refresh();
 

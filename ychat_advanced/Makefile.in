@@ -8,5 +8,7 @@ $(SRCS):
 	$(CC) $(CFLAGS) -c $*.cpp
 ychat:  $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
+	perl scripts/buildnr.pl
+	perl scripts/stats.pl > stats.txt
 clean:
 	rm *.o 

@@ -16,7 +16,7 @@ extern "C" {
 	container *c=(container *)v_arg;
 	
 	user *p_user = (user*)c->elem[1];		// the corresponding user
- 	p_user->msg_post( new string( *new string(VERSION) + "<br>\n") );
+ 	p_user->msg_post( new string( *new string(VERSION) + " Build " + tool::int2string(BUILDNR) + "<br>\n") );
  }
 }
 
