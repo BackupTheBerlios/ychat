@@ -13,9 +13,9 @@ extern "C" {
 
  int extern_function(void *v_arg)
  {
-	container *c=(container *)v_arg;
-	string *sCommandLine=(string *)c->elem[0];
-	user *p_user = (user*)c->elem[1];
+	container* c = (container*) v_arg;
+	string* s_command_line = (string*) c->elem[0];
+	user* p_user = (user*)c->elem[1];
 
   	string *quitstring=new string("<script language=JavaScript>top.location.href='/index.html';</script>");
 	p_user->msg_post( quitstring );

@@ -50,8 +50,9 @@ protected:
 public:
     hmap( double moc );
 
-    virtual int  find_pos  ( const key_type &k );
+    int  find_pos  ( const key_type &k );
     virtual void make_empty( );
+    virtual void make_empty( void (*func)(key_type) );
     virtual void add_elem ( const obj_type &x, const key_type &k );
     virtual void del_elem ( const key_type &k );
     virtual obj_type get_elem ( const key_type &k );

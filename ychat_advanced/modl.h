@@ -21,10 +21,10 @@ public:
     modl();
     ~modl();
 
-    dynmod* get_module  ( string s_name );
-
-    hmap<dynmod*,string>* 
-    get_map_mods() { return map_mods; }
+    dynmod* get_module( string s_name );
+    vector<string>* get_mod_vector();
+    void unload_modules(); 
+    void reload_modules(); 
 };
 
 #endif

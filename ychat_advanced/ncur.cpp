@@ -38,8 +38,8 @@ ncur::start( void *v_pointer )
     refresh();
 
     char *choices[] = {
-                          "Chat manager            NI",
-                          "Config manager          NI",
+                          "Unload all modules        ",
+                          "Reload all modules        ",
                           "HTML-template manager   NI",
                           "Language manager        NI",
                           "Module-loader manager   NI",
@@ -99,22 +99,24 @@ ncur::print( char* c_print )
 	string s_tmp( c_print );
 	print( s_tmp.substr( 0, i_message_length ) );
         print( s_tmp.substr( i_message_length, s_tmp.length() ) ); 
-
 	return;
     }	
 
     char* c_temp = new char[i_message_length];
+    memcpy( c_temp, c_print, strlen(c_print) );
     int i;
-    for ( i = 0; i < i_message_length; i++ )
+    for ( i = strlen(c_print); i < i_message_length; i++ )
         c_temp[i] = ' ';
     c_temp[i] = '\0';
-
-    memcpy( c_temp, c_print, strlen(c_print) );
 
     pthread_mutex_lock( &mut_messages );
 
     if ( p_messagelist->size() > 10 )
+    {
+        char* c_front = p_messagelist->front();
         p_messagelist->pop_front();
+        free( c_front );
+    }
 
     p_messagelist->push_back( c_temp );
 
@@ -135,6 +137,20 @@ ncur::switch_main_menu_( int i_choice )
     if( i_choice != 0 )
         switch ( i_choice )
         {
+        case 1:
+            wrap::MODL->unload_modules();
+            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+            mvprintw( 20,2, "Unloaded all modules               ");
+            refresh();
+            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+            break;
+        case 2:
+            wrap::MODL->reload_modules();
+            pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+            mvprintw( 20,2, "Reloaded all modules               ");
+            refresh();
+            pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
+            break;
         case 9: // Shut down server
 	    wrap::MMAN->~mman();
             mvprintw( 21,2, "Good bye !");
@@ -148,6 +164,7 @@ ncur::switch_main_menu_( int i_choice )
         default:
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
             mvprintw( 20,2, "Selection # %d not yet implemented!", i_choice-1);
+            wrap::NCUR->print( "Selection not yet implemented!" );
             refresh();
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;

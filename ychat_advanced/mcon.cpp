@@ -1,5 +1,5 @@
-#ifndef MCON_CXX
-#define MCON_CXX
+#ifndef MCON_CPP
+#define MCON_CPP
 
 #include "mcon.h"
 
@@ -7,7 +7,14 @@ mcon::mcon( MYSQL *mysql )
 {
     this->query_sent=false;
     if(mysql==NULL)
-        cerr << "Warning: mysql seems 0" << endl;
+    {
+#ifdef SERVMSG
+        cerr << MYWARN1 << endl;
+#endif
+#ifdef NCURSES
+        wrap::NCUR->print( MYWARN1 );
+#endif
+    }
     this->myc=mysql;
 }
 mcon::~mcon()
@@ -21,16 +28,22 @@ int mcon::query( string query )
 
     if(mysql_error(this->myc)[0] != '\0')
     {
-        cerr << "MySQL error occured: " << mysql_error(this->myc) << endl;
+        string s_error( mysql_error( this->myc ) );
+#ifdef SERVMSG
+        cerr << MYERRO3 << s_error << endl;
+#endif
+#ifdef NCURSES
+        wrap::NCUR->print( string(MYERRO3) + s_error );
+#endif
         return -1;
     }
-    this->query_sent=true;
+    this->query_sent = true;
 
-    this->current_result=mysql_store_result( this->myc );
+    this->current_result = mysql_store_result( this->myc );
 }
 MYSQL_ROW mcon::get_next_row()
 {
-    if(query_sent)
+    if( query_sent )
     {
         return mysql_fetch_row( this->current_result );
     }

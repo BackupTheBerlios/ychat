@@ -1,6 +1,5 @@
-#ifndef hmap_cpp
-#define hmap_cpp
-
+#ifndef HMAP_CPP
+#define HMAP_CPP
 
 #include "hmap.h"
 
@@ -117,7 +116,19 @@ void hmap<obj_type, key_type>::make_empty( )
 {
     occupied = 0;
     for( int i = 0; i < array.size( ); i++ )
-        array[ i ].info = EMPTY;
+     array[ i ].info = EMPTY;
+}
+
+template <class obj_type, class key_type>
+void hmap<obj_type, key_type>::make_empty( void (*func)(key_type) )
+{
+    occupied = 0;
+    for( int i = 0; i < array.size( ); i++ )
+     if ( array[ i ].info != EMPTY )
+     {
+      array[ i ].info = EMPTY;
+      ( *func ) ( array[ i ].key );
+     }
 }
 
 // Return true if i_current_pos exists and is active.

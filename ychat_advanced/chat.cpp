@@ -38,8 +38,8 @@ chat::get_user( string &s_user, bool &b_found )
 
     run_func( get_user_, (void*)&param );
 
-    if ( *( (bool*)param.elem[1] ) )
-        return (user*)param.elem[2];
+    if ( *( (bool*) param.elem[1] ) )
+        return (user*) param.elem[2];
 }
 
 void

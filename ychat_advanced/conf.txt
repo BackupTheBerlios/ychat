@@ -32,6 +32,8 @@ STARTMPL="index.html";
 USERCOL1="AAAAAA";
 # user's standard text color.
 USERCOL2="FFFFFF";
+# standard error message color.
+ERRORCOL="FF0000";
 # length of the generated session id
 SESSION_LENGTH="32";
 # html = "OFF" strips all html tags from incoming messages

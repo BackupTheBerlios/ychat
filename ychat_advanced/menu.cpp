@@ -108,7 +108,7 @@ menu::start( void (*swich_case_menu_action)(int) )
 
         // Menu action.
         ( *swich_case_menu_action ) ( i_choice );
-
+        i_choice = 0;
     }
 }
 #endif

@@ -1,16 +1,20 @@
 ERRORCMD="<font color=#ff0000>Befehl nicht gefunden!</font><br>";
 USERENTR=" betritt den Chat.<br>";
-USERLEAV=" verl&auml;&szlig;t den Chat.<br>";
+USERLEAV=" verschwindet aus dem Chat.<br>";
+WHISPER="fluestert zu Dir";
+WHISPERTO="Gefluestert zu";
 ERR_ALPNUM="Den Nick den Sie sich ausgesucht haben besteht nicht nur aus Zahlen und Buchstaben.<br><br>";
 ERR_NONICK="Sie müssen einen Nick angeben.br><br>";
+ERR_NOTAVAILABLE=" ist nicht da!";
 ERR_NOTONL="Es ist ein Fehler aufgetreten. Ihr Nick ist nicht online.<br><br>";
 ERR_ONLINE="Den Nick den Sie sich ausgesucht haben ist bereits eingeloggt. Bitte versuchen sie einen Anderen.<br><br>";
 
 # Chat-help ( || separiert Befehlssyntax und Befehlsbeschreibung. )
 mods/commands/yc_col.so="/col NICKFARBE TEXTFARBE||Ändern der Farbe";
 mods/commands/yc_getrusage.so="/getrusage||Zeigt informationen zum laufdenen ychat prozess an";
-mods/commands/yc_me.so="/me AKTIONSTEXT||Schreibt den Text kursiv ( einfarbig )";
 mods/commands/yc_m.so="/m AKTIONSTEXT||Schreibt den Text kursiv ( zweifarbig )";
+mods/commands/yc_me.so="/me AKTIONSTEXT||Schreibt den Text kursiv ( einfarbig )";
+mods/commands/yc_msg.so="/msg NICKNAME TEXT||Flüstert TEXT zu NICKNAME";
 mods/commands/yc_version.so="/version||Zeigt die Version des laufenden yChats";
 mods/commands/yc_q.so="/q||Verlassen des Chats";
 

@@ -3,8 +3,8 @@ STARS="----------------------------------------\n"
 echo "Welcome to yChat 0.5 Quickstart"
 echo -e $STARS
 echo "Copyright 2003, Paul C. Buetow - Volker Richter"
-echo "yChat++ is developed under GNU Public License"
-echo "http://www.ychat.org"
+echo "yChat++ is developed under the GNU Public License"
+echo "Please visit http://www.yChat.org"
 echo -e "\n"
 echo -e "Press enter to begin quickstart"
 read 

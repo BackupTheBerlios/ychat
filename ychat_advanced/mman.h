@@ -1,10 +1,10 @@
+#include "incl.h"
+
 #ifndef MMAN_H
 #define MMAN_H
 
 #include <mysql/mysql.h>
-#include <string>
 #include <vector>
-#include "glob.h"
 #include "mcon.h"
 
 using namespace std;
@@ -22,6 +22,8 @@ private:
     int i_used_connections;
 
     pthread_mutex_t mut_i_used_con;
+    pthread_mutex_t mut_vec_mysql;
+
 public:
     mman();
     ~mman();

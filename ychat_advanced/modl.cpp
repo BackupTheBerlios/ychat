@@ -31,7 +31,7 @@ modl::~modl()
     map_mods->run_func   ( &modl::dlclose_ );
 
     // then clean the hash map.
-    map_mods->make_empty (               );
+    unload_modules(); 
 
     pthread_mutex_unlock ( &mut_map_mods );
     pthread_mutex_destroy( &mut_map_mods );
@@ -65,6 +65,7 @@ void
 modl::dlclose_( dynmod* mod )
 {
     dlclose( mod->the_module );
+    free   ( mod );
 }
 
 dynmod*
@@ -78,12 +79,11 @@ modl::cache_module( string s_name )
     if ( the_module == NULL )
     {
         pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
+
 #ifdef NCURSES
-
-        wrap::NCUR->
-            print( dlerror() );
-#else
-
+        wrap::NCUR->print( dlerror() );
+#endif
+#ifdef SERVMSG
         cerr << "dlerror: " << dlerror() << endl;
 #endif
 
@@ -98,10 +98,9 @@ modl::cache_module( string s_name )
         pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
 
 #ifdef NCURSES
-        wrap::NCUR->
-            print( dlerror() );
-#else
-
+        wrap::NCUR->print( dlerror() );
+#endif
+#ifdef SERVMSG
         cerr << "dlerror: " << dlerror() << endl;
 #endif
 
@@ -109,18 +108,15 @@ modl::cache_module( string s_name )
         return NULL;
     }
 
-#ifdef VERBOSE
+#ifdef SERVMSG
     pthread_mutex_lock  ( &wrap::MUTX->mut_stdout ); 
     cout << MODULEC << s_name << endl;
     pthread_mutex_unlock( &wrap::MUTX->mut_stdout ); 
 #endif
 #ifdef NCURSES
-
-    {
-        string s_tmp( MODULEC );
-        s_tmp.append( s_name );
-        wrap::NCUR->print( s_tmp.c_str() );
-    }
+    string s_tmp( MODULEC );
+    s_tmp.append( s_name );
+    wrap::NCUR->print( s_tmp.c_str() );
 #endif
 
     dynmod *mod     = new dynmod; // encapsulates the function and module handler.
@@ -158,6 +154,43 @@ modl::get_module( string s_name )
     pthread_mutex_unlock( &mut_map_mods );
 
     return ! mod ? cache_module( s_name ) : mod;
+}
+
+vector<string>* 
+modl::get_mod_vector() 
+{ 
+    pthread_mutex_lock  ( &mut_map_mods );
+    vector<string>* p_ret = map_mods->get_key_vector(); 
+    pthread_mutex_unlock( &mut_map_mods );
+    return p_ret;
+}
+
+void
+modl::unload_modules()
+{
+#ifdef NCURSES
+    wrap::NCUR->print( MODUNLO );
+#endif
+#ifdef SERVMSG
+    cout << MODUNLO << endl;
+#endif
+
+    pthread_mutex_lock  ( &mut_map_mods );
+    // dlclose all the_module's first!
+    map_mods->run_func   ( &modl::dlclose_ );
+    
+    // then clean the hash map.
+    map_mods->make_empty ( );
+    
+    pthread_mutex_unlock( &mut_map_mods );
+}
+
+void
+modl::reload_modules()
+{
+     unload_modules();
+     preload_modules( new string("mods/commands/") );
+     preload_modules( new string("mods/html/") );
 }
 
 #endif

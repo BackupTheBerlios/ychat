@@ -289,7 +289,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
             {
              container *c = new container;
              c->elem[0] = (void*) wrap::LANG ;
-             c->elem[1] = (void*) wrap::MODL->get_map_mods();
+             c->elem[1] = (void*) wrap::MODL;
              c->elem[2] = (void*) &map_params;
 
              string s_mod = "mods/html/yc_" + s_event + ".so";
