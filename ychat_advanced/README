@@ -79,7 +79,7 @@ cvs -z3 -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat co \
   want to obtain the yChat++ Basic sources then replace "ychat_advanced"
   "ychat" ).
 
-cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat login
+cvs -d:pserver:anonymous@cvs.ychat.berlios.de:/cvsroot/ychat logout
 ( Logs your CVS session out ).
 
 Now you may continue with the installation.
@@ -91,8 +91,8 @@ you may remove the #define NCURSES line in the glob.h and enable
 #define SERVMSG and #define VERBOSE instead.
 
 Now invoke "./configure" and afterwards "make", edit the conf.txt ( be 
-sure to enter valid mysql data ) hostand run the server with ./ychat.
-Then point your webbrowser tp http://yourip:port/index.html ( ignoring
+sure to enter a valid mysql account ) hostand run the server with ./ychat.
+Then point your webbrowser to http://yourip:port/index.html ( ignoring
 the index.html on the end of the url will not work! ). 
 ... have fun :-).
 
@@ -122,7 +122,7 @@ If you like to customize the design/layout/language of yChat, you will have
 to edit msgs.h and glob.h before you compile the sources. Afterwards you can
 change the html-template files which are placed in the html/ subdirectory and
 the language-template files which are placed in the lang/ subdirectory.
-Dynamic loadable modules with can be found in the mods/ subdirectory. ( chat
+Dynamic loadable modules can be found in the mods/ subdirectory. ( chat 
 commands are realized through modules too ).
 
 1.6.0 FILES: ( This list is not complete )
