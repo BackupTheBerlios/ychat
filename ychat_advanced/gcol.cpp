@@ -55,12 +55,16 @@ gcol::add_user_to_garbage( user* p_user )
 void
 gcol::remove_garbage()
 {
+ if ( p_vec_rooms.size() == 0 && p_vec_users.size() == 0 )
+  return;
+
 #ifdef NCURSES
  wrap::NCUR->print( GARBACT );
 #endif
 #ifdef SERVMSG
  cout << GARBACT << endl;
 #endif
+
  pthread_mutex_lock  ( &mut_vec_rooms );
  for ( vector<room*>::iterator iter = p_vec_rooms.begin();
        iter != p_vec_rooms.end(); iter++ )
