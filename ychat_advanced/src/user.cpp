@@ -57,9 +57,9 @@ user::~user()
     // Store all changed data into the mysql table if this user is registered:
     if ( b_is_reg )
      wrap::DATA->update_user_data( get_name(), "DATA_SAVE_CHANGED_NICK", map_changed_data );    
-    wrap::SMAN->destroy_session( get_tmpid() );
+     wrap::SMAN->destroy_session( get_tmpid() );
 
-    wrap::system_message( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
+     // wrap::system_message( SESSION + tool::int2string( wrap::SMAN->get_session_count() ) );
    }
     wrap::system_message( REMUSER + get_name() );
 

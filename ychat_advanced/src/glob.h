@@ -36,8 +36,11 @@
 // max occupied percentage of a hash map:
 #define HMAPOCC 80
 
-// the messages. this messages will only printed out by the master thread.
+// Prints more messages if SERVMSG or NCURSES is defined (such as each http request) 
 //#define VERBOSE
+
+// is used if all mysql queries should be printed out.
+#define QUERIES
 
 // displays important server messages. this one will print all messages
 // in stdout if no NCURSES is defined.  
@@ -48,8 +51,6 @@
 // is used for interaction with the ncurses admin interface at stdout.
 #define NCURSES
 
-// is used if all mysql queries should be printed out.
-#define QUERIES
 
 // The following values define the positions of the data stats in the NCURSES interface.
 #ifdef NCURSES
