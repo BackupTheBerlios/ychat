@@ -17,7 +17,7 @@ if [ ! -e ./Makefile ]; then
 else
 	echo "STEP II COMPILING SOURCES"
 fi
-make &&
+gmake &&
 if [ ! -x ./ychat ]; then
 	echo "STEP II UNSUCCESSFUL"
 	exit 1
