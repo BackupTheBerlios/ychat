@@ -138,12 +138,16 @@ commands are realized through modules too ).
 
 conf.txt - The yChat configuration file. ( read by conf.cpp ).
 
-base.cpp - Encapsulates vector fields of room's or user ( may be later
-           hash_maps ) and provides methods for manipulating data
-           objects.
+base.cpp - Encapsulates a hash map of room's or user and provides
+           methods for manipulating datai objects.
+
+dir.cpp  - Encapsulates file system directory routines.
 
 hmap.cpp - The hash map implementation which is a very fast data
            structure. is needed for saving users, rooms and so on.
+
+mcon.cpp - The MySQL connection class. Implements an instance of a
+           MySQL database connection.
 
 main.cpp - This includes the required manager headers for starting 
            the server and finally regulates the correct starting.
@@ -196,6 +200,13 @@ html.cpp - The html-template manager. Reads the requested html-template
            template-files from hd twice or more ) and parses the 
            partivular template in order to substituate dynamic values
            of it.
+
+lang.cpp - The language manager. This class reads the messages defined
+           in the lang/ subdirectory and provides them to the html based
+           user interface of yChat. 
+
+logd.cpp - The log manager. This class writes logging messages into the
+           logs/ subdirectory.
 
 mutx.cpp - The mutex manager. Contains all global mutex handlers for
            synchronizing POSIX thread shared data. until now only the
