@@ -51,7 +51,11 @@ modl::cache_module( string s_name )
  if ( the_module == NULL )
  {
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+  #ifdef NCURSES
+  s_ncur::get().print( dlerror() ); 
+  #else
   cerr << "dlerror: " << dlerror() << endl;
+  #endif
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   return NULL;
  }
@@ -61,7 +65,12 @@ modl::cache_module( string s_name )
  if ( the_func == NULL )
  {
   pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
+  #ifdef NCURSES
+  s_ncur::get().print( dlerror() );
+  #else
   cerr << "dlerror: " << dlerror() << endl; 
+  #endif
+
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
   return NULL;
  }

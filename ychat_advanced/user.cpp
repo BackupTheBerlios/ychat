@@ -119,14 +119,21 @@ user::command( string &s_command )
 {
 
  auto unsigned int pos = s_command.find( "/" );
- while( pos != string::npos )
+ auto unsigned int pos2 = s_command.find( " " );
+ if( pos != string::npos )
  {
   s_command.replace( pos, 1, "" );
-  pos = s_command.find( "/" ); 
  }
+ else
+	 return;
+
  
+ if(pos2==string::npos)
+	 pos2=s_command.size()+1;
+
  string s_mod( "mods/commands/yc_" );
- s_mod.append( s_command  ).append( ".so" );
+ string s_command2=s_command.substr(0, pos2-1);
+ s_mod.append( s_command2  ).append( ".so" );
 
  //pthread_mutex_lock  ( &mut_map_mods );
  //dynmod* mod = map_mods->get_elem( s_name );
@@ -140,9 +147,43 @@ user::command( string &s_command )
   return;
  }
 
+ vector<string> params;
+ string *ptr_command;
+ 
  // execute the module.
- ( *(mod->the_func) ) ( (void*) this );
-}
+ if(s_command.find(" ")!=string::npos)
+ {
+  s_command=s_command.substr(s_command2.size()+1);
+  ptr_command=new string(s_command);
+ 
+  pos=s_command.find(" ");
+  pos2=0; 
+ 
+  while(pos != string::npos)
+  {
+ 	string sParam=s_command.substr(pos2,pos - pos2);
+	params.push_back(sParam);
+ 	pos2=pos+1;	
+ 	pos=s_command.find(" ", pos2);
+  }
+ 
+  if(pos2<s_command.size())
+	 params.push_back(s_command.substr(pos2, s_command.size()-pos2));
+ 
+ }
+ else
+ {
+ 	ptr_command=new string("");
+ }
+
+ container *c;
+ c->elem[0]=(void*)ptr_command;
+ c->elem[1]=(void*)this;
+ c->elem[2]=(void*)&params; 
+
+ ( *(mod->the_func) ) ( (void*) c );
+
+ }
 
 void
 user::renew_stamp( )
