@@ -105,17 +105,25 @@ chat::login( map_string &map_params )
 }
 
 void 
-chat::post( user* u_user, map_string &map_params )
+chat::post( user* p_user, map_string &map_params )
 {
- string s_msg( "<font color=\""   );
- s_msg.append( u_user->get_col1() )
-      .append( "\">"              )
-      .append( u_user->get_name() ) 
-      .append( ": "               )
-      .append( map_params["message"] )
-      .append( "</font><br>\n"    );
 
- u_user->get_p_room()->msg_post( &s_msg ); 
+ string s_msg( map_params["message"] );
+
+ auto unsigned i_pos = s_msg.find( "/" );
+ if ( i_pos == 0 )
+  return p_user->command( s_msg ); 
+
+ string s_post( "<font color=\""   );
+
+ s_post.append( p_user->get_col1() )
+       .append( "\">"              )
+       .append( p_user->get_name() ) 
+       .append( ": "               )
+       .append( s_msg              )
+       .append( "</font><br>\n"    );
+
+ p_user->get_p_room()->msg_post( &s_post ); 
 }
 
 #endif

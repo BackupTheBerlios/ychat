@@ -1,5 +1,5 @@
-yChat++; Homepage: www.yChat.org
-Copyright (C) 2003 Paul C. Buetow ( Snooper@yChat.org, ICQ: 11655527 )
+yChat++; Homepage: www.yChat.org; Version CVS 
+Copyright (C) 2003 Paul C. Buetow, Volker Richter
 -----------------------------------------------------------------
 
 This program is free software; you can redistribute it and/or
@@ -166,3 +166,12 @@ chat     room     user
    /    \
   /      \
 conf     html
+
+Version  Lines of code
+ 0.1     2402
+ 0.2     2377
+
+New in 0.2:
+ - POST request now work.
+ - Thread pool ( pool.cpp ).
+ - Bugfixes 

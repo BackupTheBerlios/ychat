@@ -112,6 +112,12 @@ user::set_sock( int i_sock )
 }
 
 void
+user::command( string &s_command )
+{
+ msg_post( new string( ERRORCMD ) ); 
+}
+
+void
 user::renew_stamp( )
 {
  pthread_mutex_lock  ( &mut_l_time );

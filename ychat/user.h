@@ -61,11 +61,14 @@ public:
  virtual int   get_sock  ( );
  virtual void  set_sock  ( int i_sock );
 
-
- virtual void  renew_stamp();
+ // executes a command.
+ virtual void command( string &s_command );
 
  // gets the message and clears s_mess;
  virtual string get_mess();
+
+ // actualizes the user's timestamp.
+ virtual void  renew_stamp();
 
  // Here are starting methods which are mainly needed by the data<type> class.
 
