@@ -15,7 +15,8 @@ using namespace std;
 string reqp::HTTP_CODEOK = "HTTP/1.1 200 OK\n";
 string reqp::HTTP_SERVER = "Server: yChat (Unix)\n";
 string reqp::HTTP_CONTAC = "Contact: www.yChat.org\n";
-string reqp::HTTP_CACHEC = "Cache-control: no-cache\n";
+string reqp::HTTP_EXPIRE = "Expires: 0\n";
+string reqp::HTTP_CACHEC = "Cache-control: no-cache\nPragma: no-cache\n";
 string reqp::HTTP_CONNEC = "Connection: keep-alive\n";
 string reqp::HTTP_COTYPE = "Content-Type: ";
 
@@ -221,6 +222,7 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
   string s_rep( HTTP_CODEOK );
   s_rep.append( HTTP_SERVER );
   s_rep.append( HTTP_CONTAC );
+  s_rep.append( HTTP_EXPIRE );
   s_rep.append( HTTP_CACHEC );
   s_rep.append( HTTP_CONNEC );
   s_rep.append( HTTP_COTYPE );

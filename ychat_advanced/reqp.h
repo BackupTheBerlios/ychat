@@ -19,6 +19,7 @@ class reqp
   private:
     static string  HTTP_CODEOK,
     HTTP_CODENF,
+    HTTP_EXPIRE,
     HTTP_SERVER,
     HTTP_CONTAC,
     HTTP_CACHEC,
