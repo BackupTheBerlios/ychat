@@ -55,6 +55,9 @@ base.cpp - Encapsulates vector fields of room's or user ( may be later
            hash_maps ) and provides methods for manipulating base data
            objects.
 
+hmap.cpp - The hash map implementation which is a very fast data
+           structure. is needed for saving users, rooms and so on.
+
 main.cpp - This includes the required manager headers for starting 
            the server and finally regulates the correct starting.
 
@@ -154,9 +157,9 @@ msgs.h  -  Defines console output messages for verbosity level 0 ( see
 
 The basic class structure:
 
-         base
-        /    \ 
-       /      \
+ base<room> base<room>
+    |           |
+    |           | 
  data<room> data<user>
     |           |   name 
     |           |  /    \

@@ -7,8 +7,9 @@
 using namespace std;
 
 template<class type>
-class data : public base
+class data : public base<type>
 {
+
 public:
 
  // chat::msg_post sends to all users of the system a message.

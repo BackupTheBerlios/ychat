@@ -5,8 +5,10 @@
 
 #include <vector> 
 #include "incl.h"
+#include "hmap.h"
 #include "name.h"
 
+template<class type>
 class base
 {
 private:
@@ -24,5 +26,7 @@ public:
  // execute func on all elements of vec_elem. v_pointer is the argument.
  virtual void  run_func( void (*func)(name*, void*), void* v_arg );
 };
+
+#include "base.cpp"
 
 #endif

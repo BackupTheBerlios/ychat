@@ -14,15 +14,21 @@ protected:
  string s_name; // object's name. 
  
 public:
- // small inline methods:
  virtual string get_name  ( ) const;
  virtual void   set_name  ( string s_name );
+
 
  // public methods: 
  explicit name( ) { };      	      // a standard constructor.
  explicit name( string s_name );      // a standard constructor.
+         ~name( );
 
- ~name();
+ // needed for hmap!
+ bool operator!= ( name name_obj ) const
+ {
+  return get_name() != name_obj.get_name(); 
+ }
+
 };
 
 #endif

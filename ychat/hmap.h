@@ -8,20 +8,12 @@
 
 using namespace std;
 
-// QuadraticProbing Hash table class.
-// obj_type must have operator!= and global function
-//    unsigned int hash( const obj_type & x );
-// CONSTRUCTION: with no parameters or another hash table.
-//
-// ******************PUBLIC OPERATIONS*********************
-// void insert( x )       --> Insert x
-// void remove( x )       --> Remove x
-// obj_type find( x )       --> Return item that matches x
+// void insert( obj_type x )       --> Insert x
+// void remove( key_type x )       --> Remove x
+// obj_type find( key_type x )  --> Return item that matches x
 // void makeEmpty( )      --> Remove all items
-// ******************ERRORS********************************
-// Throws exceptions as warranted
 
-template <class obj_type>
+template <class obj_type, class key_type>
 class hmap
 {
 private:
@@ -32,8 +24,8 @@ private:
 
  struct hash_entry
  {
-  obj_type    element;
-  entry_type   info;
+  obj_type   element;
+  entry_type info;
 
   hash_entry( const obj_type & e = obj_type( ), entry_type i = EMPTY ) : element( e ), info( i ) { }
  };
@@ -54,11 +46,11 @@ protected:
 public:
  hmap(double moc );
 
- virtual int  findPos  ( const obj_type & x );
+ virtual int  findPos  ( const key_type &x );
  virtual void makeEmpty( );
- virtual void insert   ( const obj_type & x );
- virtual void remove   ( const obj_type & x );
- virtual obj_type* find( const obj_type & x );
+ virtual void insert   ( const obj_type &x );
+ virtual void remove   ( const key_type &x );
+ virtual obj_type* find( const key_type &x );
 
 
  // inline:
@@ -88,10 +80,10 @@ public:
 
 };
 
-template <class obj_type>
-class linearhmap : public hmap<obj_type> {
+template <class obj_type, class key_type>
+class linearhmap : public hmap<obj_type, key_type> {
 public:
- linearhmap(double moc) : hmap<obj_type>(moc) {};
+ linearhmap(double moc) : hmap<obj_type, key_type>(moc) {};
 
  virtual int findPos( const obj_type & x )
  {
@@ -112,5 +104,7 @@ public:
   return currentPos;
  }
 };
+
+#include "hmap.cpp"
 
 #endif

@@ -9,8 +9,8 @@ bool  isPrime( int n );
 int nextPrime( int n );
 
 // Construct the hash table.
-template <class obj_type>
-hmap<obj_type>::hmap(double mop )
+template <class obj_type, class key_type>
+hmap<obj_type, key_type>::hmap(double mop )
               : maxOccupiedPercentage(mop), array( nextPrime( 101 ) )
 {
  cout << "hmap Constructor" << endl;
@@ -20,11 +20,11 @@ hmap<obj_type>::hmap(double mop )
 
 // Insert item x into the hash table. If the item is
 // already present, do nothing
-template <class obj_type>
-void hmap<obj_type>::insert( const obj_type & x )
+template <class obj_type, class key_type>
+void hmap<obj_type, key_type>::insert( const obj_type & x )
 {
  // Insert x as active
- int currentPos = findPos( x );
+ int currentPos = findPos( x.get_name() );
  if( isActive( currentPos ) )
   return;
 
@@ -35,8 +35,8 @@ void hmap<obj_type>::insert( const obj_type & x )
 }
 
 // Expand the hash table.
-template <class obj_type>
-void hmap<obj_type>::rehash( )
+template <class obj_type, class key_type>
+void hmap<obj_type, key_type>::rehash( )
 {
  vector<hash_entry> oldArray = array;
 
@@ -55,8 +55,8 @@ void hmap<obj_type>::rehash( )
 // Hash function, can only handle strings.
 // If you want to hash other objects you will have to 
 // create a hash table for them
-template <class obj_type>
-unsigned int hmap<obj_type>::hash( const string & key ) const
+template <class obj_type, class key_type>
+unsigned int hmap<obj_type, key_type>::hash( const string & key ) const
 {
  unsigned int hashVal = 0;
  //	cout << key << "%";
@@ -69,15 +69,15 @@ unsigned int hmap<obj_type>::hash( const string & key ) const
 
 // Method that performs quadratic probing resolution.
 // Return the position where the search for x terminates.
-template <class obj_type>
-int hmap<obj_type>::findPos( const obj_type & x )
+template <class obj_type, class key_type>
+int hmap<obj_type, key_type>::findPos( const key_type &x )
 {
  int collisionNum = 0;
  int currentPos = hash( x ) % array.size( );
  lookups++;
 
  while( array[ currentPos ].info != EMPTY &&
-        array[ currentPos ].element != x )
+        array[ currentPos ].element.get_name() != x )
  {
  //		cout <<  array[ currentPos ].element << "!=" << x << endl;
   lookups++;
@@ -92,9 +92,8 @@ int hmap<obj_type>::findPos( const obj_type & x )
 }
 
 // Remove item x from the hash table.
-template <class obj_type>
-void hmap<obj_type>::
-remove( const obj_type & x )
+template <class obj_type, class key_type>
+void hmap<obj_type, key_type>::remove( const key_type & x )
 {
     int currentPos = findPos( x );
     if( isActive( currentPos ) )
@@ -103,8 +102,8 @@ remove( const obj_type & x )
 
 // Find item x in the hash table.
 // Return a pointer to the matching item or 0 if not found
-template <class obj_type>
-obj_type * hmap<obj_type>::find( const obj_type & x )
+template <class obj_type, class key_type>
+obj_type * hmap<obj_type, key_type>::find( const key_type & x )
 {
  int currentPos = findPos( x );
  if( isActive( currentPos ) )
@@ -114,8 +113,8 @@ obj_type * hmap<obj_type>::find( const obj_type & x )
 }
 
 // Make the hash table logically empty.
-template <class obj_type>
-void hmap<obj_type>::makeEmpty( )
+template <class obj_type, class key_type>
+void hmap<obj_type, key_type>::makeEmpty( )
 {
  occupied = 0;
  for( int i = 0; i < array.size( ); i++ )
@@ -123,8 +122,8 @@ void hmap<obj_type>::makeEmpty( )
 }
 
 // Return true if currentPos exists and is active.
-template <class obj_type>
-bool hmap<obj_type>::isActive( int currentPos ) const
+template <class obj_type, class key_type>
+bool hmap<obj_type, key_type>::isActive( int currentPos ) const
 {
  return array[ currentPos ].info == ACTIVE;
 }
@@ -132,8 +131,8 @@ bool hmap<obj_type>::isActive( int currentPos ) const
 
 // Internal method to test if a positive number is prime.
 // Not an efficient algorithm.
-template <class obj_type>
-bool hmap<obj_type>::isPrime( int n ) const 
+template <class obj_type, class key_type>
+bool hmap<obj_type, key_type>::isPrime( int n ) const 
 {
  if( n == 2 || n == 3 )
   return true;
@@ -150,8 +149,8 @@ bool hmap<obj_type>::isPrime( int n ) const
 
 // Internal method to return a prime number at least as large as n.
 // Assumes n > 0.
-template <class obj_type>
-int hmap<obj_type>::nextPrime( int n ) const
+template <class obj_type, class key_type>
+int hmap<obj_type, key_type>::nextPrime( int n ) const
 {
  if( n % 2 == 0 )
   n++;
