@@ -70,7 +70,7 @@ sock::make_socket( uint16_t i_port )
   if ( ++i_port > MAXPORT )
    exit(-1);
 
-  cerr << s_sockERR << i_port << endl;
+  cerr << SOCKERR << i_port << endl;
   return make_socket( i_port );
  }
 
@@ -145,7 +145,7 @@ sock::start()
  size_t size;
 
 #ifdef VERBOSE
- cout << s_sockCRT << "localhost:" << i_port << endl;
+ cout << SOCKCRT << "localhost:" << i_port << endl;
 #endif
 
  // create the server socket and set it up to accept connections.
@@ -158,7 +158,7 @@ sock::start()
  }
 
 #ifdef VERBOSE
- cout << s_sockRDY << endl;
+ cout << SOCKRDY << endl;
 #endif
 
  // initialize the set of active sockets. 
