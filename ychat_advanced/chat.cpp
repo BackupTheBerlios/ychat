@@ -127,7 +127,7 @@ chat::login( map_string &map_params )
 #endif
 
     // post "username enters the chat" into the room.
-    p_room->msg_post( new string( s_user.append( s_lang::get
+    p_room->msg_post( new string( p_user->get_colored_name().append( s_lang::get
                                       ().get_val( "USERENTR" ) ) ) );
 
 }

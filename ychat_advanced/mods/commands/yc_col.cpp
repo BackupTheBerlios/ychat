@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../../conf.h"
+#include "../../room.h"
 #include "../../user.h"
 #include "../../s_tool.cpp"
 /*
@@ -53,15 +54,17 @@ extern "C" {
 	}
 	else if( valid_color(s_color2) != 1  )	
 	{
-		string *answerstring=new string(s_color2 + " is not a valid color.<br>\n");
+		string *answerstring=new string( s_color2 + " is not a valid color.<br>\n");
 		p_user->msg_post( answerstring );
 	}
         else  
 	{  	
+		string *answerstring=new string(p_user->get_colored_name()+ " changes color to <font color=\"#" 
+                       + s_color + "\">" + s_color + "</font> <font color=\"#" 
+                       + s_color2 + "\">" + s_color2 + "</font><br>\n");
+		p_user->get_room()->msg_post( answerstring );
 		p_user->set_col1(s_color);
 		p_user->set_col2(s_color2);
-		string *answerstring=new string(p_user->get_name()+ " changes color to " + s_color + " " + s_color2 + "<br>\n");
-		p_user->msg_post( answerstring );
 	}
  }
  int valid_color( string s_color ){

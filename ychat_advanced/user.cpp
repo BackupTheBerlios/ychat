@@ -49,6 +49,12 @@ user::~user()
     pthread_mutex_destroy( &mut_r_rang   );
 }
 
+string
+user::get_colored_name()
+{
+ return "<font color=\"#" + get_col1() + "\">" + get_name() + "</font>";
+}
+
 void
 user::get_data( map_string *p_map_data )
 {

@@ -20,10 +20,8 @@ extern "C" {
 	user *p_user = (user*) c->elem[1];		// the corresponding user
 	str_vector *params= (str_vector*) c->elem[2];	// param array
 
-        string s_msg = "<i><font color=\"#" + p_user->get_col1() 
-                       + "\">" 
-                       + p_user->get_name()
-                       + "</font> <font color=\"#" + p_user->get_col2() 
+        string s_msg = "<i>" + p_user->get_colored_name() 
+                       + " <font color=\"#" + p_user->get_col2() 
                        + "\">";
         if ( ! params->empty() )
         {

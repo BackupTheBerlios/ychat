@@ -56,6 +56,7 @@ public:
     // or even of the system.
     virtual void get_data( map_string *p_map_data );
 
+    virtual string get_colored_name();
     virtual bool  get_online();
     virtual void  set_online( bool b_online );
     virtual room* get_room();
