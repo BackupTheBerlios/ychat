@@ -52,11 +52,11 @@ gcol::add_user_to_garbage( user* p_user )
 #endif
 }
 
-void
+bool
 gcol::remove_garbage()
 {
  if ( p_vec_rooms.size() == 0 && p_vec_users.size() == 0 )
-  return;
+  return false;
 
 #ifdef NCURSES
  wrap::NCUR->print( GARBACT );
@@ -78,6 +78,8 @@ gcol::remove_garbage()
   delete *iter;
  p_vec_users.clear();
  pthread_mutex_unlock( &mut_vec_users );
+
+ return true;
 }
 
 #endif

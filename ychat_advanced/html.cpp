@@ -20,6 +20,12 @@ void
 html::clear_cache( )
 {
     make_empty();
+#ifdef NCURSES
+    wrap::NCUR->print( CLRHTML );
+#endif
+#ifdef SERVMSG
+    cout << CLRHTML << endl;
+#endif
 }
 
 string

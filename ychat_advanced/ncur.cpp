@@ -157,7 +157,8 @@ ncur::switch_main_menu_( int i_choice )
             pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
             break;
         case 4:
-            wrap::GCOL->remove_garbage();
+            if ( ! wrap::GCOL->remove_garbage() )
+             wrap::NCUR->print( GARNONE );
             pthread_mutex_lock  ( &wrap::MUTX->mut_stdout );
             mvprintw( 20,2, "Garbage collector activated        ");
             refresh();

@@ -23,7 +23,7 @@ class gcol
   gcol();
   ~gcol();
 
- void remove_garbage();
+ bool remove_garbage();
  void add_room_to_garbage( room* p_room );
  void add_user_to_garbage( user* p_user );
 };
