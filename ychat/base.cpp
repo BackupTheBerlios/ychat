@@ -1,3 +1,11 @@
+/*
+	This file is part of yChat
+
+	Last commit: $Author: volker $
+	Date: $Date: 2003/03/28 00:32:30 $
+	
+	$Header: /home/xubuntu/berlios_backup/github/tmp-cvs/ychat/Repository/ychat/base.cpp,v 1.4 2003/03/28 00:32:30 volker Exp $
+*/
 // template class data implementation;
 
 #ifndef BASE_CPP
