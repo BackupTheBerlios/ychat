@@ -445,6 +445,8 @@ user::msg_post( string *p_msg )
 void
 user::get_user_list( string &s_list, string &s_seperator )
 {
+    wrap::system_message( tool::int2string((int)get_rang()));
+
     if ( get_away() )
     {
      s_list.append("<img src=images/away.gif" )
@@ -455,6 +457,16 @@ user::get_user_list( string &s_list, string &s_seperator )
            .append( "'> " );
     }
 
+    else if ( ! get_is_reg() ) 
+    {
+     string s_msgs = wrap::LANG->get_elem("GUEST"); 
+     s_list.append("<img src=images/guest.png" )
+           .append( " alt='" )
+           .append( s_msgs )
+           .append( "' title='" )
+           .append( s_msgs )
+           .append( "'> " );
+    }
     else if ( get_rang() != tool::string2int( wrap::CONF->get_elem("STANDARD_RANG") ) )
     {
      string s_rang = "RANG" + tool::int2string( (int)get_rang() );
@@ -467,22 +479,11 @@ user::get_user_list( string &s_list, string &s_seperator )
            .append( "'> " );
     }
 
-    else if ( ! get_is_reg() )
-    {
-     string s_msgs = wrap::LANG->get_elem("GUEST"); 
-     s_list.append("<img src=images/guest.png" )
-           .append( " alt='" )
-           .append( s_msgs )
-           .append( "' title='" )
-           .append( s_msgs )
-           .append( "'> " );
-    }
-
-
-    else
+    else 
     {
      s_list.append("<img src=images/blank.gif> ");
     }
+
 
     s_list.append( get_colored_name() )
           .append( s_seperator );
