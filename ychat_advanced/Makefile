@@ -20,7 +20,9 @@ gpl:
 	more COPYING
 cvsupdate:
 	@echo "Updating to newest CVS version of ychat_advanced"
-	if test `cat CVS/Root  | cut -d":" -f3 | cut -d"@" -f1` = "anonymous"; then echo "/1 :pserver:`cat CVS/Root  | cut -d\":\" -f3 | cut -d\"@\" -f1`@cvs.ychat.berlios.de:2401/cvsroot/ychat A" >~/.cvspass; fi &&
+	export CVSROOT=":pserver:anonymous@cvs.ychat.berlios.de:2401/cvsroot/ychat" 
+	touch ~/.cvspass 
+	@echo "/1 :pserver:anonymous@cvs.ychat.berlios.de:2401/cvsroot/ychat A" >~/.cvspass &&
 	@echo "Backing up old configuration files" &&
 	cp conf.txt conf.txt.old &&
 	cp lang/en lang/en.old &&
