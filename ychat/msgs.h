@@ -28,6 +28,7 @@
 #define DESCRIP "yChat++ Copyright (C) 2003 Paul C. Buetow, Volker Richer " 
 #define DOWNMSG "Shutting down "
 #define LOGINPR "Login procedure succeeded for nick " 
+#define MODULEC "Caching module "
 #define NEWROOM "Adding room "
 #define REQUEST "Request string "
 #define SEPERAT "----------------------------------------- "

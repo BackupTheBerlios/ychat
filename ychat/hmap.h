@@ -53,6 +53,7 @@ public:
  virtual void del_elem ( const key_type &k );
  virtual obj_type get_elem ( const key_type &k );
 
+ virtual void  run_func( void (*func)(obj_type) );
  virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
 
  // inline:

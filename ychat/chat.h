@@ -29,7 +29,7 @@ public:
  // get the object of a specific user.
  virtual user* get_user( string &s_nick ); 
  virtual user* get_user( string &s_nick, bool &b_found );
- static  void get_user_( name* name_obj, void *v_arg   ); 
+ static  void get_user_( room* room_obj, void *v_arg   ); 
 
  // will be called every time a user tries to login.
  virtual void login( map_string &map_params );

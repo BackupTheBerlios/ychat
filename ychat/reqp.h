@@ -40,7 +40,7 @@ public:
  explicit reqp( ); // simple constructor.
  virtual string parse( thrd* p_thrd, string s_req, map_string &map_params ); 
  virtual string url_decode ( string );
- virtual string getContentType( string );
+ virtual string get_content_type( string );
 };
 
 #endif

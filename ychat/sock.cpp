@@ -34,10 +34,10 @@ sock::chat_stream( int i_sock, user* p_user, map_string &map_params )
 
  while( p_user->get_online() )
  {
-  pthread_cond_wait( &(p_user->cond_message), &(p_user->mut_message) );
   s_msg = p_user->get_mess( );
   if ( 0 > send( i_sock, s_msg.c_str(), s_msg.size(), 0 ) )
    p_user->set_online( false );
+  pthread_cond_wait( &(p_user->cond_message), &(p_user->mut_message) );
  }
 
  pthread_mutex_unlock( &(p_user->mut_message) );

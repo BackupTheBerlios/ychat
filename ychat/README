@@ -62,6 +62,10 @@ hmap.cpp - The hash map implementation which is a very fast data
 main.cpp - This includes the required manager headers for starting 
            the server and finally regulates the correct starting.
 
+modl.cpp - The module loader. Stores pointers of all dynamic loaded
+           yChat modules in a hash map object and loads new modules
+           if desired or returns their pointers.
+
 pool.cpp - The implementation of the thread pool. all threads are stored 
            in a queue. Each thread will be reused if the assigned job is 
            finished.

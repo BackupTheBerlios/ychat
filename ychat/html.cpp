@@ -58,7 +58,6 @@ html::parse( map_string &map_params )
   }
 
   auto char c_buf;
-
   while( !fs_templ.eof() )
   {
   	fs_templ.get( c_buf );

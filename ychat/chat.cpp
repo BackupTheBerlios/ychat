@@ -47,10 +47,9 @@ chat::get_user( string &s_user, bool &b_found )
 }
 
 void
-chat::get_user_( name *name_obj, void *v_arg )
+chat::get_user_( room *room_obj, void *v_arg )
 {
  container* param = (container*) v_arg;
- room *room_obj = static_cast<room*>(name_obj); 
  param->elem[2] = (void*)room_obj->get_elem( *((string*)param->elem[0]), *((bool*)param->elem[1]) ); 
 }
 

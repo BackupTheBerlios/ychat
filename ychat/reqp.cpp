@@ -112,7 +112,7 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
 }
 
 string
-reqp::getContentType( string s_file )
+reqp::get_content_type( string s_file )
 {
 	string s_ext=s_tool::getExtension( s_file );
 
@@ -193,8 +193,8 @@ reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
  string s_rep( HTTP_CODEOK ); s_rep.append( HTTP_SERVER );
  s_rep.append( HTTP_CONTAC ); s_rep.append( HTTP_CACHEC );
  s_rep.append( HTTP_CONNEC ); s_rep.append( HTTP_COTYPE );
- s_rep.append( getContentType( map_params["request"] ) ); s_rep.append("\n\n");
-
+ s_rep.append( get_content_type( map_params["request"] ) ); 
+ s_rep.append("\n\n");
 
  // check the event variable.
  string s_event( map_params["event"] );
