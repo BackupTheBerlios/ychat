@@ -154,13 +154,14 @@ msgs.h  -  Defines console output messages for verbosity level 0 ( see
 
 The basic class structure:
 
-    base
-     |
-     |
- data<type>  name
-   /    \   /    \
-  /      \ /      \
-chat     room     user
+         base
+        /    \ 
+       /      \
+ data<room> data<user>
+    |           |   name 
+    |           |  /    \
+    |           | /      \
+  chat         room      user
 
     cont
    /    \
