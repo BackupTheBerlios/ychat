@@ -18,10 +18,8 @@ infotext:
 stats:
 	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
 	cat stats.txt 2>/dev/null
-pretasks:
-	perl scripts/uname.pl || ./scripts/noper.sh 	
 base:	infotext $(OBJS)
-ychat:  pretasks $(OBJS) modules
+ychat:  $(OBJS) modules
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDADD)
 	perl scripts/buildnr.pl || ./scripts/noperl.sh
 	perl scripts/stats.pl > stats.txt || ./scripts/noperl.sh
