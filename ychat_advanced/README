@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 - Gmake 3.80
   If you dont have a gmake executable but make is gnu make then you need
   to add a symlink or alias from gmake to make.
-  yChat Makefiles only have tested with GNU Make and may not work with
+  yChat Makefiles only have been tested with GNU Make and may not work with
   other Make versions.
 
 - mysql-client 4.x ( 3.x may do too )
@@ -119,7 +119,7 @@ You may invoke make with the following options:
  make clean_modules (only cleans the modules .so files) 
  make stats (generates ychat statistics)
 
-Now its time to run the server with ./ychat.
+Now its time to run the server with ./bin/ychat.
 
 Aferwards point your webbrowser to http://yourip:port !
 
