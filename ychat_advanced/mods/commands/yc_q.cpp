@@ -13,9 +13,13 @@ extern "C" {
 
  int extern_function(void *v_arg)
  {
-  user *p_user = (user*) v_arg;
-  p_user->msg_post(  new string( "<script language='JavaScript'> window.open( 'index.html', '_top' ); </script>\n  " ) );
-  p_user->set_online( false );
+	container *c=(container *)v_arg;
+	string *sCommandLine=(string *)c->elem[0];
+	user *p_user = (user*)c->elem[1];
+
+  	string *quitstring=new string("<script language=JavaScript>top.location.href='/index.html';</script>");
+	p_user->msg_post( quitstring );
+        p_user->set_online(false);
  }
 }
 
