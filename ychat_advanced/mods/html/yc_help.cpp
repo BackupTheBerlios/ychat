@@ -9,16 +9,7 @@
 */
 
 using namespace std;
-/*
-get_help_strings( void *v_pointer, void *v_arg )
-{
- dynmod* dyn_mod   = (dynmod*) v_pointer;
- string* s_content = (string*) v_arg;
 
- s_content->append("<tr><td>");
- s_content->append("</td></tr>");
-}
-*/
 extern "C" {
  export int extern_function(void *v_arg);
 
