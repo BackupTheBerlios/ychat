@@ -179,7 +179,7 @@ user::command( string &s_command )
         ptr_command=new string("");
     }
 
-    container *c;
+    container *c = new container;
     c->elem[0]=(void*)ptr_command;
     c->elem[1]=(void*)this;
     c->elem[2]=(void*)&params;
