@@ -1,5 +1,4 @@
 MODS=$(addprefix ../../../mods/html/, $(SRCS:.cpp=.so))
-#MODS=$(SRCS:.cpp=.so)
 CC=g++
 all: mods
 $(MODS): 
@@ -7,7 +6,6 @@ $(MODS):
 infotext:
 	@echo Compiling html modules
 mods:	infotext $(MODS) 
-	ls ../../../mods/html/*.so
 	ls ../../../mods/html/*.so | wc -l
 clean:
 	@echo Cleaning html modules

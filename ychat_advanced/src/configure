@@ -1699,5 +1699,5 @@ srcs="SRCS=`ls *.cpp`" && echo $srcs > Makefile &&
 cat Makefile.bak >> Makefile &&
 rm Makefile.bak
 
-echo "You are now ready to compile. Type make"
+echo "You are now ready to compile. Type gmake."
 

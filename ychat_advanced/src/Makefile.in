@@ -1,10 +1,12 @@
-OBJS=$(SRCS:.cpp=.o)
+OBJS=$(addprefix ../obj/,$(SRCS:.cpp=.o))
 CC=g++
 LDFLAGS=@LDFLAGS@ -lstdc++ -lmysqlclient -lncurses -g 
 LDADD=-pthread -D_THREAD_SAFE
 all: ychat	
 $(SRCS):
 	$(CC) $(CFLAGS) -c $*.cpp
+$(OBJS):
+	$(CC) $(CFLAGS) -c -o $*.o $(notdir $*).cpp
 infotext:
 	@echo Compiling base
 ychat:  infotext $(OBJS) 
@@ -13,5 +15,5 @@ ychat:  infotext $(OBJS)
 	mv ychat ../bin
 	du -k ../bin/ychat
 clean:	
-	@echo Cleaning base
-	rm *.o 
+	@echo Cleaning base obj
+	rm ../obj/*.o 
