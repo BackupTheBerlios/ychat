@@ -83,6 +83,24 @@ chat::login( map_string &map_params )
         return;
     }
 
+    // prove if the room name is too long:
+    else if ( map_params["room"].length() > tool::string2int( wrap::CONF->get_elem("MAX_ROOMNAME_LENGTH") ) ) 
+    {
+        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_ROOMNAME_LENGTH" );
+        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+                                    
+        return;
+    }
+
+    // prove if the room name is valid 
+    else if ( map_params["room"].length() < 1 ) 
+    {
+        map_params["INFO"]    = wrap::LANG->get_elem( "ERR_NOROOM" );
+        map_params["request"] = wrap::CONF->get_elem( "STARTMPL" ); // redirect to the startpage.
+                                    
+        return;
+    }
+
     bool b_flag;
 
     // prove if nick is already online / logged in.
@@ -130,7 +148,9 @@ chat::login( map_string &map_params )
      map_string map_results = wrap::DATA->select_user_data( tool::to_lower(s_user), "DATA_SELECT_LOGIN" );
 
      if ( map_results["nick"] == tool::to_lower(s_user) )
-     { // User exists in database, prove password:
+     { 
+       p_user->set_is_reg( true );	
+       // User exists in database, prove password:
        // 2. possibility to prove the password at login! (using new created user from database)
       if ( map_results["password"] != map_params["password"] )
       {

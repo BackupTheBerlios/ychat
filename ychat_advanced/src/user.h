@@ -16,6 +16,7 @@ private:
     // private members:
     bool   b_online; // true if user is online.
     bool   b_has_sess; // true if user already has a session! 
+    bool   b_is_reg; // true if user is registered 
     bool   b_away;   // true if user is away.
     long   l_time;   // user's last activity time.
     rang   r_rang;   // user's rang ( see enum rang @ globals.h ).
@@ -40,6 +41,7 @@ private:
     pthread_mutex_t mut_away;
     pthread_mutex_t mut_b_online;
     pthread_mutex_t mut_b_has_sess;
+    pthread_mutex_t mut_b_is_reg;
     pthread_mutex_t mut_l_time;
     pthread_mutex_t mut_s_mess;
     pthread_mutex_t mut_s_pass;
@@ -72,8 +74,10 @@ public:
     virtual string get_colored_name();
     virtual bool  get_online();
     virtual bool  get_has_sess();
+    virtual bool  get_is_reg();
     virtual void  set_online( bool b_online );
     virtual void  set_has_sess( bool b_has_sess );
+    virtual void  set_is_reg( bool b_is_reg );
     void  set_changed_data_on() { b_set_changed_data = 1; }
     virtual bool  get_away( );
     virtual string  get_away_msg( );

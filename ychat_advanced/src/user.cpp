@@ -23,6 +23,7 @@ user::user( string s_name ) : name( s_name )
 void
 user::initialize()
 {
+    this -> b_is_reg = false;
     this -> b_set_changed_data = false;
     this -> b_away   = false;
     this -> l_time   = tool::unixtime();
@@ -50,10 +51,12 @@ user::initialize()
 
 user::~user()
 {
-    // Store all changed data into the mysql table if this user was registered:
+   // If this user has a session	
    if ( get_has_sess() )
    {
-    wrap::DATA->update_user_data( get_name(), "DATA_SAVE_CHANGED_NICK", map_changed_data );    
+    // Store all changed data into the mysql table if this user is registered:
+    if ( b_is_reg )
+     wrap::DATA->update_user_data( get_name(), "DATA_SAVE_CHANGED_NICK", map_changed_data );    
     wrap::SMAN->destroy_session( get_tmpid() );
 
 #ifdef NCURSES
@@ -134,12 +137,26 @@ user::get_has_sess( )
     return b_ret;
 }
 
+bool
+user::get_is_reg( )
+{
+    bool b_ret;
+    b_ret = b_is_reg;
+    return b_ret;
+}
+
 void
 user::set_has_sess( bool b_has_sess )
 {
     pthread_mutex_lock  ( &mut_b_has_sess );
     this -> b_has_sess = b_has_sess;
     pthread_mutex_unlock( &mut_b_has_sess );
+}
+
+void
+user::set_is_reg( bool b_is_reg )
+{
+    this -> b_is_reg = b_is_reg;
 }
 
 void

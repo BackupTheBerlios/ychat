@@ -48,6 +48,9 @@ MAX_MESSAGE_LENGTH="500";
 MAX_NICK_LENGTH="15";
 
 # Maximum length of an email address 
+MAX_ROOMNAME_LENGTH="20";
+
+# Maximum length of an email address 
 MAX_EMAIL_LENGTH="50";
 
 # Maximum length of an password 
