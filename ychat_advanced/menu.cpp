@@ -97,9 +97,7 @@ menu::start()
      ++i_highlight;
    break;
 
-   case 10:
-    i_choice = i_highlight;
-   break;
+   case 10: i_choice = i_highlight; break;
 
    default:
     mvprintw( 0, 3, "%3d %c", c, c);
@@ -119,10 +117,10 @@ menu::start()
      exit(0);
     break; 
 
-    default:
-     mvprintw( 20,3, "Selection # %d not yet implemented!", i_choice);
-     refresh();
-    break;
+    default: 
+     mvprintw( 20,3, "Selection # %d not yet implemented!", i_choice); 
+     refresh(); 
+     break;
    }
  }       
 }

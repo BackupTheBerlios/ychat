@@ -7,6 +7,8 @@
 // to be included  by every other file too.
 #include <pthread.h>
 
+#include <ncurses.h>
+
 // std::string.
 #include <string>
 

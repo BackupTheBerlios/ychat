@@ -219,6 +219,10 @@ sock::start()
     {
      // connection request on original socket.
      i_req++;
+#ifdef NCURSES
+     mvprintw( 22,3, "Server hits: %d ", i_req);
+     refresh();
+#endif
      int new_sock;
      size = sizeof (clientname);
      new_sock = accept (sock,
