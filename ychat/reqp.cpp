@@ -130,9 +130,10 @@ reqp::get_content_type( string s_file )
 void
 reqp::parse_headers( string s_req, map_string &map_params )
 {
-
         int pos = s_req.find("\n");
-	map_params["QUERY_STRING"]=s_tool::trim(s_req.substr(0,pos-1));
+        if(pos!=string::npos)
+ 	 map_params["QUERY_STRING"]=s_tool::trim(s_req.substr(0,pos-1));
+
         while(pos!=string::npos)
         {
                 auto string s_line=s_req.substr(0,pos);
