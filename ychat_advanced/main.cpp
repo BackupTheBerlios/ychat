@@ -94,13 +94,14 @@ cout  <<  "         ___ _           _   "     << endl
  s_chat::init(); // init the chat manager. 
 
  // begin to draw the ncurses amdin interface in a new pthread.
-
+#ifdef NCURSES
  pthread_t admin_thread;
  pthread_create( &admin_thread, 
                  NULL, 
                  s_ncur::get().start,
                  (void*) &s_ncur::get() );
- 
+#endif 
+
  // start the socket manager. this one will listen for incoming http requests and will
  // forward them to the specified routines which will generate a http response.
  s_sock::get().start();

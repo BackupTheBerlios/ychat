@@ -53,6 +53,8 @@ ncur::start( void *v_pointer )
 
  admin_interface->is_ready( true );
 
+ admin_interface->print( VERSION );
+
  admin_interface->p_menu = new menu( 2, 4, 32, 15, "ADMIN MAIN MENU", choices, 9 );
  admin_interface->p_menu->start();
 

@@ -7,6 +7,7 @@
 #include "html.h"
 #include "s_chat.h"
 #include "s_mutx.h"
+#include "s_ncur.h"
 
 using namespace std;
 
@@ -71,6 +72,14 @@ html::parse( map_string &map_params )
   cout << TECACHE << s_path << endl;
   pthread_mutex_unlock( &s_mutx::get().mut_stdout );
 #endif
+#ifdef NCURSES
+{
+ string s_tmp( TECACHE );
+ s_tmp.append( s_path );
+ s_ncur::get().print( s_tmp.c_str() );  
+#endif
+}
+
 
   // cache file. 
   pthread_mutex_lock  ( &mut_map_vals );

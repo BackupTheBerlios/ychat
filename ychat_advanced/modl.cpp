@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "s_mutx.h"
+#include "s_ncur.h"
 #include "modl.h"
 
 using namespace std;
@@ -69,6 +70,13 @@ modl::cache_module( string s_name )
  pthread_mutex_lock  ( &s_mutx::get().mut_stdout );
  cout << MODULEC << s_name << endl;
  pthread_mutex_unlock( &s_mutx::get().mut_stdout );
+#endif
+#ifdef NCURSES
+{
+ string s_tmp( MODULEC );
+ s_tmp.append( s_name );
+ s_ncur::get().print( s_tmp.c_str() );  
+}
 #endif
 
  dynmod *mod     = new dynmod; // encapsulates the function and module handler.

@@ -184,7 +184,7 @@ sock::start()
  while ( ! s_ncur::get().is_ready() )
   usleep(100); 
 
- s_ncur::get().print( new string( STARTMS ) );  
+ s_ncur::get().print( STARTMS );  
 #endif
 
  auto int i_port = s_tool::string2int( s_conf::get().get_val( "SRVRPORT" ) );
@@ -199,6 +199,8 @@ sock::start()
  cout << SOCKCRT << "localhost:" << i_port << endl;
 #endif
 #ifdef NCURSES
+ string s_tmp( SOCKCRT );
+ s_tmp.append( "localhost:" );
  s_ncur::get().print( SOCKCRT );  
 #endif
 
@@ -247,7 +249,7 @@ sock::start()
      // connection request on original socket.
      i_req++;
 #ifdef NCURSES
-     mvprintw( 22,3, "Server hits: %d ", i_req);
+     mvprintw( 22,10, "Hits: %d ", i_req);
      refresh();
 #endif
      int new_sock;
