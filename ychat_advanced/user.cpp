@@ -51,6 +51,8 @@ user::initialize()
 user::~user()
 {
     // Store all changed data into the mysql table if this user was registered:
+   if ( get_has_sess() )
+   {
     wrap::DATA->update_user_data( get_name(), "DATA_SAVE_CHANGED_NICK", map_changed_data );    
     wrap::SMAN->destroy_session( get_tmpid() );
 
@@ -60,6 +62,7 @@ user::~user()
 #ifdef VERBOSE
     cout << SESSION << wrap::SMAN->get_session_count() << endl;
 #endif
+   }
 
     pthread_mutex_destroy( &mut_away     );
     pthread_mutex_destroy( &mut_b_online );

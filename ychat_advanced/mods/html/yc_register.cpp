@@ -23,8 +23,10 @@ extern "C" {
         string*    p_pass2    = &(*((map_string*) c->elem[1]))["pass2"];
         string*    p_request  = &(*((map_string*) c->elem[1]))["request"];
         user*      p_user     = (user*) c->elem[2];
+        string     s_nick     = *p_nick;
 
-  	 p_user->set_name( *p_nick );
+
+  	 p_user->set_name( "@" + s_nick );
         *p_nick = tool::to_lower(*p_nick);
 
         if ( *p_pass != *p_pass2 )
@@ -64,6 +66,7 @@ extern "C" {
 	  
 	 else
 	 {
+  	  p_user->set_name( s_nick );
           p_msgs->append( p_lang->get_elem( "REGISTER_NICK" ) );
           p_request->replace( 0, p_request->length(), p_conf->get_elem("STARTMPL") );
 
