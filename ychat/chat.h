@@ -14,6 +14,7 @@ using namespace std;
 class chat : public data<room>
 {
 private:
+ bool b_strip_html;
 
 public:
  room* get_room( string &s_name, bool &b_found )

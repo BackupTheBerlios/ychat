@@ -12,6 +12,11 @@ using namespace std;
 
 chat::chat( )
 {
+ if ( s_conf::get().get_val( "HTML" ) == "OFF" )
+  b_strip_html = true;
+ else
+  b_strip_html = false;
+
 }
 
 chat::~chat( )
@@ -123,7 +128,7 @@ chat::post( user* p_user, map_string &map_params )
  if ( i_pos == 0 )
   return p_user->command( s_msg ); 
 
- if ( s_conf::get().get_val( "HTML" ) == "OFF" )
+ if ( b_strip_html )
   s_tool::strip_html( &s_msg );
 
  string s_post( "<font color=\""   );

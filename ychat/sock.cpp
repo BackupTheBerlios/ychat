@@ -89,7 +89,7 @@ sock::make_socket( uint16_t i_port )
   if ( ++i_port > MAXPORT )
    exit(-1);
 
-  cout << s_sockERR << i_port << endl;
+  cout << SOCKERR << i_port << endl;
   return make_socket( i_port );
  }
 
