@@ -44,7 +44,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   Only needed if yChat should run in background with
   ncurses enabled.
 
-1.1.0 TESTED PLATFOTMS:
+1.1.0 TESTED PLATFORMS:
 
 The following platforms have been tested with success:
 
@@ -196,7 +196,7 @@ sock.cpp - The socket manager. Manages the socket connections. There
            are multiplexed sockets. For each requests a new POSIX thread
            will be created.
 
-Files written in capital letters contain static C++ classes
+Files with a leading s_ contain static C++ classes
 
 s_chat.cpp - Static wrapper for the dynamic chat class. holds one global 
            reachable instance of chat until the program shuts down. 
