@@ -12,7 +12,7 @@ using namespace std;
 
 html::html( )
 {
- set_name( s_conf::get().get_val( "s_htmlTEMP" ) );
+ set_name( s_conf::get().get_val( "HTMLTEMP" ) );
  pthread_mutex_init( &mut_map_vals, NULL );
 }
 
