@@ -68,7 +68,7 @@ LOG_LINES="10";
 
 # values which are used by the html-templates and are not sticked within the yC++ core source!
 GRAPHICS="http://paul.buetow.info/yChat"; # url for graphic files etc. 
-PGETITLE="yChat++ Basic - Fast Simple Extensible";
+PGETITLE="yChat++ Advanced - Fast and extensible ";
 
 # do not edit beyond this line
 
