@@ -29,9 +29,28 @@ public:
 #endif
 
     void set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur_hours );
-    string get_uptime( );
-    string get_time( );
     string add_zero_to_front( string s_time );
+
+    // inline for dynamic module access!
+    string
+    get_time(  )
+    {
+     string s_ret;
+     pthread_mutex_lock  ( &mut_s_time );
+     s_ret = this->s_time;
+     pthread_mutex_unlock( &mut_s_time );
+     return s_ret;
+    }
+
+    string
+    get_uptime(  )
+    {
+     string s_ret;
+     pthread_mutex_lock  ( &mut_s_uptime );
+     s_ret = this->s_uptime;
+     pthread_mutex_unlock( &mut_s_uptime );
+     return s_ret;
+    }
 };
 
 #endif

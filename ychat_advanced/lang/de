@@ -1,6 +1,8 @@
+SERVERTIME="Die Serversystemzeit: ";
+UPTIME="Die yChat Uptime: ";
 ERRORCMD="<font color=#ff0000>Befehl nicht gefunden!</font><br>";
-USERENTR=" betritt den Chat.<br>";
-USERLEAV=" verschwindet aus dem Chat.<br>";
+USERENTR=" betritt den Chat.";
+USERLEAV=" verschwindet aus dem Chat.";
 WHISPER="fluestert zu Dir";
 WHISPERTO="Gefluestert zu";
 ERR_ALPNUM="Den Nick den Sie sich ausgesucht haben besteht nicht nur aus Zahlen und Buchstaben.<br><br>";
@@ -17,4 +19,6 @@ mods/commands/yc_me.so="/me AKTIONSTEXT||Schreibt den Text kursiv ( einfarbig )"
 mods/commands/yc_msg.so="/msg NICKNAME TEXT||Flüstert TEXT zu NICKNAME";
 mods/commands/yc_version.so="/version||Zeigt die Version des laufenden yChats";
 mods/commands/yc_q.so="/q||Verlassen des Chats";
+mods/commands/yc_time.so="/time||Zeigt die Serversystemzeit an";
+mods/commands/yc_uptime.so="/uptime||Zeigt die yChat Uptime an";
 

@@ -123,26 +123,30 @@ chat::login( map_string &map_params )
 #endif
 
     // post "username enters the chat" into the room.
-    wrap::TIMR->get_time();
-    p_room->msg_post( new string( p_user->get_colored_name().append( wrap::LANG->
-     get_val( "USERENTR" ) ) ) );
+    string s_msg = wrap::TIMR->get_time()
+                 + p_user->get_colored_name()
+                 + wrap::LANG->get_val( "USERENTR" );
+                 + "<br>\n";
+
+
+    p_room->msg_post( &s_msg );
 }
 
 void
 chat::post( user* p_user, map_string &map_params )
 {
     string s_msg( map_params["message"] );
+    if ( b_strip_html )
+        tool::strip_html( &s_msg );
 
     auto unsigned i_pos = s_msg.find( "/" );
     if ( i_pos == 0 )
         return p_user->command( s_msg );
 
-    if ( b_strip_html )
-        tool::strip_html( &s_msg );
+    string s_post;
 
-    string s_post( "<font color=\"#"   );
-
-    s_post.append( p_user->get_col1() )
+    s_post.append( "<font color=\"#" )
+    .append( p_user->get_col1() )
     .append( "\">"              )
     .append( p_user->get_name() )
     .append( ":</font> <font color=\"#")

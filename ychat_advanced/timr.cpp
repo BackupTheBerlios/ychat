@@ -116,25 +116,6 @@ timr::set_time( double d_uptime, int i_cur_seconds, int i_cur_minutes, int i_cur
 }
 
 string
-timr::get_time(  )
-{
-    string s_ret;
-    pthread_mutex_lock  ( &mut_s_time );
-    s_ret = this->s_time;
-    pthread_mutex_unlock( &mut_s_time );
-    return s_ret;
-}
-string
-timr::get_uptime(  )
-{
-    string s_ret;
-    pthread_mutex_lock  ( &mut_s_uptime );
-    s_ret = this->s_uptime;
-    pthread_mutex_unlock( &mut_s_uptime );
-    return s_ret;
-}
-
-string
 timr::add_zero_to_front( string s_time )
 {
     if ( s_time.length() == 1 )
