@@ -80,6 +80,7 @@ extern "C" {
   	  p_user->set_email( map_insert["email"] );
   	  p_user->set_col1( map_insert["color1"] );
   	  p_user->set_col2( map_insert["color2"] );
+  	  p_user->set_is_reg( 1 );
   	  p_user->set_rang( (rang) tool::string2int(p_conf->get_elem("STANDARD_RANG") ) );
 
           p_data->insert_user_data( *p_nick, "DATA_REGISTER_NICK", map_insert );
