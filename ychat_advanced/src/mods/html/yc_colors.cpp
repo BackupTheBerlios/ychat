@@ -19,6 +19,9 @@ extern "C" {
         string*    p_flag     = &(*((map_string*) c->elem[1]))["flag"];
         user*      p_user     = (user*) c->elem[2];
 
+        p_col1->erase(0);
+        p_col2->erase(0);
+
         p_col1->append( p_user->get_col1() );
         p_col2->append( p_user->get_col2() );
 

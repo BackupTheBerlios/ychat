@@ -449,7 +449,7 @@ user::get_user_list( string &s_list  )
     s_list.append( wrap::CONF->get_elem("HTML_ONLINE_BEFORE") );
     if ( get_away() )
     {
-     s_list.append("<img src=images/away.gif" )
+     s_list.append("<img src=\"" + wrap::CONF->get_elem("HTML_RANG_IMAGES_LOCATION")+ "away.gif\"" )
            .append( " alt='" )
            .append( get_away_msg() )
            .append( "' title='" )
@@ -460,7 +460,7 @@ user::get_user_list( string &s_list  )
     else if ( ! get_is_reg() ) 
     {
      string s_msgs = wrap::LANG->get_elem("GUEST"); 
-     s_list.append("<img src=images/guest.png" )
+     s_list.append("<img src=\"" + wrap::CONF->get_elem("HTML_RANG_IMAGES_LOCATION")+ "guest.png\"" )
            .append( " alt='" )
            .append( s_msgs )
            .append( "' title='" )
@@ -471,7 +471,7 @@ user::get_user_list( string &s_list  )
     {
      string s_rang = "RANG" + tool::int2string( (int)get_rang() );
      string s_msgs = wrap::LANG->get_elem( s_rang ); 
-     s_list.append("<img src=images/" + tool::to_lower(s_rang) + ".png" )
+     s_list.append("<img src=\"" + wrap::CONF->get_elem("HTML_RANG_IMAGES_LOCATION") +  tool::to_lower(s_rang) + ".png\"" )
            .append( " alt='" )
            .append( s_msgs )
            .append( "' title='" )
