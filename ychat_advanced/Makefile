@@ -7,13 +7,13 @@ clean_modules:
 base:	
 	@echo backing up old binary
 	if test -f bin/ychat; then if test -f bin/ychat.old; then rm -f bin/ychat.old; fi; mv bin/ychat bin/ychat.old; fi
-	@perl ./scripts/buildnr.pl || ./scripts/noperl.sh
-	@perl ./scripts/setglobvals.pl || ./scripts/noperl.sh
+	perl ./scripts/buildnr.pl || ./scripts/noperl.sh
+	perl ./scripts/setglobvals.pl || ./scripts/noperl.sh
 	gmake -C ./src 
 clean_base:
 	gmake -C ./src clean
 stats:
-	@perl scripts/stats.pl || ./scripts/noperl.sh
+	perl scripts/stats.pl || ./scripts/noperl.sh
 start:	base modules 
 	./bin/ychat
 gpl:
@@ -32,9 +32,9 @@ cvsupdate:
 	cvs update &&
 	cvs logout &&
 	@echo "Done updating CVS sources!" &&
-	@perl ./scripts/mergeconf.pl || ./scripts/noperl.sh &&
+	perl ./scripts/mergeconf.pl || ./scripts/noperl.sh &&
 	rm conf.txt.old lang/*.old
-	@which cvs >/dev/null || ./scripts/nocvs.sh
+	which cvs >/dev/null || ./scripts/nocvs.sh
 clean:	clean_base clean_modules
 help:
 	@echo "You may run gmake with the following parameters:"

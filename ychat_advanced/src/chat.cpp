@@ -16,6 +16,28 @@ chat::chat( )
     if ( wrap::CONF->get_elem( "PRINT_ALWAYS_TIME" ) == "YES" )
       b_print_always_time = true;
 
+    if ( wrap::CONF->get_elem( "REPLACE_STRINGS" ) == "YES" )
+    {
+      b_replace_strings = true;
+      vector<string>* p_vec_keys = wrap::CONF->get_key_vector();
+
+      for (vector<string>::iterator iter = p_vec_keys->begin();
+           iter != p_vec_keys->end(); iter++ )
+      {
+       if ( iter->length() >= 9 && iter->compare( 0, 8, "REPLACE_" ) == 0 )
+       {
+        string s_conf_val = wrap::CONF->get_elem(*iter);
+        auto unsigned int i_pos = s_conf_val.find_first_of("||");
+
+        if ( i_pos == string::npos )
+         continue;
+       
+        map_replace_strings[s_conf_val.substr(0, i_pos)] = s_conf_val.substr(i_pos+2); 
+       }
+     }
+      delete p_vec_keys;
+    }
+
     i_max_message_length = tool::string2int(wrap::CONF->get_elem( "MAX_MESSAGE_LENGTH" ));
 }
 
@@ -256,6 +278,14 @@ chat::post( user* p_user, map_string &map_params )
     auto unsigned i_pos = s_msg.find( "/" );
     if ( i_pos == 0 )
         return p_user->command( s_msg );
+
+    if ( b_replace_strings )
+    {
+     for (map_string::iterator iter = map_replace_strings.begin();
+          iter != map_replace_strings.end();
+          iter++ )
+      s_msg = tool::replace( s_msg, iter->first, iter->second );
+    }  
 
     string s_post;
 

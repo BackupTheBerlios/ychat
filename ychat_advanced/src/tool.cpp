@@ -43,20 +43,27 @@ tool::trim( string s_str )
 char*
 tool::clean_char( char* c_str )
 {
- int i_len = strlen(c_str);
-
- if(i_len == 0)
+  // Ralf:
+  char *c_pos;
+  for (c_pos = c_str; *c_pos != '\0'; ++c_pos)
+   if ( iscntrl(*c_pos) ) *c_pos = ' ';
   return c_str;
+}
 
- char* c_pos = c_str;
+string
+tool::replace( string s_string, string s_search, string s_replace )
+{
+ unsigned int i_pos[2];
 
- while ( *c_pos != '\0' )
+ for ( i_pos[0]  = s_string.find( s_search );
+       i_pos[0] != string::npos;
+       i_pos[0]  = s_string.find( s_search, i_pos[1] ) ) 
  {
-  if ( iscntrl(*c_pos) )
-    *c_pos = ' ';
-  c_pos++;
+  s_string.replace( i_pos[0], s_search.length(), s_replace );
+  i_pos[1] = i_pos[0] + s_replace.length();
  }
- return c_str;
+
+ return s_string;
 }
 
 string

@@ -12,6 +12,7 @@ public:
     {
      auto const char *digit = s_digit.c_str();
      auto int   i_len = strlen( digit );
+     
 
      for( int i=0; i<i_len; i++ )
      {
@@ -25,6 +26,7 @@ public:
     static char* int2char( int i_int );
     static char* clean_char( char* c_str);
     static string trim( string s_str );
+    static string replace( string s_string, string s_search, string s_replace );
     static string int2string( int i_int )
     {
      char *buffer = new char[64];

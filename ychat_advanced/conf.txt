@@ -66,7 +66,8 @@ STANDARD_RANG="3";
 STARTMPL="index.html"; 
 
 # The time offset. Negative values are not allowed. If you have an offset
-# of -6 please enter 18 (24-6) here :). 
+# of X please enter 24+X+12 here.
+# Example: Offset = -6, 24-6+12 = 30 :)
 TIME_OFFSET="0";
 
 # user's standard nick color.
@@ -122,6 +123,18 @@ DATA_SELECT_NICK="user nick";
 # yChat may preload all available modules.
 PRE_MODS_COMMANDS="ON"; # yChat will preload mods/commands/*.so on start if set to "ON".
 PRE_MODS_HTML="ON";    # yChat will preload mods/html/*.so on start if set to "ON".
+
+# REPLACEMENT STRINGS:
+
+# Set to "YES" if this option should be activated
+REPLACE_STRINGS="YES";
+# Place here strings which will be replaced by the server
+# Syntax: REPLACE_NUM="searchstring||replaced into this string";
+REPLACE_1="red||<font color="red">red</font>";
+REPLACE_2="green||<font color="green">green</font>";
+REPLACE_3="blue||<font color="blue">blue</font>";
+REPLACE_4="orange||<font color="orange">orange</font>";
+REPLACE_5="yellow||<font color="yellow">yellow</font>";
 
 # LOGGING:
 

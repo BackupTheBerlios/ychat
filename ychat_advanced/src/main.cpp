@@ -78,8 +78,6 @@ int main()
     // init the socket manager.
     wrap::WRAP->SOCK = wrap::SOCK = new sock(); 
 
-    // init the chat manager.
-    wrap::WRAP->CHAT = wrap::CHAT = new chat(); 
 
 
 #ifdef NCURSES
@@ -93,11 +91,14 @@ int main()
     // wait until ncurses interface has been initialized.
      while ( ! wrap::NCUR->is_ready() )
       usleep(100);
+#endif
+    // init the chat manager.
+    wrap::WRAP->CHAT = wrap::CHAT = new chat(); 
 
     // init the system timer.
     wrap::WRAP->TIMR = wrap::TIMR = new timr(); 
 
-#endif
+
     wrap::WRAP->MODL = wrap::MODL = new modl(); // init the module-loader manager.
 
     // init the garbage collector 
