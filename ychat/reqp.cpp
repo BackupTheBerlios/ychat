@@ -7,7 +7,7 @@
 #include "CHAT.h"
 #include "HTML.h"
 #include "MUTX.h"
-
+#include "sock.h"
 using namespace std;
 
 // inititialization of static members.
@@ -38,6 +38,7 @@ i_request= (s_req.find("GET",0)!=string::npos) ? RQ_GET : RQ_POST;
  	s_ret = s_req.substr( 5, pos-6 );
  else
  	s_ret = s_req.substr( 6, pos-7 );
+ 
  
  // remove ".." from the request.
  do
