@@ -83,18 +83,26 @@ ncur::print( string s_msg )
 void
 ncur::print( char* c_print )
 {
+
     if ( strlen( c_print ) > i_message_length )
-        c_print[i_message_length] = '\0';
+    {
+	string s_tmp( c_print );
+	print( s_tmp.substr( 0, i_message_length ) );
+        print( s_tmp.substr( i_message_length, s_tmp.length() ) ); 
+
+	return;
+    }	
 
     char* c_temp = new char[i_message_length];
     int i;
-    for ( i = 0; i < i_message_length-1; i++ )
+    for ( i = 0; i < i_message_length; i++ )
         c_temp[i] = ' ';
     c_temp[i] = '\0';
 
     memcpy( c_temp, c_print, strlen(c_print) );
 
     pthread_mutex_lock( &mut_messages );
+
     if ( p_messagelist->size() > 10 )
         p_messagelist->pop_front();
 
