@@ -8,16 +8,16 @@
 #include "s_html.h"
 #include "s_mutx.h"
 #include "s_sock.h"
-
+#include "s_tool.h"
 using namespace std;
 
 // inititialization of static members.
 string reqp::HTTP_CODEOK = "HTTP/1.1 200 OK\n";
 string reqp::HTTP_SERVER = "Server: yChat (Unix)\n";
 string reqp::HTTP_CONTAC = "Contact: www.yChat.org\n";
-string reqp::HTTP_CACHEC = "Cash-control: no-cache\n";
+string reqp::HTTP_CACHEC = "Cache-control: no-cache\n";
 string reqp::HTTP_CONNEC = "Connection: keep-alive\n";
-string reqp::HTTP_COTYPE = "Content-Type: text/html\n\n";
+string reqp::HTTP_COTYPE = "Content-Type: ";
 
 reqp::reqp( )
 {
@@ -111,6 +111,17 @@ reqp::get_url( thrd* p_thrd, string s_req, map_string &map_params )
  return s_ret;
 }
 
+string
+reqp::getContentType( string s_file )
+{
+	string s_ext=s_tool::getExtension( s_file );
+
+	if(s_ext=="")
+		s_ext="DEFAULT";	
+
+	return s_conf::get().get_val( "CT_"+s_ext );	
+}
+
 int
 reqp::htoi(string *s)
 {
@@ -173,14 +184,17 @@ reqp::get_from_header( string s_req, string s_hdr )
 string
 reqp::parse( thrd* p_thrd, string s_req, map_string &map_params )
 {
- // create the http header.
- string s_rep( HTTP_CODEOK ); s_rep.append( HTTP_SERVER );
- s_rep.append( HTTP_CONTAC ); s_rep.append( HTTP_CACHEC );
- s_rep.append( HTTP_CONNEC ); s_rep.append( HTTP_COTYPE );
 
  // store all request informations in map_params. store the url in 
  // map_params["request"].
  get_url( p_thrd, s_req, map_params ); 
+
+ // create the http header.
+ string s_rep( HTTP_CODEOK ); s_rep.append( HTTP_SERVER );
+ s_rep.append( HTTP_CONTAC ); s_rep.append( HTTP_CACHEC );
+ s_rep.append( HTTP_CONNEC ); s_rep.append( HTTP_COTYPE );
+ s_rep.append( getContentType( map_params["request"] ) ); s_rep.append("\n\n");
+
 
  // check the event variable.
  string s_event( map_params["event"] );

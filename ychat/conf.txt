@@ -45,4 +45,13 @@ HTML="OFF";
 GRAPHICS="http://paul.buetow.info/yChat"; # url for graphic files etc. 
 PGETITLE="yChat++ Basic - Fast Simple Extensible";
 
+# do not edit beyond this line
+
+CT_HTM="text/html";
+CT_HTML="text/html";
+CT_GIF="image/gif";
+CT_JPG="image/jpeg";
+CT_JPEG="image/jpeg";
+CT_PNG="image/png";
+CT_DEFAULT="text/html";
 # end.

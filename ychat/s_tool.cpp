@@ -20,6 +20,19 @@ s_tool::is_alpha_numeric( string &s_digit )
 
  return true;
 }
+string 
+s_tool::getExtension( string s_file )
+{
+	int pos = s_file.find_last_of(".");
+	if(pos != string::npos)
+	{	
+		string s_ext=s_file.substr(pos+1, s_file.size()-(pos+1));
+		for(int i = 0;i<s_ext.size();i++)
+			s_ext[i]=toupper(s_ext[i]);
+		return s_ext;
+	}
+	return "";
+}
 
 int
 s_tool::string2int( string s_digit )
