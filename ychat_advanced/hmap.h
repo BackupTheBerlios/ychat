@@ -35,11 +35,11 @@ class hmap
 
     int occupied;
 
-    virtual bool isActive( int currentPos ) const;
+    virtual bool is_active( int i_current_pos ) const;
     virtual void rehash( );
-    virtual bool isPrime  ( int n ) const;
-    virtual int  nextPrime( int n ) const;
-    double       maxOccupiedPercentage;
+    virtual bool is_prime  ( int n ) const;
+    virtual int  next_prime( int n ) const;
+    double       i_max_occupied_percentage;
 
   protected:
     int lookups;
@@ -49,7 +49,7 @@ class hmap
   public:
     hmap( double moc );
 
-    virtual int  findPos  ( const key_type &k );
+    virtual int  find_pos  ( const key_type &k );
     virtual void make_empty( );
     virtual void add_elem ( const obj_type &x, const key_type &k );
     virtual void del_elem ( const key_type &k );
@@ -59,7 +59,7 @@ class hmap
     virtual void  run_func( void (*func)(obj_type, void*), void* v_arg );
 
     // inline:
-    void getSize()
+    void get_size()
     {
       int size = 0;
       for( int j = 0; j < array.size( ); j++ )
@@ -68,19 +68,19 @@ class hmap
       return size;
     };
 
-    int getLookups()
+    int get_lookups()
     {
       return lookups;
     };
 
-    int getCapacity()
+    int get_capacity()
     {
       return array.size();
     };
 
-    double getLambda()
+    double get_lambda()
     {
-      return static_cast<double>(getSize())/static_cast<double>(getCapacity());
+      return static_cast<double>(get_size())/static_cast<double>(get_capacity());
     }
 
     obj_type& operator[]( key_type &k )
@@ -98,23 +98,23 @@ class linearhmap : public hmap<obj_type, key_type>
     {}
     ;
 
-    virtual int findPos( const key_type &k )
+    virtual int find_pos( const key_type &k )
     {
-      int collisionNum = 0;
-      int currentPos = hash( k ) % array.size( );
+      int i_collision_num = 0;
+      int i_current_pos = hash( k ) % array.size( );
       lookups++;
 
-      while( array[ currentPos ].info != EMPTY &&
-             array[ currentPos ].key  !=  k )
+      while( array[ i_current_pos ].info != EMPTY &&
+             array[ i_current_pos ].key  !=  k )
         {
           lookups   ++;
-          currentPos++;
+          i_current_pos++;
 
-          if( currentPos >= array.size( ) )
-            currentPos -= array.size( );
+          if( i_current_pos >= array.size( ) )
+            i_current_pos -= array.size( );
         }
 
-      return currentPos;
+      return i_current_pos;
     }
   };
 

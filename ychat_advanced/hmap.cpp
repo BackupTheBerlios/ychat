@@ -6,13 +6,13 @@
 
 using namespace std;
 
-bool  isPrime( int n );
-int nextPrime( int n );
+bool  is_prime( int n );
+int next_prime( int n );
 
 // Construct the hash table.
 template <class obj_type, class key_type>
 hmap<obj_type, key_type>::hmap( double mop )
-    : maxOccupiedPercentage(mop), array( nextPrime( 101 ) )
+    : i_max_occupied_percentage(mop), array( next_prime( 101 ) )
 {
   lookups = 0;
   make_empty( );
@@ -24,13 +24,13 @@ template <class obj_type, class key_type>
 void hmap<obj_type, key_type>::add_elem( const obj_type &x, const key_type &k  )
 {
   // Insert x as active
-  int currentPos = findPos( k );
-  if( isActive( currentPos ) )
+  int i_current_pos = find_pos( k );
+  if( is_active( i_current_pos ) )
     return;
 
-  array[ currentPos ] = hash_entry( x, k, ACTIVE );
-  //	cout << "Inserted=" << x << "= at " << currentPos << endl;
-  if( ++occupied > array.size( ) * maxOccupiedPercentage )
+  array[ i_current_pos ] = hash_entry( x, k, ACTIVE );
+  //	cout << "Inserted=" << x << "= at " << i_current_pos << endl;
+  if( ++occupied > array.size( ) * i_max_occupied_percentage )
     rehash( );
 }
 
@@ -38,18 +38,18 @@ void hmap<obj_type, key_type>::add_elem( const obj_type &x, const key_type &k  )
 template <class obj_type, class key_type>
 void hmap<obj_type, key_type>::rehash( )
 {
-  vector<hash_entry> oldArray = array;
+  vector<hash_entry> old_array = array;
 
   // Create new double-sized, empty table
-  array.resize( nextPrime( 2 * oldArray.size( ) ) );
+  array.resize( next_prime( 2 * old_array.size( ) ) );
   for( int j = 0; j < array.size( ); j++ )
     array[ j ].info = EMPTY;
 
   // Copy table over
   make_empty( );
-  for( int i = 0; i < oldArray.size( ); i++ )
-    if( oldArray[ i ].info == ACTIVE )
-      add_elem( oldArray[ i ].element, oldArray[ i ].key );
+  for( int i = 0; i < old_array.size( ); i++ )
+    if( old_array[ i ].info == ACTIVE )
+      add_elem( old_array[ i ].element, old_array[ i ].key );
 }
 
 // Hash function, can only handle strings.
@@ -58,46 +58,46 @@ void hmap<obj_type, key_type>::rehash( )
 template <class obj_type, class key_type>
 unsigned int hmap<obj_type, key_type>::hash( const string & key ) const
   {
-    unsigned int hashVal = 0;
+    unsigned int hash_value = 0;
     //	cout << key << "%";
 
     for( size_t i = 0; i < key.size(); i++ )
-      hashVal =  ( hashVal << 5 ) ^ key[ i ] ^ hashVal;
+      hash_value =  ( hash_value << 5 ) ^ key[ i ] ^ hash_value;
 
-    return hashVal;
+    return hash_value;
   }
 
 // Method that performs quadratic probing resolution.
 // Return the position where the search for x terminates.
 template <class obj_type, class key_type>
-int hmap<obj_type, key_type>::findPos( const key_type &k )
+int hmap<obj_type, key_type>::find_pos( const key_type &k )
 {
-  int collisionNum = 0;
-  int currentPos = hash( k ) % array.size( );
+  int i_collision_num = 0;
+  int i_current_pos = hash( k ) % array.size( );
   lookups++;
 
-  while( array[ currentPos ].info != EMPTY &&
-         array[ currentPos ].key != k )
+  while( array[ i_current_pos ].info != EMPTY &&
+         array[ i_current_pos ].key != k )
     {
-      //		cout <<  array[ currentPos ].element << "!=" << x << endl;
+      //		cout <<  array[ i_current_pos ].element << "!=" << x << endl;
       lookups++;
-      currentPos += 2 * ++collisionNum - 1;  // Compute ith probe
+      i_current_pos += 2 * ++i_collision_num - 1;  // Compute ith probe
 
-      if( currentPos >= array.size( ) )
-        currentPos -= array.size( );
+      if( i_current_pos >= array.size( ) )
+        i_current_pos -= array.size( );
     }
 
-  //	cout << currentPos << " ";
-  return currentPos;
+  //	cout << i_current_pos << " ";
+  return i_current_pos;
 }
 
 // Remove item x from the hash table.
 template <class obj_type, class key_type>
 void hmap<obj_type, key_type>::del_elem( const key_type & k )
 {
-  int currentPos = findPos( k );
-  if( isActive( currentPos ) )
-    array[ currentPos ].info = DELETED;
+  int i_current_pos = find_pos( k );
+  if( is_active( i_current_pos ) )
+    array[ i_current_pos ].info = DELETED;
 }
 
 // Find item x in the hash table.
@@ -105,9 +105,9 @@ void hmap<obj_type, key_type>::del_elem( const key_type & k )
 template <class obj_type, class key_type>
 obj_type hmap<obj_type, key_type>::get_elem( const key_type &k )
 {
-  int currentPos = findPos( k );
-  if( isActive( currentPos ) )
-    return array[ currentPos ].element;
+  int i_current_pos = find_pos( k );
+  if( is_active( i_current_pos ) )
+    return array[ i_current_pos ].element;
   else
     return 0;
 }
@@ -121,18 +121,18 @@ void hmap<obj_type, key_type>::make_empty( )
     array[ i ].info = EMPTY;
 }
 
-// Return true if currentPos exists and is active.
+// Return true if i_current_pos exists and is active.
 template <class obj_type, class key_type>
-bool hmap<obj_type, key_type>::isActive( int currentPos ) const
+bool hmap<obj_type, key_type>::is_active( int i_current_pos ) const
   {
-    return array[ currentPos ].info == ACTIVE;
+    return array[ i_current_pos ].info == ACTIVE;
   }
 
 
 // Internal method to test if a positive number is prime.
 // Not an efficient algorithm.
 template <class obj_type, class key_type>
-bool hmap<obj_type, key_type>::isPrime( int n ) const
+bool hmap<obj_type, key_type>::is_prime( int n ) const
   {
     if( n == 2 || n == 3 )
       return true;
@@ -150,12 +150,12 @@ bool hmap<obj_type, key_type>::isPrime( int n ) const
 // Internal method to return a prime number at least as large as n.
 // Assumes n > 0.
 template <class obj_type, class key_type>
-int hmap<obj_type, key_type>::nextPrime( int n ) const
+int hmap<obj_type, key_type>::next_prime( int n ) const
   {
     if( n % 2 == 0 )
       n++;
 
-    for( ; !isPrime( n ); n += 2 )
+    for( ; !is_prime( n ); n += 2 )
       ;
 
     return n;
