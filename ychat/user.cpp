@@ -16,16 +16,18 @@ user::user( string s_name ) : name( s_name )
  this -> s_col1   = CONF::get().get_val( "USERCOL1" );
 
  pthread_mutex_init( &mut_b_online, NULL);
+ pthread_mutex_init( &mut_i_sock  , NULL);
  pthread_mutex_init( &mut_l_time  , NULL);
- pthread_mutex_init( &mut_p_room , NULL);
- pthread_mutex_init( &mut_s_mess, NULL);
+ pthread_mutex_init( &mut_p_room  , NULL);
+ pthread_mutex_init( &mut_s_mess  , NULL);
  pthread_cond_init ( &cond_message, NULL);
- pthread_mutex_init( &mut_message, NULL);
+ pthread_mutex_init( &mut_message , NULL);
 }
 
 user::~user()
 {
  pthread_mutex_destroy( &mut_b_online );
+ pthread_mutex_destroy( &mut_i_sock   );
  pthread_mutex_destroy( &mut_l_time   );
  pthread_mutex_destroy( &mut_p_room   );
  pthread_mutex_destroy( &mut_s_mess   );
@@ -89,6 +91,24 @@ user::set_p_room( room* p_room )
  pthread_mutex_lock  ( &mut_p_room );
  this -> p_room = p_room;
  pthread_mutex_unlock( &mut_p_room );
+}
+
+int
+user::get_sock( )
+{
+ int i_ret;
+ pthread_mutex_lock  ( &mut_i_sock );
+ i_ret = i_sock;
+ pthread_mutex_unlock( &mut_i_sock );
+ return i_ret;
+}
+
+void
+user::set_sock( int i_sock )
+{
+ pthread_mutex_lock  ( &mut_i_sock );
+ this -> i_sock = i_sock;
+ pthread_mutex_unlock( &mut_i_sock );
 }
 
 void

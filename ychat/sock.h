@@ -44,7 +44,7 @@ public:
 
  // public methods.
  explicit sock( ); // simple constructor.
- virtual int  read_write( int filedes   );
+ virtual int  read_write( thrd* p_thrd, int filedes   );
  virtual int  start();
 };
 

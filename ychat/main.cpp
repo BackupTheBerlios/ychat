@@ -53,9 +53,8 @@ cout  <<  "         ___ _           _   "     << endl
       <<  " \\__, \\____/|_| |_|\\__,_|\\__|" << endl
       <<  " |___/ 			"     << endl << endl 
 
-      << DESCRIP  
-      << VERSION << endl
-      << VERSION << endl
+      << DESCRIP << endl 
+      << VERSION << ", " 
       << CONTACT << endl 
       << SEPERAT << endl 
       << STARTMS << endl ;

@@ -79,6 +79,7 @@ sock::make_socket( uint16_t i_port )
  name.sin_port = htons (i_port);
  name.sin_addr.s_addr = htonl (INADDR_ANY);
  int optval=1;
+
  setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (char*)&optval, sizeof(int));
 
  if (bind (sock, (struct sockaddr *) &name, sizeof (name)) < 0)
@@ -96,7 +97,7 @@ sock::make_socket( uint16_t i_port )
 }
 
 int
-sock::read_write( int i_sock )
+sock::read_write( thrd* p_thrd, int i_sock )
 {
  char c_req[2048];
 
@@ -116,8 +117,8 @@ sock::read_write( int i_sock )
   // get the s_rep ( HTML response which will be send imediatly to the client
   // and fill map_params with request values. 
   auto string s_temp=(string)c_req;
- 
-  string s_rep = req_parser->parse( s_temp, map_params );
+
+  string s_rep = req_parser->parse( p_thrd, string( c_req ), map_params );
 
   // send s_rep to the client.
   send( i_sock, s_rep.c_str(), s_rep.size(), 0 );

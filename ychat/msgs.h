@@ -19,8 +19,8 @@
 #define CFILEOK "Parsing config file "
 #define CFILENO "Failed opening config file "
 #define CONNECT "Receiving connection "
-#define CONTACT "Website: www.yChat.org, Mail@yChat.org "
-#define DESCRIP "yChat++ Basic Copyright (C) 2003 Paul C. Buetow " 
+#define CONTACT "Contact: www.yChat.org, Mail@yChat.org "
+#define DESCRIP "yChat++ Copyright (C) 2003 Paul C. Buetow, Volker Richer " 
 #define DOWNMSG "Shutting down "
 #define LOGINPR "Login procedure succeeded for nick " 
 #define NEWROOM "Adding room "
@@ -33,6 +33,6 @@
 #define TECACHE "Caching template "
 #define THREADS "Starting thread job "
 #define THREADE "Exiting thread job "
-#define VERSION "Version Basic 0.2 CVS" 
+#define VERSION "Version: CVS" 
 
 #endif

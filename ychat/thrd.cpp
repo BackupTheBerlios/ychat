@@ -21,7 +21,7 @@ thrd::~thrd()
 void
 thrd::run()
 {
- SOCK::get().read_write( i_sock );
+ SOCK::get().read_write( this, i_sock );
 }
 
 #endif
