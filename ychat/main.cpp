@@ -37,6 +37,9 @@
 // include the mutex manager for global synchronization.
 #include "s_mutx.h"
 
+// include the module loader manager for global synchronization.
+#include "s_modl.h"
+
 // include the socket manager.
 #include "s_sock.h"
 
@@ -71,6 +74,7 @@ cout  <<  "         ___ _           _   "     << endl
  s_mutx::init(); // init the mutex manager.
  s_conf::init(); // init the config manager.
  s_html::init(); // init the html-template manager. 
+ s_modl::init(); // init the module-loader manager. 
  s_sock::init(); // init the socket manager. 
  s_chat::init(); // init the chat manager.
 

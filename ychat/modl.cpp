@@ -55,7 +55,7 @@ modl::cache_module( string s_name )
   return NULL;
  }
 
- the_func = (function*) dlsym( the_module, "function" );
+ the_func = (function*) dlsym( the_module, "extern_function" );
 
  if ( the_func == NULL )
  {

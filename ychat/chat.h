@@ -17,6 +17,8 @@ private:
  bool b_strip_html;
 
 public:
+ 
+
  room* get_room( string &s_name, bool &b_found )
  {
   return static_cast<room*>( get_elem( s_name, b_found ) );
