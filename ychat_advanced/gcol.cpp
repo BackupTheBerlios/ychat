@@ -7,6 +7,7 @@ using namespace std;
 
 gcol::gcol()
 {
+ p_map_users = new smap<user*,string>(HMAPOCC);
 #ifdef NCURSES
  wrap::NCUR->print( GARBAGE );
 #endif
@@ -14,14 +15,13 @@ gcol::gcol()
  cout << GARBAGE << endl;
 #endif
  pthread_mutex_init( &mut_vec_rooms  , NULL);
- pthread_mutex_init( &mut_vec_users  , NULL);
 }
 
 gcol::~gcol()
 {
  remove_garbage();
  pthread_mutex_destroy( &mut_vec_rooms );
- pthread_mutex_destroy( &mut_vec_users );
+ delete p_map_users;
 }
 
 void
@@ -42,9 +42,7 @@ void
 gcol::add_user_to_garbage( user* p_user )
 { 
  p_user->s_mess_delete();
- pthread_mutex_lock  ( &mut_vec_users ); 
- vec_users.push_back( p_user ); 
- pthread_mutex_unlock( &mut_vec_users );
+ p_map_users->add_elem( p_user, tool::to_lower(p_user->get_name()) ); 
 #ifdef NCURSES
  wrap::NCUR->print( GARUSER + p_user->get_name() );
 #endif
@@ -59,9 +57,7 @@ gcol::remove_garbage()
  bool b_empty;
 
  pthread_mutex_lock  ( &mut_vec_rooms );
- pthread_mutex_lock  ( &mut_vec_users );
- b_empty  = ( vec_rooms.empty() && vec_users.empty() );
- pthread_mutex_unlock( &mut_vec_users );
+ b_empty  = ( vec_rooms.empty() && p_map_users->get_size() == 0);
  pthread_mutex_unlock( &mut_vec_rooms );
 
  if ( b_empty )
@@ -81,12 +77,9 @@ gcol::remove_garbage()
  vec_rooms.clear();
  pthread_mutex_unlock( &mut_vec_rooms );
 
- pthread_mutex_lock  ( &mut_vec_users );
- for ( vector<user*>::iterator iter = vec_users.begin();
-       iter != vec_users.end(); iter++ )
-  delete *iter;
- vec_users.clear();
- pthread_mutex_unlock( &mut_vec_users );
+
+ p_map_users->run_func( delete_users_ );
+ p_map_users->make_empty();
 
  return true;
 }
@@ -112,24 +105,12 @@ gcol::get_room_from_garbage()
 user*
 gcol::get_user_from_garbage( string s_user )
 {
- pthread_mutex_lock  ( &mut_vec_users );
 
- if ( vec_users.empty() )
- {
-  pthread_mutex_unlock( &mut_vec_users );
-  return NULL;
- }
+  user* p_user = p_map_users->get_elem( tool::to_lower(s_user) );;
 
- vector<user*>::iterator iter;
-
- user* p_user = NULL;
-
- for ( iter = vec_users.begin(); iter != vec_users.end(); iter++ )
- {
-  if ( tool::to_lower((*iter)->get_name()) == tool::to_lower(s_user) ) 
+  if ( p_user != NULL ) 
   {
-   p_user = *iter;
-   vec_users.erase(iter);
+   p_map_users->del_elem( tool::to_lower(s_user) );
    p_user->set_name( s_user );
    p_user->set_online( true );
 #ifdef NCURSES
@@ -141,9 +122,15 @@ gcol::get_user_from_garbage( string s_user )
    pthread_mutex_unlock( &wrap::MUTX->mut_stdout );
 #endif
   }
- }
 
- pthread_mutex_unlock( &mut_vec_users );
+
  return p_user;
 }
+
+void
+gcol::delete_users_( user *user_obj )
+{
+ delete user_obj;
+}
+
 #endif

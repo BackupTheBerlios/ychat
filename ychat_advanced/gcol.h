@@ -7,6 +7,7 @@
 #include <vector> 
 #include "room.h"
 #include "user.h"
+#include "smap.h"
 
 using namespace std;
 
@@ -14,10 +15,11 @@ class gcol
 {
  private:
   vector<room*> vec_rooms; 
-  vector<user*> vec_users; 
+  smap<user*,string>* p_map_users; 
 
   pthread_mutex_t mut_vec_rooms;
-  pthread_mutex_t mut_vec_users;
+
+  static void delete_users_( user* user_obj  );
 
  public:
   gcol();

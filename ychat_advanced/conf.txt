@@ -80,8 +80,8 @@ HTML="OFF";
 # MySQL Settings
 MYSQL_HOST="localhost";
 MYSQL_USER="ychat";
-MYSQL_PASS="yctest";
-MYSQL_DB="ychat";
+MYSQL_PASS="YcTeSt";
+MYSQL_DB="ychat_advanced";
 
 # MySQL Connection Manager Settings
 
