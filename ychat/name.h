@@ -23,12 +23,6 @@ public:
  explicit name( string s_name );      // a standard constructor.
          ~name( );
 
- // needed for hmap!
- bool operator!= ( name name_obj ) const
- {
-  return get_name() != name_obj.get_name(); 
- }
-
 };
 
 #endif
