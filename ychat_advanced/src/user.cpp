@@ -454,13 +454,28 @@ user::get_user_list( string &s_list, string &s_seperator )
 {
     if ( get_away() )
     {
-     string s_away = get_away_msg();
      s_list.append("<img src=images/away.gif" )
            .append( " alt='" )
            .append( get_away_msg() )
            .append( "' title='" )
            .append( get_away_msg() )
            .append( "'> " );
+    }
+
+    else if ( ! get_is_reg() )
+    {
+     string s_msgs = wrap::LANG->get_elem("GUEST"); 
+     s_list.append("<img src=images/guest.png" )
+           .append( " alt='" )
+           .append( s_msgs )
+           .append( "' title='" )
+           .append( s_msgs )
+           .append( "'> " );
+    }
+
+    else
+    {
+     s_list.append("<img src=images/blank.gif> ");
     }
 
     s_list.append( get_colored_name() )

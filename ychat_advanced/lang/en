@@ -1,3 +1,4 @@
+GUEST="This person is a guest chatter!";
 SETAWAY="sets mode away: ";
 RESTOREAWAY="is back ";
 OPTIONSCHANGED="Your options have been changed!<br><br>";

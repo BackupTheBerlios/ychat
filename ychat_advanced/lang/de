@@ -1,3 +1,4 @@
+GUEST="Diese Person ist ein Gastchatter!";
 SETAWAY="meldet sich ab: ";
 RESTOREAWAY="meldet sich zurück ";
 OPTIONSCHANGED="Ihre Einstellungen wurden geändert!<br><br>";
